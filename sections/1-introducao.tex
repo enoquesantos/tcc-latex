@@ -1,0 +1,49 @@
+% Outra justificativa:
+% A atitude mais comum no desenvolvimento de uma nova aplicação tem sido a escolha de
+% um framework de desenvolvimento disponível no mercado e de conhecimento da equipe que
+% irá implementá-lo. Nesse ponto é que começam a aparecer os problemas, como forte
+% acoplamento tecnológico, desperdício de esforços, dificuldade de gerenciamento de versão,
+% uso exagerado e desnecessário de recursos computacionais, problemas estruturais, aumento do
+% custo global, dificuldade de adequação a novas tecnologias, latência na geração de novas
+% versões, etc. Todos esses problemas, naturais do processo de desenvolvimento de software,
+% emperram a fabricação de software nas mais diversas áreas de aplicação.
+
+
+\section{Introdução}\label{sec:introducao}
+%--------------------------%
+%Falar sobre a popularização dos dispositivos móveis e da Internet.%
+%Falar sobre as mudanças introduzidas pelos dispositivos móveis nas formas de comunicação em sociedade.%
+%--------------------------%
+Os dispositivos móveis apresentam a cada dia novas oportunidades e desafios para as tecnologias de informação, tais como o acesso ubíquo, a portabilidade, a democratização do acesso à informação além de novas oportunidades de negócio \cite{levy_2002}. Com a expansão da Internet e o grande volume de dados compartilhados nas redes sociais e aplicativos de troca de mensagens, surgiram novos paradigmas (e.g. \textit{Big Data}, \textit{Cloud Computing}, \textit{NoSQL}, etc.), novas tecnologias como o \textit{Push Notification} e também novas oportunidades de trabalho e profissões (e.g. O analista de dados, o desenvolvedor mobile, o \textit{design UX} e etc.), além de pesquisas importantes na ciência da computação que abrange tanto hardware como software.\par
+
+Os smartphones inovam a cada dia diversas áreas do conhecimento, tais como a engenharia elétrica, no projeto de baterias cada vez mais eficientes, o design, no projeto de interfaces cada vez mais intuitivas e influenciam diretamente na evolução da Internet e dos meios de comunicação como as redes móveis que expandem as áreas de cobertura para atender ao crescente número de aparelhos conectados. Os dispositivos móveis também permitem bons empreendimentos através dos aplicativos. Atualmente, o número de downloads cresce a cada dia na \textit{App Store} e \textit{Google Play}, demonstrando uma certa disponibilidade dos usuários de passarem cada vez mais tempo utilizando os aplicativos do que os próprios navegadores de Internet \cite{D&T}. Através dos aplicativos, é possível monetizar e gerar receitas via marketing digital e desenvolver soluções para diversos segmentos, tais como o \textit{e-commerce}, redes sociais e sistemas de informação.\par
+
+
+%--------------------------%
+%* Limitações das tecnologias atuais para desenvolvimento de sistemas client-servidor (RESTful) com dispositivos móveis:
+%	1. falta de soluções arquiteturais de alto nível;
+%	2. ausência de componentes de UI flexíveis e de alto nível;
+%	3. falta de suporte nativo facilitado para comunicação RESTful;
+%	4. push notification;
+%	5. deploy de arquivos read-write;
+%	6. operações disconectadas.
+%--------------------------%
+O desenvolvimento de aplicativos apesar de contar com inúmeras ferramentas tais como as IDEs (Android Studio, Eclipse e QtCreator) e frameworks (Ionic e PhoneGap), ainda apresentam limitações, dentre elas, a falta de soluções arquiteturais de alto nível, ausência de componentes de UI flexíveis e de alto nível. No Android por exemplo, para construir uma interface gráfica utiliza-se arquivos xml incorporados através de classes java. Outra limitação encontrada no desenvolvimento mobile, é a falta de suporte facilitado para comunicação RESTful, visto que os aplicativos móveis utilizam na maioria dos casos algum \textit{webservice}.
+
+
+%--------------------------%
+% Este trabalho teve como objetivo o projeto, implementação e avaliação de uma arquitetura flexível e reutilizável...%
+%--------------------------%
+Este trabalho teve como objetivo o projeto, implementação e avaliação de uma arquitetura orientada a plugins e reutilizável para o desenvolvimento de sistemas de informação mobile. Dentre os benefícios desenvolvidos destaca-se uma arquitetura de plugins, que permite ao desenvolvedor implementar as funcionalidades do sistema com maior facilidade de extensão e baixo acoplamento entre os componentes que podem se comunicar através de eventos. Esta arquitetura também provê componentes de alto nível para construção de interfaces gráficas através do QML, além de componentes de alto nível para operações rotineiras como ler e salvar dados no dispositivo através de um banco de dados SQLITE, realizar requisições HTTP com suporte a autenticação básica, download e upload de arquivos e também, permite o acesso aos arquivos do sistema que são compartilhados pelo usuário (galeria de arquivos e imagens). Esta arquitetura foi projetada a fim de atender aos seguintes requisitos funcionais: Acesso a rede através de comunicação HTTP com algum serviço REST (suporte a métodos GET, POST, upload e download de arquivos), persistência de dados local via SQLITE com tabelas definidas por cada plugin, notificações de sistema (local, partindo da própria aplicação quando estiver executando), \textit{push notification} através da API do Firebase\footnote{Firebase é uma plataforma de desenvolvimento de aplicativos para dispositivos móveis desenvolvida pela Firebase, Inc. em 2011 e adquirida pela Google em 2014.}, suportando o registro do token e a exibição de notificações na bandeja do sistema.
+
+
+%--------------------------%
+%* Falar rapidamente de alguns aspectos técnicos: "implementado em Qt, bla, bla, bla ..."%
+%--------------------------%
+Para este trabalho foi utilizado como principal tecnologia o Qt, que provê um mecanismo de comunicação através de eventos, via sinais e slots e possibilita para a aplicação um meio de comunicação assíncrono entre objetos. O Qt também disponibiliza objetos de alto nível que abstrai a plataforma para operações de rede e persistência de dados. Outro recurso que o Qt provê é a instalação e a construção do arquivo executável da aplicação. O Qt também realiza o \textit{deploy} da aplicação em um dispositivo durante a fase de desenvolvimento, agilizando o processo de testes e correção de bugs do aplicativo.
+
+
+%--------------------------%
+%* Retórica *%
+%--------------------------%
+Este trabalho esta organizado como segue. A sessão 2 apresenta o referencial bibliográfico, destacando os assuntos emergentes relacionados a arquitura aqui apresentada. Em seguida, na sessão 3, será apresentado os trabalhos relacionados. As seções 4, 5 e 6 apresentam as tecnologias utilizadas e detalhes da solução desenvolvida. Por fim, na seção 7, é apresentado as perspectivas de trabalhos futuros e a conclusão deste trabalho.

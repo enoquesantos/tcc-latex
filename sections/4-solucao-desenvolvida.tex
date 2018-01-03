@@ -1,0 +1,106 @@
+\section{Projeto da arquitetura}
+A arquitetura proposta neste trabalho é baseada em camadas e utiliza os estilos arquiteturais \textit{Client-Server} e \textit{Event-Based}. O modelo em camadas possibilita manter a organização, a separação de conceitos e responsabilidades dos recursos da arquitetura, viabilizando a integração e comunicação entre os componentes através de conectores que podem ser definidos dinamicamente. No modelo em camadas, a conexão entre os componentes pode ser realizado tanto por eventos como por objetos compartilhados ou, através de leitura e escrita em um arquivo ou em uma base de dados. Porém, nesta arquitetura, foi utilizado somente eventos para comunicação entre os objetos da aplicação. A escolha de eventos como principal conector entre os objetos foi feita principalmente por proporcionar comunicação assíncrona entre emissor e ouvinte e pelo fato de não acoplar os componentes, garantindo maior independência entre os objetos e permitir que os plugins possam transmitir dados para outros objetos ou até mesmo outros plugins.\par
+
+
+\subsection{Processos de desenvolvimento}
+Esta arquitetura foi desenvolvida sob uma metodologia ágil com destaque para uma programação extrema e teste contínuo. A arquitetura recebeu alterações durante 10 meses e a primeira etapa de desenvolvimento introduziu o suporte aos plugins. O primeiro desafio foi desacoplar os plugins do arquivo QRC\footnote{QRC - Qt Resource Collection é um arquivo XML que mapeia os arquivos que serão empacotados no aplicativo} e permitir que a aplicação carregasse-os dinamicamente. Também nesta primeira etapa, foi implementado alguns recursos associados aos plugins, como controle de cache dos arquivos QML, ordenação e \textit{parsing} das páginas (definido pelos plugins), além da criação de um componente genérico a ser implementado por todas as páginas do aplicativo. O controle de cache consiste em regenerar o cache de todos os arquivos da aplicação após uma atualização e se faz necessário para garantir o carregamento de mudanças em cada arquivo a cada release. O componente genérico foi definido como \textit{BasePage.qml} e será detalhado posteriormente, ele foi criado para garantir o atendimento de alguns requisitos mínimos de aparência e estrutura da aplicação além de simplificar a criação de páginas. Na segunda etapa, foi implementado uma classe utilitária para que seus métodos fossem utilizados pelos plugins, oferecendo operações de baixo nível ainda não suportados pelo QML, pois nesta versão da arquitetura, ainda não é suportado a implementação de objetos c++ por conta dos plugins. Na terceira etapa, foi definido os layouts visuais suportados pela arquitetura e dois modelos foram implementados: O layout em pilha (faz uso do container \textit{StackView}) e o layout em linha (faz uso do container \textit{SwipeView}). O suporte ao layout deve ser definido no arquivo de configuração principal (à ser detalhado posteriormente), outros componentes serão instanciados para uso em conjunto com cada layout, dentre eles o TabBar e o ToolBar. Em etapas seguintes foi desenvolvido componentes visuais reutilizados na aplicação além das APIs para requisição HTTP e persistência de dados via QSLITE.
+
+
+\subsection{Tecnologias utilizadas}
+As tecnologias utilizadas consiste de todos os recursos que foram necessários para o desenvolvimento deste trabalho. O Qt e o \textit{QtCreator} foram os artefatos mais importantes, pois, forneceram os recursos e ferramentas para a construção das principais características da arquitetura. Dentre os recursos providos pelo Qt destaca-se os eventos, que permitem interligar objetos através de sinais e slots\footnote{funções javascript ou métodos de uma classe c++ invocados quando o sinal o qual estão conectados for emitido, recebendo em seus parâmetros os argumentos enviado pelo sinal.} ou \textit{signal handles}, e as APIs providas em classes C++ que integram os recursos da arquitetura, tais como, persistência de dados (via \textit{QSettings} e \textit{QSqlDatabase}) e rede (via \textit{QNetworkAccessManager}). O \textit{QtCreator} é uma IDE que possui recursos integrados à um projeto Qt e foi essencial para o desenvolvimento deste trabalho. Alguns recursos do \textit{QtCreator} destaca-se, facilidade de \textit{build} do projeto, construção do executável do aplicativo e o \textit{deploy} em um \textit{smartphone}, além de facilitar a realização de testes através de um mecanismo integrado de depuração. O \textit{QtCreator} também foi utilizado como editor de código fonte de todo o projeto da arquitetura.
+
+
+% ver link: https://pt.slideshare.net/adrianotavares/modelagem-arquitetural-e-viso-41-presentation %
+\subsection{Visões da Arquitetura}
+As visões a seguir, apresentam a arquitetura através de diagramas e destacam diferentes pontos de vista. O objetivo das visões é permitir compreender melhor a arquitetura e as principais partes que a compõe. Porém, não será apresentado nenhum dos elementos, módulos e APIs do Qt, pois é desenvolvido sob outras arquiteturas que vão muito além do escopo deste trabalho.\par
+\begin{figure}[h]
+	\includegraphics[scale=0.5]{diagrama_geral_da_arquitetura}
+	\centering
+	\caption{Pacotes principais da arquitetura}
+\end{figure}
+A figura 3, apresenta uma visão geral dos principais pacotes e arquivos da arquitetura. A seguir, é descrito o papel e o conteúdo de cada um dos arquivos e pacotes.
+\begin{description}
+	\item[1] \textit{tcc.pro}: Arquivo de configuração de todo projeto Qt. Nele é definido os módulos do Qt a serem utilizados na aplicação, as classes c++ que serão compiladas e linkadas no executável, os aquivos de \textit{resources} (arquivos onde estão mapeados os componentes QML, as imagens e etc.), além de módulos e arquivos de configuração para cada plataforma (desktop, osx, android e ios) e o diretório onde os plugins serão instalados no dispositivo.
+	\item[2] \textit{main.cpp}: Ponto de entrada da aplicação. Responsável por instanciar as classes do Qt que exibem a janela do aplicativo e o interpretador de QML, além de classes de configuração e utilitários. Também é responsável por carregar os arquivos de tradução e registrar objetos no contexto da aplicação para uso pelos plugins;
+	\item[3] \textit{config.json}: Arquivo de configuração principal onde deve ser adicionado as definições de layout a ser usado pelo aplicativo, por padrão usará layout em pilha. Outra propriedade que deve ser definido é o nome e a descrição do aplicativo, além do nome da organização e o domínio (ambos utilizados pelo Qt para criar e identificar as configurações no dispositivo na home do usuário). É também neste arquivo onde dever ser definido as cores utilizadas pelos plugins. As cores também serão utilizadas em componentes internos, evitando manter a cor fixa sendo definida dinamicamente em componentes visuais.
+	\item[4] \textit{src}: Diretório de código fonte. É onde está as classes c++ e componentes QML usados internamente e dispostas pelos plugins como componentes reusáveis. Esse diretório é sub-dividido em outros 5 diretórios detalhados em outro diagrama. As classes contidas nesse diretório são mapeadas no arquivo \textit{tcc.pro}.
+	\item[5] \textit{plugins}: Diretório de plugins. Cada plugin deve obrigatóriamente estar em um sub-diretório com no mínimo um arquivo de configuração de nome \textit{config.json} e os arquivos QML e imagens que necessitar para o seu funcionamento. Os detalhes das propriedades requeridas para carregamento do plugin serão descritas em um tópico posterior.
+	\item[6] \textit{translations}: Diretório contendo os arquivos de tradução. Os arquivos de tradução devem ser gerados antes de cada release do aplicativo caso haja alterações nas strings exibidas para o usuário. Um arquivo de resources \textit{translations.qrc} existe neste diretório e deve ser utilizado para mapear os idiomas suportados pelo aplicativo. Cada arquivo de tradução deve ser nomeado seguindo o padrão idioma_PAÌS com a extensão \textit{.ts}, por exemplo: pt_BR.ts. Ao iniciar a aplicação, no arquivo main.cpp, será identificado o \textit{locale} que define o idioma utilizado no dispositivo e o arquivo correspondente será instanciado e as strings serão traduzidas seguindo a disposição definida no arquivo traduzido. Para regenerar as traduções, deve-se utilizar o comando \textit{lupdate *.pro} para criar o atualizar o arquivo \textit{.ts}.
+	\itrem[7] \textit{android}: Diretório contendo os arquivos de configuração do aplicativo para a plataforma android. Outros sub-diretórios guardam arquivos do gradle utilizados para o build do APK, ícones do lançador do aplicativo e classes java, além de uma versão da lib \textit{openssl} compilada para o funcionamento de requisições HTTP.
+	\item[8] \textit{assets}: Diretório contendo imagens e arquivos de configuração do \textit{qtquickcontrols2} além de um arquivo html que pode ser usado para exibir os termos de uso do aplicativo caso necessário. Um arquivo de \textit{resources} \textit{assets.qrc} mapeia todos os arquivos contidos neste diretório e pode ser usado para empacotar outros componentes e imagens do usuário no aplicativo.
+	\item[9] \textit{ios}: Diretório contendo os arquivos de configuração do aplicativo para a plataforma ios. 
+\end{description}
+
+\subsection{Métodos para utilização da arquitetura}
+Exemplo (a ser editado): Para se utilizar a arquitetura desenvolvida, deve-se seguir uma determinada ordem de atividades (Figura 26), que deve se iniciar no nível arquitetural “escopo” (seção 3.1), passando pelos níveis arquiteturais “modelo de negócios” (seção 3.2) e “modelo de sistema” (seção 3.3), até chegar ao nível arquitetural “modelo tecnológico” que deve ser criado pelo usuário desta arquitetura.
+
+
+\subsubsection{Visão lógica}
+A imagem à seguir, apresenta uma visão lógica do projeto da arquitetura através do diagrama de componentes da UML. O objetivo dessa visão, é descrever os principais módulos do sistema e como eles estão relacionados partindo do modelo de arquiteturas de sistemas \textit{mobile}.
+
+
+\subsection{Modelagem da arquitetura de plugins}
+A modelagem de plugins marcou o início deste trabalho e desacoplá-los do núcleo da aplicação foi uma terafa importante, mantendo-os independentes entr si, permitindo desta forma, que novos arquivos e plugins pudessem ser adicionados ou removidos sem impactar ou ter que alterar o núcleo do aplicativo. Com isso, o núcleo se tornaria independente dos plugins, e os plugins passariam a ser conhecidos dinamicamente. A partir da arquitetura de plugins, os requisitos foram levantados seguindo as \textit{features} providas pelo Emile, onde se fez necessário implementações para atender as demandas dos requisitos funcionais do aplicativo, tais como, uma API de persistência de daos usado no perfil do usuário (um objeto com diferentes propriedades) e a criação de tabelas em um banco sqlite disponíveis pelos plugins. Outro recurso foi uma API para acesso a rede (requisições http para comunicação com o serviço REST). 
+
+Para gerenciar os plugins, foi criado uma classe c++ que realiza o processo de busca, ordenação e registro dos arquivos dos plugins a serem usados na aplicação. Também foi definido algumas restrições de uso para os plugins e será discutido em sessão posterior.
+
+
+%adicionar um diagrama de componentes mostrando os plugins em um diretório de plugins e outros diretórios da aplicação
+\subsubsection{O Objeto PluginManager}\label{sec:solucao-desenvolvida}
+O Objeto PluginManager....
+
+
+%adicionar um diagrama de componentes mostrando os plugins em um diretório de plugins e outros diretórios da aplicação
+\subsubsection{O Qt e o QML}\label{sec:solucao-desenvolvida}
+Para compreender a implementação deste trabalho é importante entender os recursos do Qt e como ele facilitou o desenvolvimento desta arquitetura. O Qt é a base da implementação deste trabalho, ele provê um conjunto de bibliotecas, classes e componentes além de uma infraestrutura de desenvolvimento, depuração e deploy. O Qt também fornece APIs de alto nível que abstrai a plataforma e o sistema operacional e permite integrar objetos através de um mecanismo de comunicação orientado a eventos. O Qt consiste de um kit de ferramentas composto de classes C++, um interpretador de linguagem declarativa chamada QML além de Módulos com APIs de rede, persistência de dados, recursos de hardware como câmera, bluetooth, sensores e etc. Além de uma ampla de componentes visuais de alto nível que facilitam a construção de interface gráfica. Os elementos seguintes são áreas-chave de funcionalidades do Qt \cite{qt_overviews}.
+
+\begin{itemize}
+	\item Ferramentas de Desenvolvimento através da IDE Qt Creator que fornece depuração e deploy simplificado
+	\item Armazenamento de dados em alto nível de abstração e independente de plataforma
+	\item Suporte a rede (http) e conectividade também independente de plataforma
+	\item Gráficos proeminentes providos pelo QML através do módulo \textit{Qt Quick} e \textit{Quick Controls}
+	\item Portabilidade com alta abstração de plataforma para elementos visuais como imagens, botões e exibição de textos
+	\item Desenvolvimento aberto através da licença open source
+\end{itemize}
+
+\subsection{Comunicação entre os componentes}
+Esta seção descreve o processo de comunicação entre objetos ou componentes dentro do aplicativo...
+
+
+\section{Aspectos de Implementação}\label{sec:solucao-desenvolvida}
+Nesta sessão é discutido detalhes da solução desenvolvida. Será apresentado nas subseções seguintes os componentes que integra a arquitetura desenvolvida, descrevendo as decisões e características de implementação de cada componente.
+
+
+
+\subsection{O Objeto App}\label{sec:solucao-desenvolvida}
+O objeto app é um componente importante nesta arquitetura, ele gerencia toda a persistência de dados através de uma instância da classe \textit{QSettings} que abstrai a plataforma e fornece um mecanismo para leitura e escrita de dados no dispositivo através de métodos parametrizados. O objeto app é também o responsável por instanciar a classe \textit{PluginManager}, que realiza o trabalho de carregar os plugins do aplicativo. Outra responsabilidade deste objeto, é a notificação de eventos vindos do objeto \textit{QtActivity} no android e \textit{QtAppDelegate} no iOS como o \textit{token} de registro no \textit{Firebase}\footnote{O Firebase antigo \textit{Google Cloud Messaging} é um serviço de notificação móvel desenvolvido pelo Google que permite que os desenvolvedores de aplicativos enviem dados ou informações de notificação de servidores executados pelo desenvolvedor para aplicativos Android e iOS.} e mensagens de \textit{push notification} que em ambos os eventos, são delegados para o aplicativo através de uma conexão com um \textit{slot} definido no \textit{Application Window}.
+
+\begin{figure}[h]
+	\includegraphics[width=8cm]{a_classe_app}
+	\centering
+	\caption{Os objetos compostos da classe App}
+\end{figure}
+
+O Objeto App também fornece métodos públicos declarados como 
+
+\subsection{O arquivo config.json}\label{sec:solucao-desenvolvida}
+O arquivo \textit{Settings.json} é um arquivo importante e requerido nesta arquitetura. As propriedades presentes neste arquivo não são persistidas no banco de dados e serão setadas em um objeto do tipo \textit{QVariantMap} na classe App, sempre que o aplicativo for executado. Este objeto será registrado no contexto da aplicação como uma propriedade e será utilizado por vários componentes, tais como, elementos visuais que definem cores, font-size e outras propriedades que podem ser definidas neste json e poderão ser acessadas por qualquer plugin. Algumas propriedades como versão do aplicativo e se está ou não em modo de depuração. O número da versão é especificado na chave \textit{version} e é utilizado pelo objeto ManagerPlugins que decidirá se o cache dos arquivos QML serão deletados para que os arquivos QML presentes na nova versão sejam regenerados. será utilizado por mapear tanto o tema de cores utilizado pelos componentes visuais como também detalhes de nome, versão e descrição do aplicativo.
+
+Tem que ter uma visão estrutural do núcleo da 
+
+\subsection{O Componente RequestHttp}\label{sec:solucao-desenvolvida}
+O Objeto RequestHttp....
+
+\subsection{O Componente Basepage}\label{sec:solucao-desenvolvida}
+O Objeto ModelData....
+
+Esta seção deve apresentar: 
+\begin{enumerate}
+\item A solução desenvolvida, se isto já for o trabalho final. Neste caso o tempo verbal usado é passado. Foi desenvolvido, foi elaborado...
+\item A proposta de solução, se for o pré-projeto. Neste caso o tempo verbal é futuro. Será desenvolvido, será elaborado...
+\end{enumerate}
+Uma boa forma de começar esta seção:
+Nesta seção é discutido a solução proposta/desenvolvida.
+%A Figura \ref{fig:visao-geral} apresenta uma visão geral da solução.
+%Explique cada um dos elementos da figura. Use uma notação correta.
+%Exemplo de algoritmo \ref{alg:BA}.

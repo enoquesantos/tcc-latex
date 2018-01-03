@@ -1,0 +1,83 @@
+\documentclass[a4paper]{sig-alternate-05-2015}
+
+%% regra para substituir as aspas convencionais para o padrão do latex :)
+%% https://tex.stackexchange.com/questions/10670/quotes-in-latex
+\newif\ifquoteopen
+\catcode`\"=\active % lets you define `"` as a macro
+\DeclareRobustCommand*{"}{%
+	\ifquoteopen
+	\quoteopenfalse ''%
+	\else
+	\quoteopentrue ``%
+	\fi
+}
+% Deactive with: \catcode`\"=12\relax % changes `"` back to normal
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
+\usepackage{ae,aecompl}
+\usepackage[portuguese]{babel}
+\usepackage{hyphenat}
+\usepackage{color}
+\usepackage{float}
+\usepackage{algorithm2e}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{etoolbox}
+\usepackage{graphicx}
+\usepackage{pslatex}
+\usepackage{blindtext}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\graphicspath{{images/}, {diagramas/images/}}
+\hyphenation{mate-mática recu-perar}
+
+\begin{document}
+	\makeatletter
+	\def\fnum@figure{Figura \thefigure}
+	\def\fnum@table{Tabela \thetable}
+	\makeatother
+
+	\title{Uma Arquitetura de Referência Baseada em Plugins para Sistemas de Informação Mobile}
+
+	\numberofauthors{2}
+	\author{
+		% 1st. author
+		\alignauthor
+		Enoque Joseneas\titlenote{Graduando em Análise e Desenvolvimento de Sistemas}\\
+		\affaddr{Instituto Federal da Bahia}\\
+		\affaddr{Rua Emídio dos Santos, S/N, Barbalho}\\
+		\affaddr{Salvador-Ba, Brasil}\\
+		\email{enoquejoseneas@ifba.edu.br}
+		% 2nd. author
+		\alignauthor
+		Sandro Andrade\titlenote{Prof. Doutor em Ciência da Computação}\\
+		\affaddr{Instituto Federal da Bahia}\\
+		\affaddr{Rua Emídio dos Santos, S/N, Barbalho}\\
+		\affaddr{Salvador-Ba, Brasil}\\
+		\email{sandroandrade@ifba.edu.br}
+	}
+	\maketitle
+
+	\section*{RESUMO}
+	O desenvolvimento de aplicativos móveis trouxe uma série de desafios para a ciência da computação. Com limitações de recursos como a bateria, armazenamento e memória, o desenvolvimento de software para dispositivos móveis impõe requisitos não-funcionais importantes a serem considerados no projeto de aplicativos. Com a popularização da internet e das redes móveis, os aplicativos móveis tornaram-se popular e projetar aplicativos de forma fácil com componentes de alto nível, baixo acoplamento e bom desempenho não é uma tarefa trivial. Este trabalho apresenta uma arquitetura de referência para o desenvolvimento de aplicativos móveis orientado a plugins no contexto de sistemas de informação, proporcionando baixo acoplamento entre os componentes, escalabilidade de \textit{features} através de plugins, dispõe de componentes genéricos reutilizáveis, além de componentes de alto nível para recursos corriqueiros como requisições HTTP, persistência de dados e comunicação entre os componentes através de eventos.
+
+	\keywords{Aplicativos Móveis; Arquitetura de Software; Sistemas de Informação.}
+
+	% sections
+	\input{sections/1-introducao.tex}
+	\input{sections/2-referencial-bibliografico.tex}
+	\input{sections/3-trabalhos-relacionados.tex}
+	\input{sections/4-solucao-desenvolvida.tex}
+	%\input{sections/5-avaliacao.tex}
+	%\input{sections/6-conclusao.tex}
+	%%\input{sections/apendice-a.tex}
+
+	% to produce the bibliography for the citations in your paper.
+	\bibliographystyle{abbrv}
+	\bibliography{references}
+
+\end{document}
