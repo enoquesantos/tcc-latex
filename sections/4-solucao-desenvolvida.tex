@@ -12,42 +12,54 @@ As tecnologias utilizadas consiste de todos os recursos que foram necessários p
 
 % ver link: https://pt.slideshare.net/adrianotavares/modelagem-arquitetural-e-viso-41-presentation %
 \subsection{Visões da Arquitetura}
-As visões a seguir, apresentam a arquitetura através de diagramas e destacam diferentes pontos de vista. O objetivo das visões é permitir compreender melhor a arquitetura e as principais partes que a compõe. Porém, não será apresentado nenhum dos elementos, módulos e APIs do Qt, pois é desenvolvido sob outras arquiteturas que vão muito além do escopo deste trabalho.\par
+As visões a seguir, apresentam a arquitetura através de diagramas e destacam diferentes pontos de vista com o objetivo de facilitar a compreensão da arquitetura e as principais partes que a compõe. Porém, não será apresentado nenhum dos elementos, módulos e APIs do Qt, pois é desenvolvido sob outras arquiteturas que vão muito além do escopo deste trabalho.\par
 \begin{figure}[h]
 	\includegraphics[scale=0.5]{diagrama_geral_da_arquitetura}
 	\centering
 	\caption{Pacotes principais da arquitetura}
 \end{figure}
-A figura 3, apresenta uma visão geral dos principais pacotes e arquivos da arquitetura. A seguir, é descrito o papel e o conteúdo de cada um dos arquivos e pacotes.
+A figura 3, apresenta uma visão lógica dos principais pacotes e arquivos da arquitetura. A seguir, é descrito o papel e o conteúdo de cada um dos arquivos e pacotes.
 \begin{description}
-	\item[1] \textit{tcc.pro}: Arquivo de configuração de todo projeto Qt. Nele é definido os módulos do Qt a serem utilizados na aplicação, as classes c++ que serão compiladas e linkadas no executável, os aquivos de \textit{resources} (arquivos onde estão mapeados os componentes QML, as imagens e etc.), além de módulos e arquivos de configuração para cada plataforma (desktop, osx, android e ios) e o diretório onde os plugins serão instalados no dispositivo.
-	\item[2] \textit{main.cpp}: Ponto de entrada da aplicação. Responsável por instanciar as classes do Qt que exibem a janela do aplicativo e o interpretador de QML, além de classes de configuração e utilitários. Também é responsável por carregar os arquivos de tradução e registrar objetos no contexto da aplicação para uso pelos plugins;
-	\item[3] \textit{config.json}: Arquivo de configuração principal onde deve ser adicionado as definições de layout a ser usado pelo aplicativo, por padrão usará layout em pilha. Outra propriedade que deve ser definido é o nome e a descrição do aplicativo, além do nome da organização e o domínio (ambos utilizados pelo Qt para criar e identificar as configurações no dispositivo na home do usuário). É também neste arquivo onde dever ser definido as cores utilizadas pelos plugins. As cores também serão utilizadas em componentes internos, evitando manter a cor fixa sendo definida dinamicamente em componentes visuais.
-	\item[4] \textit{src}: Diretório de código fonte. É onde está as classes c++ e componentes QML usados internamente e dispostas pelos plugins como componentes reusáveis. Esse diretório é sub-dividido em outros 5 diretórios detalhados em outro diagrama. As classes contidas nesse diretório são mapeadas no arquivo \textit{tcc.pro}.
+
+	\item[1] \textit{tcc.pro}: Arquivo de configuração de todo projeto Qt. Nele é definido os módulos do Qt a serem utilizados na aplicação, as classes c++ que serão compiladas e linkadas no executável, os aquivos qrc que mapeiam os componentes QML, as imagens e arquivos genéricos a serem empacotados no executável, além de módulos e arquivos de configuração para cada plataforma (desktop, osx, android e ios). É neste arquivo que define onde os plugins serão instalados no dispositivo.
+
+	\item[2] \textit{main.cpp}: Arquivo principal que define o ponto de entrada da aplicação. Responsável por instanciar as classes do Qt que exibem a janela do aplicativo e o interpretador de QML, além de classes da camada de aplicação, configuração e utilitários. O \textit{main} também é responsável por carregar os arquivos de tradução e registrar objetos no contexto da aplicação a serem utilizados pelos plugins.
+
+	\item[3] \textit{config.json}: Arquivo de configuração principal desta arquitetura, pois define propriedades que indicarão alguns comportamentos iniciais e instância de objetos, tais como exibir os termos de uso na primeira inicialização do aplicativo (carregará o arquivo definido em \textit{assets/eula.html} definido pelo usuário da arquitetura), se tem login ou não, se usará layout em pilha e etc. Mais detalhes sobre esse arquivo será descrito em um tópico mais adiante.
+
+	\item[4] \textit{src}: Diretório de código fonte. É onde está as classes c++ e componentes QML utilizados internamente e dispostos para plugins como componentes reusáveis. Esse diretório é sub-dividido em outros 5 diretórios que serão detalhados em outro diagrama.
+
 	\item[5] \textit{plugins}: Diretório de plugins. Cada plugin deve obrigatóriamente estar em um sub-diretório com no mínimo um arquivo de configuração de nome \textit{config.json} e os arquivos QML e imagens que necessitar para o seu funcionamento. Os detalhes das propriedades requeridas para carregamento do plugin serão descritas em um tópico posterior.
-	\item[6] \textit{translations}: Diretório contendo os arquivos de tradução. Os arquivos de tradução devem ser gerados antes de cada release do aplicativo caso haja alterações nas strings exibidas para o usuário. Um arquivo de resources \textit{translations.qrc} existe neste diretório e deve ser utilizado para mapear os idiomas suportados pelo aplicativo. Cada arquivo de tradução deve ser nomeado seguindo o padrão idioma_PAÌS com a extensão \textit{.ts}, por exemplo: pt_BR.ts. Ao iniciar a aplicação, no arquivo main.cpp, será identificado o \textit{locale} que define o idioma utilizado no dispositivo e o arquivo correspondente será instanciado e as strings serão traduzidas seguindo a disposição definida no arquivo traduzido. Para regenerar as traduções, deve-se utilizar o comando \textit{lupdate *.pro} para criar o atualizar o arquivo \textit{.ts}.
+
+	\item[6] \textit{translations}: Diretório contendo os arquivos de tradução. Os arquivos de tradução devem ser gerados ou atualizados antes de cada release do aplicativo. Um arquivo de resources \textit{translations.qrc} existe neste diretório e deve ser utilizado para mapear os arquivos de idioma suportados pelo aplicativo. Cada arquivo de tradução deve ser nomeado seguindo o padrão \textit{language\_COUNTRY} com extensão \textit{ts}, por exemplo: \textit{pt\_BR.ts}. Ao iniciar a aplicação, no arquivo \textit{main.cpp}, será identificado o \textit{locale} que define o idioma utilizado no dispositivo e o arquivo correspondente será instanciado para que as strings sejam exibidas traduzidas para o usuário. Para gerar as traduções, deve-se utilizar o comando \textit{lupdate tcc.pro} (na raíz do projeto) para criar ou atualizar o arquivo \textit{ts} principal.
+
 	\item[7] \textit{android}: Diretório contendo os arquivos de configuração do aplicativo para a plataforma android. Outros sub-diretórios guardam arquivos do gradle utilizados para o build do APK, ícones do lançador do aplicativo e classes java, além de uma versão da lib \textit{openssl} compilada para o funcionamento de requisições HTTP.
+
 	\item[8] \textit{assets}: Diretório contendo imagens e arquivos de configuração do \textit{qtquickcontrols2} além de um arquivo html que pode ser usado para exibir os termos de uso do aplicativo caso necessário. Um arquivo de \textit{resources} \textit{assets.qrc} mapeia todos os arquivos contidos neste diretório e pode ser usado para empacotar outros componentes e imagens do usuário no aplicativo.
-	\item[9] \textit{ios}: Diretório contendo os arquivos de configuração do aplicativo para a plataforma ios. 
+
+	\item[9] \textit{ios}: Diretório contendo os arquivos de configuração do aplicativo para a plataforma ios. Pode conter os ícones do aplicativo além de imagens diversas requeridas pela plataforma tais como imagens de splash-screen, além do arquivo de configuração Info.plist.
 \end{description}
 
-\subsection{Métodos para utilização da arquitetura}
-Exemplo (a ser editado): Para se utilizar a arquitetura desenvolvida, deve-se seguir uma determinada ordem de atividades (Figura 26), que deve se iniciar no nível arquitetural “escopo” (seção 3.1), passando pelos níveis arquiteturais “modelo de negócios” (seção 3.2) e “modelo de sistema” (seção 3.3), até chegar ao nível arquitetural “modelo tecnológico” que deve ser criado pelo usuário desta arquitetura.
+
+\subsection{Arquitetura de plugins}
+Nesta arquitetura, os plugins devem implementar as funcionalidades do aplicativo. Eles são independentes entre sí e podem incluir arquivos QML, txt, html e imagens em seu diretório e podem ainda reutilizar os componentes públicos. Os plugins estão desacoplados do núcleo da aplicação e serão conhecidos somente em tempo de execução. Ao adicionar um novo plugin no diretório \textit{plugins}, ele será carregado no próximo \textit{build} do projeto. Par que um plugin seja reconhecido pelo gerenciado de plugins, é necessário obedecer a duas restrições simples: 1: Estar em um diretório dentro de \textit{plugins}; 2: Conter um arquivo \textit{config.json} e pelo menos um arquivo QML visual ou \textit{listener} que é um componente não visual que simplesmente observa eventos da aplicação. O arquivo \textit{config.json} deve ser um objeto contendo as seguintes propriedades:  
+\begin{enumerate}
+	\item \textit{name} (string): o nome do plugin (opcional);
+	\item \textit{description} (string): uma descrição do plugin (opcional);
+	\item \textit{pages} (array): uma lista de objetos que indentifica as páginas do plugin a serem exibidas no menu do aplicativo (requerido);
+	\item \textit{listeners} (array): uma lista de strings que indentifica os arquivos do plugin que serão instanciados como ouvinte de eventos (opcional).
+\end{enumerate}
+As páginas indicam objetos visuais que serão instanciadas sob demanda quando o aplicativo tiver utilizando o layout em pilha. Quando o layout em pilha tiver sendo utilizado, um menu lateral estará disponível para que o usuário possa navegar nas páginas do aplicativo. Neste menu, será listado as páginas definidas por todos os plugins. Para cada página contida em \textit{pages}, as seguintes propriedades podem ser definidas:
+\begin{enumerate}
+	\item \textit{qml} (string):
+\end{enumerate}
 
 
-\subsubsection{Visão lógica}
-A imagem à seguir, apresenta uma visão lógica do projeto da arquitetura através do diagrama de componentes da UML. O objetivo dessa visão, é descrever os principais módulos do sistema e como eles estão relacionados partindo do modelo de arquiteturas de sistemas \textit{mobile}.
+A modelagem de plugins marcou o início deste trabalho e desacoplá-los do núcleo da aplicação foi uma terafa importante, mantendo-os independentes entr si, permitindo desta forma, que novos arquivos e plugins pudessem ser adicionados ou removidos sem impactar ou ter que alterar o núcleo do aplicativo. Com isso, o núcleo se tornaria independente dos plugins, e os plugins passariam a ser conhecidos dinamicamente. A partir da arquitetura de plugins, os requisitos foram levantados seguindo as \textit{features} providas pelo Emile, onde se fez necessário implementações para atender as demandas dos requisitos funcionais do aplicativo, tais como, uma API de persistência de daos usado no perfil do usuário (um objeto com diferentes propriedades) e a criação de tabelas em um banco sqlite disponíveis pelos plugins. Outro recurso foi uma API para acesso a rede (requisições http para comunicação com o serviço REST). Para gerenciar os plugins, foi criado uma classe c++ que realiza o processo de busca, ordenação e registro dos arquivos dos plugins a serem usados na aplicação. Também foi definido algumas restrições de uso para os plugins e será discutido em sessão posterior.
 
 
-\subsection{Modelagem da arquitetura de plugins}
-A modelagem de plugins marcou o início deste trabalho e desacoplá-los do núcleo da aplicação foi uma terafa importante, mantendo-os independentes entr si, permitindo desta forma, que novos arquivos e plugins pudessem ser adicionados ou removidos sem impactar ou ter que alterar o núcleo do aplicativo. Com isso, o núcleo se tornaria independente dos plugins, e os plugins passariam a ser conhecidos dinamicamente. A partir da arquitetura de plugins, os requisitos foram levantados seguindo as \textit{features} providas pelo Emile, onde se fez necessário implementações para atender as demandas dos requisitos funcionais do aplicativo, tais como, uma API de persistência de daos usado no perfil do usuário (um objeto com diferentes propriedades) e a criação de tabelas em um banco sqlite disponíveis pelos plugins. Outro recurso foi uma API para acesso a rede (requisições http para comunicação com o serviço REST). 
-
-Para gerenciar os plugins, foi criado uma classe c++ que realiza o processo de busca, ordenação e registro dos arquivos dos plugins a serem usados na aplicação. Também foi definido algumas restrições de uso para os plugins e será discutido em sessão posterior.
-
-
-%adicionar um diagrama de componentes mostrando os plugins em um diretório de plugins e outros diretórios da aplicação
-\subsubsection{O Objeto PluginManager}\label{sec:solucao-desenvolvida}
-O Objeto PluginManager....
+\subsection{O arquivo config.json}\label{sec:solucao-desenvolvida}
+O arquivo \textit{Settings.json} é um arquivo importante e requerido nesta arquitetura. As propriedades presentes neste arquivo não são persistidas no banco de dados e serão setadas em um objeto do tipo \textit{QVariantMap} na classe App, sempre que o aplicativo for executado. Este objeto será registrado no contexto da aplicação como uma propriedade e será utilizado por vários componentes, tais como, elementos visuais que definem cores, font-size e outras propriedades que podem ser definidas neste json e poderão ser acessadas por qualquer plugin. Algumas propriedades como versão do aplicativo e se está ou não em modo de depuração. O número da versão é especificado na chave \textit{version} e é utilizado pelo objeto ManagerPlugins que decidirá se o cache dos arquivos QML serão deletados para que os arquivos QML presentes na nova versão sejam regenerados. será utilizado por mapear tanto o tema de cores utilizado pelos componentes visuais como também detalhes de nome, versão e descrição do aplicativo.
 
 
 %adicionar um diagrama de componentes mostrando os plugins em um diretório de plugins e outros diretórios da aplicação
@@ -71,7 +83,6 @@ Esta seção descreve o processo de comunicação entre objetos ou componentes d
 Nesta sessão é discutido detalhes da solução desenvolvida. Será apresentado nas subseções seguintes os componentes que integra a arquitetura desenvolvida, descrevendo as decisões e características de implementação de cada componente.
 
 
-
 \subsection{O Objeto App}\label{sec:solucao-desenvolvida}
 O objeto app é um componente importante nesta arquitetura, ele gerencia toda a persistência de dados através de uma instância da classe \textit{QSettings} que abstrai a plataforma e fornece um mecanismo para leitura e escrita de dados no dispositivo através de métodos parametrizados. O objeto app é também o responsável por instanciar a classe \textit{PluginManager}, que realiza o trabalho de carregar os plugins do aplicativo. Outra responsabilidade deste objeto, é a notificação de eventos vindos do objeto \textit{QtActivity} no android e \textit{QtAppDelegate} no iOS como o \textit{token} de registro no \textit{Firebase}\footnote{O Firebase antigo \textit{Google Cloud Messaging} é um serviço de notificação móvel desenvolvido pelo Google que permite que os desenvolvedores de aplicativos enviem dados ou informações de notificação de servidores executados pelo desenvolvedor para aplicativos Android e iOS.} e mensagens de \textit{push notification} que em ambos os eventos, são delegados para o aplicativo através de uma conexão com um \textit{slot} definido no \textit{Application Window}.
 
@@ -83,10 +94,11 @@ O objeto app é um componente importante nesta arquitetura, ele gerencia toda a 
 
 O Objeto App também fornece métodos públicos declarados como 
 
-\subsection{O arquivo config.json}\label{sec:solucao-desenvolvida}
-O arquivo \textit{Settings.json} é um arquivo importante e requerido nesta arquitetura. As propriedades presentes neste arquivo não são persistidas no banco de dados e serão setadas em um objeto do tipo \textit{QVariantMap} na classe App, sempre que o aplicativo for executado. Este objeto será registrado no contexto da aplicação como uma propriedade e será utilizado por vários componentes, tais como, elementos visuais que definem cores, font-size e outras propriedades que podem ser definidas neste json e poderão ser acessadas por qualquer plugin. Algumas propriedades como versão do aplicativo e se está ou não em modo de depuração. O número da versão é especificado na chave \textit{version} e é utilizado pelo objeto ManagerPlugins que decidirá se o cache dos arquivos QML serão deletados para que os arquivos QML presentes na nova versão sejam regenerados. será utilizado por mapear tanto o tema de cores utilizado pelos componentes visuais como também detalhes de nome, versão e descrição do aplicativo.
 
-Tem que ter uma visão estrutural do núcleo da 
+%adicionar um diagrama de componentes mostrando os plugins em um diretório de plugins e outros diretórios da aplicação
+\subsubsection{O Objeto PluginManager}\label{sec:solucao-desenvolvida}
+O Objeto PluginManager....
+
 
 \subsection{O Componente RequestHttp}\label{sec:solucao-desenvolvida}
 O Objeto RequestHttp....
@@ -94,13 +106,6 @@ O Objeto RequestHttp....
 \subsection{O Componente Basepage}\label{sec:solucao-desenvolvida}
 O Objeto ModelData....
 
-Esta seção deve apresentar: 
-\begin{enumerate}
-\item A solução desenvolvida, se isto já for o trabalho final. Neste caso o tempo verbal usado é passado. Foi desenvolvido, foi elaborado...
-\item A proposta de solução, se for o pré-projeto. Neste caso o tempo verbal é futuro. Será desenvolvido, será elaborado...
-\end{enumerate}
-Uma boa forma de começar esta seção:
-Nesta seção é discutido a solução proposta/desenvolvida.
-%A Figura \ref{fig:visao-geral} apresenta uma visão geral da solução.
-%Explique cada um dos elementos da figura. Use uma notação correta.
-%Exemplo de algoritmo \ref{alg:BA}.
+
+\subsection{Métodos para utilização da arquitetura}
+Exemplo (a ser editado): Para se utilizar a arquitetura desenvolvida, deve-se seguir uma determinada ordem de atividades (Figura 26), que deve se iniciar no nível arquitetural “escopo” (seção 3.1), passando pelos níveis arquiteturais “modelo de negócios” (seção 3.2) e “modelo de sistema” (seção 3.3), até chegar ao nível arquitetural “modelo tecnológico” que deve ser criado pelo usuário desta arquitetura.
