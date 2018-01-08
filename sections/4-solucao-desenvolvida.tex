@@ -82,15 +82,20 @@ No layout em pilha, o menu é exibido pelo componente \textit{Menu.qml} que cons
 
 %adicionar um diagrama de componentes mostrando os plugins em um diretório de plugins e outros diretórios da aplicação
 \subsubsection{Gerenciamento de plugins}\label{sec:solucao-desenvolvida}
-A classe \textit{PluginManager} é responsável por carregar os plugins, ela é instanciada no objeto \textit{App} na inicialização do aplicativo. Basicamente, o que esta classe faz é iterar todos os arquivos dentro do diretório \textit{plugins} e analizar as propriedades definida no arquivo \textit{config.json} de cada plugin. Em cada arquivo, é verificado as propriedades definida para cada página adicionando como objeto em um array. Após ler todos os plugins, o array de objetos será salvo nas configurações da aplicação para que na próxima inicialização não precise iterar novamente o diretório, lendo as definições dos plugins das configurações, exceto se houver uma atualização da aplicação. Para checar a versão do aplicativo, a mesma também será salvo nas configurações e verificada a cada inicialização. Além disso, esta classe também é reponsável por deletar todos os arquivos de cache contido no diretório de cache da aplicação a cada release.
+A classe \textit{PluginManager} é responsável por carregar os plugins, ela é instanciada no objeto \textit{App} na inicialização do aplicativo. Basicamente, o que esta classe faz é iterar todos os arquivos dentro do diretório \textit{plugins} e analizar as propriedades definida no arquivo \textit{config.json} de cada plugin. Em cada arquivo, é verificado as propriedades definida para cada página adicionando-a como objeto em um array. Após ler todos os plugins, o array de objetos é persistido nas configurações da aplicação para que na próxima inicialização não precise iterar novamente o diretório, lendo as definições dos plugins das configurações, exceto se houver uma atualização da aplicação ou quando a aplicação é executada em modo \textit{debug}. A cada inicialização, é feito uma verificação da versão do aplicativo, que também é persistido nas configurações, se houver alguma diferença entre versão em execução da versão salva se existir, os plugins serão recarregados. Além disso, esta classe também é reponsável por deletar todos os arquivos de cache contido no diretório de cache da aplicação a cada release. Outra responsabilidade dessa classe, é a criação da tabela do plugin em banco de dados \textit{SQLITE} se o plugin fornecer um arquivo \textit{plugin\_table.sql} em seu diretório. O banco de dados da aplicação é criado por um objeto que gerencia as operações de presistência e será detalhado em outro tópico. O diagrama a seguir, apresenta detalhes da classe \textit{PluginManager}.
 
+\begin{figure}[h]
+	\includegraphics[width=8cm]{diagrama_de_classe_PluginManager}
+	\centering
+	\caption{Diagrama da classe PluginManager}
+\end{figure}
 
 \subsection{O arquivo config.json}\label{sec:solucao-desenvolvida}
 O arquivo \textit{Settings.json} é um arquivo importante e requerido nesta arquitetura. As propriedades presentes neste arquivo não são persistidas no banco de dados e serão setadas em um objeto do tipo \textit{QVariantMap} na classe App, sempre que o aplicativo for executado. Este objeto será registrado no contexto da aplicação como uma propriedade e será utilizado por vários componentes, tais como, elementos visuais que definem cores, font-size e outras propriedades que podem ser definidas neste json e poderão ser acessadas por qualquer plugin. Algumas propriedades como versão do aplicativo e se está ou não em modo de depuração. O número da versão é especificado na chave \textit{version} e é utilizado pelo objeto ManagerPlugins que decidirá se o cache dos arquivos QML serão deletados para que os arquivos QML presentes na nova versão sejam regenerados. será utilizado por mapear tanto o tema de cores utilizado pelos componentes visuais como também detalhes de nome, versão e descrição do aplicativo.
 
 
 %adicionar um diagrama de componentes mostrando os plugins em um diretório de plugins e outros diretórios da aplicação
-\subsubsection{O Qt e o QML}\label{sec:solucao-desenvolvida}
+\subsection{O Qt e o QML}\label{sec:solucao-desenvolvida}
 Para compreender a implementação deste trabalho é importante entender os recursos do Qt e como ele facilitou o desenvolvimento desta arquitetura. O Qt é a base da implementação deste trabalho, ele provê um conjunto de bibliotecas, classes e componentes além de uma infraestrutura de desenvolvimento, depuração e deploy. O Qt também fornece APIs de alto nível que abstrai a plataforma e o sistema operacional e permite integrar objetos através de um mecanismo de comunicação orientado a eventos. O Qt consiste de um kit de ferramentas composto de classes C++, um interpretador de linguagem declarativa chamada QML além de Módulos com APIs de rede, persistência de dados, recursos de hardware como câmera, bluetooth, sensores e etc. Além de uma ampla de componentes visuais de alto nível que facilitam a construção de interface gráfica. Os elementos seguintes são áreas-chave de funcionalidades do Qt \cite{qt_overviews}.
 
 \begin{itemize}
@@ -122,12 +127,27 @@ O objeto app é um componente importante nesta arquitetura, ele gerencia toda a 
 O Objeto App também fornece métodos públicos declarados como 
 
 
-\subsection{O Componente RequestHttp}\label{sec:solucao-desenvolvida}
+\subsection{Gerencimento de Rede (HTTP)}\label{sec:solucao-desenvolvida}
+\subsubsection{O Componente RequestHttp}\label{sec:solucao-desenvolvida}
 O Objeto RequestHttp....
+
+
+\subsection{Gerencimento de Banco de Dados}\label{sec:solucao-desenvolvida}
+\subsubsection{O Componente Database}\label{sec:solucao-desenvolvida}
+O Objeto ModelData....
+
 
 \subsection{O Componente Basepage}\label{sec:solucao-desenvolvida}
 O Objeto ModelData....
 
 
+\subsection{Componentes Visuais}\label{sec:solucao-desenvolvida}
+O Objeto ModelData....
+
+
+
 \subsection{Métodos para utilização da arquitetura}
+-- descrever o README do projeto no github
+
+OU:
 Exemplo (a ser editado): Para se utilizar a arquitetura desenvolvida, deve-se seguir uma determinada ordem de atividades (Figura 26), que deve se iniciar no nível arquitetural “escopo” (seção 3.1), passando pelos níveis arquiteturais “modelo de negócios” (seção 3.2) e “modelo de sistema” (seção 3.3), até chegar ao nível arquitetural “modelo tecnológico” que deve ser criado pelo usuário desta arquitetura.
