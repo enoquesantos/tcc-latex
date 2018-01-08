@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:confman="org.dspace.core.ConfigurationManager" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xlink="http://www.w3.org/TR/xlink/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:dim="http://www.dspace.org/xmlns/dspace/dim" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:mets="http://www.loc.gov/METS/" xmlns:dri="http://di.tamu.edu/DRI/1.0/" xmlns:i18n="http://apache.org/cocoon/i18n/2.1" class="no-js">
+<head xmlns:util="org.dspace.app.xmlui.utils.XSLUtils">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+<meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" name="viewport" />
+<link rel="shortcut icon" href="/themes/LUME_Mirage/images/favicon.ico" />
+<link rel="apple-touch-icon" href="/themes/LUME_Mirage/images/apple-touch-icon.png" />
+<meta name="Generator" content="DSpace 1.8.0" />
+<link type="text/css" rel="stylesheet" media="screen" href="/themes/LUME_Mirage/lib/css/reset.css" />
+<link type="text/css" rel="stylesheet" media="screen" href="/themes/LUME_Mirage/lib/css/base.css" />
+<link type="text/css" rel="stylesheet" media="screen" href="/themes/LUME_Mirage/lib/css/helper.css" />
+<link type="text/css" rel="stylesheet" media="screen" href="/themes/LUME_Mirage/lib/css/jquery-ui-1.8.15.custom.css" />
+<link type="text/css" rel="stylesheet" media="screen" href="/themes/LUME_Mirage/lib/css/style.css" />
+<link type="text/css" rel="stylesheet" media="screen" href="/themes/LUME_Mirage/lib/css/authority-control.css" />
+<link type="text/css" rel="stylesheet" media="handheld" href="/themes/LUME_Mirage/lib/css/handheld.css" />
+<link type="text/css" rel="stylesheet" media="print" href="/themes/LUME_Mirage/lib/css/print.css" />
+<link type="text/css" rel="stylesheet" media="all" href="/themes/LUME_Mirage/lib/css/media.css" />
+<link type="text/css" rel="stylesheet" media="" href="/themes/LUME_Mirage/lib/lista/mktree.css" />
+<link type="application/opensearchdescription+xml" rel="search" href="http://www.lume.ufrgs.br:80/open-search/description.xml" title="DSpace" />
+<script type="text/javascript">
+                                //Clear default text of emty text areas on focus
+                                function tFocus(element)
+                                {
+                                        if (element.value == ' '){element.value='';}
+                                }
+                                //Clear default text of emty text areas on submit
+                                function tSubmit(form)
+                                {
+                                        var defaultedElements = document.getElementsByTagName("textarea");
+                                        for (var i=0; i != defaultedElements.length; i++){
+                                                if (defaultedElements[i].value == ' '){
+                                                        defaultedElements[i].value='';}}
+                                }
+                                //Disable pressing 'enter' key to submit a form (otherwise pressing 'enter' causes a submission to start over)
+                                function disableEnterKey(e)
+                                {
+                                     var key;
+
+                                     if(window.event)
+                                          key = window.event.keyCode;     //Internet Explorer
+                                     else
+                                          key = e.which;     //Firefox and Netscape
+
+                                     if(key == 13)  //if "Enter" pressed, then disable!
+                                          return false;
+                                     else
+                                          return true;
+                                }
+
+                                function FnArray()
+                                {
+                                    this.funcs = new Array;
+                                }
+
+                                FnArray.prototype.add = function(f)
+                                {
+                                    if( typeof f!= "function" )
+                                    {
+                                        f = new Function(f);
+                                    }
+                                    this.funcs[this.funcs.length] = f;
+                                };
+
+                                FnArray.prototype.execute = function()
+                                {
+                                    for( var i=0; i < this.funcs.length; i++ )
+                                    {
+                                        this.funcs[i]();
+                                    }
+                                };
+
+                                var runAfterJSImports = new FnArray();
+            </script>
+<script type="text/javascript" src="/themes/LUME_Mirage/lib/js/modernizr-1.7.min.js"> </script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+<script type="text/javascript">
+				jQuery(function() {
+				$('.slideshow').cycle({
+						fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+					});
+				});
+				</script>
+<title>Proposta de uma arquitetura para sistemas de pagamento móvel</title>
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<meta name="DC.contributor" content="Brodbeck, Henrique Jorge" xml:lang="pt" />
+<meta name="DC.creator" content="Magrin, Rafael von Hoonholtz" xml:lang="pt" />
+<meta name="DCTERMS.dateAccepted" content="2010-10-14T04:19:22Z" xml:lang="pt" scheme="DCTERMS.W3CDTF" />
+<meta name="DCTERMS.issued" content="2010" xml:lang="pt" scheme="DCTERMS.W3CDTF" />
+<meta name="DC.identifier" content="http://hdl.handle.net/10183/26355" xml:lang="pt" scheme="DCTERMS.URI" />
+<meta name="DCTERMS.abstract" content="À medida que a tecnologia dos telefones celulares avança novas aplicações são criadas para eles. No início da década de 2000, o pagamento móvel surgiu como uma promessa que tornaria o cartão de crédito obsoleto, mas ainda estamos muito longe deste momento. Este trabalho apresenta uma visão geral dos sistemas de pagamento móvel, suas características, as tecnologias utilizadas para implementação, os aspectos que tornam atrativo o uso, as barreiras de adoção e alguns exemplos de sistemas de pagamento móvel. O objetivo deste trabalho é avaliar o estado atual do pagamento móvel e entender de que forma a tecnologia pode ser utilizada para facilitar sua adoção. Sendo assim, é apresentada uma proposta de arquitetura de sistemas de pagamento móvel, com foco na comunicação entre a aplicação cliente e o servidor, baseada na arquitetura de Transferência de Estado Representacional (REST). Tendo em vista que as formas de pagamento móveis existentes são limitadas para grupos específicos que dispõem de determinado dispositivo móvel, e que esta condição dificulta a expansão deste sistema, esta arquitetura propõe uma independência entre o servidor e a aplicação cliente, permitindo uma maior flexibilidade na escolha das tecnologias utilizadas em ambas às partes.  Além disso, o fato da arquitetura proposta ser baseada em uma arquitetura REST, torna o sistema mais escalável permitindo que este se adapte à medida que a base de clientes aumente." xml:lang="pt" />
+<meta name="DCTERMS.abstract" content="As mobile phones technology advances, new applications are created for them.. In the early 2000s, the mobile payment emerged as a promise that would make the credit card obsolete, but we are still far from this moment. This study provides an overview of mobile payment systems, its characteristics, the technologies used for implementation, the aspects that make it attractive to use, the barriers to adoption and some examples of mobile payment systems. The purpose of this study is to analyze the current state of mobile payment and understand how the technology can be used to facilitate its adoption. Therefore, an architecture is proposed for implementing mobile payment systems, focusing on the communication between the client application and the server, based on the Representational State Transfer (REST) architecture. Given that the existing mobile payment methods are limited to some specific groups that posses a specific mobile device, and that it hinders the expansion of the system, this architecture provides independence between the server and client application, allowing greater flexibility in the choice of technologies used by both parts.  Moreover, the fact that the proposed architecture is based on a REST architecture, makes the system more scalable allowing it to adapt as the customer base increases." xml:lang="en" />
+<meta name="DC.format" content="application/pdf" />
+<meta name="DC.language" content="por" xml:lang="pt" scheme="DCTERMS.RFC1766" />
+<meta name="DC.relation" content="Open Access" xml:lang="en" />
+<meta name="DC.subject" content="Arquitetura : Computadores" xml:lang="pt" />
+<meta name="DC.subject" content="Mobile phone" xml:lang="en" />
+<meta name="DC.subject" content="Mobile payment" xml:lang="en" />
+<meta name="DC.subject" content="Serviços Web" xml:lang="pt" />
+<meta name="DC.subject" content="REST" xml:lang="en" />
+<meta name="DC.title" content="Proposta de uma arquitetura para sistemas de pagamento móvel" xml:lang="pt" />
+<meta name="DCTERMS.alternative" content="Proposal of a mobile payment system architecture " xml:lang="en" />
+<meta name="DC.type" content="Trabalho de conclusão de graduação" xml:lang="pt" />
+<meta name="DC.identifier" content="000757818" xml:lang="pt" />
+
+<meta content="http://www.lume.ufrgs.br/bitstream/10183/26355/1/000757818.pdf" name="citation_pdf_url" />
+<meta content="Magrin, Rafael von Hoonholtz" name="citation_authors" />
+<meta content="Arquitetura : Computadores; Mobile phone; Mobile payment; Serviços Web; REST; Trabalho de conclusão de graduação" name="citation_keywords" />
+<meta content="http://www.lume.ufrgs.br/handle/10183/26355" name="citation_abstract_html_url" />
+<meta content="Proposta de uma arquitetura para sistemas de pagamento móvel" name="citation_title" />
+<meta content="2010" name="citation_date" />
+<meta content="por" name="citation_language" />
+</head><!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+                <!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+                <!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+                <!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+                <!--[if (gt IE 9)|!(IE)]><!--><body><!--<![endif]-->
+<div id="ds-main">
+<div id="ds-header-wrapper">
+<div class="clearfix" id="ds-header">
+<div id="topo">
+<div id="itens">
+<div id="logo">
+<a href="http://www.lume.ufrgs.br">
+<img alt="LUME - Repositório Digital" align="right" src="/themes/LUME_Mirage/images/lume/logo_lume.png" />
+</a>
+</div>
+<div id="titulo">
+<h1>Repositório Digital</h1>
+<div id="ds-user-box">
+<p>
+<a href="/login"> </a>
+</p>
+</div>
+</div>
+<div id="ufrgs">
+<a href="http://www.ufrgs.br">
+<img alt="UFRGS - Universidade Federal do Rio Grande do Sul" align="right" src="/themes/LUME_Mirage/images/lume/logo_ufrgs.png" />
+</a>
+</div>
+<div id="idiomas">
+<script type="text/javascript">
+								
+								//Adiciona um valor de chave a URL. Se a chave ja existe, remove antes de colocar a nova.
+                                function add_param_URL(key,value)
+								{
+									var new_search = null;								
+									
+									if (location.search) {
+										//Remove a chave se existe
+										var parts = location.search.substring(1).split('&');
+										
+										for (var i = 0; i < parts.length; i++) {
+											var nv = parts[i].split('=');
+											if (nv[0]==key) continue;
+
+											if (new_search) 
+												new_search = new_search + "&" + parts[i];
+											else
+												new_search = parts[i];	
+
+										}
+									};
+									if (new_search) 
+										new_search = new_search + "&" + key + "=" + value;
+									else
+										new_search = "?" + key + "=" + value;									
+									
+									location.search = new_search;
+
+								}
+						</script>
+<script type="text/javascript">
+                                function setBaseFontSize(sizeIndex)
+								{
+									document.body.style.font = sizeIndex+"px/1.22 sans-serif";
+								}
+						</script>
+<ul>
+<li>
+<a class="langChangeOn" href="javascript:add_param_URL('locale-attribute','pt_BR');">Português</a>
+</li>
+<li>
+<a class="langChangeOn" href="javascript:add_param_URL('locale-attribute', 'en'); ">English</a>
+</li>
+<li>
+<a class="langChangeOn" href="javascript:add_param_URL('locale-attribute', 'es'); ">Español</a>
+</li>
+</ul>
+<span>
+<a title="Texto pequeno" class="pequeno" href="javascript:setBaseFontSize(8)">
+								A-
+							</a>
+<a title="Texto normal" class="medio" href="javascript:setBaseFontSize(12)">
+								A
+							</a>
+<a title="Texto grande" class="grande" href="javascript:setBaseFontSize(16)">
+								A+
+							</a>
+</span>
+</div>
+</div>
+</div>
+<div id="menu_superior">
+<div>
+<a href="/apresentacao">APRESENTAÇÃO</a>
+</div>
+<div>
+<a href="/regulamentacao">POLÍTICA</a>
+</div>
+<div>
+<a href="/estatisticas">ESTATÍSTICAS</a>
+</div>
+<div>
+<a href="/community-list">MAPA DO SITE</a>
+</div>
+</div>
+<h1 class="pagetitle visuallyhidden">Proposta de uma arquitetura para sistemas de pagamento móvel</h1>
+<h2 class="static-pagetitle visuallyhidden">.</h2>
+</div>
+</div>
+<div class="hidden" id="no-js-warning-wrapper">
+<div id="no-js-warning">
+<div class="notice failure">JavaScript is disabled for your browser. Some features of this site may not work without it.</div>
+</div>
+</div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="ds-trail-wrapper">
+<ul id="ds-trail">
+<li xmlns="" xmlns:util="org.dspace.app.xmlui.utils.XSLUtils" class="ds-trail-link first-link ">
+<a href="/">Página inicial </a>
+</li>
+<li xmlns="" xmlns:util="org.dspace.app.xmlui.utils.XSLUtils" class="ds-trail-arrow">&gt;</li>
+<li xmlns="" xmlns:util="org.dspace.app.xmlui.utils.XSLUtils" class="ds-trail-link ">
+<a href="/handle/10183/40514">Trabalhos Acadêmicos e Técnicos</a>
+</li>
+<li xmlns="" xmlns:util="org.dspace.app.xmlui.utils.XSLUtils" class="ds-trail-arrow">&gt;</li>
+<li xmlns="" xmlns:util="org.dspace.app.xmlui.utils.XSLUtils" class="ds-trail-link ">
+<a href="/handle/10183/15757">Trabalhos de Conclusão de Curso de Graduação</a>
+</li>
+<li xmlns="" xmlns:util="org.dspace.app.xmlui.utils.XSLUtils" class="ds-trail-arrow">&gt;</li>
+<li xmlns="" xmlns:util="org.dspace.app.xmlui.utils.XSLUtils" class="ds-trail-link ">
+<a href="/handle/10183/26428">TCC Ciência da Computação</a>
+</li>
+<li xmlns="" xmlns:util="org.dspace.app.xmlui.utils.XSLUtils" class="ds-trail-arrow">&gt;</li>
+<li xmlns="" xmlns:util="org.dspace.app.xmlui.utils.XSLUtils" class="ds-trail-link last-link">Visualizar item</li>
+</ul>
+</div>
+<div xmlns="http://di.tamu.edu/DRI/1.0/" id="ds-content-wrapper">
+<div class="clearfix" id="ds-content">
+<div xmlns="http://www.w3.org/1999/xhtml" id="ds-body">
+<div id="aspect_artifactbrowser_ItemViewer_div_item-view" class="ds-static-div primary">
+<!-- External Metadata URL: cocoon://metadata/handle/10183/26355/mets.xml-->
+<div xmlns="" class="view-item-title">Proposta de uma arquitetura para sistemas de pagamento móvel<br />
+</div>
+<br xmlns="" />
+<!-- ENTROU NO WHEN -->
+<table xmlns="" width="100%" cellpadding="0" cellspacing="0" id="header-top">
+<tbody>
+<tr valign="top">
+<td>
+<p class="ds-paragraph item-view-toggle item-view-toggle-bottom">
+<a href="/handle/10183/26355?show=full">Mostrar registro completo</a>
+</p>
+</td>
+<td valign="middle" nowrap="nowrap" class="" id="aspect.artifactbrowser.CommunityViewer.p.stats">
+<img style="vertical-align: top;" src="/themes/LUME_Mirage/images/lume/link_estatisticas.png" />
+<a xmlns="http://www.w3.org/1999/xhtml" class="" href="/handle/10183/26355/stats">Estatísticas</a>
+</td>
+</tr>
+</tbody>
+</table>
+<p xmlns="" id="item-link">Para citar ou acessar este item utilize: <br />
+<a href="http://hdl.handle.net/10183/26355">http://hdl.handle.net/10183/26355</a>
+</p>
+<table xmlns="" valign="top" class="ds-includeSet-table">
+<br />
+<!---->
+<tr class="&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;ds-table-row odd&#10;&#9;&#9;&#9;&#9;&#9;&#9;">
+<td>
+<span class="bold">Título</span>
+</td>
+<td>Proposta de uma arquitetura para sistemas de pagamento móvel<br />
+</td>
+</tr>
+<!---->
+<tr class="&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;ds-table-row even&#10;&#9;&#9;&#9;&#9;&#9;&#9;">
+<td>
+<span class="bold">Outro título</span>
+</td>
+<td>Proposal of a mobile payment system architecture <br />
+</td>
+</tr>
+<!---->
+<tr class="&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;ds-table-row odd&#10;&#9;&#9;&#9;&#9;&#9;&#9;">
+<td>
+<span class="bold">Autor</span>
+</td>
+<td>
+<a href="/browse?type=author&amp;value=Magrin, Rafael von Hoonholtz">Magrin, Rafael von Hoonholtz</a>
+<br />
+</td>
+</tr>
+<!---->
+<tr class="&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;ds-table-row even&#10;&#9;&#9;&#9;&#9;&#9;&#9;">
+<td>
+<span class="bold">Orientador</span>
+</td>
+<td>
+<a href="/browse?type=author&amp;value=Brodbeck, Henrique Jorge">Brodbeck, Henrique Jorge</a>
+<br />
+</td>
+</tr>
+<!---->
+<tr class="&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;ds-table-row odd&#10;&#9;&#9;&#9;&#9;&#9;&#9;">
+<td>
+<span class="bold">Data</span>
+</td>
+<td>2010<br />
+</td>
+</tr>
+<!---->
+<tr class="&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;ds-table-row even&#10;&#9;&#9;&#9;&#9;&#9;&#9;">
+<td>
+<span class="bold">Nível</span>
+</td>
+<td>Graduação<br />
+</td>
+</tr>
+<!---->
+<tr class="&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;ds-table-row odd&#10;&#9;&#9;&#9;&#9;&#9;&#9;">
+<td>
+<span class="bold">Instituição</span>
+</td>
+<td>Universidade Federal do Rio Grande do Sul. Instituto de Informática. Curso de Ciência da Computação: Ênfase em Ciência da Computação: Bacharelado. </td>
+</tr>
+<!---->
+<tr class="&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;ds-table-row even&#10;&#9;&#9;&#9;&#9;&#9;&#9;">
+<td>
+<span class="bold">Assunto</span>
+</td>
+<td>
+<a href="/browse?type=subject&amp;value=Arquitetura : Computadores">Arquitetura : Computadores</a>
+<br />
+<a href="/browse?type=subject&amp;value=Serviços Web">Serviços Web</a>
+<br />[en] <a href="/browse?type=subject&amp;value=Mobile payment">Mobile payment</a>
+<br />[en] <a href="/browse?type=subject&amp;value=Mobile phone">Mobile phone</a>
+<br />[en] <a href="/browse?type=subject&amp;value=REST">REST</a>
+<br />
+</td>
+</tr>
+<!---->
+<tr class="&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;ds-table-row odd&#10;&#9;&#9;&#9;&#9;&#9;&#9;">
+<td>
+<span class="bold">Resumo</span>
+</td>
+<td>À medida que a tecnologia dos telefones celulares avança novas aplicações são criadas para eles. No início da década de 2000, o pagamento móvel surgiu como uma promessa que tornaria o cartão de crédito obsoleto, mas ainda estamos muito longe deste momento. Este trabalho apresenta uma visão geral dos sistemas de pagamento móvel, suas características, as tecnologias utilizadas para implementação, os aspectos que tornam atrativo o uso, as barreiras de adoção e alguns exemplos de sistemas de pagamento móvel. O objetivo deste trabalho é avaliar o estado atual do pagamento móvel e entender de que forma a tecnologia pode ser utilizada para facilitar sua adoção. Sendo assim, é apresentada uma proposta de arquitetura de sistemas de pagamento móvel, com foco na comunicação entre a aplicação cliente e o servidor, baseada na arquitetura de Transferência de Estado Representacional (REST). Tendo em vista que as formas de pagamento móveis existentes são limitadas para grupos específicos que dispõem de determinado dispositivo móvel, e que esta condição dificulta a expansão deste sistema, esta arquitetura propõe uma independência entre o servidor e a aplicação cliente, permitindo uma maior flexibilidade na escolha das tecnologias utilizadas em ambas às partes.  Além disso, o fato da arquitetura proposta ser baseada em uma arquitetura REST, torna o sistema mais escalável permitindo que este se adapte à medida que a base de clientes aumente.<br />
+</td>
+</tr>
+<!---->
+<tr class="&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;ds-table-row even&#10;&#9;&#9;&#9;&#9;&#9;&#9;">
+<td>
+<span class="bold">Abstract</span>
+</td>
+<td>As mobile phones technology advances, new applications are created for them.. In the early 2000s, the mobile payment emerged as a promise that would make the credit card obsolete, but we are still far from this moment. This study provides an overview of mobile payment systems, its characteristics, the technologies used for implementation, the aspects that make it attractive to use, the barriers to adoption and some examples of mobile payment systems. The purpose of this study is to analyze the current state of mobile payment and understand how the technology can be used to facilitate its adoption. Therefore, an architecture is proposed for implementing mobile payment systems, focusing on the communication between the client application and the server, based on the Representational State Transfer (REST) architecture. Given that the existing mobile payment methods are limited to some specific groups that posses a specific mobile device, and that it hinders the expansion of the system, this architecture provides independence between the server and client application, allowing greater flexibility in the choice of technologies used by both parts.  Moreover, the fact that the proposed architecture is based on a REST architecture, makes the system more scalable allowing it to adapt as the customer base increases.<br />
+</td>
+</tr>
+<!---->
+<tr class="&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;ds-table-row odd&#10;&#9;&#9;&#9;&#9;&#9;&#9;">
+<td>
+<span class="bold">Tipo</span>
+</td>
+<td>Trabalho de conclusão de graduação<br />
+</td>
+</tr>
+<!---->
+<tr class="&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;ds-table-row even&#10;&#9;&#9;&#9;&#9;&#9;&#9;">
+<td>
+<span class="bold">URI</span>
+</td>
+<td>http://hdl.handle.net/10183/26355<br />
+</td>
+</tr>
+</table>
+<table xmlns="" class="ds-table file-list">
+<tr class="ds-table-header-row">
+<th>Arquivos</th>
+<th align="left">Descrição</th>
+<th align="left">Formato</th>
+<th align="left" />
+</tr>
+<!-- BITSTREAM PRIMARIO: file_61013-->
+<tr class="ds-table-row odd ">
+<td>
+<a href="/bitstream/handle/10183/26355/000757818.pdf?sequence=1" title="000757818.pdf">000757818.pdf (831.0Kb)</a>
+</td>
+<td>Texto completo</td>
+<td>Adobe PDF</td>
+<td>
+<a href="/bitstream/handle/10183/26355/000757818.pdf?sequence=1">Visualizar/abrir</a>
+</td>
+</tr>
+</table>
+<br xmlns="" />
+<span xmlns="" id="visualizadorDePDFsEmbedNoItem" data="/bitstream/handle/10183/26355/000757818.pdf?sequence=1" />
+<script xmlns="" src="/themes/LUME_Mirage/lib/js/pdfviewer.js"> </script>
+<script xmlns="" src="/themes/LUME_Mirage/lib/js/playlist.js"> </script>
+<div xmlns="" class="license-info" align="center">
+<p>Este item está licenciado na <a href="http://creativecommons.org/licenses/by-nc-sa/2.5/br/">Creative Commons License
+						</a>
+</p>
+<a href="http://creativecommons.org/licenses/by-nc-sa/2.5/br/">
+<img src="/themes/LUME_Mirage/images/lume/cc.png" />
+</a>
+</div>
+<h2 class="ds-list-head">Este item aparece na(s) seguinte(s) coleção(ões)</h2>
+<ul xmlns="http://di.tamu.edu/DRI/1.0/" xmlns:oreatom="http://www.openarchives.org/ore/atom/" xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:atom="http://www.w3.org/2005/Atom" class="ds-referenceSet-list">
+<!-- External Metadata URL: cocoon://metadata/handle/10183/15757/mets.xml-->
+<li>
+<span xmlns="" xmlns:util="org.dspace.app.xmlui.utils.XSLUtils" class="bold">
+<a href="/handle/10183/15757">Trabalhos de Conclusão de Curso de Graduação</a>
+</span>
+<ul class="ds-referenceSet-list">
+<!-- External Metadata URL: cocoon://metadata/handle/10183/26428/mets.xml-->
+<li>
+<a xmlns="" xmlns:util="org.dspace.app.xmlui.utils.XSLUtils" href="/handle/10183/26428">TCC Ciência da Computação</a> [487]<br xmlns="" xmlns:util="org.dspace.app.xmlui.utils.XSLUtils" />
+</li>
+</ul>
+</li>
+</ul>
+<br xmlns="" />
+<a href="/handle/10183/26355?show=full">Mostrar registro completo</a>
+</div>
+</div>
+<div xmlns="http://di.tamu.edu/DRI/1.0/" id="ds-options-wrapper">
+<div id="ds-options">
+<div id="busca">
+<div id="caixa">
+<form id="ds-search-form" method="get" action="/search">
+<div class="pesquisa">
+<input id="ds-input-box" class="texto_lateral" value="" type="text" name="query" />
+<input src="/themes/LUME_Mirage/images/lume/fundo_botao.png" class="botao" value="" type="image" />
+<div id="avancada_lateral">
+<input title="Pesquisa avançada" class="botao_avancada" type="image" src="/themes/LUME_Mirage/images/lume/advsearch.png" onclick="&#10;                                    var form = document.getElementById(&quot;ds-search-form&quot;);&#10;                                    var input = document.getElementById(&quot;ds-input-box&quot;);&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;input.name = &quot;query1&quot;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;form.action=&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;/advanced-search&quot; ; " />
+</div>
+</div>
+</form>
+</div>
+</div>
+<h1 xmlns="http://www.w3.org/1999/xhtml" class="ds-option-set-head">Percorrer</h1>
+<div xmlns="http://www.w3.org/1999/xhtml" id="aspect_viewArtifacts_Navigation_list_browse" class="ds-option-set">
+<ul class="ds-options-list">
+<li>
+<h2 class="ds-sublist-head">Todo o repositório</h2>
+<ul xmlns="http://di.tamu.edu/DRI/1.0/" class="ds-simple-list sublist">
+<li>
+<a href="/community-list">Comunidades e coleções</a>
+</li>
+<li xmlns="http://di.tamu.edu/DRI/1.0/">
+<a href="/browse?type=dateissued">Ano</a>
+</li>
+<li xmlns="http://di.tamu.edu/DRI/1.0/">
+<a href="/browse?type=author">Autor</a>
+</li>
+<li xmlns="http://di.tamu.edu/DRI/1.0/">
+<a href="/browse?type=title">Título</a>
+</li>
+<li xmlns="http://di.tamu.edu/DRI/1.0/">
+<a href="/browse?type=subject">Assunto</a>
+</li>
+<li xmlns="http://di.tamu.edu/DRI/1.0/">
+<a href="/browse?type=tipo">Tipo</a>
+</li>
+</ul>
+</li>
+<li xmlns="http://di.tamu.edu/DRI/1.0/">
+<h2 class="ds-sublist-head">Esta coleção</h2>
+<ul xmlns="http://di.tamu.edu/DRI/1.0/" class="ds-simple-list sublist">
+<li>
+<a href="/handle/10183/26428/browse?type=dateissued">Ano</a>
+</li>
+<li xmlns="http://di.tamu.edu/DRI/1.0/">
+<a href="/handle/10183/26428/browse?type=author">Autor</a>
+</li>
+<li xmlns="http://di.tamu.edu/DRI/1.0/">
+<a href="/handle/10183/26428/browse?type=title">Título</a>
+</li>
+<li xmlns="http://di.tamu.edu/DRI/1.0/">
+<a href="/handle/10183/26428/browse?type=subject">Assunto</a>
+</li>
+<li xmlns="http://di.tamu.edu/DRI/1.0/">
+<a href="/handle/10183/26428/browse?type=tipo">Tipo</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<br xmlns="http://di.tamu.edu/DRI/1.0/" />
+<br />
+<div style="text-align: center" class="margem-compartilhar" id="ds-share-option">
+<div class="a2a_kit a2a_default_style">
+<a href="https://www.addtoany.com/share_save" class="a2a_dd">Compartilhar</a>
+<span class="a2a_divider" />
+<a class="a2a_button_facebook sem-sublinhado" title="Compartilhar no Facebook"> </a>
+<a class="a2a_button_twitter sem-sublinhado" title="Enviar para o Twitter"> </a>
+<a class="a2a_button_google_plus sem-sublinhado" title="Enviar para o Google+"> </a>
+<a class="a2a_button_blogger_post sem-sublinhado" title="Enviar para o Blogger"> </a>
+<a class="meu_email sem-sublinhado" title="Enviar por e-mail" href="mailto:?subject=Link interessante&amp;body=http://www.lume.ufrgs.br/&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;handle/10183/26355">
+<img width="16" height="16" src="https://static.addtoany.com/images/transparent.gif" />
+</a>
+</div>
+<style type="text/css">
+						#a2apage_any_email { display:none !important; } /* For standard sharing menu */
+						#a2amail_any_email { display:none !important; } /* For the email-only menu */
+						#a2apage_PTZ { display:none !important; }
+						a.meu_email img{ 
+								background-image: url("https://static.addtoany.com/menu/icons_22.png");
+								background-repeat: no-repeat;
+								background-position: 0 -697px !important; }
+					</style>
+<script type="text/javascript">
+					var a2a_config = a2a_config || {};
+					a2a_config.locale = "pt-BR";
+					a2a_config.prioritize = ["linkedln", "amazon_wish_list", "reddit", "slashdot"];
+					a2a_config.onclick = 1;
+					</script>
+<script src="https://static.addtoany.com/menu/page.js" type="text/javascript">var a2a_onfig;</script>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="drodape">
+<div id="rodape">
+<div>
+<a href="/instrucoes">INSTRUÇÕES AOS AUTORES</a>
+</div>
+<div>
+<a href="/login">LOGIN</a>
+</div>
+<div>
+<a href="/feedback">CONTATO</a>
+</div>
+<div>
+<a href="/ajuda">AJUDA</a>
+</div>
+</div>
+<div id="escrita">
+<ul>
+<li>O autor é titular dos direitos autorais dos documentos disponíveis neste repositório e 
+								é vedada, nos termos da <a href="http://www.planalto.gov.br/ccivil_03/leis/L9610.htm">lei</a>, a comercialização de qualquer espécie sem sua autorização prévia.<br />
+<span>Projeto gráfico elaborado pelo Caixola - Clube de Criação Fabico/UFRGS</span>
+<span style="margin-left:32%;">Powered by DSpace software, Version 1.8.1.</span>
+</li>
+</ul>
+</div>
+<a class="hidden" href="/htmlmap"> </a>
+</div>
+</div>
+<script xmlns="http://www.w3.org/1999/xhtml" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"> </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">!window.jQuery && document.write('<script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"> <\/script>')</script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="/themes/LUME_Mirage/lib/js/jquery.cycle.all.js"> </script><!--[if lt IE 7 ]>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" src="/themes/LUME_Mirage/lib/js/DD_belatedPNG_0.0.8a.js?v=1"> </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">DD_belatedPNG.fix('#ds-header-logo');DD_belatedPNG.fix('#ds-footer-logo');$.each($('img[src$=png]'), function() {DD_belatedPNG.fixPng(this);});</script><![endif]-->
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+            runAfterJSImports.execute();
+        </script>
+<script type="text/javascript">
+			
+				var params = {};
+				if (location.search) {
+					var parts = location.search.substring(1).split('&');
+
+					for (var i = 0; i < parts.length; i++) {
+						var nv = parts[i].split('=');
+						if (!nv[0]) continue;
+						params[nv[0]] = nv[1] || true;
+					}
+				}
+				
+				if (params["locale-attribute"]) {
+
+					//esta JQuery inclui um parametro hidden com nome locale e valor para todos os forms da pagina
+					$("form").prepend($('<input/>',{type:'hidden',name:'locale-attribute',value:params['locale-attribute']}));
+
+					$("a").each(function() {
+
+						var  locale = "locale-attribute=" + params["locale-attribute"] ;
+						var href = $(this).attr("href");
+						if (href.indexOf("javascript:") == -1 && href.indexOf("mailto:") == -1) 
+							if (href.indexOf("locale-attribute=") == -1) {
+								if (href.indexOf("=") != -1)
+									locale = "&" + locale;
+								else
+									locale = "?" + locale;	
+							
+								$(this).attr("href", href + locale);
+							}
+					});				
+				}
+				//esta funcao contatena os atributos id e title de todos os links 'a' com class=titulos_comunidades em um novo atributo title
+				//isso foi feito para poder traduzir a segunda parte do atributo title 'num_itens itens' ou 'num_itens items'
+				$('.titulos_comunidades').each(function(){
+					var itens = " "+$(this).attr('title');
+					$(this).removeAttr('title');
+					var aux = $(this).attr('id')+itens;
+					$(this).attr('title',aux);
+					$(this).removeAttr('id');
+					$(this).attr('id', aux);
+				});
+				
+			</script>
+<script type="text/javascript">
+			
+		
+				//$(document).ready(function() {
+				jQuery(function() {
+				$('.slideshow').cycle({
+						fx: 'fade', // choose your transition type, ex: fade, scrollUp, shuffle, etc...]
+						timeout:       4000
+					});
+				});
+			</script>
+<script type="text/javascript">
+			   var _paq = _paq || [];
+			   _paq.push(["trackPageView"]);
+			   _paq.push(["enableLinkTracking"]);
+
+			   (function() {
+				 var u=(("https:" == document.location.protocol) ? "https" : "http") 
+			+ "://stats.ufrgs.br/piwik/";
+				 _paq.push(["setTrackerUrl", u+"piwik.php"]);
+				 _paq.push(["setSiteId", "30"]);
+				 var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+				 g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+			   })();
+			</script></body></html>

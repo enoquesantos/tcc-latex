@@ -1,0 +1,453 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Universidade Federal do Rio Grande do Norte: Uma arquitetura de referência para o desenvolvimento de 
+sistemas interativos multiplataformas</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="Generator" content="DSpace 5.5" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="/jspui/favicon.ico" type="image/x-icon"/>
+	    <link rel="stylesheet" href="/jspui/static/css/jquery-ui-1.10.3.custom/redmond/jquery-ui-1.10.3.custom.css" type="text/css" />
+        <!--Estilos customizados-->
+        <link rel="stylesheet" id="bootstrap" href="/jspui/static/css/bootstrap/default/bootstrap.css" type="text/css" />
+        <link rel="stylesheet" id="bootstrap-theme" href="/jspui/static/css/bootstrap/default/bootstrap-theme.css" type="text/css" />
+        <link rel="stylesheet" id="dspace-theme" href="/jspui/static/css/bootstrap/default/dspace-theme.css" type="text/css" />
+
+
+        <link rel="search" type="application/opensearchdescription+xml" href="/jspui/open-search/description.xml" title="DSpace"/>
+
+
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<meta name="DC.contributor" content="Leite, Jair Cavalcanti" xml:lang="pt_BR" />
+<meta name="DC.creator" content="Fonseca, Fabiola Mariz da" xml:lang="pt_BR" />
+<meta name="DCTERMS.dateAccepted" content="2014-12-17T15:47:48Z" scheme="DCTERMS.W3CDTF" />
+<meta name="DCTERMS.available" content="2009-03-10" xml:lang="pt_BR" scheme="DCTERMS.W3CDTF" />
+<meta name="DCTERMS.available" content="2014-12-17T15:47:48Z" scheme="DCTERMS.W3CDTF" />
+<meta name="DCTERMS.issued" content="2008-08-08" xml:lang="pt_BR" scheme="DCTERMS.W3CDTF" />
+<meta name="DCTERMS.bibliographicCitation" content="FONSECA, Fabiola Mariz da. Uma arquitetura de referência para o desenvolvimento de &#xA;sistemas interativos multiplataformas. 2008. 84 f. Dissertação (Mestrado em Ciência da Computação) - Universidade Federal do Rio Grande do Norte, Natal, 2008." xml:lang="por" />
+<meta name="DC.identifier" content="http://repositorio.ufrn.br:8080/jspui/handle/123456789/17989" scheme="DCTERMS.URI" />
+<meta name="DCTERMS.abstract" content="It is increasingly common use of a single computer system using different devices - personal computers,  telephones cellular and others  - and  software platforms  -  systems graphical user interfaces,  Web  and  other  systems.  Depending  on  the  technologies  involved,  different &#xA;software architectures may be employed. For example, in Web systems, it utilizes architecture client-server  -  usually  extended  in  three  layers.  In  systems  with  graphical  interfaces,  it  is common  architecture  with  the  style  MVC.  The  use  of  architectures  with  different  styles hinders  the  interoperability of  systems with multiple platforms. Another  aggravating  is  that &#xA;often  the  user  interface  in  each  of  the  devices  have  structure,  appearance  and  behaviour different on each device, which leads to a low usability. Finally, the user interfaces specific to each of the devices involved, with distinct features and technologies is a job that needs to be done  individually  and  not  allow  scalability.  This  study  sought  to  address  some  of  these problems by presenting a reference architecture platform-independent and that allows the user interface  can  be  built  from  an  abstract  specification  described  in  the  language  in  the specification  of  the  user  interface,  the  MML.  This  solution  is  designed  to  offer  greater interoperability between different platforms, greater consistency between  the user  interfaces and greater flexibility and scalability for the incorporation of new devices" xml:lang="eng" />
+<meta name="DC.format" content="application/pdf" xml:lang="por" />
+<meta name="DC.language" content="por" xml:lang="por" />
+<meta name="DC.publisher" content="Universidade Federal do Rio Grande do Norte" xml:lang="por" />
+<meta name="DC.rights" content="Acesso Aberto" xml:lang="por" />
+<meta name="DC.subject" content="Sistemas interativos multiplataformas" xml:lang="por" />
+<meta name="DC.subject" content="IMML" xml:lang="por" />
+<meta name="DC.subject" content="Solução arquitetural" xml:lang="por" />
+<meta name="DC.subject" content="Systems interactive multi-platform" xml:lang="eng" />
+<meta name="DC.subject" content="IMML" xml:lang="eng" />
+<meta name="DC.subject" content="Architectural solution" xml:lang="eng" />
+<meta name="DC.title" content="Uma arquitetura de referência para o desenvolvimento de &#xA;sistemas interativos multiplataformas" xml:lang="por" />
+<meta name="DC.type" content="masterThesis" xml:lang="por" />
+<meta name="DC.publisher" content="BR" xml:lang="por" />
+<meta name="DC.publisher" content="UFRN" xml:lang="por" />
+<meta name="DC.publisher" content="Programa de Pós-Graduação em Sistemas e Computação" xml:lang="por" />
+<meta name="DC.contributor" content="CPF:01318684463" xml:lang="por" />
+<meta name="DC.contributor" content="CPF:55281192434" xml:lang="por" />
+<meta name="DC.contributor" content="http://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4782411P6" xml:lang="por" />
+<meta name="DC.contributor" content="Pires, Paulo de Figueiredo" xml:lang="pt_BR" />
+<meta name="DC.contributor" content="CPF:84384921772" xml:lang="por" />
+<meta name="DC.contributor" content="http://lattes.cnpq.br/1304174767727101" xml:lang="por" />
+<meta name="DC.contributor" content="Furtado, Maria Elizabeth Sucupira" xml:lang="pt_BR" />
+<meta name="DC.contributor" content="CPF:23503718320" xml:lang="por" />
+<meta name="DC.contributor" content="http://lattes.cnpq.br/7542338901767495" xml:lang="por" />
+<meta name="DC.description" content="É cada vez mais comum o uso de um mesmo sistema  computacional utilizando diferentes dispositivos   computadores pessoais, telefones celulares e outros   e plataformas de software   sistemas de interfaces de  usuário gráficas, sistemas WEB e outros. Dependendo  das tecnologias  envolvidas,  arquiteturas de software  distintas  podem  ser  empregadas. Por exemplo,  em  sistemas  WEB,  utiliza-se  uma  arquitetura  cliente-servidor   normalmente estendida em  três camadas. Em sistemas com  interfaces gráficas, é mais comum arquiteturas com o estilo MVC. A utilização de  arquiteturas com diferentes estilos dificulta a interoperabilidade de sistemas com múltiplas plataformas. Um outro agravante é que muitas vezes, as interfaces de usuário em cada um dos dispositivos possuem estrutura, aparência e comportamentos diferentes em cada dispositivo, o que leva a uma baixa usabilidade. Por fim, &#xA;as  interfaces de usuário  específicas  para  cada  um  dos  dispositivos envolvidos,  com características e tecnologias distintas é um trabalho que precisa ser realizado individualmente e  não permite  escalabilidade.  Esse  trabalho procura resolver alguns destes problemas apresentando uma arquitetura de referência independente de plataforma e que possibilita que a &#xA;interface de usuário possa ser construída a partir  de  uma especificação  abstrata descrita  na linguagem de especificação de interface de usuário, a IMML. Esta solução visa oferecer uma maior interoperabilidade  entre  as  diferentes  plataformas, uma maior  consistência entre as interfaces de usuário e maior  flexibilidade e escalabilidade para a incorporação de  novos dispositivos" xml:lang="por" />
+<meta name="DC.publisher" content="Ciência da Computação" xml:lang="por" />
+<meta name="DC.subject" content="CNPQ::CIENCIAS EXATAS E DA TERRA::CIENCIA DA COMPUTACAO::SISTEMAS DE COMPUTACAO" xml:lang="por" />
+
+<meta name="citation_author" content="Fonseca, Fabiola Mariz da" />
+<meta name="citation_date" content="2008-08-08" />
+<meta name="citation_abstract_html_url" content="https://repositorio.ufrn.br/handle/123456789/17989" />
+<meta name="citation_pdf_url" content="https://repositorio.ufrn.br/bitstream/123456789/17989/1/FabiolaMF.pdf" />
+<meta name="citation_keywords" content="Sistemas interativos multiplataformas; IMML; Solução arquitetural; Systems interactive multi-platform; IMML; Architectural solution; masterThesis" />
+<meta name="citation_publisher" content="Universidade Federal do Rio Grande do Norte" />
+<meta name="citation_title" content="Uma arquitetura de referência para o desenvolvimento de &#xA;sistemas interativos multiplataformas" />
+
+
+        
+	<script type='text/javascript' src="/jspui/static/js/jquery/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/jspui/static/js/customiza.js"> </script>
+	<script type='text/javascript' src='/jspui/static/js/jquery/jquery-ui-1.10.3.custom.min.js'></script>
+	<script type='text/javascript' src='/jspui/static/js/bootstrap/bootstrap.min.js'></script>
+	<script type='text/javascript' src='/jspui/static/js/holder.js'></script>
+	<script type="text/javascript" src="/jspui/utils.js"></script>
+    <script type="text/javascript" src="/jspui/static/js/choice-support.js"> </script>
+    <script type="text/javascript" src="/jspui/static/js/customiza.js"> </script>
+
+    
+    
+    
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="/jspui/static/js/html5shiv.js"></script>
+  <script src="/jspui/static/js/respond.min.js"></script>
+<![endif]-->
+
+<!-- Adicionado por Luiz e Anderson em 27/10/2015 -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69382301-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    </head>
+
+    
+    
+    <body class="undernavigation">
+<a class="sr-only" href="#content">Skip navigation</a>
+<header class="navbar navbar-inverse navbar-fixed-top">    
+    
+            <div class="container">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="http://www.ufrn.br" style="padding: 3px;"><img height="48px" src="/jspui/image/dspace-logo-only.png" /></a>
+       </div>
+       <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+	     <!--A pucrs utilizou uma largura excessiva. Valor corrigido-->
+         <ul class="nav navbar-nav">
+           <li class=""><a href="/jspui/"><span class="glyphicon glyphicon-home"></span> Página inicial</a></li>
+                
+           <li class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Navegar <b class="caret"></b></a>
+             <ul class="dropdown-menu">
+               <li><a href="/jspui/community-list">Comunidades e coleções</a></li>
+				<li class="divider"></li>
+				<li class="dropdown-header">Browse Items by:</li>
+				
+				
+				
+				      			<li><a href="/jspui/browse?type=dateissued">Data do documento</a></li>
+					
+				      			<li><a href="/jspui/browse?type=author">Todos os autores</a></li>
+					
+				      			<li><a href="/jspui/browse?type=title">Título</a></li>
+					
+				      			<li><a href="/jspui/browse?type=subject">Assunto</a></li>
+					
+				    
+				
+
+            </ul>
+          </li>
+		  <!-- Lista de documentos adicionada por Luiz e Anderson em 26/09/2014 -->
+		  		  <li class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sobre <b class="caret"></b></a>
+             <ul class="dropdown-menu">
+				<li><a target="_blank" href="http://repositorio.ufrn.br:8080/jspui/documentos/folder_riufrn.pdf">Folder</a></li>
+				<li><a target="_blank" href="http://repositorio.ufrn.br:8080/jspui/documentos/padrao_metadados_riufrn.docx">Tutorial de Submiss&atilde;o</a></li>
+                <li><a target="_blank" href="http://repositorio.ufrn.br:8080/jspui/documentos/resolucao_592010_consepe_riufrn.pdf">Pol&iacute;tica de Informa&ccedil;&atilde;o</a></li>
+                <li><a target="_blank" href="http://repositorio.ufrn.br:8080/jspui/documentos/termo_riufrn.pdf">Termo de Autoriza&ccedil;&atilde;o</a></li>
+		<li><a target="_blank" href="http://repositorio.ufrn.br:8080/jspui/documentos/Portaria-no-646-6-R-Comite-Gestor-do-Repositorio-Institucional-da-UFRN.pdf">Portaria do Comitê Gestor do RI</a></li>
+            </ul>
+          </li>	
+	  
+		  
+          
+
+          <!--Começo da barra de acessibilidade-->
+	        <li aria="alterar contraste" title="Alterar contraste" hint="Alterar contraste" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-adjust"></span><span style="font-size: 0;">Alterar contraste</span></a>
+	          <ul class="dropdown-menu">
+	            <li aria="Contraste amarelo" title="Contraste amarelo" hint="Contraste amarelo" id="contraste-amarelo">
+	              <a href="#" id="amarelo">Amarelo</a>
+	            </li>
+
+	            <li aria="Contraste azul" title="Contraste azul" hint="Contraste azul" id="contraste-azul">
+	              <a href="#" id="azul">Azul</a>
+	            </li>
+
+	            <li aria="Contraste verde" title="Contraste verde" hint="Contraste verde" id="contraste-verde">
+	              <a href="#" id="verde">Verde</a>
+	            </li>
+	          </ul>
+
+	        </li>
+
+	        <li aria="sem contraste" id="semcontraste" title="Sem contraste" hint="Sem contraste"><a href="#"><span class="glyphicon glyphicon-remove-circle"></span><span style="font-size: 0;">sem contraste</span></a></li>
+
+<!-- 	        <li aria="mapa do site" title="Mapa do site" hint="Mapa do site"><a href="/jspui/customizados/mapa.jsp"><span class="glyphicon glyphicon-map-marker"></span><span style="font-size: 0;">Mapa do site</span></a></li> -->
+
+	        <!--Fim da barra de acessibilidade-->
+		  
+
+       </ul>
+       <div class="nav navbar-nav navbar-right">
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+			<div style="padding-top:15px;padding-left:25px;"><a href="?locale=pt_BR"><img alt="Português" title="Português" src="/jspui/image/pt_BR2.png"></a> <a href="?locale=en"><img alt="English" title="English" src="/jspui/image/en2.png"></a> <a href="?locale=es"><img alt="Español" title="Español" src="/jspui/image/es2.png"></a></div>
+			</li>
+         <li class="dropdown">
+         
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Entrar em: <b class="caret"></b></a>
+	             
+             <ul class="dropdown-menu">
+               <li><a href="/jspui/mydspace">Meu espaço</a></li>
+               <li><a href="/jspui/subscribe">Receber atualizações<br/> por e-mail</a></li>
+               <li><a href="/jspui/profile">Editar perfil</a></li>
+
+		
+             </ul>
+           </li>
+          </ul>
+          
+	
+     
+
+	<form method="get" action="/jspui/simple-search" class="navbar-form navbar-right" scope="search">
+	    <div class="form-group">
+          <input type="text" class="form-control" placeholder="Buscar no repositório" name="query" id="tequery" size="25"/>
+        </div>
+        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+
+
+
+	</form></div>
+    </nav>
+
+            </div>
+
+</header>
+
+<main id="content" role="main">
+<div class="container banner">
+	<div class="row">
+		<!--<div class="col-md-9 brand">
+		<h1>DSpace <small>JSPUI</small></h1>
+        <h4>O DSpace preserva e provê acesso fácil e aberto a todos os tipos de objetos digitais, incluindo: textos, imagens, vídeos e conjuntos de dados</h4> <a href="http://www.dspace.org"><button class="btn btn-primary">Saiba mais</button></a> 
+        </div>-->
+		   <div class="col-md-3" id="logori"><a href="/jspui/"><img id="logori" style="margin-left: 0px; border-left: 0px;"src="/jspui/image/logo.png" title="Repositório Institucional da Universidade Federal do Rio Grande do Norte - UFRN" alt="Repositório Institucional da Universidade Federal do Rio Grande do Norte - UFRN"></a>
+           </div>
+            
+	</div>
+</div>	
+
+                
+
+    <div class="container">
+                
+
+
+
+  
+
+<ol class="breadcrumb btn-success" id="btn-navigation">
+
+  <li><a href="/jspui/">Universidade Federal do Rio Grande do Norte</a></li>
+
+  <li><a href="/jspui/handle/123456789/11883">BDTD - Biblioteca Digital de Teses e Dissertações</a></li>
+
+  <li><a href="/jspui/handle/123456789/11978">Programa de Pós-Graduação em Sistemas e Computação</a></li>
+
+  <li><a href="/jspui/handle/123456789/12059">PPGSC - Mestrado em Sistemas e Computação</a></li>
+
+</ol>
+
+    </div>                
+
+
+
+        
+<div class="container">
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.3";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    
+    
+    <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: pt_BR</script>
+
+    
+    <script src="https://apis.google.com/js/platform.js" async defer>
+         {lang: 'pt-BR'}
+    </script>
+
+<div class="alert alert-info">
+
+    <div class="fb-share-button" style="display: inline-flex; margin-top: 8px;" data-href="https://repositorio.ufrn.br/jspui/handle/123456789/17989" data-layout="button"></div>
+
+    <script type="IN/Share" data-url="https://repositorio.ufrn.br/jspui/handle/123456789/17989"></script>
+
+    <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+</div>
+
+
+
+		
+		
+		
+		
+
+                
+                <div class="well">Use este identificador para citar ou linkar para este item:
+                <code>https://repositorio.ufrn.br/jspui/handle/123456789/17989</code></div>
+
+
+
+    
+    <table class="table itemDisplayTable">
+<tr><td class="metadataFieldLabel">Título:&nbsp;</td><td class="metadataFieldValue">Uma&#x20;arquitetura&#x20;de&#x20;referência&#x20;para&#x20;o&#x20;desenvolvimento&#x20;de&#x20;&#x0A;sistemas&#x20;interativos&#x20;multiplataformas</td></tr>
+<tr><td class="metadataFieldLabel">Autor(es):&nbsp;</td><td class="metadataFieldValue"><a class="author"href="/jspui/browse?type=author&amp;value=Fonseca%2C+Fabiola+Mariz+da">Fonseca,&#x20;Fabiola&#x20;Mariz&#x20;da</a></td></tr>
+<tr><td class="metadataFieldLabel">Palavras-chave:&nbsp;</td><td class="metadataFieldValue">Sistemas&#x20;interativos&#x20;multiplataformas;IMML;Solução&#x20;arquitetural;Systems&#x20;interactive&#x20;multi-platform;IMML;Architectural&#x20;solution</td></tr>
+<tr><td class="metadataFieldLabel">Data do documento:&nbsp;</td><td class="metadataFieldValue">8-Ago-2008</td></tr>
+<tr><td class="metadataFieldLabel">Editor:&nbsp;</td><td class="metadataFieldValue">Universidade&#x20;Federal&#x20;do&#x20;Rio&#x20;Grande&#x20;do&#x20;Norte</td></tr>
+<tr><td class="metadataFieldLabel">Citação:&nbsp;</td><td class="metadataFieldValue">FONSECA,&#x20;Fabiola&#x20;Mariz&#x20;da.&#x20;Uma&#x20;arquitetura&#x20;de&#x20;referência&#x20;para&#x20;o&#x20;desenvolvimento&#x20;de&#x20;&#x0A;sistemas&#x20;interativos&#x20;multiplataformas.&#x20;2008.&#x20;84&#x20;f.&#x20;Dissertação&#x20;(Mestrado&#x20;em&#x20;Ciência&#x20;da&#x20;Computação)&#x20;-&#x20;Universidade&#x20;Federal&#x20;do&#x20;Rio&#x20;Grande&#x20;do&#x20;Norte,&#x20;Natal,&#x20;2008.</td></tr>
+<tr><td class="metadataFieldLabel">Abstract:&nbsp;</td><td class="metadataFieldValue">It&#x20;is&#x20;increasingly&#x20;common&#x20;use&#x20;of&#x20;a&#x20;single&#x20;computer&#x20;system&#x20;using&#x20;different&#x20;devices&#x20;-&#x20;personal&#x20;computers,&#x20;&#x20;telephones&#x20;cellular&#x20;and&#x20;others&#x20;&#x20;-&#x20;and&#x20;&#x20;software&#x20;platforms&#x20;&#x20;-&#x20;&#x20;systems&#x20;graphical&#x20;user&#x20;interfaces,&#x20;&#x20;Web&#x20;&#x20;and&#x20;&#x20;other&#x20;&#x20;systems.&#x20;&#x20;Depending&#x20;&#x20;on&#x20;&#x20;the&#x20;&#x20;technologies&#x20;&#x20;involved,&#x20;&#x20;different&#x20;&#x0A;software&#x20;architectures&#x20;may&#x20;be&#x20;employed.&#x20;For&#x20;example,&#x20;in&#x20;Web&#x20;systems,&#x20;it&#x20;utilizes&#x20;architecture&#x20;client-server&#x20;&#x20;-&#x20;&#x20;usually&#x20;&#x20;extended&#x20;&#x20;in&#x20;&#x20;three&#x20;&#x20;layers.&#x20;&#x20;In&#x20;&#x20;systems&#x20;&#x20;with&#x20;&#x20;graphical&#x20;&#x20;interfaces,&#x20;&#x20;it&#x20;&#x20;is&#x20;common&#x20;&#x20;architecture&#x20;&#x20;with&#x20;&#x20;the&#x20;&#x20;style&#x20;&#x20;MVC.&#x20;&#x20;The&#x20;&#x20;use&#x20;&#x20;of&#x20;&#x20;architectures&#x20;&#x20;with&#x20;&#x20;different&#x20;&#x20;styles&#x20;hinders&#x20;&#x20;the&#x20;&#x20;interoperability&#x20;of&#x20;&#x20;systems&#x20;with&#x20;multiple&#x20;platforms.&#x20;Another&#x20;&#x20;aggravating&#x20;&#x20;is&#x20;&#x20;that&#x20;&#x0A;often&#x20;&#x20;the&#x20;&#x20;user&#x20;&#x20;interface&#x20;&#x20;in&#x20;&#x20;each&#x20;&#x20;of&#x20;&#x20;the&#x20;&#x20;devices&#x20;&#x20;have&#x20;&#x20;structure,&#x20;&#x20;appearance&#x20;&#x20;and&#x20;&#x20;behaviour&#x20;different&#x20;on&#x20;each&#x20;device,&#x20;which&#x20;leads&#x20;to&#x20;a&#x20;low&#x20;usability.&#x20;Finally,&#x20;the&#x20;user&#x20;interfaces&#x20;specific&#x20;to&#x20;each&#x20;of&#x20;the&#x20;devices&#x20;involved,&#x20;with&#x20;distinct&#x20;features&#x20;and&#x20;technologies&#x20;is&#x20;a&#x20;job&#x20;that&#x20;needs&#x20;to&#x20;be&#x20;done&#x20;&#x20;individually&#x20;&#x20;and&#x20;&#x20;not&#x20;&#x20;allow&#x20;&#x20;scalability.&#x20;&#x20;This&#x20;&#x20;study&#x20;&#x20;sought&#x20;&#x20;to&#x20;&#x20;address&#x20;&#x20;some&#x20;&#x20;of&#x20;&#x20;these&#x20;problems&#x20;by&#x20;presenting&#x20;a&#x20;reference&#x20;architecture&#x20;platform-independent&#x20;and&#x20;that&#x20;allows&#x20;the&#x20;user&#x20;interface&#x20;&#x20;can&#x20;&#x20;be&#x20;&#x20;built&#x20;&#x20;from&#x20;&#x20;an&#x20;&#x20;abstract&#x20;&#x20;specification&#x20;&#x20;described&#x20;&#x20;in&#x20;&#x20;the&#x20;&#x20;language&#x20;&#x20;in&#x20;&#x20;the&#x20;specification&#x20;&#x20;of&#x20;&#x20;the&#x20;&#x20;user&#x20;&#x20;interface,&#x20;&#x20;the&#x20;&#x20;MML.&#x20;&#x20;This&#x20;&#x20;solution&#x20;&#x20;is&#x20;&#x20;designed&#x20;&#x20;to&#x20;&#x20;offer&#x20;&#x20;greater&#x20;interoperability&#x20;between&#x20;different&#x20;platforms,&#x20;greater&#x20;consistency&#x20;between&#x20;&#x20;the&#x20;user&#x20;&#x20;interfaces&#x20;and&#x20;greater&#x20;flexibility&#x20;and&#x20;scalability&#x20;for&#x20;the&#x20;incorporation&#x20;of&#x20;new&#x20;devices</td></tr>
+<tr><td class="metadataFieldLabel">Resumo:&nbsp;</td><td class="metadataFieldValue">É&#x20;cada&#x20;vez&#x20;mais&#x20;comum&#x20;o&#x20;uso&#x20;de&#x20;um&#x20;mesmo&#x20;sistema&#x20;&#x20;computacional&#x20;utilizando&#x20;diferentes&#x20;dispositivos&#x20;&#x20;&#x20;computadores&#x20;pessoais,&#x20;telefones&#x20;celulares&#x20;e&#x20;outros&#x20;&#x20;&#x20;e&#x20;plataformas&#x20;de&#x20;software&#x20;&#x20;&#x20;sistemas&#x20;de&#x20;interfaces&#x20;de&#x20;&#x20;usuário&#x20;gráficas,&#x20;sistemas&#x20;WEB&#x20;e&#x20;outros.&#x20;Dependendo&#x20;&#x20;das&#x20;tecnologias&#x20;&#x20;envolvidas,&#x20;&#x20;arquiteturas&#x20;de&#x20;software&#x20;&#x20;distintas&#x20;&#x20;podem&#x20;&#x20;ser&#x20;&#x20;empregadas.&#x20;Por&#x20;exemplo,&#x20;&#x20;em&#x20;&#x20;sistemas&#x20;&#x20;WEB,&#x20;&#x20;utiliza-se&#x20;&#x20;uma&#x20;&#x20;arquitetura&#x20;&#x20;cliente-servidor&#x20;&#x20;&#x20;normalmente&#x20;estendida&#x20;em&#x20;&#x20;três&#x20;camadas.&#x20;Em&#x20;sistemas&#x20;com&#x20;&#x20;interfaces&#x20;gráficas,&#x20;é&#x20;mais&#x20;comum&#x20;arquiteturas&#x20;com&#x20;o&#x20;estilo&#x20;MVC.&#x20;A&#x20;utilização&#x20;de&#x20;&#x20;arquiteturas&#x20;com&#x20;diferentes&#x20;estilos&#x20;dificulta&#x20;a&#x20;interoperabilidade&#x20;de&#x20;sistemas&#x20;com&#x20;múltiplas&#x20;plataformas.&#x20;Um&#x20;outro&#x20;agravante&#x20;é&#x20;que&#x20;muitas&#x20;vezes,&#x20;as&#x20;interfaces&#x20;de&#x20;usuário&#x20;em&#x20;cada&#x20;um&#x20;dos&#x20;dispositivos&#x20;possuem&#x20;estrutura,&#x20;aparência&#x20;e&#x20;comportamentos&#x20;diferentes&#x20;em&#x20;cada&#x20;dispositivo,&#x20;o&#x20;que&#x20;leva&#x20;a&#x20;uma&#x20;baixa&#x20;usabilidade.&#x20;Por&#x20;fim,&#x20;&#x0A;as&#x20;&#x20;interfaces&#x20;de&#x20;usuário&#x20;&#x20;específicas&#x20;&#x20;para&#x20;&#x20;cada&#x20;&#x20;um&#x20;&#x20;dos&#x20;&#x20;dispositivos&#x20;envolvidos,&#x20;&#x20;com&#x20;características&#x20;e&#x20;tecnologias&#x20;distintas&#x20;é&#x20;um&#x20;trabalho&#x20;que&#x20;precisa&#x20;ser&#x20;realizado&#x20;individualmente&#x20;e&#x20;&#x20;não&#x20;permite&#x20;&#x20;escalabilidade.&#x20;&#x20;Esse&#x20;&#x20;trabalho&#x20;procura&#x20;resolver&#x20;alguns&#x20;destes&#x20;problemas&#x20;apresentando&#x20;uma&#x20;arquitetura&#x20;de&#x20;referência&#x20;independente&#x20;de&#x20;plataforma&#x20;e&#x20;que&#x20;possibilita&#x20;que&#x20;a&#x20;&#x0A;interface&#x20;de&#x20;usuário&#x20;possa&#x20;ser&#x20;construída&#x20;a&#x20;partir&#x20;&#x20;de&#x20;&#x20;uma&#x20;especificação&#x20;&#x20;abstrata&#x20;descrita&#x20;&#x20;na&#x20;linguagem&#x20;de&#x20;especificação&#x20;de&#x20;interface&#x20;de&#x20;usuário,&#x20;a&#x20;IMML.&#x20;Esta&#x20;solução&#x20;visa&#x20;oferecer&#x20;uma&#x20;maior&#x20;interoperabilidade&#x20;&#x20;entre&#x20;&#x20;as&#x20;&#x20;diferentes&#x20;&#x20;plataformas,&#x20;uma&#x20;maior&#x20;&#x20;consistência&#x20;entre&#x20;as&#x20;interfaces&#x20;de&#x20;usuário&#x20;e&#x20;maior&#x20;&#x20;flexibilidade&#x20;e&#x20;escalabilidade&#x20;para&#x20;a&#x20;incorporação&#x20;de&#x20;&#x20;novos&#x20;dispositivos</td></tr>
+<tr><td class="metadataFieldLabel">URI:&nbsp;</td><td class="metadataFieldValue"><a href="http://repositorio.ufrn.br:8080/jspui/handle/123456789/17989">http:&#x2F;&#x2F;repositorio.ufrn.br:8080&#x2F;jspui&#x2F;handle&#x2F;123456789&#x2F;17989</a></td></tr>
+<tr><td class="metadataFieldLabel">Aparece nas coleções:</td><td class="metadataFieldValue"><a href="/jspui/handle/123456789/12059">PPGSC - Mestrado em Sistemas e Computação</a><br/></td></tr>
+</table><br/>
+<div class="panel panel-info"><div class="panel-heading">Arquivos associados a este item:</div>
+<table class="table panel-body"><tr><th id="t1" class="standard">Arquivo</th>
+<th id="t2" class="standard">Descrição</th>
+<th id="t3" class="standard">Tamanho</th><th id="t4" class="standard">Formato</th><th>&nbsp;</th></tr>
+<tr><td headers="t1" class="standard"><a target="_blank" href="/jspui/bitstream/123456789/17989/1/FabiolaMF.pdf">FabiolaMF.pdf</a></td><td headers="t2" class="standard"></td><td headers="t3" class="standard">554,84 kB</td><td headers="t4" class="standard">Adobe PDF</td><td class="standard" align="center"><a target="_blank" href="/jspui/bitstream/123456789/17989/1/FabiolaMF.pdf"><img src="/jspui/retrieve/89268/FabiolaMF.pdf.jpg" alt="Thumbnail" /></a><br /><a class="btn btn-primary" target="_blank" href="/jspui/bitstream/123456789/17989/1/FabiolaMF.pdf">Visualizar/Abrir</a></td></tr></table>
+</div>
+
+<div class="container row">
+
+
+    <a class="btn btn-default" href="/jspui/handle/123456789/17989?mode=full">
+        Mostrar registro completo do item
+    </a>
+
+    <a class="statisticsLink  btn btn-primary" href="/jspui/handle/123456789/17989/statistics">Visualizar estatísticas</a>
+
+    
+
+</div>
+<br/>
+    
+
+<br/>
+    
+
+    <p class="submitFormHelp alert alert-info">Os itens no repositório estão protegidos por copyright, com todos os direitos reservados, salvo quando é indicado o contrário.</p>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+</div>
+</main>
+            
+	    <footer class="navbar navbar-inverse navbar-bottom">
+	        <div id="designedby" class="container text-muted">
+	        	<div id="footer_feedback" class="pull-left" style="font-size:10pt;padding-left:20px;">                                    
+	                                
+					<a target="_blank" href="http://www.ufrn.br"><img src="/jspui/image/logo_ufrn_dspace.png" alt="Logo UFRN" width="88px" height="31px"></a>&nbsp;&nbsp; 
+					<a target="_blank" href="http://www.bczm.ufrn.br"><img src="/jspui/image/BCZM.png" alt="Logo BCZM" width="75px" height="50px"></a>
+					<a target="_blank" href="http://www.ibict.br"><img src="/jspui/image/logo_ibict.png" alt="Logo IBICT" width="100px" height="45px"></a>
+	            </div>
+									
+				
+	            <div id="footer_feedback" class="pull-right">                                    
+                    <p class="text-muted">
+					<span class="glyphicon glyphicon-envelope"></span> <a target="_blank" href="/jspui/feedback/form.jsp">Comentários</a>&nbsp;|
+					<span class="glyphicon glyphicon-stats"></span> <a href="/jspui/ri-statistics">Estatísticas</a>&nbsp;|&nbsp;<span class="glyphicon glyphicon-user"></span> <a target="_blank" href="/jspui/team">Equipe Técnica</a>
+					<br><a target="_blank" href="http://www.ufrn.br/">Universidade Federal do Rio Grande do Norte</a> Copyright&nbsp;©&nbsp;2015 
+                    <a href="/htmlmap"></a></p>
+                </div>
+			</div>
+	    </footer>
+    </body>
+</html>
