@@ -93,19 +93,7 @@ Os \textit{web services} constituem uma tecnologia emergente da Arquitetura Orie
 
 o RESTFul é um estilo arquitetural para a construção de sistemas distribuídos \cite{fielding}. O elemento fundamental da arquitetura RESTful é o \textit{resource} ou recurso. Um recurso pode ser uma página web contendo um documento estruturado, uma imagem ou até mesmo um vídeo. Para localizar os recursos envolvidos em uma interação entre os componentes da arquitetura RESTful é utilizado o chamado identificador de recurso ou \textit{URI}. Com isso, um recurso pode ser representado através de diferentes formatos e o mais comum e utilizado é o \textit{JSON}. O termo REST, é empregado em serviços RESTful que não implementam todos os princípios da especificação do estilo arquitetural definido por \textit{Fielding} \cite{fielding}. Para que todos os princípios deste estilo sejam respeitados, um conjunto de restrições deve ser seguido, os quais não serão abordados neste trabalho. Para facilitar a compreensão geral de um serviço REST, a imagem à seguir foi adicionada para representar um modelo de comunicação entre um cliente ou dispositivo e um serviço RESTful.
 
-\begin{figure}[h]
-	\includegraphics[width=8cm]{restful_request}
-	\centering
-	\caption{Processo de comunicação de um serviço REST}
-\end{figure}
-
 \textit{Push Notification} é descrito por Acer et al. \cite{Acer:2015:EES:2902314.2902344} como mensagens pequenas, usadas por aplicações de celular para informar aos usuários sobre novos eventos e atualizações. As notificações na maioria dos casos, estão associadas aos aplicativos instalados no dispositivo. O termo \textit{push} indica que a mensagem parte do servidor para o dispositivo. Os principais provedores de notificações via \textit{push} são o \textit{Apple Push Notification Server} (APN) e o \textit{Firebase} antigo \textit{Google Cloud Messaging}. A imagem à seguir, apresenta o modelo de comunicação que ocorre no envio de um \textit{Push Notification}.\par
-
-\begin{figure}[h]
-	\includegraphics[width=8cm]{push_notification}
-	\centering
-	\caption{Processo de comunicação de um \textit{push notification}}
-\end{figure}
 
 O JSON\footnote{https://json.org} (\textit{JavaScript Object Notation}) é um conjunto de chaves e valores, que podem
 ser interpretados por qualquer linguagem. Além de ser um formato de troca de dados largamente utilizado em serviços REST, é fácil de ser entendido e escrito pelos programadores. Estas propriedades fazem do JSON um objeto ideal para o intercâmbio de dados em aplicações web tal como o XML \cite{jun_y_zhishu}.
