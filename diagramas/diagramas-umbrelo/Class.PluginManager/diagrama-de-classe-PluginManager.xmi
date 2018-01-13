@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMI timestamp="2018-01-08T15:05:31" xmlns:UML="http://schema.omg.org/spec/UML/1.4" xmi.version="1.2" verified="false">
+ <XMI.header>
+  <XMI.documentation>
+   <XMI.exporter>umbrello uml modeller http://umbrello.kde.org</XMI.exporter>
+   <XMI.exporterVersion>1.6.12</XMI.exporterVersion>
+   <XMI.exporterEncoding>UnicodeUTF8</XMI.exporterEncoding>
+  </XMI.documentation>
+  <XMI.metamodel xmi.version="1.4" xmi.name="UML" href="UML.xml"/>
+ </XMI.header>
+ <XMI.content>
+  <UML:Model isLeaf="false" isAbstract="false" xmi.id="m1" isRoot="false" isSpecification="false" name="Modelo UML">
+   <UML:Namespace.ownedElement>
+    <UML:Stereotype isLeaf="false" namespace="m1" isAbstract="false" isRoot="false" xmi.id="folder" visibility="public" isSpecification="false" name="folder"/>
+    <UML:Stereotype isLeaf="false" namespace="m1" isAbstract="false" isRoot="false" xmi.id="constructor" visibility="public" isSpecification="false" name="constructor"/>
+    <UML:Model isLeaf="false" namespace="m1" isAbstract="false" isRoot="false" xmi.id="Logical_View" visibility="public" isSpecification="false" name="Logical View">
+     <UML:Namespace.ownedElement>
+      <UML:Package isLeaf="false" stereotype="folder" namespace="Logical_View" isAbstract="false" isRoot="false" xmi.id="Datatypes" visibility="public" isSpecification="false" name="Datatypes">
+       <UML:Namespace.ownedElement>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="uwBhj8Bzvzn2J" visibility="public" isSpecification="false" name="char"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="u6oqNRwQiLEOf" visibility="public" isSpecification="false" name="int"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="uEG97KioP3WZY" visibility="public" isSpecification="false" name="float"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="u0OPe8P7TbHU7" visibility="public" isSpecification="false" name="double"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="uO4eACeIcWkA6" visibility="public" isSpecification="false" name="bool"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="u1cZA4DFW5mig" visibility="public" isSpecification="false" name="string"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="uWD1iu56fYc8a" visibility="public" isSpecification="false" name="unsigned char"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="u1L90kVg4bQ6Q" visibility="public" isSpecification="false" name="signed char"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="uoxdR38dMe5hx" visibility="public" isSpecification="false" name="unsigned int"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="uF6UYZyRbKHRV" visibility="public" isSpecification="false" name="signed int"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="ugfRgcK3wgN87" visibility="public" isSpecification="false" name="short int"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="u77M71lF7293q" visibility="public" isSpecification="false" name="unsigned short int"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="ud2kjTN4aShKf" visibility="public" isSpecification="false" name="signed short int"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="ubOzX3fBySX6m" visibility="public" isSpecification="false" name="long int"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="uYWlh083SFkDX" visibility="public" isSpecification="false" name="signed long int"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="uvDz3vfWB9C2w" visibility="public" isSpecification="false" name="unsigned long int"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="ujydDG1cFsFc4" visibility="public" isSpecification="false" name="long double"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" isAbstract="false" isRoot="false" xmi.id="uWrtQdy1CckiR" visibility="public" isSpecification="false" name="wchar_t"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" elementReference="uZZJeivMm8PMh" isAbstract="false" isRoot="false" xmi.id="ulj1SmePcP9nk" visibility="public" isSpecification="false" name="QObject*"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" elementReference="uBs2akscsl8Gb" isAbstract="false" isRoot="false" xmi.id="u7FkP1XxpB47L" visibility="public" isSpecification="false" name="App*"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" elementReference="uR0deoXIbLzgw" isAbstract="false" isRoot="false" xmi.id="uBjDkkguFqPsh" visibility="public" isSpecification="false" name="const QVariant&amp;"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" elementReference="uwcMEnQHNWKJp" isAbstract="false" isRoot="false" xmi.id="uUz6SGPNWlj0Q" visibility="public" isSpecification="false" name="PluginManager*"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" elementReference="ufRSwR51O8xCO" isAbstract="false" isRoot="false" xmi.id="u9mGXW74vffqs" visibility="public" isSpecification="false" name="const QString&amp;"/>
+        <UML:DataType isLeaf="false" namespace="Datatypes" elementReference="ufkJzO6O7p4l0" isAbstract="false" isRoot="false" xmi.id="uCdGWNRtSxqMU" visibility="public" isSpecification="false" name="const QVariantMap&amp;"/>
+       </UML:Namespace.ownedElement>
+      </UML:Package>
+      <UML:Class isLeaf="false" namespace="Logical_View" isAbstract="false" isRoot="false" xmi.id="uBs2akscsl8Gb" visibility="public" isSpecification="false" name="App"/>
+      <UML:Class isLeaf="false" namespace="Logical_View" isAbstract="false" isRoot="false" xmi.id="uUfWuC78Iomp5" visibility="public" isSpecification="false" name="PluginDatabaseTableCreator"/>
+      <UML:Class isLeaf="false" namespace="Logical_View" isAbstract="false" isRoot="false" xmi.id="uwcMEnQHNWKJp" visibility="public" comment="@brief The PluginManager class has follow responsibilities:&#xa;1: Manage the application plugins available from plugins directory. The plugins directory is specific from each platform:&#xa;in Linux desktop, the plugins will be placed in appplication executable dir;&#xa;in android, will be placed in assets:/plugins/;&#xa;in ios/osx will be placed in assets_catalogs:/plugins/.&#xa;2: Handle the plugins database table criation, if any of the plugins has a 'plugin_table.sql' file in your directory.&#xa;3: Handle all plugins and application files cache deletion, when application are updated.&#xa;4: When load all plugins, save in local settings the plugins pages list, to be used by follow QML components:&#xa;Navigation Drawer menu retrieve the 'pages' list to show the options to the user;&#xa;When app uses TabBar (specify in config.json), the 'pages' will be used to show the tab buttons to user navigate in the app.&#xa;5: The Login and Home pages will be defined by some plugin, and will be saved in local settings to application window load in PageStack or SwipeView.&#xa;5: Save the app version, used to decide when delete and reload all plugins and to optimize the app start'up.&#xa;If app not updated (the version is the same of previous execution), abort and the object will be deleted by App instance (the parent of PluginManager).&#xa;Otherwise, load all plugins and save in local settings." isSpecification="false" name="PluginManager">
+       <UML:GeneralizableElement.generalization>
+        <UML:Generalization xmi.idref="uNQduqSQ4O8MK"/>
+       </UML:GeneralizableElement.generalization>
+       <UML:Classifier.feature>
+        <UML:Attribute type="uYTPoETP4FdSC" xmi.id="uEdMK0Ld5Zmb5" visibility="private" comment="@brief m_pages&#xa;Pages array is used to keep the application plugins as a json array.&#xa;The pages is main feature of the app, and list the navigation options in NavigationDrawer menu (when is used)&#xa;or TabBar (put in window footer) when is used." isSpecification="false" name="m_pages"/>
+        <UML:Attribute type="uSHCYra2rSc5o" xmi.id="uk4yXJn5SytrJ" visibility="private" comment="@brief m_listeners&#xa;Keeps a list of all listeners, is added in 'loadPlugins' method and is used&#xa;by save() method. At end, save in local settings as QStringList" isSpecification="false" name="m_listeners"/>
+        <UML:Attribute type="ufkJzO6O7p4l0" xmi.id="u5i8bIvy57kO2" visibility="private" comment="@brief m_pluginsListPaths&#xa;Keeps a list of all plugins paths, is added in 'loadPlugins' method and is used&#xa;by plugins to retrieve the abolute path for earch plugin and can be used by plugin&#xa;to call a plugin file or page using the Config.plugins.pluginName -> get the absolute path to pluginName." isSpecification="false" name="m_pluginsPaths"/>
+        <UML:Attribute type="u7FkP1XxpB47L" xmi.id="uu1U3Il5Wwe0N" visibility="private" comment="@brief m_app&#xa;Keeps a pointer to this class instance parent and is set by void::setApp(App*) method.&#xa;This pointer is needed to access, ready and write in application settings (QSettings)" isSpecification="false" name="m_app"/>
+        <UML:Operation isLeaf="false" isQuery="false" stereotype="constructor" isAbstract="false" isRoot="false" xmi.id="uAF3mHkXalOuk" visibility="public" isSpecification="false" name="PluginManager">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" type="ulj1SmePcP9nk" xmi.id="uRoiXfzUSU9Sg" visibility="private" isSpecification="false" name="parent"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isLeaf="false" isQuery="false" isAbstract="false" ownerScope="classifier" isRoot="false" xmi.id="uWrHajCHmqO9L" visibility="public" comment="@brief pluginsDir&#xa;Return the application plugins absolute directory path. The plugins directory is specific from each platform:&#xa;in Linux desktop, the plugins will be placed in appplication executable dir;&#xa;in android, will be placed in assets:/plugins/;&#xa;in ios/osx will be placed in assets_catalogs:/plugins/.&#xa;@return QDir" isSpecification="false" name="pluginsDir">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter type="uvSd23R3q83HT" xmi.id="uQ01PrWiNx5aV" kind="return"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isLeaf="false" isQuery="false" isAbstract="false" isRoot="false" xmi.id="uoHBUOA5bqczT" visibility="public" comment="@brief setApp&#xa;Set a pointer to App object. Used to get access to qsettings methods.&#xa;The pointer will be set to m_app, the parent of this object.&#xa;@param app App*" isSpecification="false" name="setApp">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" type="u7FkP1XxpB47L" xmi.id="uxG0UentyEkQW" visibility="private" isSpecification="false" name="app"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isLeaf="false" isQuery="false" isAbstract="false" isRoot="false" xmi.id="uX9O4zJtInG7D" visibility="public" comment="@brief loadPlugins&#xa;Load all application plugins and apply some rules:&#xa;1: Before load all plugins, check the app version with saved version (from previous execution).&#xa;If saved version exists and is different, all qml cached will be deleted. Otherwise,&#xa;if all plugins is already saved from old execution and app is not updated, abort and object will be deleted.&#xa;2: For each plugin, will be check if a file with name 'plugin_table.sql' exists in your directory.&#xa;If the file exists, the path will be pass to a new instance of PluginDatabaseTableCreator&#xa;to execute the plugin table criation or migration (some update with new columns, for example.).&#xa;3: For each plugin, load the config.json to read the pages and listeners.&#xa;4: Pages needs to be an object array, and each page contains follow page properties:&#xa;{&#xa;&quot;title&quot;: &quot;the page title&quot;,&#xa;&quot;qml&quot;: &quot;the main page file&quot;,&#xa;&quot;icon&quot;: &quot;The page icon&quot;,&#xa;&quot;roles&quot;: [&quot;a list of roles needed to access the page&quot;],&#xa;&quot;order&quot;: 10,&#xa;&quot;isHome&quot;: false,&#xa;&quot;isLogin&quot;: true,&#xa;&quot;showInDrawer&quot;: true,&#xa;&quot;showInTabBar&quot;: false&#xa;}&#xa;The options booleans and integers options is optional and will be set to false or 0 (zero) if not is set.&#xa;After read all plugins, a pages array will be saved in local settings, and qml window or some specific object&#xa;like Menu.qml can read the array to create the pages options to user navigate in application." isSpecification="false" name="loadPlugins"/>
+        <UML:Operation isLeaf="false" isQuery="false" isAbstract="false" ownerScope="classifier" isRoot="false" xmi.id="ubXq5je5GKK22" visibility="public" comment="@brief sortByKey&#xa;This method is used to compare the 'order' value for each page.&#xa;The order is used to sort pages where showing into navigation drawer menu.&#xa;@param a QVariant a reference for plugin json object&#xa;@param b QVariant a reference for another plugin json object&#xa;@return bool" isSpecification="false" name="sortByKey">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter type="uO4eACeIcWkA6" xmi.id="uAFnLGtA4w1SY" kind="return"/>
+          <UML:Parameter value="" type="uBjDkkguFqPsh" xmi.id="uO1iehAJeqCM8" visibility="private" isSpecification="false" name="a"/>
+          <UML:Parameter value="" type="uBjDkkguFqPsh" xmi.id="ukHZvGC5yqZQh" visibility="private" isSpecification="false" name="b"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isLeaf="false" isQuery="false" isAbstract="false" isRoot="false" xmi.id="u98cLELz5mUzj" visibility="protected" comment="@brief finished&#xa;This signal is emitted when a intance of this class finished the job, sending&#xa;a signal to parent delete the pointer to improve the memory consumption.&#xa;@param thiz PluginManager* a pointer to this current instance" isSpecification="false" name="finished">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" type="uUz6SGPNWlj0Q" xmi.id="uLLgAE3ZTkCbC" visibility="private" isSpecification="false" name="thiz"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isLeaf="false" isQuery="false" isAbstract="false" isRoot="false" xmi.id="u4xxcBgMgXush" visibility="private" comment="@brief save&#xa;This method save all object loaded data:&#xa;1: the plugins pages array (after read and sort),&#xa;2: the application version and,&#xa;3: all listeners as string list" isSpecification="false" name="save"/>
+        <UML:Operation isLeaf="false" isQuery="false" isAbstract="false" isRoot="false" xmi.id="uwTzyCoFL6Tzy" visibility="private" comment="@brief clearCache&#xa;Remove all qml cached files, from application writable cache directory when application are updated.&#xa;The QmlEngine create a binary cache for each qml file. So, when the app are updated, we need to delete&#xa;all qml cached files to force the application to load the new changes for each component.&#xa;This trick uses the application version to decide if (or not) clear the cache." isSpecification="false" name="clearCache"/>
+        <UML:Operation isLeaf="false" isQuery="false" isAbstract="false" isRoot="false" xmi.id="u2Vuv8CLMoSGP" visibility="private" comment="@brief createDatabaseTables&#xa;Search for 'plugin_table.sql' file in 'pluginDirPath'.&#xa;If a file with name 'plugin_table.sql' exists, will be loaded and pass to execute as sql query&#xa;in Database object and the table (or any sql query in the file) will be executed.&#xa;@param pluginDirPath QString a string with some plugin directory path" isSpecification="false" name="createDatabaseTables">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" type="u9mGXW74vffqs" xmi.id="uxAXlIOP3UH2o" visibility="private" isSpecification="false" name="pluginDirPath"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isLeaf="false" isQuery="false" isAbstract="false" isRoot="false" xmi.id="un44mk0o7onhJ" visibility="private" comment="@brief sortPages&#xa;Sort qml pages using the 'order' property value for all plugins pages.&#xa;This feature is needed to application show the pages sorted in navigation drawer menu or TabBar.&#xa;If the property 'order' is not set, the 0 (zero) value will be used." isSpecification="false" name="sortPages"/>
+        <UML:Operation isLeaf="false" isQuery="false" isAbstract="false" isRoot="false" xmi.id="u71yS0PBRpQpc" visibility="private" comment="@brief parsePages&#xa;Check the values for each plugin page. The properties checked is:&#xa;1: 'order' - used to sort pages. If no set, a 0 (zero) value will be used;&#xa;2: 'showInDrawer' - used to show page in NavigationDrawer menu, when app uses drawer;&#xa;4: 'showInTabBar' - used to show page in TabBar when app uses TabBar (set in config.json);&#xa;5: 'roles' - a list of user roles, required to display (or not) to current user role;&#xa;6: 'absPath' - the page absolute path used to Drawer Menu push in StackView after user click in some item;&#xa;@param pluginPath QString the pugin absolute path&#xa;@param pluginConfig QVariantMap a object from some plugin (the plugin config.json content)" isSpecification="false" name="parsePages">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" type="u9mGXW74vffqs" xmi.id="uZhlDxjPs63Ai" visibility="private" isSpecification="false" name="pluginPath"/>
+          <UML:Parameter value="" type="uCdGWNRtSxqMU" xmi.id="uFPqOzaLNGt5n" visibility="private" isSpecification="false" name="pluginConfig"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Class isLeaf="false" namespace="Logical_View" isAbstract="false" isRoot="false" xmi.id="uZZJeivMm8PMh" visibility="public" isSpecification="false" name="QObject"/>
+      <UML:Generalization discriminator="" namespace="Logical_View" xmi.id="uNQduqSQ4O8MK" visibility="public" parent="uZZJeivMm8PMh" isSpecification="false" name="" child="uwcMEnQHNWKJp"/>
+      <UML:Class isLeaf="false" namespace="Logical_View" isAbstract="false" isRoot="false" xmi.id="uvSd23R3q83HT" visibility="public" isSpecification="false" name="QDir"/>
+      <UML:Class isLeaf="false" namespace="Logical_View" isAbstract="false" isRoot="false" xmi.id="uR0deoXIbLzgw" visibility="public" isSpecification="false" name="QVariant"/>
+      <UML:Class isLeaf="false" namespace="Logical_View" isAbstract="false" isRoot="false" xmi.id="ufRSwR51O8xCO" visibility="public" isSpecification="false" name="QString"/>
+      <UML:Class isLeaf="false" namespace="Logical_View" isAbstract="false" isRoot="false" xmi.id="ufkJzO6O7p4l0" visibility="public" isSpecification="false" name="QVariantMap"/>
+      <UML:Class isLeaf="false" namespace="Logical_View" isAbstract="false" isRoot="false" xmi.id="uYTPoETP4FdSC" visibility="public" isSpecification="false" name="QVariantList"/>
+      <UML:Class isLeaf="false" namespace="Logical_View" isAbstract="false" isRoot="false" xmi.id="uSHCYra2rSc5o" visibility="public" isSpecification="false" name="QStringList"/>
+     </UML:Namespace.ownedElement>
+     <XMI.extension xmi.extender="umbrello">
+      <diagrams resolution="96">
+       <diagram name="diagrama de classe" showattribassocs="1" showpackage="1" showscope="1" textcolor="#000000" documentation="" canvasheight="325" showattsig="1" showopsig="1" zoom="150" isopen="1" linecolor="#000000" snapcsgrid="1" snapy="25" localid="-1" showpubliconly="0" showgrid="0" snapx="25" showstereotype="1" showops="1" linewidth="0" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" griddotcolor="#d3d3d3" canvaswidth="500" backgroundcolor="#ffffff" fillcolor="#ffffff" type="1" showatts="1" xmi.id="u33wx4ctOSgHu" usefillcolor="0" snapgrid="1">
+        <widgets>
+         <classwidget showopsigs="601" showpackage="1" showscope="1" textcolor="#000000" showattributes="1" showattsigs="601" usesdiagramusefillcolor="0" x="-550" linecolor="#000000" autoresize="1" localid="uV6pgfZMkgx5R" showpubliconly="0" showstereotype="1" linewidth="1" height="300" y="-175" usesdiagramfillcolor="0" width="500" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" isinstance="0" showoperations="1" fillcolor="#ffffff" xmi.id="uwcMEnQHNWKJp" usefillcolor="0"/>
+        </widgets>
+        <messages/>
+        <associations/>
+       </diagram>
+      </diagrams>
+     </XMI.extension>
+    </UML:Model>
+    <UML:Model isLeaf="false" namespace="m1" isAbstract="false" isRoot="false" xmi.id="Use_Case_View" visibility="public" isSpecification="false" name="Use Case View">
+     <UML:Namespace.ownedElement/>
+    </UML:Model>
+    <UML:Model isLeaf="false" namespace="m1" isAbstract="false" isRoot="false" xmi.id="Component_View" visibility="public" isSpecification="false" name="Component View">
+     <UML:Namespace.ownedElement>
+      <UML:Package isLeaf="false" stereotype="folder" namespace="Component_View" isAbstract="false" isRoot="false" xmi.id="uyMULDIZ0kloz" visibility="public" isSpecification="false" name="home/enoque/qt/projects/tcc/src/core">
+       <UML:Namespace.ownedElement>
+        <UML:Artifact isLeaf="false" drawas="1" namespace="uyMULDIZ0kloz" isAbstract="false" isRoot="false" xmi.id="uWrB7QiQdjiw7" visibility="public" isSpecification="false" name="pluginmanager.h"/>
+       </UML:Namespace.ownedElement>
+      </UML:Package>
+     </UML:Namespace.ownedElement>
+    </UML:Model>
+    <UML:Model isLeaf="false" namespace="m1" isAbstract="false" isRoot="false" xmi.id="Deployment_View" visibility="public" isSpecification="false" name="Deployment View">
+     <UML:Namespace.ownedElement/>
+    </UML:Model>
+    <UML:Model isLeaf="false" namespace="m1" isAbstract="false" isRoot="false" xmi.id="Entity_Relationship_Model" visibility="public" isSpecification="false" name="Entity Relationship Model">
+     <UML:Namespace.ownedElement/>
+    </UML:Model>
+   </UML:Namespace.ownedElement>
+  </UML:Model>
+ </XMI.content>
+ <XMI.extensions xmi.extender="umbrello">
+  <docsettings documentation="" uniqueid="u2gZSGq1EQKVQ" viewid="u33wx4ctOSgHu"/>
+  <listview>
+   <listitem id="Views" type="800" open="1">
+    <listitem id="Entity_Relationship_Model" type="836" open="1"/>
+    <listitem id="Use_Case_View" type="802" open="1"/>
+    <listitem id="Deployment_View" type="827" open="1"/>
+    <listitem id="Component_View" type="821" open="1">
+     <listitem id="uyMULDIZ0kloz" type="820" open="0">
+      <listitem id="uWrB7QiQdjiw7" type="824" open="0"/>
+     </listitem>
+    </listitem>
+    <listitem id="Logical_View" type="801" open="1">
+     <listitem id="uBs2akscsl8Gb" type="813" open="0"/>
+     <listitem id="u33wx4ctOSgHu" label="diagrama de classe" type="807" open="0"/>
+     <listitem id="uUfWuC78Iomp5" type="813" open="0"/>
+     <listitem id="uwcMEnQHNWKJp" type="813" open="0">
+      <listitem id="uwTzyCoFL6Tzy" type="815" open="0"/>
+      <listitem id="u2Vuv8CLMoSGP" type="815" open="0"/>
+      <listitem id="u98cLELz5mUzj" type="815" open="0"/>
+      <listitem id="uX9O4zJtInG7D" type="815" open="0"/>
+      <listitem id="uu1U3Il5Wwe0N" type="814" open="0"/>
+      <listitem id="uk4yXJn5SytrJ" type="814" open="0"/>
+      <listitem id="uEdMK0Ld5Zmb5" type="814" open="0"/>
+      <listitem id="u5i8bIvy57kO2" type="814" open="0"/>
+      <listitem id="u71yS0PBRpQpc" type="815" open="0"/>
+      <listitem id="uAF3mHkXalOuk" type="815" open="0"/>
+      <listitem id="uWrHajCHmqO9L" type="815" open="0"/>
+      <listitem id="u4xxcBgMgXush" type="815" open="0"/>
+      <listitem id="uoHBUOA5bqczT" type="815" open="0"/>
+      <listitem id="ubXq5je5GKK22" type="815" open="0"/>
+      <listitem id="un44mk0o7onhJ" type="815" open="0"/>
+     </listitem>
+     <listitem id="uvSd23R3q83HT" type="813" open="0"/>
+     <listitem id="uZZJeivMm8PMh" type="813" open="0"/>
+     <listitem id="ufRSwR51O8xCO" type="813" open="0"/>
+     <listitem id="uSHCYra2rSc5o" type="813" open="0"/>
+     <listitem id="uR0deoXIbLzgw" type="813" open="0"/>
+     <listitem id="uYTPoETP4FdSC" type="813" open="0"/>
+     <listitem id="ufkJzO6O7p4l0" type="813" open="0"/>
+     <listitem id="Datatypes" type="830" open="0">
+      <listitem id="u7FkP1XxpB47L" type="829" open="0"/>
+      <listitem id="uO4eACeIcWkA6" type="829" open="1"/>
+      <listitem id="uwBhj8Bzvzn2J" type="829" open="1"/>
+      <listitem id="u9mGXW74vffqs" type="829" open="0"/>
+      <listitem id="uBjDkkguFqPsh" type="829" open="0"/>
+      <listitem id="uCdGWNRtSxqMU" type="829" open="0"/>
+      <listitem id="u0OPe8P7TbHU7" type="829" open="1"/>
+      <listitem id="uEG97KioP3WZY" type="829" open="1"/>
+      <listitem id="u6oqNRwQiLEOf" type="829" open="1"/>
+      <listitem id="ujydDG1cFsFc4" type="829" open="1"/>
+      <listitem id="ubOzX3fBySX6m" type="829" open="1"/>
+      <listitem id="uUz6SGPNWlj0Q" type="829" open="0"/>
+      <listitem id="ulj1SmePcP9nk" type="829" open="0"/>
+      <listitem id="ugfRgcK3wgN87" type="829" open="1"/>
+      <listitem id="u1L90kVg4bQ6Q" type="829" open="1"/>
+      <listitem id="uF6UYZyRbKHRV" type="829" open="1"/>
+      <listitem id="uYWlh083SFkDX" type="829" open="1"/>
+      <listitem id="ud2kjTN4aShKf" type="829" open="1"/>
+      <listitem id="u1cZA4DFW5mig" type="829" open="1"/>
+      <listitem id="uWD1iu56fYc8a" type="829" open="1"/>
+      <listitem id="uoxdR38dMe5hx" type="829" open="1"/>
+      <listitem id="uvDz3vfWB9C2w" type="829" open="1"/>
+      <listitem id="u77M71lF7293q" type="829" open="1"/>
+      <listitem id="uWrtQdy1CckiR" type="829" open="1"/>
+     </listitem>
+    </listitem>
+   </listitem>
+  </listview>
+  <codegeneration>
+   <codegenerator language="C++"/>
+  </codegeneration>
+ </XMI.extensions>
+</XMI>

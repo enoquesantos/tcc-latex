@@ -112,10 +112,10 @@ No iOS, o objeto correspondente a APP também poderá receber argumentos vindos 
 \begin{figure}[h]
 	\includegraphics[width=8cm]{a_classe_app}
 	\centering
-	\caption{Os objetos compostos da classe App}
+	\caption{Diagrama da classe App}
 \end{figure}
 
-A classe \textit{App} também é responsável por definir o estilo de widgets utilizado pelos componentes qml, que deve ser definido pelo usuário no arquivo de configuração \textit{config.json} e o valor definido na propriedade \textit{applicationStyle} será setado diretamente em \textit{QQuickStyle::setStyle}. Os possíveis valores para esta propriedade serão detalhados na sessão que descreve o arquivo \textit{config.json}.
+A classe \textit{App} também é responsável por definir o estilo de widgets utilizado pelos componentes qml. O tipo de estilo deve ser definido pelo usuário no arquivo de configuração \textit{config.json}, na propriedade \textit{applicationStyle} e será passado diretamente para o objeto \textit{QQuickStyle}. Os possíveis valores para esta propriedade serão detalhados na sessão que descreve o arquivo \textit{config.json}. A instãncia desta classe adicionará no objeto \textit{Config} a cada inicialização, uma propriedade contendo o path de cada plugin para que os plugins possam acessar os arquivos em seu diretório usando essa propriedade. Exemplo: Considerando que \textit{Session} seria um plugin, os arquivos deste plugin poderiam acessar outros arquivos fazendo uma referência do tipo \textit{Config.plugins.session + "File2.qml"}.
 
 
 \subsection{O arquivo config.json}\label{sec:solucao-desenvolvida}
