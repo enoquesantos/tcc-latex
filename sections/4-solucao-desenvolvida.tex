@@ -56,7 +56,7 @@ As funcionalidades de um aplicativo baseado nesta arquitetura devem ser implemen
 Cada objeto em \textit{pages} poderá conter as seguintes propriedades que serão lidas pelos componentes que definem os menus durante a inicialização do aplicativo:
 
 \begin{itemize}
-	\item \textit{qml} (string): O nome do arquivo correspondente a página. Se esse valor não for definido, a página não será carregada.
+	\item \textit{qml} (string): O nome do arquivo correspondente a página. Se essa propriedade não for definida, a página não será carregada.
 
 	\item \textit{title} (string): O título correspondente a página a ser exibido no menu. Esse valor também é requerido, se não for definido, a página não será carregada.
 
@@ -80,7 +80,7 @@ As páginas serão instanciadas sob demanda quando o aplicativo tiver utilizando
 \begin{figure}[H]
 	\includegraphics[scale=0.5]{exemplo_menu_layout_em_pilha}
 	\centering
-	\caption{Exemplo de uma lista de páginas no menu de layout em pilha}
+	\caption{Lista de páginas exibidas no menu de layout em pilha}
 \end{figure}
 
 Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botões será acidionado no rodapé da janela do aplicativo permitindo ao usuário alternar entre as páginas disponíveis. Porém, no layout em linha, todas as páginas serão instanciadas no início da aplicação e terá um botão associado a cada página. No layout em linha, o menu corresponde ao componente \textit{TabBar.qml} também do \textit{QuickControls} com algumas modificações. A figura a seguir apresenta um exemplo deste menu com uma lista simples de páginas. A exibição do título da página pode ser ocultada setando a opção \textit{showTabButtonText} para false no arquivo de configuração do projeto.
@@ -88,7 +88,7 @@ Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botõe
 \begin{figure}[H]
 	\includegraphics[scale=0.5]{exemplo_menu_layout_em_linha}
 	\centering
-	\caption{Exemplo de uma lista de páginas no menu de layout em linha}
+	\caption{Lista de páginas exibidas no menu de layout em linha}
 \end{figure}
 
 
@@ -119,7 +119,7 @@ A classe \textit{App} também é responsável por definir o estilo de widgets ut
 
 
 \subsection{O arquivo config.json}\label{sec:solucao-desenvolvida}
-O arquivo \textit{config.json} é um arquivo importante desta arquitetura, ele é utilizado como arquivo de configuração, porém, suas informações não serão persistidas. O conteúdo deste arquivo será repassado para a aplicação como um objeto javascript e o usuário poderá adicionar propriedades a serem lidas pelos plugins. No entanto, as propriedades fornecidas no modelo desta arquitetura não devem ser removidas. Tanto plugins como os componentes internos fazem uso das propriedades definidas neste arquivo. Os plugins poderão ler essa propriedade acessando \textit{Config.\_nome_da_propriedade}. As principais propriedades e seus possíveis valores serão descritos a seguir:
+O arquivo \textit{config.json} é um elemento importante desta arquitetura, ele é utilizado como arquivo de configuração geral do aplicativo, porém, suas informações não serão persistidas. O conteúdo deste arquivo será repassado para a aplicação como um objeto javascript e o usuário poderá adicionar propriedades a serem lidas pelos plugins. No entanto, as propriedades fornecidas no modelo desta arquitetura não devem ser removidas, pois, componentes internos fazem uso das propriedades definidas neste arquivo. Os plugins poderão ler essa propriedade acessando \textit{Config.\_nome\_da\_propriedade}. As principais propriedades e seus possíveis valores podem ser entendidas a seguir:
 
 \begin{itemize}
 	\item \textit{appName} (string): O nome do aplicativo. Este valor será setado em \textit{QApplication.setApplicationName} na inicialização do aplicativo;
@@ -132,13 +132,65 @@ O arquivo \textit{config.json} é um arquivo importante desta arquitetura, ele �
 
 	\item \textit{applicationStyle} (string): O nome do estilo a ser aplicado nos widgets (\textit{Button}, \textit{TabBar}, \textit{ToolTip} e etc.). Os possíveis valores são: \textit{Material}, \textit{Universal} e \textit{Default}. O valor dessa propriedade será passada pelo objeto \textit{App} para \textit{QQuickStyle.setStyle};
 
-	\item \textit{forceEulaAgreement} (boolean): Um valor boleano que inidica se a aplicação exibirá para o usuário uma página contendo os termos de uso do aplicativo. Caso seja setado para \textit{true}, o arquivo \textit{assets/eula.html} será carregado e exibido na página incial, na inicialização do aplicativo;
+	\item \textit{forceEulaAgreement} (boolean): Um valor boleano que inidica se a aplicação deverá exigir do usuário confirmação de aceitação dos termos de uso para continuar usando o aplicativo. Esse valor só terá efeito se a propriedade \textit{showEula} for definida para \textit{true};
 
-	\item \textit{hasLogin} (boolean):
+	\item \textit{hasLogin} (boolean): Um valor boleano que indica se o aplicativo deverá carregar uma página de login na inicialização. Se definido para \textit{true}, a aplicação irá utilizar a página (dentre os plugins) que definiu \textit{isLoginPage} para \textit{true}, identificada pelo gerenciador de plugins durante o carregamento dos plugins;
+
+	\item \textit{showEula} (boolean): Um valor boleano que inidica se a aplicação exibirá para o usuário uma página contendo os termos de uso do aplicativo. Caso seja setado para \textit{true}, o arquivo \textit{assets/eula.html} será carregado e exibido na página incial, na inicialização do aplicativo. Após o usuário ler e acitar os termos de uso, o usuário irá para a página de login ou \textit{home page} se tiver sido definida;
+
+	\item \textit{showTabButtonText} (boolean): Um valor boleano que indica se o título da página será exibida no botão do menu em linha, que consite de um objeto \textit{TabButton} do \textit{QuickControls}. Essa propriedade só terá efeito quando a aplicação tiver usando o layout em linha.
+
+	\item \textit{usesSwipeView} (boolean): Um valor boleano que indica se o layout principal do aplicativo será em linha, que consiste na utilização de um container do \textit{QuickControls} \textit{SwipeView}. No entanto, o container responsável pelo layout em pilha, \textit{StackView} ainda continuará disponível na aplicação, porém como container secundário. Um objeto fará o \textit{Binding} entre ambos os containers, ocultando o \textit{SwipeView} quando alguma página for adicionada a pilha do \textit{StackView}. No \textit{SwipeView} o usuário poderá alternar entre as páginas deslizando horizontalmente.
+
+	\item \textit{usesDrawer} (boolean): Um valor boleano que indica se o menu lateral usado no layout em pilha, será instanciado. Esse componente corresponde a um objeto \textit{Drawer} do \textit{QuickControls}. No entando, esse flag terá efeito apenas no layout em linha, ou seja, se \textit{usesSwipeView} for true, pois no layout em pilha ele será instanciado mesmo que esse flag seja falso. O objetivo dessa propriedade é permitir que o programador possa utilizar o menu lateral quando o layout for me linha, intercalando as páginas que serão visíveis em cada um dos menus através das propriedades \textit{showInDrawer} e \textit{showInTabBar} na configuração de cada página no arquivo de configuração do plugin.
+
+	\item \textit{showDrawerImage} (booleano): Um valor boleano que indica se a imagem do \textit{Drawer} menu será carregada. Por padrão a imagem não será exibida.
+
+	\item \textit{restService} (objeto): Um objeto contendo as definições do serviço REST, como url base e o tipo de autenticação seguido dos respectivos parâmetros a serem enviados nas requisições HTTP como token ou usuário e senha. As propriedades para \textit{restService} são: 
+
+	\begin{itemize}
+		\item \textit{authentication} (objeto): Um objeto que define o tipo de autenticação e pode conter as propriedades \textit{basic authentication} ou \textit{headerToken}. Para o \textit{basic authentication}, deve ser informado o \textit{userName} e o \textit{password}. No \textit{headerToken}, deve ser informado o nome da chave em \textit{keyName} e a string contendo o \textit{hash}.
+
+		\item \textit{baseUrl} (string): A url base do serviço REST. Essa propriedade será utilizada pelo objeto \textit{RequestHttp} nos métodos de requisição ao serviço REST GET, POST e etc. O objetivo é que nas páginas que fazem requisições HTTP adicionem apenas o \textit{path}, a fim de reduzir e simplificar o código. Com isso, uma alteração futura da url do serviço REST seria feita apenas no arquivo de configuração. Por exemplo, uma requisição do tipo GET pode ser feita da seguinte forma: \textit{requestHttp.get("/get-messages?page=2")}. Internamente, o objeto gerenciador de requisições concatenará essa propriedade com o path.
+
+		\item \textit{baseImagesUrl} (string): A url base dos arquivos de imagens, caso o serviço REST utilize uma url diferente ou um sub-domínio para os resources.
+	\end{itemize}
+
+	\item \textit{fontSize} (objeto): Um objeto com as definições de valores inteiros para os tamanhos de fonte a serem utilizadas em elementos textuais como \textit{labels}. Essa propriedade possui 4 atributos: \textit{small}, \textit{normal}, \textit{large} e \textit{extraLarge};
+
+	\item \textit{theme} (objeto): Um objeto com as definições de cores utilizada nos elementos visuais, tais como Botões, \textit{ToolBar}, \textit{TabBar}, cor de fundo das páginas e etc.;
+
+	\item \textit{events}: (objeto): Um objeto que mapeia os identificadores de eventos, baseados em um par de strings \textit{nome-do-evento.valor}. Essa propriedade deverá ser utilizada por objetos de plugins e componentes internos para identificarem de qual evento estão sendo notificados, a fim de padronizar os nomes dos eventos e reduzir a replicação de strings na aplicação. O objeto \textit{App} adiciona quatorze nomes de eventos, alguns são utilizados somente por objetos internos, outros podem ser utilizados pelos plugins para executarem ações específicas em dado momento. Esses eventos é descrito a seguir:
+	\begin{itemize}
+		\item \textit{cameraImageSaved} (string): Utilizado para notificar que uma imagem capturada pela câmera do dispositivo foi salva localmente. A url da imagem salva será passado no segundo argumento do evento;
+
+		\item \textit{cancelSearch} (string): Utilizado pelo ToolBar quando a busca na página vista pelo usuário é cancelada. Uma página de um plugin poderá permitir que um campo de busca seja utilizado pelo usuário definindo o status do \textit{ToolBar} para "search"
+
+		\item \textit{eulaAccepted} (string): 
+
+		\item \textit{logoutApplication} (string): 
+
+		\item \textit{newIntentPushMessage} (string): 
+
+		\item \textit{newPushMessage} (string): 
+
+		\item \textit{newPushNotificationToken} (string): 
+
+		\item \textit{openDrawer} (string): 
+
+		\item \textit{popCurrentPage} (string): 
+
+		\item \textit{refreshDrawerPages} (string): 
+
+		\item \textit{requestUpdateUserProfile} (string): 
+
+		\item \textit{initUserProfile} (string): 
+
+		\item \textit{setUserProfileData} (string): 
+
+		\item \textit{userProfileChanged"} (string):
+	\end{itemize}
 \end{itemize}
-
-
-O arquivo \textit{config.json} que contém propriedades requeridas pela aplicação será registrado no contexto da aplicação como um objeto javascript identificado por \textit{Config}, apenas como leitura.
 
 \subsection{Comunicação entre os objetos}
 Esta seção descreve o processo de comunicação entre objetos ou componentes dentro do aplicativo...
