@@ -27,7 +27,7 @@ A visão a seguir, apresenta um diagrama de componentes da UML e exibe uma visã
 
 	\item[3] \textit{config.json}: Arquivo de configuração principal desta arquitetura, pois define propriedades que indicarão alguns comportamentos iniciais e esolha de tipos de objetos a serem instanciados, tais como exibir os termos de uso na primeira inicialização do aplicativo (carregará o arquivo definido em \textit{assets/eula.html} definido pelo usuário da arquitetura), se tem login ou não (caso sim, instanciará um objeto que gerencia o perfil do usuário e a página de login), se usará layout em linha e etc. Os detalhes deste arquivo será apresentado em um tópico mais adiante.
 
-	\item[4] \textit{src}: Diretório de código fonte. É onde está as classes c++ e componentes QML utilizados internamente e dispostos para plugins como componentes reusáveis. Esse diretório é sub-dividido em outros 5 diretórios que serão detalhados em outro diagrama.
+	\item[4] \textit{src}: Diretório de código fonte. É onde está as classes c++ e componentes QML utilizados internamente e dispostos para plugins como componentes reusáveis. Esse diretório é sub-dividido em outros 5 diretórios que organizam as classes c++ por tipo de API a qual são resposáveis, e são eles: \textbf{core} -- contém classes do núcleo da aplicação dentre elas \textit{App}, \textit{PluginManager}, \textit{Notification} e \textit{Utils}; \textbf{database} -- contém classes da API de persistência de dados da aplicação; \textbf{extras} -- contém classes de customização de estilo no android; \textbf{network} que mantém as classes da API de rede da aplicação e \textbf{qml} que contém os arquivos qml sub-divididos em \textit{private} e \textit{public}, sendo os componentes "privado" os que são utilizados internamente pela aplicação e os componentens públicos os que são reutilizados pelos plugins.
 
 	\item[5] \textit{plugins}: Diretório de plugins. Cada plugin deve obrigatóriamente estar em um sub-diretório com no mínimo um arquivo de configuração de nome \textit{config.json} e os arquivos QML necessirários para o seu funcionamento. Os detalhes das propriedades requeridas para o carregamento de um plugin serão descritas em um tópico posterior.
 
@@ -42,20 +42,18 @@ A visão a seguir, apresenta um diagrama de componentes da UML e exibe uma visã
 
 
 \subsection{Arquitetura de plugins}
-As funcionalidades de um aplicativo baseado nesta arquitetura deve ser implementado pelos plugins, atendendo as necessidades e os requisitos levantados para a aplicação a ser desenvolvida utilizando qml. Os plugins são independentes entre sí e podem incluir arquivos qml, txt, html e imagens em seu diretório. Qualquer componente de um plugin pode reutilizar os componentes públicos usando a diretiva \textit{import "qrc:/src/qml/"}. Os plugins estão desacoplados do núcleo da aplicação e serão conhecidos em tempo de execução. Ao adicionar um novo plugin no diretório \textit{plugins}, ele será carregado no próximo \textit{build} do projeto. Para que um plugin seja reconhecido pelo objeto gerenciador de plugins e carregado pela aplicação, é necessário obedecer a três restrições: estar em um sub-diretório dentro de \textit{plugins}, conter um arquivo \textit{config.json} e pelo menos um arquivo qml visual ou \textit{listener}. Os \textit{listeners} são componentes não visuais que observam eventos da aplicação. O arquivo \textit{config.json} deve ser um objeto contendo as seguintes propriedades:  
+As funcionalidades de um aplicativo baseado nesta arquitetura devem ser implementadas através de plugins, atendendo as necessidades e os requisitos levantados para a aplicação a ser desenvolvida utilizando apenas qml. Os plugins são independentes entre sí e podem incluir arquivos qml, txt, html e imagens em seu diretório. Qualquer componente de um plugin pode reutilizar os componentes públicos usando a diretiva \textit{import "qrc:/src/qml/"}. Os plugins estão desacoplados do núcleo da aplicação e serão conhecidos em tempo de execução. Ao adicionar um novo plugin no diretório \textit{plugins}, ele será carregado no próximo \textit{build} do projeto. Para que um plugin seja reconhecido pelo objeto gerenciador de plugins e carregado pela aplicação, é necessário obedecer a três restrições: estar em um sub-diretório dentro de \textit{plugins}, conter um arquivo \textit{config.json} e pelo menos um arquivo qml visual ou \textit{listener}. Os \textit{listeners} são componentes não visuais que observam eventos da aplicação. O arquivo \textit{config.json} deve ser um objeto contendo as seguintes propriedades:  
 \begin{enumerate}
-	\item \textit{name} (string): o nome do plugin (opcional);
+	\item \textit{name} (string): o nome do plugin. Deve ser preenchido para o plugin seja identificado pelo objeto gerenciador de plugins;
 
-	\item \textit{description} (string): uma descrição do plugin (opcional);
+	\item \textit{description} (string): um texto que descreve o plugin. Deve ser definido, caso contrário o plugin não será adicionado a lista de plugins carregados pela aplicação;
 
-	\item \textit{pages} (array): uma lista de objetos que indentifica as páginas do plugin a serem exibidas no menu do aplicativo (requerido);
+	\item \textit{pages} (array): uma lista de objetos que indentifica as páginas do plugin que serão acessadas a partir do menu ativo no aplicativo. Deve ser preenchido caso a propriedade \textit{listeners} esteja vazia;
 
-	\item \textit{listeners} (array): uma lista de strings que indentifica os arquivos do plugin (componentes qml não visuais) que serão instanciados como observadores de eventos (opcional).
+	\item \textit{listeners} (array): uma lista de strings que indentifica os arquivos do plugin (componentes qml não visuais) que serão instanciados como observadores de eventos. O preenchimento dessa propriedade é opcional, porém pode ser preenchida mesmo que a propriedade \textit{pages} tenha sido fornecida.
 \end{enumerate}
 
-As páginas indicam objetos visuais que serão instanciadas sob demanda quando o aplicativo tiver utilizando o layout em pilha. No layout em pilha, um menu lateral estará disponível para que o usuário possa navegar nas páginas do aplicativo clicando em um item da lista.\par
-
-Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botões será posicionado no rodapé da janela do aplicativo permitindo ao usuário alternar entre as páginas disponíveis. Porém, no layout em linha, todas as páginas serão instanciadas no início da aplicação e terá um botão associado a cada página, adicionado em um objeto \textit{TabBar}. Cada objeto em \textit{pages} poderá conter as seguintes propriedades que serão lidas pelos componentes que definem os menus durante a inicialização do aplicativo:
+Cada objeto em \textit{pages} poderá conter as seguintes propriedades que serão lidas pelos componentes que definem os menus durante a inicialização do aplicativo:
 
 \begin{itemize}
 	\item \textit{qml} (string): O nome do arquivo correspondente a página. Se esse valor não for definido, a página não será carregada.
@@ -77,13 +75,23 @@ Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botõe
 	\item \textit{showInTabBar} (boolean): Um valor boleano que indica se a página poderá ser exibida no menu de layout em linha. O objetivo desse flag é permitir exibir páginas diferentes nos menus quando o \textit{Drawer} menu estiver sendo utilizado, permitindo assim, exibir páginas diferentes nos dois menus.
 \end{itemize}
 
-No layout em pilha, o menu é exibido pelo componente \textit{Menu.qml} que consiste de uma instância do objeto \textit{Drawer} do \textit{QuickControls} e as páginas serão listadas verticalmente. A figura a seguir apresenta um exemplo deste menu com uma lista simples de páginas.
+As páginas serão instanciadas sob demanda quando o aplicativo tiver utilizando o layout em pilha, neste caso quando o usuário clicar em um item da lista, a página correspondente será instanciada e ficará visível para o usuário. No layout em pilha, o menu é exibido pelo componente \textit{Menu.qml} que consiste de uma instância do objeto \textit{Drawer} do \textit{QuickControls} e as páginas serão listadas verticalmente. A figura a seguir apresenta um exemplo deste menu com uma lista simples de páginas.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.5]{exemplo_menu_layout_em_pilha}
+	\centering
+	\caption{Exemplo de uma lista de páginas no menu de layout em pilha}
+\end{figure}
+
+Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botões será acidionado no rodapé da janela do aplicativo permitindo ao usuário alternar entre as páginas disponíveis. Porém, no layout em linha, todas as páginas serão instanciadas no início da aplicação e terá um botão associado a cada página. No layout em linha, o menu corresponde ao componente \textit{TabBar.qml} também do \textit{QuickControls} com algumas modificações. A figura a seguir apresenta um exemplo deste menu com uma lista simples de páginas. A exibição do título da página pode ser ocultada setando a opção \textit{showTabButtonText} para false no arquivo de configuração do projeto.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.5]{exemplo_menu_layout_em_linha}
+	\centering
+	\caption{Exemplo de uma lista de páginas no menu de layout em linha}
+\end{figure}
 
 
-No layout em linha, o menu corresponde ao componente \textit{TabBar.qml} também do \textit{QuickControls} com algumas modificações. É importante destacar que os plugins serão carregados e persistidos na primeira inicialização em um array de objetos. No entanto, esse array será reconstruído quando a aplicação estiver sendo executada em modo \textit{debug} ou desktop, para que novos plugins sejam carregadas sem necessitar a limpeza do cache do aplicativo durante o desenvolvimento. Em modo \textit{release}, por questões de desempenho, o aplicativo carregará as plugins a partir da persistência local do aplicativo. Os plugins serão lidos a cada release após atualização da versão do aplicativo.\par
-
-
-%adicionar um diagrama de componentes mostrando os plugins em um diretório de plugins e outros diretórios da aplicação
 \subsubsection{Gerenciamento de plugins}\label{sec:solucao-desenvolvida}
 A classe \textit{PluginManager} é responsável por carregar os plugins, percorrendo todos os arquivos dentro do diretório \textit{plugins} e analizando as propriedades definida no arquivo \textit{config.json} de cada plugin. Em cada arquivo, é verificado as propriedades definida para cada página adicionando-a como objeto em um array. Após ler todos os plugins, o array de objetos é persistido nas configurações da aplicação para que na próxima inicialização não precise iterar novamente o diretório, lendo as definições dos plugins das configurações, exceto se houver uma atualização da aplicação ou quando a aplicação é executada em modo \textit{debug}. A cada inicialização, é feito uma verificação da versão do aplicativo, que também é persistida nas configurações, se houver diferença entre versão em execução da versão salva na execução anterior (se existir), os plugins serão recarregados. Além disso, esta classe também é reponsável por deletar todos os arquivos de cache contido no diretório de cache da aplicação a cada release. Outra responsabilidade dessa classe, é a criação da tabela de banco de dados do plugin se o plugin dispor de um arquivo \textit{plugin\_table.sql} em seu diretório. O banco de dados da aplicação é criado por um objeto que gerencia as operações de persistência e será detalhado em outro tópico. O diagrama a seguir, apresenta as operações e atributos da classe \textit{PluginManager}.
 
@@ -93,14 +101,13 @@ A classe \textit{PluginManager} é responsável por carregar os plugins, percorr
 	\caption{Diagrama da classe PluginManager}
 \end{figure}
 
-O objeto \textit{app} é responsável por instanciar \textit{PluginManager} na inicialização do aplicativo, este objeto é uma instância da classe \textit{App} que será apresentada no próximo tópico. O processo de carregamento dos plugins é feito antes de instanciar qualquer componente visual, na invocação do método \textit{loadPlugins}. O objeto \textit{pluginManager} será destruido após o carregamento dos plugins para manter baixo consumo de memória pelo aplicativo.
+A instância de \textit{PluginManager} é criada pelo objeto \textit{app} na inicialização do aplicativo e o processo de carregamento dos plugins é feito antes de instanciar qualquer componente visual, na invocação do método \textit{loadPlugins}. O objeto \textit{pluginManager} será destruido após o carregamento dos plugins para manter baixo consumo de memória pelo aplicativo.
 
 
 \subsection{A classe App}\label{sec:solucao-desenvolvida}
-A classe \textit{App} é um componente importante nesta arquitetura, suas responsabilidades consiste de instanciar \textit{PluginManager} que carregará os plugins, carregar o arquivo \textit{config.json} principal que contém os parâmetros da aplicação e gerenciar a persistência das configurações da aplicação via \textit{QSettings}\footnote{Uma classe do Qt que abstrai a plataforma e fornece um mecanismo de leitura e escrita de dados no dispositivo através de métodos parametrizados}. A classe \textit{App} é instanciada no \textit{main.cpp} e é registrada no contexto da aplicação para que os plugins e componentes qml possam invocar seus métodos públicos definidos como \textit{Q\_INVOKABLE}, como por exemplo, o método \textit{readSettings} que retorna um tipo genérico de dado, lido das configurações do aplicativo usando algum parâmetro que identifique o dado a ser lido. Outra tarefa que app faz é carregar o arquivo \textit{config.json} do projeto, que contém propriedades requeridas pela aplicação. Esse arquivo também é registrado no contexto da aplicação como um objeto javascript nomeado \textit{Config} em modo leitura, pois não pode receber alterações e nem será persistido, logo é carregado toda vez que a aplicação é inicializada.
+A classe \textit{App} é um componente importante nesta arquitetura, suas responsabilidades consiste de instanciar \textit{PluginManager} que carregará os plugins, carregar o arquivo \textit{config.json} principal que contém os parâmetros da aplicação e gerenciar a persistência das configurações da aplicação via \textit{QSettings}\footnote{Uma classe do Qt que fornece um mecanismo de leitura e escrita de dados no dispositivo através de métodos parametrizados}. A classe \textit{App} é instanciada na inicialização do aplicativo e é registrada no contexto da aplicação para que os plugins e componentes qml possam invocar seus métodos públicos definidos como \textit{Q\_INVOKABLE}, como por exemplo, o método \textit{readSettings} que retorna um tipo genérico de dado, lido das configurações do aplicativo através de algum parâmetro que identifique o dado a ser lido. Outra tarefa que corresponde a esta classe, é a criação de uma conexão com a atividade do aplicativo no android, que corresponde a uma classe. Essa atividade poderá receber parâmetros de eventos como \textit{push notification} ou token de registro no \textit{Firebase}, quando utilizado pela aplicação. O processo de registro do token e o recebimento de notificações via push é feito por objetos java em um processo separado da aplicação, e quando a aplicação estiver em execução, a atividade do aplicativo passará os argumentos recebidos do push ou token para a aplicação através de uma chamada ao método estático \textit{fireEventNotify} da classe \textit{App}.\par
 
-
-O objeto app é também o responsável por instanciar a classe \textit{PluginManager}, que realiza o trabalho de carregar os plugins do aplicativo. Outra responsabilidade deste objeto, é a notificação de eventos vindos do objeto \textit{QtActivity} no android e \textit{QtAppDelegate} no iOS como o \textit{token} de registro no \textit{Firebase}\footnote{O Firebase antigo \textit{Google Cloud Messaging} é um serviço de notificação móvel desenvolvido pelo Google que permite que os desenvolvedores de aplicativos enviem dados ou informações de notificação de servidores executados pelo desenvolvedor para aplicativos Android e iOS.} e mensagens de \textit{push notification} que em ambos os eventos, são delegados para o aplicativo através de uma conexão com um \textit{slot} definido no \textit{Application Window}.
+No iOS, o objeto correspondente a APP também poderá receber argumentos vindos do \textit{QtAppDelegate} objeto que carrega os requisitos da plataforma e inicializa a aplicação. Os argumentos que podem ser recebidos são o \textit{token} de registro no \textit{Firebase} e mensagens de notificações via push.
 
 \begin{figure}[h]
 	\includegraphics[width=8cm]{a_classe_app}
@@ -108,12 +115,14 @@ O objeto app é também o responsável por instanciar a classe \textit{PluginMan
 	\caption{Os objetos compostos da classe App}
 \end{figure}
 
-O Objeto App também fornece métodos públicos declarados como 
+A classe \textit{App} também é responsável por definir o estilo de widgets utilizado pelos componentes qml, que deve ser definido pelo usuário no arquivo de configuração \textit{config.json} e o valor definido na propriedade \textit{applicationStyle} será setado diretamente em \textit{QQuickStyle::setStyle}. Os possíveis valores para esta propriedade serão detalhados na sessão que descreve o arquivo \textit{config.json}.
 
 
 \subsection{O arquivo config.json}\label{sec:solucao-desenvolvida}
 O arquivo \textit{Settings.json} é um arquivo importante e requerido nesta arquitetura. As propriedades presentes neste arquivo não são persistidas no banco de dados e serão setadas em um objeto do tipo \textit{QVariantMap} na classe App, sempre que o aplicativo for executado. Este objeto será registrado no contexto da aplicação como uma propriedade e será utilizado por vários componentes, tais como, elementos visuais que definem cores, font-size e outras propriedades que podem ser definidas neste json e poderão ser acessadas por qualquer plugin. Algumas propriedades como versão do aplicativo e se está ou não em modo de depuração. O número da versão é especificado na chave \textit{version} e é utilizado pelo objeto ManagerPlugins que decidirá se o cache dos arquivos QML serão deletados para que os arquivos QML presentes na nova versão sejam regenerados. será utilizado por mapear tanto o tema de cores utilizado pelos componentes visuais como também detalhes de nome, versão e descrição do aplicativo.
 
+
+O arquivo \textit{config.json} que contém propriedades requeridas pela aplicação será registrado no contexto da aplicação como um objeto javascript identificado por \textit{Config}, apenas como leitura.
 
 \subsection{Comunicação entre os objetos}
 Esta seção descreve o processo de comunicação entre objetos ou componentes dentro do aplicativo...

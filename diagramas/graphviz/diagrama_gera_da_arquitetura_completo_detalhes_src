@@ -1,0 +1,18 @@
+digraph G {
+    "android"   -> "gradle"
+    "gradle"    -> "wrapper"
+    "wrapper"   -> "gradle-wrapper.jar"
+    "android"   -> "libs"
+    "libs"      -> "openssl-1.0.2"
+    "openssl-1.0.2" -> "armeabi-v7a"
+    "armeabi-v7a"   -> "lib"
+    "lib"           -> "libcrypto.so"
+    "lib"           -> "libssl.so"
+    "android"       -> "res"
+    "res"           -> "drawable"
+    "drawable"      -> "icon.png"
+    "android"       -> "values"
+    "values"        -> "colors.xml"
+    "values"        -> "libs.xml"
+    "values"        -> "styles.xml"
+}
