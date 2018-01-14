@@ -160,66 +160,70 @@ O arquivo \textit{config.json} é um elemento importante desta arquitetura, ele 
 
 	\item \textit{theme} (objeto): Um objeto com as definições de cores utilizada nos elementos visuais, tais como Botões, \textit{ToolBar}, \textit{TabBar}, cor de fundo das páginas e etc.;
 
-	\item \textit{events}: (objeto): Um objeto que mapeia os identificadores de eventos, baseados em um par de strings \textit{nome-do-evento.valor}. Essa propriedade deverá ser utilizada por objetos de plugins e componentes internos para identificarem de qual evento estão sendo notificados, a fim de padronizar os nomes dos eventos e reduzir a replicação de strings na aplicação. O objeto \textit{App} adiciona quatorze nomes de eventos, alguns são utilizados somente por objetos internos, outros podem ser utilizados pelos plugins para executarem ações específicas em dado momento. Esses eventos é descrito a seguir:
+	\item \textit{events}: (objeto): Um objeto que mapeia os identificadores de eventos, baseados em um par de strings \textit{nome-do-evento.valor}. Essa propriedade deverá ser utilizada por objetos e componentes internos para identificarem de qual evento estão sendo notificados, a fim de padronizar os nomes dos eventos e reduzir a replicação de strings na aplicação. O objeto \textit{App} adiciona treze nomes de eventos, alguns são utilizados somente por objetos internos, outros podem ser utilizados pelos plugins para executarem ações específicas em dado momento. Esses eventos serão descritos a seguir:
 	\begin{itemize}
-		\item \textit{cameraImageSaved} (string): Utilizado para notificar que uma imagem capturada pela câmera do dispositivo foi salva localmente. A url da imagem salva será passado no segundo argumento do evento;
+		\item \textit{cameraImageSaved} (string): Utilizado para notificar observadores que uma imagem foi capturada pela câmera do dispositivo e salva localmente. A url da imagem salva será passado no segundo argumento do evento;
 
-		\item \textit{cancelSearch} (string): Utilizado pelo ToolBar quando a busca na página vista pelo usuário é cancelada. Uma página de um plugin poderá permitir que um campo de busca seja utilizado pelo usuário definindo o status do \textit{ToolBar} para "search"
+		\item \textit{cancelSearch} (string): Utilizado pelo \textit{ToolBar} para indicar que o campo de busca não está ativo, para que a página corrente atualize o conteúdo para o usuário. O \textit{ToolBar} possui um campo texto para pesquisa e ficará visível quando a página alterar o valor da propriedade \textit{toolBarStatus} para \textit{"search"}. Essa funcionalidade permitirá que uma página filtre os resultados exibidos na sua \textit{view}, recebendo em um atributo string \textit{searchText} o valor digitado no campo. Esse recurso funcionará somente no layout em pilha. O usuário poderá cancelar a busca clicando em um botão voltar que ficará visível ao lado do campo de busca, nesse momento, o sinal \textit{"cancelSearch"} será disparado;
 
-		\item \textit{eulaAccepted} (string): 
+		\item \textit{logoutApplication} (string): Utilizado pelo objeto \textit{UserProfile} para atualizar o status da propriedade \textit{isUserLoggedIn} para false e em seguida, focar na página de login. Esse evento deve ser utilizado para evitar o acesso direto ao objeto \textit{UserProfile} pelos plugins, e deve ser emitido sempre que desejar remover todas as páginas da pilha (caso o layout seja em pilha) ou desabilitar o acesso as páginas do aplicativo (no layout em linha);
 
-		\item \textit{logoutApplication} (string): 
+		\item \textit{newIntentPushMessage} (string): Esse evento é utilizado pelas APIs de notificação do android e iOS quando o usuário clicar em uma notificação na bandeija do sistema contendo algum dado na notificação. O segundo parâmetro do sinal \textit{eventData} conterá os dados da mensagem em uma string e caso seja um json, é necessário fazer o parse;
 
-		\item \textit{newIntentPushMessage} (string): 
+		\item \textit{newPushMessage} (string): Esse evento será disparado sempre que uma notificação via push chegar no dispositivo e o mesmo estiver em execução em \textit{foreground} ou \textit{background}. Ele é disparado a partir dos serviços de notificação que executam em outro processo e serão passados para a aplicação através de uma conexão entre o objeto java \textit{QtAtivity} no android e o \textit{QtAppDelegate} no iOS. O segundo parâmetro do sinal \textit{eventData}, conterá os dados da mensagem em uma string e caso seja um objeto json, é necessário fazer o parse;
 
-		\item \textit{newPushMessage} (string): 
+		\item \textit{newPushNotificationToken} (string): Esse evento será emitido quando o token de registro no serviço do Firebase for realizado. Esse evento será disparado pelos objetos do \textit{Firebase}, que executam em outro processo e serão passados para a aplicação através de uma conexão entre o objeto java \textit{QtAtivity} no android e o \textit{QtAppDelegate} no iOS. O segundo parâmetro do sinal \textit{eventData} conterá os dados da mensagem em uma string e caso seja um objeto json, é necessário fazer o parse;
 
-		\item \textit{newPushNotificationToken} (string): 
+		\item \textit{openDrawer} (string): Esse sinal deve ser disparado para que o \textit{Drawer Menu} seja aberto, evitando uma chamada direta ao objeto. O \textit{ToolBar} por exemplo, emite esse sinal quando o usuário clicar no ícone do menu;
 
-		\item \textit{openDrawer} (string): 
+		\item \textit{popCurrentPage} (string): Esse evento deve ser disparado sempre que uma página precise ser removida da pilha do \textit{StackView} (container do layout em pilha). Inicialmente esse sinal é disparado pelo \textit{ToolBar} e ouvido pelo \textit{PageStack}.
 
-		\item \textit{popCurrentPage} (string): 
+		\item \textit{refreshDrawerPages} (string): Esse evento pode ser utilizado para atualizar a lista de itens no \textit{Drawer} menu permitindo adicionar páginas dinamicamente.
 
-		\item \textit{refreshDrawerPages} (string): 
+		\item \textit{requestUpdateUserProfile} (string): Esse evento deve ser emitido quando houver um perfil de usuário no aplicativo e permitirá atualizar as informações ou dados do usuário no objeto \textit{UserProfile.profile}. Por exemplo, uma página que permite editar os dados do usuário em um formulário, ao clicar em atualizar alguma informação, a página poderá emitir esse evento passando como argumento um objeto contendo as informações do usuário no estilo \textit{chave.valor}.
 
-		\item \textit{requestUpdateUserProfile} (string): 
+		\item \textit{initUserProfile} (string): Esse evento também deve ser emitido quando houver um perfil de usuário no aplicativo, e um objeto contendo os dados do usuário deverá ser enviado como argumento do sinal, contendo no mínimo as propriedades "id" e "email". Um exemplo de uso deste sinal, pode ser emitido pela página de login, após sucesso na autenticação, requisitando que a página definida como \textit{home page} seja instanciada e os dados do usuário sejam inicializados.
 
-		\item \textit{initUserProfile} (string): 
+		\item \textit{setUserProfileData} (string): Esse é outro evento para uso com o perfil de usuário no aplicativo, e visa adicionar ou atualizar uma única informação no perfil do usuário. Logo, o argumento do sinal deve conter a propriedade \textit{key} contendo o nome da propriedade a ser adicionada e \textit{value} contendo o seu respectivo valor. Por exemplo, o seguinte objeto pode ser utilizado como argumento deste sinal: \textit{\{"key": "username", "value": "enoque"\}}.
 
-		\item \textit{setUserProfileData} (string): 
-
-		\item \textit{userProfileChanged"} (string):
+		\item \textit{userProfileChanged} (string): Esse evento será emitido pelo objeto \textit{UserProfile} sempre que ocorrer alguma atualização nos dados do usuário. No parâmetro do sinal será passado uma referência para o objeto \textit{profile}.
 	\end{itemize}
 \end{itemize}
 
 \subsection{Comunicação entre os objetos}
-Esta seção descreve o processo de comunicação entre objetos ou componentes dentro do aplicativo...
+Esta seção descreverá o processo de comunicação entre objetos no aplicativo e o uso correto dos eventos...
 
 
 \subsection{Comunicação com serviço REST}
-Esta seção descreve o processo de comunicação entre objetos ou componentes dentro do aplicativo...
+Esta seção descreverá o processo de comunicação e interação com o serviço REST...
 
 
 \subsection{Gerencimento de Rede (HTTP)}\label{sec:solucao-desenvolvida}
+\subsubsection{A classe RequestHttp}\label{sec:solucao-desenvolvida}
 \subsubsection{O Componente RequestHttp}\label{sec:solucao-desenvolvida}
-O Objeto RequestHttp....
+....
 
 
 \subsection{Gerencimento de Banco de Dados}\label{sec:solucao-desenvolvida}
 \subsubsection{A classe Database}\label{sec:solucao-desenvolvida}
 \subsubsection{O Componente DatabaseComponent}\label{sec:solucao-desenvolvida}
-O Objeto ModelData....
+....
 
 
-\subsection{Componentes Visuais}\label{sec:solucao-desenvolvida}
-O Objeto ModelData....
+\subsection{O Componente UserProfile}\label{sec:solucao-desenvolvida}
+....
 
 
 \subsection{O Componente Basepage}\label{sec:solucao-desenvolvida}
-O Objeto ModelData....
+....
+
+
+\subsection{Componentes Visuais}\label{sec:solucao-desenvolvida}
+....
 
 
 \subsection{Fluxo de execução}\label{sec:solucao-desenvolvida}
+....
 %Adicionar um diagrama de sequência que mostre a inicialização, carregamento dos plugins e configuração geral do aplicativo%
 
 
