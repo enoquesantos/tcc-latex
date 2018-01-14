@@ -13,27 +13,29 @@
 }
 
 % Deactive with: \catcode`\"=12\relax % changes `"` back to normal
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \renewcommand{\rmdefault}{phv} % Arial
 \renewcommand{\sfdefault}{phv} % Arial
-\usepackage{ae,aecompl}
-\usepackage[portuguese]{babel}
-\usepackage{hyphenat}
-\usepackage{color}
-\usepackage{float}
+
+\usepackage{ae}
+\usepackage{aecompl}
 \usepackage{algorithm2e}
-\usepackage{tabularx}
-\usepackage{booktabs}
-\usepackage{etoolbox}
-\usepackage{graphicx}
-\usepackage{pslatex}
 \usepackage{blindtext}
-\usepackage{hyperref}
+\usepackage{booktabs}
 \usepackage{caption}
-\usepackage{tabularx}
+\usepackage{color}
+\usepackage{etoolbox}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{hyphenat}
+\usepackage{hyperref}
+\usepackage{pslatex}
+\usepackage[portuguese]{babel}
 \usepackage{ragged2e}
-\graphicspath{{images/}, {diagramas/images/}}
+\usepackage[T1]{fontenc}
+\usepackage{tabularx}
+\usepackage[utf8]{inputenc}
+
+\graphicspath{{images/}}
 \hyphenation{mate-mática recu-perar}
 
 \begin{document}
@@ -75,7 +77,6 @@
 	\input{sections/4-solucao-desenvolvida.tex}
 	%\input{sections/5-avaliacao.tex}
 	%\input{sections/6-conclusao.tex}
-	%%\input{sections/apendice-a.tex}
 
 	% to produce the bibliography for the citations in your paper.
 	\bibliographystyle{abbrv}
