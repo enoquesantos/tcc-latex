@@ -1,310 +1,293 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMI xmlns:UML="http://schema.omg.org/spec/UML/1.4" xmi.version="1.2" verified="false" timestamp="2018-01-12T21:37:12">
+<XMI verified="false" xmi.version="1.2" xmlns:UML="http://schema.omg.org/spec/UML/1.4" timestamp="2018-01-14T19:47:33">
  <XMI.header>
   <XMI.documentation>
    <XMI.exporter>umbrello uml modeller http://umbrello.kde.org</XMI.exporter>
    <XMI.exporterVersion>1.6.12</XMI.exporterVersion>
    <XMI.exporterEncoding>UnicodeUTF8</XMI.exporterEncoding>
   </XMI.documentation>
-  <XMI.metamodel href="UML.xml" xmi.name="UML" xmi.version="1.4"/>
+  <XMI.metamodel xmi.name="UML" xmi.version="1.4" href="UML.xml"/>
  </XMI.header>
  <XMI.content>
-  <UML:Model name="Modelo UML" isSpecification="false" xmi.id="m1" isAbstract="false" isLeaf="false" isRoot="false">
+  <UML:Model isRoot="false" isSpecification="false" isAbstract="false" isLeaf="false" name="Modelo UML" xmi.id="m1">
    <UML:Namespace.ownedElement>
-    <UML:Stereotype isSpecification="false" name="folder" xmi.id="folder" isAbstract="false" namespace="m1" visibility="public" isLeaf="false" isRoot="false"/>
-    <UML:Stereotype isSpecification="false" name="constructor" xmi.id="constructor" isAbstract="false" namespace="m1" visibility="public" isLeaf="false" isRoot="false"/>
-    <UML:Stereotype isSpecification="false" name="destructor" xmi.id="destructor" isAbstract="false" namespace="m1" visibility="public" isLeaf="false" isRoot="false"/>
-    <UML:Model isSpecification="false" name="Logical View" xmi.id="Logical_View" isAbstract="false" namespace="m1" visibility="public" isLeaf="false" isRoot="false">
+    <UML:Stereotype isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="m1" name="folder" xmi.id="folder"/>
+    <UML:Stereotype isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="m1" name="constructor" xmi.id="constructor"/>
+    <UML:Stereotype isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="m1" name="destructor" xmi.id="destructor"/>
+    <UML:Model isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="m1" name="Logical View" xmi.id="Logical_View">
      <UML:Namespace.ownedElement>
-      <UML:Package isSpecification="false" name="Datatypes" xmi.id="Datatypes" isAbstract="false" namespace="Logical_View" visibility="public" isLeaf="false" stereotype="folder" isRoot="false">
+      <UML:Package isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Logical_View" stereotype="folder" name="Datatypes" xmi.id="Datatypes">
        <UML:Namespace.ownedElement>
-        <UML:DataType isSpecification="false" name="char" xmi.id="uznmBE1ZWMyZz" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="int" xmi.id="uEtJdBo7a7OdD" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="float" xmi.id="uUYGNmSHgjXhQ" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="double" xmi.id="u3zsFbavnv2d4" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="bool" xmi.id="udLwYk13GZhcm" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="string" xmi.id="uzR83ac9rBWy5" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="unsigned char" xmi.id="uGPuXvuSVQk2i" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="signed char" xmi.id="uLJA5SnfdqLBf" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="unsigned int" xmi.id="ubo91vWgcStBG" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="signed int" xmi.id="ub1oVmg7CJwy1" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="short int" xmi.id="udTIf5udtiRjH" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="unsigned short int" xmi.id="uaFNnDUy3xK4I" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="signed short int" xmi.id="uvbPjrwAJSNrk" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="long int" xmi.id="uMLE8TLvayBsc" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="signed long int" xmi.id="uHZN1LqjOb6oV" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="unsigned long int" xmi.id="uwUDAJcMhuPdg" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="long double" xmi.id="unjiUPa26h83h" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="wchar_t" xmi.id="uGzHZdj2if7mT" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="QObject*" xmi.id="uxzTYyfnnx6QB" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" elementReference="ubfV95z82Tfl4" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="Subject*" xmi.id="uFJeKjHtF75hP" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" elementReference="ulJcdKBFFcNTp" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="const QStringList&amp;" xmi.id="u3Y40bx6nbTuJ" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" elementReference="u1gcd5RrBx3Lj" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="const QString&amp;" xmi.id="u0AesPmzOWAhf" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" elementReference="u94CqYBnc72mU" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="const QVariant&amp;" xmi.id="uOInBOQUINH1N" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" elementReference="ueIDWvr8dYMxF" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="App*" xmi.id="uVfc3Ftzj9Hnp" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" elementReference="uhhLL7gZS68lg" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="QSettings*" xmi.id="uCDORdlbPO2a9" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" elementReference="uQPTNP4CM6bR5" isRoot="false"/>
-        <UML:DataType isSpecification="false" name="const quint8" xmi.id="uwp8NYhknpbPC" isAbstract="false" namespace="Datatypes" visibility="public" isLeaf="false" elementReference="us8ar7opKYYaC" isRoot="false"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="char" xmi.id="u1cXSRXET6pRU"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="int" xmi.id="uppalHZXGJfDV"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="float" xmi.id="u1JwD2EkRhSGk"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="double" xmi.id="uIC6yzweD4evU"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="bool" xmi.id="uF0paI43ict3Z"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="string" xmi.id="u4mamAuekpH05"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="unsigned char" xmi.id="uiHdW1npJweAs"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="signed char" xmi.id="uqdhgTayVlEpB"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="unsigned int" xmi.id="uKG2gwSXiHh38"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="signed int" xmi.id="uHXfEN6oa8mQa"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="short int" xmi.id="uK32fRbTwUuZC"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="unsigned short int" xmi.id="uankL8K1Lph0S"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="signed short int" xmi.id="uiO06ou29x6CO"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="long int" xmi.id="uMSTQWeCo5VGs"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="signed long int" xmi.id="unUCuFzavVgUH"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="unsigned long int" xmi.id="u2sSz0uloqnFQ"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="long double" xmi.id="ujrSERDdEiEBV"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" name="wchar_t" xmi.id="u1lfDP2zRy8PM"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" elementReference="uF7YBus55oiVU" name="QObject*" xmi.id="uMOHT8wozXlZU"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" elementReference="upij9UN6rS3Jn" name="const QStringList&amp;" xmi.id="up2aIdpGuzYkc"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" elementReference="uZtr0LXUpBO2o" name="const QString&amp;" xmi.id="uP2JmPniI16yn"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" elementReference="uopqAfIgCSvhr" name="QFileDialog*" xmi.id="uhv8iMSRZgn1B"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" elementReference="uDrzKbmmkktUx" name="const QVariant&amp;" xmi.id="uxAa5BkKEz7E6"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" elementReference="u0jtvUsy4uLNX" name="App*" xmi.id="uUGrt9ohex8co"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" elementReference="udQeHFWmp5VUL" name="QSettings*" xmi.id="utRyLRxQEexME"/>
+        <UML:DataType isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Datatypes" elementReference="uRQ7bQUGC2X9H" name="const quint8" xmi.id="u1eE8IWZrphJm"/>
        </UML:Namespace.ownedElement>
       </UML:Package>
-      <UML:Class isSpecification="false" name="Subject" xmi.id="ulJcdKBFFcNTp" isAbstract="false" namespace="Logical_View" visibility="public" isLeaf="false" isRoot="false"/>
-      <UML:Class isSpecification="false" name="Observer" xmi.id="uksRWSZjlBJeX" isAbstract="false" namespace="Logical_View" comment="@brief The Observer class&#xa;This Observer class is a simple implementation of the Observer design pattern.&#xa;However, this class is more simple, where the observer can assign any of application events&#xa;and receive notifications in update method to notify qml components in the updated signal.&#xa;&#xa;This class is registered in the application as customContextProperties" visibility="public" isLeaf="false" isRoot="false">
+      <UML:Class isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Logical_View" name="QFileDialog" xmi.id="uopqAfIgCSvhr"/>
+      <UML:Class isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Logical_View" comment="@brief The FileDialog class&#xa;@extends QObject&#xa;This class show a system dialog to user select a single file and emit a signal&#xa;to application with the selected file path after user choose the file.&#xa;The file type can be filtered in the open method." name="FileDialog" xmi.id="uZskKNHbplpT6">
        <UML:GeneralizableElement.generalization>
-        <UML:Generalization xmi.idref="uQpqXtHCsKMRP"/>
+        <UML:Generalization xmi.idref="uCMsUGeyvGhGe"/>
        </UML:GeneralizableElement.generalization>
        <UML:Classifier.feature>
-        <UML:Attribute isSpecification="false" name="m_events" xmi.id="u4wvc3zkbu4vw" comment="@brief m_events&#xa;A list with the names of signed events" visibility="private" type="u1gcd5RrBx3Lj"/>
-        <UML:Attribute isSpecification="false" name="m_subject" xmi.id="uWi2vnZlL7gFC" comment="@brief m_subject&#xa;Keeps a pointer to Subject instance and&#xa;is used to detach the observer from all signed events" visibility="private" type="uFJeKjHtF75hP"/>
-        <UML:Operation isQuery="false" isSpecification="false" name="Observer" xmi.id="uoYUeza0Z4FR5" isAbstract="false" visibility="public" isLeaf="false" stereotype="constructor" isRoot="false">
+        <UML:Attribute visibility="protected" isSpecification="false" comment="@brief m_qFileDialog&#xa;Handle the file selection dialog.&#xa;In android, this pointer is not needed and is deleted in the constructor." type="uhv8iMSRZgn1B" name="m_qFileDialog" xmi.id="uSkesQtpaFN9C"/>
+        <UML:Attribute visibility="protected" isSpecification="false" comment="@brief m_copyToAppDirectory&#xa;A flag to check if copy or not the selected file to application location." type="uF0paI43ict3Z" name="m_copyToAppDirectory" xmi.id="uxYiYBj7IqK2k"/>
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" stereotype="constructor" name="FileDialog" xmi.id="ucwkB0TF2q1WQ" isQuery="false">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter isSpecification="false" name="parent" xmi.id="up5zVcUnsjvKd" visibility="private" type="uxzTYyfnnx6QB" value=""/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uMOHT8wozXlZU" name="parent" xmi.id="u5MugI5PqHLsw"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation isQuery="false" isSpecification="false" name="~ Observer" xmi.id="uBVmHMnIrnwWg" isAbstract="false" visibility="public" isLeaf="false" stereotype="destructor" isRoot="false"/>
-        <UML:Operation isQuery="false" isSpecification="false" name="events" xmi.id="uFyHYaXPAziw9" isAbstract="false" comment="@brief events&#xa;Return a list with all assigned events by this observer&#xa;@return QStringList" visibility="public" isLeaf="false" isRoot="false">
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" name="open" xmi.id="uNvlLgfi6y2bK" isQuery="false">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter xmi.id="u1HKbJSWz0QsI" kind="return" type="u1gcd5RrBx3Lj"/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uF0paI43ict3Z" name="copyToAppDirectory" xmi.id="uHRhryo6Ei2QA"/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="up2aIdpGuzYkc" name="filters" xmi.id="u53TfuxWTCQol"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation isQuery="false" isSpecification="false" name="setSubject" xmi.id="uslzgGB41uRi9" isAbstract="false" comment="@brief setSubject&#xa;Set the Subject pointer to m_subject member&#xa;m_subject is used in destructor to detach from all signed events&#xa;@param subject Subject*" visibility="public" isLeaf="false" isRoot="false">
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" name="copyFileToApplicationDir" xmi.id="uycDXnY6bYK2p" isQuery="false">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter isSpecification="false" name="subject" xmi.id="uj6kD5USlA2Xq" visibility="private" type="uFJeKjHtF75hP" value=""/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uP2JmPniI16yn" name="filePath" xmi.id="uuwgblhV0zUdz"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation isQuery="false" isSpecification="false" name="setEvents" xmi.id="uO0oPc18yDfCO" isAbstract="false" comment="@brief setEvents&#xa;Set a event list to m_events member&#xa;@param events QStringList" visibility="public" isLeaf="false" isRoot="false">
+        <UML:Operation isRoot="false" visibility="private" isSpecification="false" isLeaf="false" isAbstract="false" comment="@brief onFileSelected&#xa;This slot make a connection with QFileDialog::fileSelected signal in the constructor, and&#xa;delegate the execution to 'copyFileToApplicationDir()' to handle the copy file and notify the 'accepted' signal.&#xa;@param file QString" name="onFileSelected" xmi.id="ulEUnU97iDiYb" isQuery="false">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter isSpecification="false" name="events" xmi.id="u5amaedUYBCAZ" visibility="private" type="u3Y40bx6nbTuJ" value=""/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uP2JmPniI16yn" name="file" xmi.id="uqhKPMJBIQOaU"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation isQuery="false" isSpecification="false" name="update" xmi.id="uXJlIMfgtLuTK" isAbstract="false" comment="@brief update&#xa;Set a event notification to observer instance, where reply with updated signal&#xa;@param eventName QString the name of event where the observer are notificated&#xa;@param eventData QVariant the event generic arguments. Can be a integer, string or QVariant[Map|List]&#xa;@param sender QObject* a pointer to the event sender" visibility="public" isLeaf="false" isRoot="false">
+        <UML:Operation isRoot="false" visibility="protected" isSpecification="false" isLeaf="false" isAbstract="false" comment="@brief accepted&#xa;Emits a signal with absolute selected file path.&#xa;The path can be used as source in QML Image object (if file is a image).&#xa;@param fileUrl QString" name="accepted" xmi.id="usIsC4MoKHvG7" isQuery="false">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter isSpecification="false" name="eventName" xmi.id="u6WZl9LFsfrHd" visibility="private" type="u0AesPmzOWAhf" value=""/>
-          <UML:Parameter isSpecification="false" name="eventData" xmi.id="urgXvJTwh2tLN" visibility="private" type="uOInBOQUINH1N" value=""/>
-          <UML:Parameter isSpecification="false" name="sender" xmi.id="u9LoFU0HfQm3e" visibility="private" type="uxzTYyfnnx6QB" value=""/>
-         </UML:BehavioralFeature.parameter>
-        </UML:Operation>
-        <UML:Operation isQuery="false" isSpecification="false" name="eventsChanged" xmi.id="uXt3GbdZgX2Vk" isAbstract="false" comment="@brief eventsChanged&#xa;Notify the observer to events changes&#xa;@param events QStringList" visibility="protected" isLeaf="false" isRoot="false">
-         <UML:BehavioralFeature.parameter>
-          <UML:Parameter isSpecification="false" name="events" xmi.id="u3ITaHbX5w0WR" visibility="private" type="u3Y40bx6nbTuJ" value=""/>
-         </UML:BehavioralFeature.parameter>
-        </UML:Operation>
-        <UML:Operation isQuery="false" isSpecification="false" name="updated" xmi.id="uTIWfHhchJwVf" isAbstract="false" comment="@brief updated&#xa;Notify the observer from new update from any of signed events&#xa;@param eventName QString&#xa;@param eventData QVariant&#xa;@param sender QObject*" visibility="protected" isLeaf="false" isRoot="false">
-         <UML:BehavioralFeature.parameter>
-          <UML:Parameter isSpecification="false" name="eventName" xmi.id="uhGKfaIEXwY1O" visibility="private" type="u0AesPmzOWAhf" value=""/>
-          <UML:Parameter isSpecification="false" name="eventData" xmi.id="u1xRT1cfRrtXD" visibility="private" type="uOInBOQUINH1N" value=""/>
-          <UML:Parameter isSpecification="false" name="sender" xmi.id="uFg386QG9VGnk" visibility="private" type="uxzTYyfnnx6QB" value=""/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uP2JmPniI16yn" name="fileUrl" xmi.id="uSi2K3unVSh7g"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
        </UML:Classifier.feature>
       </UML:Class>
-      <UML:Class isSpecification="false" name="QObject" xmi.id="ubfV95z82Tfl4" isAbstract="false" namespace="Logical_View" visibility="public" isLeaf="false" isRoot="false"/>
-      <UML:Generalization isSpecification="false" name="" xmi.id="uQpqXtHCsKMRP" namespace="Logical_View" visibility="public" parent="ubfV95z82Tfl4" discriminator="" child="uksRWSZjlBJeX"/>
-      <UML:Class isSpecification="false" name="QStringList" xmi.id="u1gcd5RrBx3Lj" isAbstract="false" namespace="Logical_View" visibility="public" isLeaf="false" isRoot="false"/>
-      <UML:Class isSpecification="false" name="QString" xmi.id="u94CqYBnc72mU" isAbstract="false" namespace="Logical_View" visibility="public" isLeaf="false" isRoot="false"/>
-      <UML:Class isSpecification="false" name="QVariant" xmi.id="ueIDWvr8dYMxF" isAbstract="false" namespace="Logical_View" visibility="public" isLeaf="false" isRoot="false"/>
-      <UML:Class isSpecification="false" name="QSettings" xmi.id="uQPTNP4CM6bR5" isAbstract="false" namespace="Logical_View" visibility="public" isLeaf="false" isRoot="false"/>
-      <UML:Class isSpecification="false" name="Notification" xmi.id="uYz20FG6HxtOJ" isAbstract="false" namespace="Logical_View" visibility="public" isLeaf="false" isRoot="false"/>
-      <UML:Class isSpecification="false" name="App" xmi.id="uhhLL7gZS68lg" isAbstract="false" namespace="Logical_View" comment="@brief The App class&#xa;@extends QObject&#xa;This class has some application responsibilities and contains a useful utilities:&#xa;1: Handle the local settings from a QSettings instance.&#xa;QML objects can save/read/remove local settings using the methods saveSetting(...), readSetting(...) and removeSetting(...)&#xa;2: Handle the application plugins from PluginManager instance.&#xa;The plugin manager is a object that load all plugins, create a database table for each plugin and&#xa;remove all qml cached files when app are updated.&#xa;3: Load the config.json file that contains the application property settings.&#xa;4: Set the QuickControls style (Material, Universal) defined from config.json, passed to QQuickStyle.&#xa;5: Handle the push notification messages from a connection with android activity and ios QtAppDelegate, sending the events to QML main window." visibility="public" isLeaf="false" isRoot="false">
+      <UML:Class isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Logical_View" name="QObject" xmi.id="uF7YBus55oiVU"/>
+      <UML:Generalization visibility="public" isSpecification="false" namespace="Logical_View" discriminator="" child="uZskKNHbplpT6" name="" parent="uF7YBus55oiVU" xmi.id="uCMsUGeyvGhGe"/>
+      <UML:Class isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Logical_View" name="QStringList" xmi.id="upij9UN6rS3Jn"/>
+      <UML:Class isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Logical_View" name="QString" xmi.id="uZtr0LXUpBO2o"/>
+      <UML:Class isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Logical_View" name="QSettings" xmi.id="udQeHFWmp5VUL"/>
+      <UML:Class isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Logical_View" name="Notification" xmi.id="uTKEOW9mfEVRK"/>
+      <UML:Class isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Logical_View" comment="@brief The App class&#xa;@extends QObject&#xa;This class has some application responsibilities and contains a useful utilities:&#xa;1: Handle the local settings from a QSettings instance.&#xa;QML objects can save/read/remove local settings using the methods saveSetting(...), readSetting(...) and removeSetting(...)&#xa;2: Handle the application plugins from PluginManager instance.&#xa;The plugin manager is a object that load all plugins, create a database table for each plugin and&#xa;remove all qml cached files when app are updated.&#xa;3: Load the config.json file that contains the application property settings.&#xa;4: Set the QuickControls style (Material, Universal) defined from config.json, passed to QQuickStyle.&#xa;5: Handle the push notification messages from a connection with android activity and ios QtAppDelegate, sending the events to QML main window." name="App" xmi.id="u0jtvUsy4uLNX">
        <UML:GeneralizableElement.generalization>
-        <UML:Generalization xmi.idref="ulTW5vll2KOli"/>
+        <UML:Generalization xmi.idref="uoVHi6lIRDQR5"/>
        </UML:GeneralizableElement.generalization>
        <UML:Classifier.feature>
-        <UML:Attribute isSpecification="false" name="m_instance" xmi.id="u6YZUvs5maqRV" comment="@brief m_instance&#xa;This pointer is used to call object signal from static method fireEventNotify(...),&#xa;from application binds with android activity and ios QtAppDelegate" visibility="private" type="uVfc3Ftzj9Hnp" ownerScope="classifier"/>
-        <UML:Attribute isSpecification="false" name="m_qsettings" xmi.id="uF4DUq3doQQdB" comment="@brief m_qsettings&#xa;This object handle the application settings using key->value to save/read data." visibility="private" type="uCDORdlbPO2a9"/>
-        <UML:Attribute isSpecification="false" name="m_config" xmi.id="u94yvhb7nKDTQ" comment="@brief m_config&#xa;This object keep the application configuration (from config.json) file while application running.&#xa;The content data of this object is not saved and can be used to:&#xa;1: define application colors, font size and others properties&#xa;2: keeps the application name, description and other flags&#xa;3: set the webservice url, username and userpassword for Basic Authentication (send in http requests)" visibility="private" type="ugMXre0EVCBZg"/>
-        <UML:Attribute isSpecification="false" name="settingTypeBool" xmi.id="uHoqJKGAvOyOB" comment="The properties bellow will be used to define the return type&#xa;in 'readSetting' method called by QML objects to get apropriated setting value types." visibility="private" type="uwp8NYhknpbPC"/>
-        <UML:Attribute isSpecification="false" name="settingTypeInt" xmi.id="ugOKY10npeIjI" visibility="private" type="uwp8NYhknpbPC"/>
-        <UML:Attribute isSpecification="false" name="settingTypeString" xmi.id="udZukCPmTDlpp" visibility="private" type="uwp8NYhknpbPC"/>
-        <UML:Attribute isSpecification="false" name="settingTypeStringList" xmi.id="uf5Y6VurFxKdg" visibility="private" type="uwp8NYhknpbPC"/>
-        <UML:Attribute isSpecification="false" name="settingTypeJsonObject" xmi.id="uGYyON0hC9rp2" visibility="private" type="uwp8NYhknpbPC"/>
-        <UML:Attribute isSpecification="false" name="settingTypeJsonArray" xmi.id="uWrG3sdumAwKX" visibility="private" type="uwp8NYhknpbPC"/>
-        <UML:Operation isQuery="false" isSpecification="false" name="App" xmi.id="ufzmdLWq0Hgq3" isAbstract="false" visibility="public" isLeaf="false" stereotype="constructor" isRoot="false">
+        <UML:Attribute visibility="private" isSpecification="false" comment="@brief m_instance&#xa;This pointer is used to call object signal from static method fireEventNotify(...),&#xa;from application binds with android activity and ios QtAppDelegate" ownerScope="classifier" type="uUGrt9ohex8co" name="m_instance" xmi.id="uSy7pepKtZtj9"/>
+        <UML:Attribute visibility="private" isSpecification="false" comment="@brief m_qsettings&#xa;This object handle the application settings using key->value to save/read data." type="utRyLRxQEexME" name="m_qsettings" xmi.id="uhd9IYoUIXrnZ"/>
+        <UML:Attribute visibility="private" isSpecification="false" comment="@brief m_config&#xa;This object keep the application configuration (from config.json) file while application running.&#xa;The content data of this object is not saved and can be used to:&#xa;1: define application colors, font size and others properties&#xa;2: keeps the application name, description and other flags&#xa;3: set the webservice url, username and userpassword for Basic Authentication (send in http requests)" type="uVdRjOHZqeZmf" name="m_config" xmi.id="u60BNaTGxWcNa"/>
+        <UML:Attribute visibility="private" isSpecification="false" comment="The properties bellow will be used to define the return type&#xa;in 'readSetting' method called by QML objects to get apropriated setting value types." type="u1eE8IWZrphJm" name="settingTypeBool" xmi.id="uFeKkoomj3P65"/>
+        <UML:Attribute visibility="private" isSpecification="false" type="u1eE8IWZrphJm" name="settingTypeInt" xmi.id="u7BVmdpMD0Hdh"/>
+        <UML:Attribute visibility="private" isSpecification="false" type="u1eE8IWZrphJm" name="settingTypeString" xmi.id="u0Hp8vmn5OzQc"/>
+        <UML:Attribute visibility="private" isSpecification="false" type="u1eE8IWZrphJm" name="settingTypeStringList" xmi.id="uMB9wuY42pZFq"/>
+        <UML:Attribute visibility="private" isSpecification="false" type="u1eE8IWZrphJm" name="settingTypeJsonObject" xmi.id="umBWyH0Tk6QFw"/>
+        <UML:Attribute visibility="private" isSpecification="false" type="u1eE8IWZrphJm" name="settingTypeJsonArray" xmi.id="uXGc9HDkzJR99"/>
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" stereotype="constructor" name="App" xmi.id="u5ABQrUjWtl4k" isQuery="false">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter isSpecification="false" name="parent" xmi.id="uT6Wj1Xrx052E" visibility="private" type="uxzTYyfnnx6QB" value=""/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uMOHT8wozXlZU" name="parent" xmi.id="uUpoUkKkmYoOi"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation isQuery="false" isSpecification="false" name="~ App" xmi.id="uVvcHnYxUYGKM" isAbstract="false" visibility="public" isLeaf="false" stereotype="destructor" isRoot="false"/>
-        <UML:Operation isQuery="false" isSpecification="false" name="init" xmi.id="uvWdoGdZPRfCt" isAbstract="false" comment="@brief init&#xa;This method is called by constructor and load the config.json,&#xa;register the application settings names to QApplication,&#xa;set the application style to QQuickStyle::setStyle and&#xa;load all plugins using PluginManager object." visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:Operation isQuery="false" isSpecification="false" name="config" xmi.id="uYvjvA8OCo719" isAbstract="false" comment="@brief config&#xa;Get the application config.json as QMap&lt;QString, QVariant> object and&#xa;is used by QML objects to get window properties, the colors used in widgets and&#xa;others properties like webservice informations (base url, images url and authentication parameters)&#xa;@return QVariantMap" visibility="public" isLeaf="false" isRoot="false">
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" stereotype="destructor" name="~ App" xmi.id="ulQxHbylQeiQN" isQuery="false"/>
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" comment="@brief init&#xa;This method is called by constructor and load the config.json,&#xa;register the application settings names to QApplication,&#xa;set the application style to QQuickStyle::setStyle and&#xa;load all plugins using PluginManager object." name="init" xmi.id="ur2zpaaloRFKv" isQuery="false"/>
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" comment="@brief config&#xa;Get the application config.json as QMap&lt;QString, QVariant> object and&#xa;is used by QML objects to get window properties, the colors used in widgets and&#xa;others properties like webservice informations (base url, images url and authentication parameters)&#xa;@return QVariantMap" name="config" xmi.id="uIPxhqa1YGDrb" isQuery="false">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter xmi.id="u9EnUXjHtH3K5" kind="return" type="ugMXre0EVCBZg"/>
+          <UML:Parameter type="uVdRjOHZqeZmf" kind="return" xmi.id="unzmXeupbJPst"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation isQuery="false" isSpecification="false" name="setPluginsPaths" xmi.id="u5KUw4BppHUi5" isAbstract="false" comment="@brief setPluginsPaths&#xa;Append into Config.json a list with all plugins paths by plugin name.&#xa;Can be used to qml plugins load a file or page using a syntax like this: Config.plugins.about + &quot;About.qml&quot;" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:Operation isQuery="false" isSpecification="false" name="sendNotification" xmi.id="uhYFkrhzXD3T3" isAbstract="false" visibility="public" isLeaf="false" isRoot="false">
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" comment="@brief setPluginsPaths&#xa;Append into Config.json a list with all plugins paths by plugin name.&#xa;Can be used to qml plugins load a file or page using a syntax like this: Config.plugins.about + &quot;About.qml&quot;" name="setPluginsPaths" xmi.id="u5I4QsVkrA5JM" isQuery="false"/>
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" name="sendNotification" xmi.id="u0FqSf1WdH20Z" isQuery="false">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter isSpecification="false" name="title" xmi.id="uZ6GHKjBJmCwc" visibility="private" type="u0AesPmzOWAhf" value=""/>
-          <UML:Parameter isSpecification="false" name="message" xmi.id="urMGOG0JSNKJF" visibility="private" type="u0AesPmzOWAhf" value=""/>
-          <UML:Parameter isSpecification="false" name="actionName" xmi.id="umFJRjZ8xR1DD" visibility="private" type="u0AesPmzOWAhf" value=""/>
-          <UML:Parameter isSpecification="false" name="actionValue" xmi.id="uPWN8D8RWC1Xr" visibility="private" type="uOInBOQUINH1N" value=""/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uP2JmPniI16yn" name="title" xmi.id="uByvHe1O9RcF9"/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uP2JmPniI16yn" name="message" xmi.id="u197WNAEJ3cOD"/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uP2JmPniI16yn" name="action" xmi.id="umrfQkDcfezgk"/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uxAa5BkKEz7E6" name="data" xmi.id="uSd0x2bjFq8wi"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation isQuery="false" isSpecification="false" name="readSetting" xmi.id="u9yzqllDDc4ss" isAbstract="false" visibility="public" isLeaf="false" stereotype="constructor" isRoot="false">
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" stereotype="constructor" name="readSetting" xmi.id="uFVpTW4PfCZFF" isQuery="false">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter isSpecification="false" name="key" xmi.id="uzt5Uzxbq343P" visibility="private" type="u0AesPmzOWAhf" value=""/>
-          <UML:Parameter isSpecification="false" name="returnType" xmi.id="u9kFn3scLqRq0" visibility="private" type="us8ar7opKYYaC" value=""/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uP2JmPniI16yn" name="key" xmi.id="u3aK6Ek8rfGLC"/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uRQ7bQUGC2X9H" name="returnType" xmi.id="uLRNbO5uGfWXL"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation isQuery="false" isSpecification="false" name="saveSetting" xmi.id="u5gTie4g6fC2P" isAbstract="false" visibility="public" isLeaf="false" isRoot="false">
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" name="saveSetting" xmi.id="uPkpn8iSWPZxx" isQuery="false">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter isSpecification="false" name="key" xmi.id="uh9pJdmqKYBlh" visibility="private" type="u0AesPmzOWAhf" value=""/>
-          <UML:Parameter isSpecification="false" name="value" xmi.id="uuPPK2qtFX5oX" visibility="private" type="uOInBOQUINH1N" value=""/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uP2JmPniI16yn" name="key" xmi.id="uH6HXiYy3jsxC"/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uxAa5BkKEz7E6" name="value" xmi.id="uuB2BnS6bT1oa"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation isQuery="false" isSpecification="false" name="removeSetting" xmi.id="u89OfijOwRlmt" isAbstract="false" visibility="public" isLeaf="false" isRoot="false">
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" name="removeSetting" xmi.id="u2zdDVbq7L8SY" isQuery="false">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter isSpecification="false" name="key" xmi.id="uwlWanR4bNMeJ" visibility="private" type="u0AesPmzOWAhf" value=""/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uP2JmPniI16yn" name="key" xmi.id="utQygAYeOWgST"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation isQuery="false" isSpecification="false" name="minimize" xmi.id="uLZ94GxbNrxk0" isAbstract="false" visibility="public" isLeaf="false" isRoot="false"/>
-        <UML:Operation isQuery="false" isSpecification="false" name="fireEventNotify" xmi.id="uNkKdvtHfeaKP" isAbstract="false" comment="@brief fireEventNotify&#xa;This method make a connection with android Activity to receive push events (messages and firebase token).&#xa;In android, the connection is created in JavaCppConnect.h before application running (via JNI_OnLoad).&#xa;In ios, this method is called directly from QtAppDelegate.mm.&#xa;The events will be fired to application using the signal 'notifyEvent'.&#xa;@param eventName QString the event name&#xa;@param eventData QString the event data, like a string as json data or string with push notification token." visibility="public" isLeaf="false" isRoot="false" ownerScope="classifier">
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" name="minimizeWindow" xmi.id="uwuBrJBWrDfZR" isQuery="false"/>
+        <UML:Operation isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" comment="@brief fireEventNotify&#xa;This method make a connection with android Activity to receive push events (messages and firebase token).&#xa;In android, the connection is created in JavaCppConnect.h before application running (via JNI_OnLoad).&#xa;In ios, this method is called directly from QtAppDelegate.mm.&#xa;The events will be fired to application using the signal 'notifyEvent'.&#xa;@param eventName QString the event name&#xa;@param eventData QString the event data, like a string as json data or string with push notification token." ownerScope="classifier" name="fireEventNotify" xmi.id="uJ8KQVH96mjOV" isQuery="false">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter isSpecification="false" name="eventName" xmi.id="uSxzE8QAJbA2m" visibility="private" type="u0AesPmzOWAhf" value=""/>
-          <UML:Parameter isSpecification="false" name="eventData" xmi.id="u28Rrrfq2iCRI" visibility="private" type="u0AesPmzOWAhf" value=""/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uP2JmPniI16yn" name="eventName" xmi.id="u7qT8UwwfGAvJ"/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uP2JmPniI16yn" name="eventData" xmi.id="uR6TELGCrLJX1"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation isQuery="false" isSpecification="false" name="eventNotify" xmi.id="uBJd6HMdZDdLh" isAbstract="false" comment="@brief notifyEvent&#xa;Fire internal android and iOS events that become in eventNotify slot.&#xa;Is used by push notification token and push notification messages when&#xa;the app is on foreground or background (but running), sending the event data to qml main window.&#xa;@param eventName QVariant the name (or indentity) of the event&#xa;@param eventData QVariant the event argument data" visibility="protected" isLeaf="false" isRoot="false">
+        <UML:Operation isRoot="false" visibility="protected" isSpecification="false" isLeaf="false" isAbstract="false" comment="@brief notifyEvent&#xa;Fire internal android and iOS events that become in eventNotify slot.&#xa;Is used by push notification token and push notification messages when&#xa;the app is on foreground or background (but running), sending the event data to qml main window.&#xa;@param eventName QVariant the name (or indentity) of the event&#xa;@param eventData QVariant the event argument data" name="eventNotify" xmi.id="uaAFWbkUR6Tyv" isQuery="false">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter isSpecification="false" name="eventName" xmi.id="uWMSI6AV6KTFc" visibility="private" type="uOInBOQUINH1N" value=""/>
-          <UML:Parameter isSpecification="false" name="eventData" xmi.id="uwPhjf1R9CqWM" visibility="private" type="uOInBOQUINH1N" value=""/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uxAa5BkKEz7E6" name="eventName" xmi.id="uiKOHNkYuDp6s"/>
+          <UML:Parameter value="" visibility="private" isSpecification="false" type="uxAa5BkKEz7E6" name="eventData" xmi.id="ukKbhCialv1h7"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
        </UML:Classifier.feature>
       </UML:Class>
-      <UML:Generalization isSpecification="false" name="" xmi.id="ulTW5vll2KOli" namespace="Logical_View" visibility="public" parent="ubfV95z82Tfl4" discriminator="" child="uhhLL7gZS68lg"/>
-      <UML:Class isSpecification="false" name="QVariantMap" xmi.id="ugMXre0EVCBZg" isAbstract="false" namespace="Logical_View" visibility="public" isLeaf="false" isRoot="false"/>
-      <UML:Class isSpecification="false" name="quint8" xmi.id="us8ar7opKYYaC" isAbstract="false" namespace="Logical_View" visibility="public" isLeaf="false" isRoot="false"/>
+      <UML:Generalization visibility="public" isSpecification="false" namespace="Logical_View" discriminator="" child="u0jtvUsy4uLNX" name="" parent="uF7YBus55oiVU" xmi.id="uoVHi6lIRDQR5"/>
+      <UML:Class isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Logical_View" name="QVariantMap" xmi.id="uVdRjOHZqeZmf"/>
+      <UML:Class isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Logical_View" name="QVariant" xmi.id="uDrzKbmmkktUx"/>
+      <UML:Class isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Logical_View" name="quint8" xmi.id="uRQ7bQUGC2X9H"/>
      </UML:Namespace.ownedElement>
      <XMI.extension xmi.extender="umbrello">
       <diagrams resolution="96">
-       <diagram textcolor="#000000" snapgrid="0" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" showattsig="1" zoom="100" showops="1" showatts="1" name="diagrama de classe" type="1" showattribassocs="1" documentation="" fillcolor="#ffffff" snapcsgrid="0" linecolor="#000000" showpackage="1" showopsig="1" linewidth="0" canvaswidth="792" snapy="25" showstereotype="1" showgrid="0" isopen="1" backgroundcolor="#ffffff" griddotcolor="#d3d3d3" showpubliconly="0" usefillcolor="0" localid="-1" snapx="25" xmi.id="uJrmnT3g16fN6" showscope="1" canvasheight="493">
+       <diagram snapgrid="0" usefillcolor="0" isopen="1" showops="1" backgroundcolor="#ffffff" localid="-1" snapx="25" documentation="" type="1" zoom="100" fillcolor="#ffffff" showopsig="1" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" textcolor="#000000" linecolor="#000000" showstereotype="1" snapy="25" showscope="1" showpackage="1" snapcsgrid="0" canvasheight="477" canvaswidth="711" showattsig="1" name="diagrama de classe" griddotcolor="#d3d3d3" xmi.id="uhXLLSBh1Q4Ms" showatts="1" showgrid="0" linewidth="0" showpubliconly="0" showattribassocs="1">
         <widgets>
-         <classwidget textcolor="#000000" width="792" y="-67" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" isinstance="0" showoperations="1" autoresize="1" height="396" fillcolor="#ffffff" linecolor="#000000" showattsigs="601" showpackage="1" linewidth="0" showstereotype="1" x="-378" showpubliconly="0" usesdiagramfillcolor="0" usefillcolor="0" localid="uByYbb0oCt5C9" showopsigs="601" xmi.id="uhhLL7gZS68lg" showscope="1" usesdiagramusefillcolor="0" showattributes="1"/>
+         <classwidget usefillcolor="0" isinstance="0" y="-127" showattsigs="601" localid="uEl1IPgh0e6g9" x="-116" fillcolor="#ffffff" autoresize="1" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" textcolor="#000000" linecolor="#000000" usesdiagramusefillcolor="0" showstereotype="1" showscope="1" width="711" showoperations="1" showopsigs="601" showpackage="1" usesdiagramfillcolor="0" xmi.id="u0jtvUsy4uLNX" linewidth="0" showattributes="1" showpubliconly="0" height="396"/>
         </widgets>
         <messages/>
         <associations>
-         <assocwidget textcolor="none" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" indexb="0" totalcounta="0" changeabilityB="900" autoresize="1" type="501" fillcolor="#ffff00" totalcountb="0" linecolor="#000000" changeabilityA="900" visibilityA="1" linewidth="0" widgetbid="uhhLL7gZS68lg" seqnum="" usesdiagramfillcolor="0" usefillcolor="1" indexa="0" xmi.id="u6YZUvs5maqRV" widgetaid="uhhLL7gZS68lg" visibilityB="1" usesdiagramusefillcolor="0">
+         <assocwidget widgetaid="u0jtvUsy4uLNX" usefillcolor="1" totalcountb="0" visibilityB="1" type="501" fillcolor="#ffff00" autoresize="1" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" totalcounta="0" changeabilityA="900" seqnum="" textcolor="none" linecolor="#000000" usesdiagramusefillcolor="64" changeabilityB="900" indexa="0" usesdiagramfillcolor="0" indexb="0" xmi.id="uSy7pepKtZtj9" widgetbid="u0jtvUsy4uLNX" linewidth="0" visibilityA="1">
           <linepath layout="Polyline">
-           <startpoint startx="-180" starty="329"/>
-           <endpoint endy="329" endx="216"/>
-           <point y="379" x="-180"/>
-           <point y="379" x="216"/>
+           <startpoint starty="269" startx="61.75"/>
+           <endpoint endx="417.25" endy="269"/>
+           <point x="61.75" y="319"/>
+           <point x="417.25" y="319"/>
           </linepath>
-          <floatingtext text="0..1" textcolor="none" width="30" y="333" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" isinstance="0" autoresize="1" height="22" fillcolor="none" linecolor="#000000" linewidth="0" role="702" showstereotype="1" x="184" usesdiagramfillcolor="1" posttext="" usefillcolor="1" localid="uBpbFPRt6aSg2" pretext="" xmi.id="uHfqsSKhWbdkm" usesdiagramusefillcolor="1"/>
-          <floatingtext text="m_instance" textcolor="none" width="81" y="333" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" isinstance="0" autoresize="1" height="22" fillcolor="none" linecolor="#000000" linewidth="0" role="710" showstereotype="1" x="107.5" usesdiagramfillcolor="1" posttext="" usefillcolor="1" localid="uKnDa3w7IHBSR" pretext="-" xmi.id="uIdvBIk16iuNg" usesdiagramusefillcolor="1"/>
+          <floatingtext usefillcolor="1" role="702" isinstance="0" y="284" localid="uYCitFPFFWKoy" x="383" fillcolor="none" autoresize="1" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" textcolor="none" text="0..1" linecolor="#000000" usesdiagramusefillcolor="1" showstereotype="1" posttext="" width="30" usesdiagramfillcolor="1" xmi.id="us3doRtNLFrvj" pretext="" linewidth="0" height="22"/>
+          <floatingtext usefillcolor="1" role="710" isinstance="0" y="283" localid="ud5gwa2wC2nMv" x="305.75" fillcolor="none" autoresize="1" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" textcolor="none" text="m_instance" linecolor="#000000" usesdiagramusefillcolor="1" showstereotype="1" posttext="" width="81" usesdiagramfillcolor="1" xmi.id="ukqbJ8fTEyeIP" pretext="-" linewidth="0" height="22"/>
          </assocwidget>
         </associations>
        </diagram>
       </diagrams>
      </XMI.extension>
     </UML:Model>
-    <UML:Model isSpecification="false" name="Use Case View" xmi.id="Use_Case_View" isAbstract="false" namespace="m1" visibility="public" isLeaf="false" isRoot="false">
+    <UML:Model isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="m1" name="Use Case View" xmi.id="Use_Case_View">
      <UML:Namespace.ownedElement/>
     </UML:Model>
-    <UML:Model isSpecification="false" name="Component View" xmi.id="Component_View" isAbstract="false" namespace="m1" visibility="public" isLeaf="false" isRoot="false">
+    <UML:Model isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="m1" name="Component View" xmi.id="Component_View">
      <UML:Namespace.ownedElement>
-      <UML:Package isSpecification="false" name="home/enoque/qt/projects/tcc/src/core" xmi.id="uA0e76JhrAzr3" isAbstract="false" namespace="Component_View" visibility="public" isLeaf="false" stereotype="folder" isRoot="false">
+      <UML:Package isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="Component_View" stereotype="folder" name="home/enoque/qt/projects/tcc/src/core" xmi.id="uReSkEoP0zO3q">
        <UML:Namespace.ownedElement>
-        <UML:Artifact isSpecification="false" name="observer.h" xmi.id="uzTKxb8VLGI6L" isAbstract="false" namespace="uA0e76JhrAzr3" visibility="public" drawas="1" isLeaf="false" isRoot="false"/>
-        <UML:Artifact isSpecification="false" name="app.h" xmi.id="uA6to4NdqQQdf" isAbstract="false" namespace="uA0e76JhrAzr3" visibility="public" drawas="1" isLeaf="false" isRoot="false"/>
+        <UML:Artifact isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="uReSkEoP0zO3q" drawas="1" name="filedialog.h" xmi.id="uMSeozBaOao0s"/>
+        <UML:Artifact isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="uReSkEoP0zO3q" drawas="1" name="app.h" xmi.id="umIN45tvKroI0"/>
        </UML:Namespace.ownedElement>
       </UML:Package>
      </UML:Namespace.ownedElement>
     </UML:Model>
-    <UML:Model isSpecification="false" name="Deployment View" xmi.id="Deployment_View" isAbstract="false" namespace="m1" visibility="public" isLeaf="false" isRoot="false">
+    <UML:Model isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="m1" name="Deployment View" xmi.id="Deployment_View">
      <UML:Namespace.ownedElement/>
     </UML:Model>
-    <UML:Model isSpecification="false" name="Entity Relationship Model" xmi.id="Entity_Relationship_Model" isAbstract="false" namespace="m1" visibility="public" isLeaf="false" isRoot="false">
+    <UML:Model isRoot="false" visibility="public" isSpecification="false" isLeaf="false" isAbstract="false" namespace="m1" name="Entity Relationship Model" xmi.id="Entity_Relationship_Model">
      <UML:Namespace.ownedElement/>
     </UML:Model>
    </UML:Namespace.ownedElement>
   </UML:Model>
  </XMI.content>
  <XMI.extensions xmi.extender="umbrello">
-  <docsettings documentation="" uniqueid="uIdvBIk16iuNg" viewid="uJrmnT3g16fN6"/>
+  <docsettings viewid="uhXLLSBh1Q4Ms" documentation="" uniqueid="ukqbJ8fTEyeIP"/>
   <listview>
    <listitem id="Views" type="800" open="1">
     <listitem id="Entity_Relationship_Model" type="836" open="1"/>
     <listitem id="Use_Case_View" type="802" open="1"/>
     <listitem id="Deployment_View" type="827" open="1"/>
     <listitem id="Component_View" type="821" open="1">
-     <listitem id="uA0e76JhrAzr3" type="820" open="0">
-      <listitem id="uA6to4NdqQQdf" type="824" open="0"/>
-      <listitem id="uzTKxb8VLGI6L" type="824" open="0"/>
+     <listitem id="uReSkEoP0zO3q" type="820" open="0">
+      <listitem id="umIN45tvKroI0" type="824" open="0"/>
+      <listitem id="uMSeozBaOao0s" type="824" open="0"/>
      </listitem>
     </listitem>
     <listitem id="Logical_View" type="801" open="1">
-     <listitem id="uhhLL7gZS68lg" type="813" open="0">
-      <listitem id="uVvcHnYxUYGKM" type="815" open="0"/>
-      <listitem id="ufzmdLWq0Hgq3" type="815" open="0"/>
-      <listitem id="uYvjvA8OCo719" type="815" open="0"/>
-      <listitem id="uBJd6HMdZDdLh" type="815" open="0"/>
-      <listitem id="uNkKdvtHfeaKP" type="815" open="0"/>
-      <listitem id="uvWdoGdZPRfCt" type="815" open="0"/>
-      <listitem id="u94yvhb7nKDTQ" type="814" open="0"/>
-      <listitem id="u6YZUvs5maqRV" type="814" open="0"/>
-      <listitem id="uF4DUq3doQQdB" type="814" open="0"/>
-      <listitem id="uLZ94GxbNrxk0" type="815" open="0"/>
-      <listitem id="u9yzqllDDc4ss" type="815" open="0"/>
-      <listitem id="u89OfijOwRlmt" type="815" open="0"/>
-      <listitem id="u5gTie4g6fC2P" type="815" open="0"/>
-      <listitem id="uhYFkrhzXD3T3" type="815" open="0"/>
-      <listitem id="u5KUw4BppHUi5" type="815" open="0"/>
-      <listitem id="uHoqJKGAvOyOB" type="814" open="0"/>
-      <listitem id="ugOKY10npeIjI" type="814" open="0"/>
-      <listitem id="uWrG3sdumAwKX" type="814" open="0"/>
-      <listitem id="uGYyON0hC9rp2" type="814" open="0"/>
-      <listitem id="udZukCPmTDlpp" type="814" open="0"/>
-      <listitem id="uf5Y6VurFxKdg" type="814" open="0"/>
+     <listitem id="u0jtvUsy4uLNX" type="813" open="0">
+      <listitem id="ulQxHbylQeiQN" type="815" open="0"/>
+      <listitem id="u5ABQrUjWtl4k" type="815" open="0"/>
+      <listitem id="uIPxhqa1YGDrb" type="815" open="0"/>
+      <listitem id="uaAFWbkUR6Tyv" type="815" open="0"/>
+      <listitem id="uJ8KQVH96mjOV" type="815" open="0"/>
+      <listitem id="ur2zpaaloRFKv" type="815" open="0"/>
+      <listitem id="u60BNaTGxWcNa" type="814" open="0"/>
+      <listitem id="uSy7pepKtZtj9" type="814" open="0"/>
+      <listitem id="uhd9IYoUIXrnZ" type="814" open="0"/>
+      <listitem id="uwuBrJBWrDfZR" type="815" open="0"/>
+      <listitem id="uFVpTW4PfCZFF" type="815" open="0"/>
+      <listitem id="u2zdDVbq7L8SY" type="815" open="0"/>
+      <listitem id="uPkpn8iSWPZxx" type="815" open="0"/>
+      <listitem id="u0FqSf1WdH20Z" type="815" open="0"/>
+      <listitem id="u5I4QsVkrA5JM" type="815" open="0"/>
+      <listitem id="uFeKkoomj3P65" type="814" open="0"/>
+      <listitem id="u7BVmdpMD0Hdh" type="814" open="0"/>
+      <listitem id="uXGc9HDkzJR99" type="814" open="0"/>
+      <listitem id="umBWyH0Tk6QFw" type="814" open="0"/>
+      <listitem id="u0Hp8vmn5OzQc" type="814" open="0"/>
+      <listitem id="uMB9wuY42pZFq" type="814" open="0"/>
      </listitem>
-     <listitem label="diagrama de classe" id="uJrmnT3g16fN6" type="807" open="0"/>
-     <listitem id="uYz20FG6HxtOJ" type="813" open="0"/>
-     <listitem id="uksRWSZjlBJeX" type="813" open="0">
-      <listitem id="uBVmHMnIrnwWg" type="815" open="0"/>
-      <listitem id="uFyHYaXPAziw9" type="815" open="0"/>
-      <listitem id="uXt3GbdZgX2Vk" type="815" open="0"/>
-      <listitem id="u4wvc3zkbu4vw" type="814" open="0"/>
-      <listitem id="uWi2vnZlL7gFC" type="814" open="0"/>
-      <listitem id="uoYUeza0Z4FR5" type="815" open="0"/>
-      <listitem id="uO0oPc18yDfCO" type="815" open="0"/>
-      <listitem id="uslzgGB41uRi9" type="815" open="0"/>
-      <listitem id="uXJlIMfgtLuTK" type="815" open="0"/>
-      <listitem id="uTIWfHhchJwVf" type="815" open="0"/>
+     <listitem id="uhXLLSBh1Q4Ms" type="807" open="0" label="diagrama de classe"/>
+     <listitem id="uZskKNHbplpT6" type="813" open="0">
+      <listitem id="usIsC4MoKHvG7" type="815" open="0"/>
+      <listitem id="uycDXnY6bYK2p" type="815" open="0"/>
+      <listitem id="ucwkB0TF2q1WQ" type="815" open="0"/>
+      <listitem id="uxYiYBj7IqK2k" type="814" open="0"/>
+      <listitem id="uSkesQtpaFN9C" type="814" open="0"/>
+      <listitem id="ulEUnU97iDiYb" type="815" open="0"/>
+      <listitem id="uNvlLgfi6y2bK" type="815" open="0"/>
      </listitem>
-     <listitem id="ubfV95z82Tfl4" type="813" open="0"/>
-     <listitem id="uQPTNP4CM6bR5" type="813" open="0"/>
-     <listitem id="u94CqYBnc72mU" type="813" open="0"/>
-     <listitem id="u1gcd5RrBx3Lj" type="813" open="0"/>
-     <listitem id="us8ar7opKYYaC" type="813" open="0"/>
-     <listitem id="ueIDWvr8dYMxF" type="813" open="0"/>
-     <listitem id="ugMXre0EVCBZg" type="813" open="0"/>
-     <listitem id="ulJcdKBFFcNTp" type="813" open="0"/>
+     <listitem id="uTKEOW9mfEVRK" type="813" open="0"/>
+     <listitem id="uopqAfIgCSvhr" type="813" open="0"/>
+     <listitem id="uF7YBus55oiVU" type="813" open="0"/>
+     <listitem id="udQeHFWmp5VUL" type="813" open="0"/>
+     <listitem id="uZtr0LXUpBO2o" type="813" open="0"/>
+     <listitem id="upij9UN6rS3Jn" type="813" open="0"/>
+     <listitem id="uRQ7bQUGC2X9H" type="813" open="0"/>
+     <listitem id="uDrzKbmmkktUx" type="813" open="0"/>
+     <listitem id="uVdRjOHZqeZmf" type="813" open="0"/>
      <listitem id="Datatypes" type="830" open="0">
-      <listitem id="uVfc3Ftzj9Hnp" type="829" open="0"/>
-      <listitem id="udLwYk13GZhcm" type="829" open="1"/>
-      <listitem id="uznmBE1ZWMyZz" type="829" open="1"/>
-      <listitem id="u0AesPmzOWAhf" type="829" open="0"/>
-      <listitem id="u3Y40bx6nbTuJ" type="829" open="0"/>
-      <listitem id="uwp8NYhknpbPC" type="829" open="0"/>
-      <listitem id="uOInBOQUINH1N" type="829" open="0"/>
-      <listitem id="u3zsFbavnv2d4" type="829" open="1"/>
-      <listitem id="uUYGNmSHgjXhQ" type="829" open="1"/>
-      <listitem id="uEtJdBo7a7OdD" type="829" open="1"/>
-      <listitem id="unjiUPa26h83h" type="829" open="1"/>
-      <listitem id="uMLE8TLvayBsc" type="829" open="1"/>
-      <listitem id="uxzTYyfnnx6QB" type="829" open="0"/>
-      <listitem id="uCDORdlbPO2a9" type="829" open="0"/>
-      <listitem id="udTIf5udtiRjH" type="829" open="1"/>
-      <listitem id="uLJA5SnfdqLBf" type="829" open="1"/>
-      <listitem id="ub1oVmg7CJwy1" type="829" open="1"/>
-      <listitem id="uHZN1LqjOb6oV" type="829" open="1"/>
-      <listitem id="uvbPjrwAJSNrk" type="829" open="1"/>
-      <listitem id="uzR83ac9rBWy5" type="829" open="1"/>
-      <listitem id="uFJeKjHtF75hP" type="829" open="0"/>
-      <listitem id="uGPuXvuSVQk2i" type="829" open="1"/>
-      <listitem id="ubo91vWgcStBG" type="829" open="1"/>
-      <listitem id="uwUDAJcMhuPdg" type="829" open="1"/>
-      <listitem id="uaFNnDUy3xK4I" type="829" open="1"/>
-      <listitem id="uGzHZdj2if7mT" type="829" open="1"/>
+      <listitem id="uUGrt9ohex8co" type="829" open="0"/>
+      <listitem id="uF0paI43ict3Z" type="829" open="1"/>
+      <listitem id="u1cXSRXET6pRU" type="829" open="1"/>
+      <listitem id="uP2JmPniI16yn" type="829" open="0"/>
+      <listitem id="up2aIdpGuzYkc" type="829" open="0"/>
+      <listitem id="u1eE8IWZrphJm" type="829" open="0"/>
+      <listitem id="uxAa5BkKEz7E6" type="829" open="0"/>
+      <listitem id="uIC6yzweD4evU" type="829" open="1"/>
+      <listitem id="u1JwD2EkRhSGk" type="829" open="1"/>
+      <listitem id="uppalHZXGJfDV" type="829" open="1"/>
+      <listitem id="ujrSERDdEiEBV" type="829" open="1"/>
+      <listitem id="uMSTQWeCo5VGs" type="829" open="1"/>
+      <listitem id="uhv8iMSRZgn1B" type="829" open="0"/>
+      <listitem id="uMOHT8wozXlZU" type="829" open="0"/>
+      <listitem id="utRyLRxQEexME" type="829" open="0"/>
+      <listitem id="uK32fRbTwUuZC" type="829" open="1"/>
+      <listitem id="uqdhgTayVlEpB" type="829" open="1"/>
+      <listitem id="uHXfEN6oa8mQa" type="829" open="1"/>
+      <listitem id="unUCuFzavVgUH" type="829" open="1"/>
+      <listitem id="uiO06ou29x6CO" type="829" open="1"/>
+      <listitem id="u4mamAuekpH05" type="829" open="1"/>
+      <listitem id="uiHdW1npJweAs" type="829" open="1"/>
+      <listitem id="uKG2gwSXiHh38" type="829" open="1"/>
+      <listitem id="u2sSz0uloqnFQ" type="829" open="1"/>
+      <listitem id="uankL8K1Lph0S" type="829" open="1"/>
+      <listitem id="u1lfDP2zRy8PM" type="829" open="1"/>
      </listitem>
     </listitem>
    </listitem>

@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMI timestamp="2018-01-14T21:34:55" xmi.version="1.2" xmlns:UML="http://schema.omg.org/spec/UML/1.4" verified="false">
+ <XMI.header>
+  <XMI.documentation>
+   <XMI.exporter>umbrello uml modeller http://umbrello.kde.org</XMI.exporter>
+   <XMI.exporterVersion>1.6.12</XMI.exporterVersion>
+   <XMI.exporterEncoding>UnicodeUTF8</XMI.exporterEncoding>
+  </XMI.documentation>
+  <XMI.metamodel xmi.name="UML" xmi.version="1.4" href="UML.xml"/>
+ </XMI.header>
+ <XMI.content>
+  <UML:Model isSpecification="false" isLeaf="false" name="Modelo UML" xmi.id="m1" isAbstract="false" isRoot="false">
+   <UML:Namespace.ownedElement>
+    <UML:Stereotype isSpecification="false" isLeaf="false" name="folder" namespace="m1" xmi.id="folder" visibility="public" isRoot="false" isAbstract="false"/>
+    <UML:Stereotype isSpecification="false" isLeaf="false" name="constructor" namespace="m1" xmi.id="constructor" visibility="public" isRoot="false" isAbstract="false"/>
+    <UML:Stereotype isSpecification="false" isLeaf="false" name="destructor" namespace="m1" xmi.id="destructor" visibility="public" isRoot="false" isAbstract="false"/>
+    <UML:Stereotype isSpecification="false" isLeaf="false" name="enum" namespace="m1" xmi.id="enum" visibility="public" isRoot="false" isAbstract="false"/>
+    <UML:Model isSpecification="false" isLeaf="false" name="Logical View" namespace="m1" xmi.id="Logical_View" visibility="public" isRoot="false" isAbstract="false">
+     <UML:Namespace.ownedElement>
+      <UML:Package isSpecification="false" isLeaf="false" name="Datatypes" namespace="Logical_View" xmi.id="Datatypes" visibility="public" stereotype="folder" isRoot="false" isAbstract="false">
+       <UML:Namespace.ownedElement>
+        <UML:DataType isSpecification="false" isLeaf="false" name="char" namespace="Datatypes" xmi.id="u1uSsUzGBh9k3" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="int" namespace="Datatypes" xmi.id="u6PPzpKB4pmbH" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="float" namespace="Datatypes" xmi.id="uYvoY9DeZcVkJ" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="double" namespace="Datatypes" xmi.id="uccSBADS11dX3" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="bool" namespace="Datatypes" xmi.id="uOpfMnOPC451Y" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="string" namespace="Datatypes" xmi.id="uRrK8UX9qvji3" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="unsigned char" namespace="Datatypes" xmi.id="uvAusbLZ6Q89C" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="signed char" namespace="Datatypes" xmi.id="uCAS0xSP5GnIr" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="unsigned int" namespace="Datatypes" xmi.id="uF5pFUfX2CEiT" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="signed int" namespace="Datatypes" xmi.id="uNmMJqyVeMpm2" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="short int" namespace="Datatypes" xmi.id="ulU3mX12Mbj6L" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="unsigned short int" namespace="Datatypes" xmi.id="uu6yTxaMEVc40" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="signed short int" namespace="Datatypes" xmi.id="uC5oo19FoB678" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="long int" namespace="Datatypes" xmi.id="uBSWorWGADZA2" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="signed long int" namespace="Datatypes" xmi.id="uXwCO7gOEVIWW" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="unsigned long int" namespace="Datatypes" xmi.id="u36gJlCIoeAeq" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="long double" namespace="Datatypes" xmi.id="uDUX2RFeaGtdp" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="wchar_t" namespace="Datatypes" xmi.id="uYdbljtipHuua" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="const QString&amp;" namespace="Datatypes" xmi.id="uR4q5IaypYibR" visibility="public" elementReference="uyNWNIlJFrWbx" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="const QStringList&amp;" namespace="Datatypes" xmi.id="urnLUDi7rC8Aa" visibility="public" elementReference="u08GI0Tu6cNJp" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="const QVariantMap&amp;" namespace="Datatypes" xmi.id="uIfMy9OUTQd63" visibility="public" elementReference="uXqBXZTE7z45d" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="QObject*" namespace="Datatypes" xmi.id="uaDmZIoOiuHwW" visibility="public" elementReference="unqQ99vu5sVhz" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="Database*" namespace="Datatypes" xmi.id="utFVnNhMIKTbh" visibility="public" elementReference="uqMOEEAPpRL3l" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="const Database&amp;" namespace="Datatypes" xmi.id="uXBvEoc3bL9bN" visibility="public" elementReference="uqMOEEAPpRL3l" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="const QVariant&amp;" namespace="Datatypes" xmi.id="u3YByjoQGYYSn" visibility="public" elementReference="utTcYjrPZCavJ" isRoot="false" isAbstract="false"/>
+        <UML:DataType isSpecification="false" isLeaf="false" name="QVariantMap*" namespace="Datatypes" xmi.id="uILDSxjcSWExW" visibility="public" elementReference="uXqBXZTE7z45d" isRoot="false" isAbstract="false"/>
+       </UML:Namespace.ownedElement>
+      </UML:Package>
+      <UML:Class isSpecification="false" isLeaf="false" name="QThread" namespace="Logical_View" xmi.id="uQk2bQQURPG1M" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Generalization isSpecification="false" name="" parent="uQk2bQQURPG1M" namespace="Logical_View" discriminator="" xmi.id="uPj0eNIKqy0my" visibility="public" child="utG6OsbqCKOsF"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QString" namespace="Logical_View" xmi.id="uyNWNIlJFrWbx" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QVariantMap" namespace="Logical_View" xmi.id="uXqBXZTE7z45d" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QObject" namespace="Logical_View" xmi.id="unqQ99vu5sVhz" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QByteArray" namespace="Logical_View" xmi.id="uFIEKLwSR6V6X" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QDir" namespace="Logical_View" xmi.id="utgaead1uVhiS" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QFile" namespace="Logical_View" xmi.id="ulXtZucmaMYAw" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QSqlError" namespace="Logical_View" xmi.id="ukR5TwMtleJBd" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QSqlRecord" namespace="Logical_View" xmi.id="uxhCPVDTj5MAc" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QStringList" namespace="Logical_View" xmi.id="u08GI0Tu6cNJp" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QUrl" namespace="Logical_View" xmi.id="uykTMI3jvtYlc" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Generalization isSpecification="false" name="" parent="unqQ99vu5sVhz" namespace="Logical_View" discriminator="" xmi.id="uF7EeGifMbSHR" visibility="public" child="uqMOEEAPpRL3l"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="enum SELECT_TYPE" namespace="Logical_View" xmi.id="uK7fiZY1B6tO4" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QSqlQuery" namespace="Logical_View" xmi.id="ux9tGmd1n82B6" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QSqlDatabase" namespace="Logical_View" xmi.id="udQbLYFlog5W4" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="Database" namespace="Logical_View" comment="@brief The Database class&#xa;This class implements a Singleton pattern and manage database operations&#xa;with high level methods to select, update, insert and remove data into application database.&#xa;Supports only SQLITE and all operations is handle by QSqlDatabase and QSqlQuery with some customizations." xmi.id="uqMOEEAPpRL3l" visibility="public" isRoot="false" isAbstract="false">
+       <UML:GeneralizableElement.generalization>
+        <UML:Generalization xmi.idref="uF7EeGifMbSHR"/>
+       </UML:GeneralizableElement.generalization>
+       <UML:Classifier.feature>
+        <UML:Attribute isSpecification="false" name="m_instance" comment="@brief m_instance&#xa;keeps the Database instance pointer" ownerScope="classifier" xmi.id="uR4a3hbCwOP5Q" visibility="private" type="utFVnNhMIKTbh"/>
+        <UML:Attribute isSpecification="false" name="m_databaseFileName" comment="@brief m_databaseFileName&#xa;Keeps the absolute SQLITE .db file path and name.&#xa;This string is buil based on the platform." xmi.id="uOHrUFJMKJN2f" visibility="private" type="uyNWNIlJFrWbx"/>
+        <UML:Attribute isSpecification="false" name="m_qsqlQuery" comment="@brief m_qsqlQuery&#xa;This object handle SQL DML operations executing the queries operations.&#xa;The QSqlQuery class provides a means of executing and manipulating SQL statements.&#xa;QSqlQuery encapsulates the functionality involved in creating, navigating and&#xa;retrieving data from SQL queries which are executed on a QSqlDatabase." xmi.id="uwCrFBIib2xYB" visibility="private" type="ux9tGmd1n82B6"/>
+        <UML:Attribute isSpecification="false" name="m_qSqlDatabase" comment="@brief m_qSqlDatabase&#xa;This object handle SQLITE database creation and connections.&#xa;The QSqlDatabase class provides an interface for accessing a database through a connection.&#xa;An instance of QSqlDatabase represents the connection,&#xa;providing access to the database via one of the supported database drivers,&#xa;which are derived from QSqlDriver." xmi.id="uOQ8UzRZgediy" visibility="private" type="udQbLYFlog5W4"/>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="Database" xmi.id="uDh3MspYrWHFi" visibility="private" stereotype="constructor" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="parent" xmi.id="uwB2dX9seQHJ1" visibility="private" type="uaDmZIoOiuHwW" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="Database" xmi.id="uTtnY0abLa2OV" visibility="private" stereotype="constructor" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="other" xmi.id="u3086hDyf5xpT" visibility="private" type="uXBvEoc3bL9bN" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="operator =" comment="@brief operator =&#xa;In singleton object, the operator '=' needs to be private" xmi.id="uqoUwF1AGvMj3" visibility="private" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="" xmi.id="u3NKCm1dlmqno" visibility="private" type="uXBvEoc3bL9bN" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="~ Database" xmi.id="u1JbDzseKQmKg" visibility="private" stereotype="destructor" isRoot="false" isAbstract="false"/>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="openConnection" comment="@brief openConnection&#xa;Open the first connection with database if is not yet opened.&#xa;This method too be create the &quot;.db&quot; file on the first object query execution." xmi.id="umyQcMfmOvTI1" visibility="private" isRoot="false" isAbstract="false"/>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="setFileName" comment="@brief setFileName&#xa;Set the absolute sqlite file name using the application writable location&#xa;and the QApplication::ApplicationName() to define and create the .db file." xmi.id="uFEDU6BgXyjOw" visibility="private" isRoot="false" isAbstract="false"/>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="instance" comment="@brief instance&#xa;Return the pointer to this object&#xa;@return Database*" ownerScope="classifier" xmi.id="ut3CJPpXJTl4W" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uzN7IqY6tIC6h" type="utFVnNhMIKTbh"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="queryExec" comment="@brief queryExec&#xa;Execute a generic sqlite query, like &quot;SELECT * FROM application_settings&quot;&#xa;To access the result content of the query, the public method QVariantList resultSet() can be used to interate in result set.&#xa;@param sqlQueryString QString&#xa;@return bool return true if the query was success executed, otherwise false." xmi.id="uyJevLk4aiJAv" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uMeOrCrA46BND" type="uOpfMnOPC451Y"/>
+          <UML:Parameter isSpecification="false" name="sqlQueryString" xmi.id="uxrQapGvJR2rM" visibility="private" type="uR4q5IaypYibR" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="tableColumns" xmi.id="ut9MrRFtHrzPE" visibility="public" stereotype="constructor" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="tableName" xmi.id="uSsvfUgp18WYg" visibility="private" type="uR4q5IaypYibR" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="resultSet" xmi.id="u5maDcJUjZCwf" visibility="public" stereotype="constructor" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="selectType" xmi.id="ukJiG26VzIvXp" visibility="private" type="uK7fiZY1B6tO4" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="select" xmi.id="uWDDkC5BK1DfC" visibility="public" stereotype="constructor" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="tableName" xmi.id="ufoHO9EdUJHgj" visibility="private" type="uR4q5IaypYibR" value=""/>
+          <UML:Parameter isSpecification="false" name="where" xmi.id="u4QiTxss9P4a0" visibility="private" type="uIfMy9OUTQd63" value=""/>
+          <UML:Parameter isSpecification="false" name="args" xmi.id="uAwS9jdc125lq" visibility="private" type="uIfMy9OUTQd63" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="insert" xmi.id="utjWxs0n2bSBf" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uYQl7cALlrIB4" type="u6PPzpKB4pmbH"/>
+          <UML:Parameter isSpecification="false" name="tableName" xmi.id="uObooKwjjr1jx" visibility="private" type="uR4q5IaypYibR" value=""/>
+          <UML:Parameter isSpecification="false" name="insertData" xmi.id="u6ljbibuwcFvY" visibility="private" type="uIfMy9OUTQd63" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="remove" xmi.id="uJvjk7QO8KgBs" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ulkyP5Vvkk3Bj" type="u6PPzpKB4pmbH"/>
+          <UML:Parameter isSpecification="false" name="tableName" xmi.id="uEiI978cfPxGD" visibility="private" type="uR4q5IaypYibR" value=""/>
+          <UML:Parameter isSpecification="false" name="where" xmi.id="uXYCOWJFcSBZk" visibility="private" type="uIfMy9OUTQd63" value=""/>
+          <UML:Parameter isSpecification="false" name="whereComparator" xmi.id="upoEV6EGh4jSS" visibility="private" type="uR4q5IaypYibR" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="update" xmi.id="ujpEAoG1ZsNII" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uRStv5PFRLNjd" type="u6PPzpKB4pmbH"/>
+          <UML:Parameter isSpecification="false" name="tableName" xmi.id="u8c8uCsrGMuoG" visibility="private" type="uR4q5IaypYibR" value=""/>
+          <UML:Parameter isSpecification="false" name="updateData" xmi.id="uCVNOjhjNgMUM" visibility="private" type="uIfMy9OUTQd63" value=""/>
+          <UML:Parameter isSpecification="false" name="where" xmi.id="uPm0TcIRObVY0" visibility="private" type="uIfMy9OUTQd63" value=""/>
+          <UML:Parameter isSpecification="false" name="args" xmi.id="u9Wb2eZWiPrnB" visibility="private" type="uIfMy9OUTQd63" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="lastInsertId" xmi.id="uvD497jfHrOjj" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uyVtokWMgkoZ5" type="u6PPzpKB4pmbH"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="numRowsAffected" xmi.id="ukYnYdaitfH3o" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uwwh8PoBj85GX" type="u6PPzpKB4pmbH"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="lastRowId" xmi.id="uxpe3cBD0Pqw0" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uD627w9XvZmNF" type="u6PPzpKB4pmbH"/>
+          <UML:Parameter isSpecification="false" name="tableName" xmi.id="ut74yiiMojQxx" visibility="private" type="uR4q5IaypYibR" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="createTable" comment="@brief createTable&#xa;This method ready a &quot;.sql&quot; file pass in filePath parameter.&#xa;Will be create a string query and execute using queryExec(QString&amp;) to create the database table.&#xa;&#xa;@WARNING!&#xa;Any internal database error for the file will be ignored!&#xa;Your needs to prevent any errors from the SQL commands into this file.&#xa;@param filePath QString the path to &quot;.sql&quot; file in operating system." xmi.id="uW9pkHnOO5UvA" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="filePath" xmi.id="uvgIOgLa8pULE" visibility="private" type="uR4q5IaypYibR" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="lastQuery" comment="@brief lastQuery&#xa;get the last query executed in database. Uses the QSqlQuery::lastQuery().&#xa;@return QString a empty string if the last query is none. Otherwise, return the last string query." xmi.id="uE5T0lnfOGcN0" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="udS0yOpohhIMt" type="uyNWNIlJFrWbx"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="lastError" comment="@brief lastError&#xa;@return QString a empty string if the last query is success executed. Otherwise, return the last query error message" xmi.id="uySIdimX3HlSj" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="u5DB5TbJOBNTt" type="uyNWNIlJFrWbx"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="logMessage" comment="@brief logMessage&#xa;Send operation messages, like errors and success queries&#xa;@param message QString a string with the generic messages" xmi.id="upmqNuIueF4oD" visibility="protected" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="message" xmi.id="uMpmXw1n8FX6r" visibility="private" type="uR4q5IaypYibR" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+       <UML:Namespace.ownedElement>
+        <UML:Enumeration isSpecification="false" isLeaf="false" name="SELECT_TYPE" namespace="uqMOEEAPpRL3l" comment="@brief The SELECT_TYPE enum&#xa;This enumeration is used to decide when create a map from table&#xa;based on meta_key -> meta_value on resultSet method." xmi.id="u0obQtJpVi7Cy" visibility="public" stereotype="enum" isRoot="false" isAbstract="false">
+         <UML:Enumeration.literal>
+          <UML:EnumerationLiteral isSpecification="false" isLeaf="false" name="All_Itens_Int" namespace="u0obQtJpVi7Cy" xmi.id="ucWSCWrSCdEgf" visibility="public" isRoot="false" isAbstract="false"/>
+          <UML:EnumerationLiteral isSpecification="false" isLeaf="false" name="Meta_Key_Value_Int" namespace="u0obQtJpVi7Cy" xmi.id="ug92v61P5UM65" visibility="public" isRoot="false" isAbstract="false"/>
+         </UML:Enumeration.literal>
+        </UML:Enumeration>
+       </UML:Namespace.ownedElement>
+      </UML:Class>
+      <UML:Class isSpecification="false" isLeaf="false" name="AsyncSelect" namespace="Logical_View" comment="@brief The AsyncSelect class&#xa;Execute a asynchronous selection in SQLITE database, using 'tableName', 'where' condition and 'args' as selection properties, like 'LIMIT' and 'OFFSET'.&#xa;The jsonColumns is needed if the table contains columns with serialized json strings, to the value are returned as QVariant(Map/List).&#xa;To retrieve the result set, the pointer send a 'itemLoaded' signal for each entry, with a QVariantMap as column_name->value." xmi.id="utG6OsbqCKOsF" visibility="public" isRoot="false" isAbstract="false">
+       <UML:GeneralizableElement.generalization>
+        <UML:Generalization xmi.idref="uPj0eNIKqy0my"/>
+       </UML:GeneralizableElement.generalization>
+       <UML:Classifier.feature>
+        <UML:Attribute isSpecification="false" name="m_tableName" comment="@brief m_tableName&#xa;The name of the table to select in Database" xmi.id="uuwGt615i3O2l" visibility="private" type="uyNWNIlJFrWbx"/>
+        <UML:Attribute isSpecification="false" name="m_jsonColumns" comment="@brief m_jsonColumns&#xa;The list of json columnns from current table, to be serialized as string before save&#xa;and parse to object or array before sent in 'itemLoaded' signal when select data." xmi.id="uXLh8SNtNDd2b" visibility="private" type="u08GI0Tu6cNJp"/>
+        <UML:Attribute isSpecification="false" name="m_where" comment="@brief m_where&#xa;The predicates filter as object (javascript from QML),&#xa;the values needs to be: column_name->value." xmi.id="uLJ5RhSPrVVQi" visibility="private" type="uXqBXZTE7z45d"/>
+        <UML:Attribute isSpecification="false" name="m_args" comment="@brief m_args&#xa;The selection operators and custom arguments as object, like&#xa;the operator to compare, the limit of items or offset value (useful when paginate results)." xmi.id="uSTY2sxcYfjtD" visibility="private" type="uXqBXZTE7z45d"/>
+        <UML:Attribute isSpecification="false" name="m_database" comment="@brief m_database&#xa;A pointer to Database object where execute the selection." xmi.id="u5lg1WVqWAWSF" visibility="private" type="utFVnNhMIKTbh"/>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="AsyncSelect" xmi.id="uGqels46ro6Iu" visibility="public" stereotype="constructor" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="tableName" xmi.id="uXoyZbuAmx2WE" visibility="private" type="uR4q5IaypYibR" value=""/>
+          <UML:Parameter isSpecification="false" name="jsonColumns" xmi.id="uu6FWqH2bXxpi" visibility="private" type="urnLUDi7rC8Aa" value=""/>
+          <UML:Parameter isSpecification="false" name="where" xmi.id="uV6u6dJEGQjzy" visibility="private" type="uIfMy9OUTQd63" value=""/>
+          <UML:Parameter isSpecification="false" name="args" xmi.id="uk1TFH5uDHnki" visibility="private" type="uIfMy9OUTQd63" value=""/>
+          <UML:Parameter isSpecification="false" name="parent" xmi.id="uUaTbeUPYKxAF" visibility="private" type="uaDmZIoOiuHwW" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="itemLoaded" comment="@brief itemLoaded&#xa;This signal will be emitted after load some database data (from select method).&#xa;@param data QVariantMap a map with column_name->value loaded from database." xmi.id="uKKq7PuGH6FkP" visibility="protected" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="data" xmi.id="ujYY01lUMgn7g" visibility="private" type="uIfMy9OUTQd63" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Class isSpecification="false" isLeaf="false" name="DatabaseComponent" namespace="Logical_View" comment="@brief The DatabaseComponent class&#xa;&#xa;This class encapsulate a database operations to application plugins as custom QML type,&#xa;registered in application Context to be used by QML objects.&#xa;Uses the singleton instance of Database class to call the hight level methods: select, insert, update and remove.&#xa;&#xa;@WARNING!&#xa;The sqlite database will be created only if any plugin has a file &quot;plugin_table.sql&quot; (with table creation query)&#xa;in plugin directory. So, the qml object plugin needs to import the &quot;Database&quot; component to&#xa;use the methods and execute queries, saving or load data from your table.&#xa;Example:&#xa;# suposes a file MessagesPage.qml&#xa;&#xa;import QtQuick 2.9&#xa;import Database 1.0&#xa;&#xa;Item {&#xa;id: rootItem&#xa;&#xa;Component.onCompleted: database.select({}) // pass a empty predicated&#xa;&#xa;Database {&#xa;id: database&#xa;jsonColumns: [&quot;sender&quot;] &#xa;onItemLoaded: listViewModel.append(data)&#xa;}&#xa;}&#xa;&#xa;To select uses: select(&quot;plugin_table&quot;, {&quot;id&quot;: 1}). The result wil be sent in itemLoaded signal with a QVariantList of QVariantMap's.&#xa;To insert uses: insert(&quot;plugin_table&quot;, {&quot;name&quot;: &quot;Mouse Logitech MA1x&quot;, &quot;price&quot;: 19,55})&#xa;To update uses: update(&quot;plugin_table&quot;, {&quot;price&quot;: 21,15}, {&quot;name&quot;: &quot;Mouse Logitech MA1x&quot;})&#xa;To remove uses: remove(&quot;plugin_table&quot;, {&quot;name&quot;: &quot;Mouse Logitech MA1x&quot;})" xmi.id="u1hbStfZ99q53" visibility="public" isRoot="false" isAbstract="false">
+       <UML:GeneralizableElement.generalization>
+        <UML:Generalization xmi.idref="uSkiS32cOhwDT"/>
+       </UML:GeneralizableElement.generalization>
+       <UML:Classifier.feature>
+        <UML:Attribute isSpecification="false" name="m_totalItens" comment="@brief m_totalItens&#xa;A integer with total itens registered in database for current table.&#xa;It's useful to paginate the entries in database for current table." xmi.id="uDQaUIjBdoQct" visibility="private" type="u6PPzpKB4pmbH"/>
+        <UML:Attribute isSpecification="false" name="m_savedPks" comment="@brief m_savedPks&#xa;A QVariantList with all ID's saved in database for current table.&#xa;It's useful to check if the current table contains a some item and prevent to insert again." xmi.id="u0LiK8vOkpOIh" visibility="private" type="uZJTflmNT2JVN"/>
+        <UML:Attribute isSpecification="false" name="m_pkColumn" comment="@brief m_pkColumn&#xa;Set a column name when the tables uses a string column as&#xa;primary key. If defined, will be used to retrieve and keept in m_savedPks&#xa;and ca be useful to qml plugins check if some item from webservice is already on database." xmi.id="uE9Bj4vG5ablN" visibility="private" type="uyNWNIlJFrWbx"/>
+        <UML:Attribute isSpecification="false" name="m_database" comment="@brief m_database&#xa;A pointer to Database object." xmi.id="uJOuCQcHg9FTa" visibility="private" type="utFVnNhMIKTbh"/>
+        <UML:Attribute isSpecification="false" name="m_tableName" comment="@brief m_tableName&#xa;A string with the current table name.&#xa;This component is configured to execute operations in one table.&#xa;To execute in multiple tables, needs to set the table name before call insert, select, remove or update." xmi.id="u4r1dIOeYQB3O" visibility="private" type="uyNWNIlJFrWbx"/>
+        <UML:Attribute isSpecification="false" name="m_tableColumns" comment="@brief m_tableColumns&#xa;A string list with current table columns names and is defined internaly using m_database->tableColumns(m_tableName).&#xa;The columns names is used to parse values for each insert and update data, removing properties that not exists in current table.&#xa;from objects loaded from webservice." xmi.id="umOVfbHT41DuX" visibility="private" type="u08GI0Tu6cNJp"/>
+        <UML:Attribute isSpecification="false" name="m_jsonColumns" comment="@brief m_jsonColumns&#xa;A string list with json columns names, saved as serialized strings.&#xa;m_jsonColumns is used to parse these strings to QVariant(Map/List) before return to QML objects." xmi.id="uhEruQWTLcNrq" visibility="private" type="u08GI0Tu6cNJp"/>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="DatabaseComponent" xmi.id="ustKCZqo9BFTW" visibility="public" stereotype="constructor" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="parent" xmi.id="ux13GmY1Zdggy" visibility="private" type="uaDmZIoOiuHwW" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="containsId" xmi.id="uZl5MPZYbvm32" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uHTcelc7hYqXe" type="uOpfMnOPC451Y"/>
+          <UML:Parameter isSpecification="false" name="item" xmi.id="uH6lkuDfCDwht" visibility="private" type="u3YByjoQGYYSn" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="insert" xmi.id="uZzwoedEpzvWa" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uKTrpJfZax53f" type="u6PPzpKB4pmbH"/>
+          <UML:Parameter isSpecification="false" name="data" xmi.id="uclMndI7xBGYa" visibility="private" type="uIfMy9OUTQd63" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="select" xmi.id="uVSf5x6MKBx0X" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="where" xmi.id="uCEVxrw69ZsH4" visibility="private" type="uIfMy9OUTQd63" value=""/>
+          <UML:Parameter isSpecification="false" name="args" xmi.id="uoLqhiS6mjOnc" visibility="private" type="uIfMy9OUTQd63" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="update" xmi.id="u76lXyrHBwHwh" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uhyXMz3zy0YbA" type="u6PPzpKB4pmbH"/>
+          <UML:Parameter isSpecification="false" name="data" xmi.id="uiAdG8SCo6BsU" visibility="private" type="uIfMy9OUTQd63" value=""/>
+          <UML:Parameter isSpecification="false" name="where" xmi.id="u6RQEVPsxONdu" visibility="private" type="uIfMy9OUTQd63" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="remove" xmi.id="uGZmwZx8uzvtU" visibility="public" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uKBmUDJPC6JHM" type="u6PPzpKB4pmbH"/>
+          <UML:Parameter isSpecification="false" name="where" xmi.id="upMUDmRTYcM0J" visibility="private" type="uIfMy9OUTQd63" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="load" comment="@brief load&#xa;Load table columns and the total itens saved in database for current plugin" xmi.id="uIzlpAEH5zhGX" visibility="private" isRoot="false" isAbstract="false"/>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="setTableName" comment="@brief setTablename&#xa;Set in object m_tableName the value for current plugin table name.&#xa;After set the parameter to m_tableName, if is not empty, call load() method.&#xa;@param tableName QString" xmi.id="udGk6OXyD1Hs0" visibility="private" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="tableName" xmi.id="uA7tjM2MyjVDm" visibility="private" type="uR4q5IaypYibR" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="setPkColumn" comment="@brief setPkColumn&#xa;Set in object m_pkColumn the value for primary key column when the table uses&#xa;a string as table primary key. It's useful to keep all itens and prevent to insert&#xa;again on the listView or in database.&#xa;@param pkColumn QString" xmi.id="uvjT0SMvquoQg" visibility="private" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="pkColumn" xmi.id="ut7HIeQsqhaW0" visibility="private" type="uR4q5IaypYibR" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="setJsonColumns" comment="@brief setJsonColumns&#xa;Set in object m_jsonColumns the columns&#xa;@param jsonColumns QStringList QML can set as javascript array" xmi.id="uAOEYwrzgZIIm" visibility="private" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="jsonColumns" xmi.id="uxi6oaWyxj68j" visibility="private" type="urnLUDi7rC8Aa" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="parseData" comment="@brief parseData&#xa;This method parse a object or array to be saved as string serialized in database.&#xa;Basically, iterate in 'm_jsonColumns' parsing json object or array found in &amp;insertData using QJsonDocument.&#xa;Uses QMetaType to check each column value type.&#xa;@param insertData QVariantMap*" xmi.id="uIEsjkRfQGABe" visibility="private" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="data" xmi.id="uX1qXlVmkUIxs" visibility="private" type="uILDSxjcSWExW" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isQuery="false" isLeaf="false" name="itemLoaded" comment="@brief itemLoaded&#xa;This signal will be emitted after load some database data in select method.&#xa;@param data QVariantMap a map with column_name->value loaded from database." xmi.id="uAKDIL4LZvjIb" visibility="protected" isRoot="false" isAbstract="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" name="entry" xmi.id="uqyCyrI7Tl9z4" visibility="private" type="uIfMy9OUTQd63" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Generalization isSpecification="false" name="" parent="unqQ99vu5sVhz" namespace="Logical_View" discriminator="" xmi.id="uSkiS32cOhwDT" visibility="public" child="u1hbStfZ99q53"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QVariant" namespace="Logical_View" xmi.id="utTcYjrPZCavJ" visibility="public" isRoot="false" isAbstract="false"/>
+      <UML:Class isSpecification="false" isLeaf="false" name="QVariantList" namespace="Logical_View" xmi.id="uZJTflmNT2JVN" visibility="public" isRoot="false" isAbstract="false"/>
+     </UML:Namespace.ownedElement>
+     <XMI.extension xmi.extender="umbrello">
+      <diagrams resolution="96">
+       <diagram showscope="1" canvasheight="523" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" type="1" name="diagrama de classe" showpubliconly="0" fillcolor="#ffffff" documentation="" snapy="25" showopsig="1" isopen="1" showattribassocs="1" zoom="107,4716113573329" backgroundcolor="#ffffff" localid="-1" xmi.id="uWSvHBi6X4ytH" linecolor="#000000" showstereotype="1" usefillcolor="0" canvaswidth="837" linewidth="0" snapgrid="0" textcolor="#000000" snapcsgrid="0" showops="1" griddotcolor="#d3d3d3" snapx="25" showatts="1" showattsig="1" showpackage="1" showgrid="0">
+        <widgets>
+         <classwidget showscope="1" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" width="837" isinstance="0" showattributes="1" showpubliconly="0" fillcolor="#ffffff" usesdiagramfillcolor="0" height="468" localid="utMPI9J2JRnAV" usesdiagramusefillcolor="0" xmi.id="uqMOEEAPpRL3l" linecolor="#000000" showattsigs="601" showstereotype="1" usefillcolor="0" y="-2" autoresize="1" linewidth="0" showoperations="1" textcolor="#000000" x="-125" showopsigs="601" showpackage="1"/>
+        </widgets>
+        <messages/>
+        <associations>
+         <assocwidget seqnum="" widgetaid="uqMOEEAPpRL3l" changeabilityA="900" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" visibilityB="1" type="501" changeabilityB="900" totalcountb="0" fillcolor="#ffff00" usesdiagramfillcolor="0" visibilityA="1" totalcounta="0" usesdiagramusefillcolor="144" indexa="0" xmi.id="uR4a3hbCwOP5Q" linecolor="#000000" usefillcolor="1" autoresize="1" linewidth="0" widgetbid="uqMOEEAPpRL3l" indexb="0" textcolor="none">
+          <linepath layout="Polyline">
+           <startpoint startx="84.25" starty="466"/>
+           <endpoint endx="502.75" endy="466"/>
+           <point x="84.25" y="516"/>
+           <point x="502.75" y="516"/>
+          </linepath>
+          <floatingtext font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" width="30" isinstance="0" fillcolor="none" usesdiagramfillcolor="1" height="22" posttext="" role="702" localid="u9SWFX8YL0Oi7" usesdiagramusefillcolor="1" pretext="" xmi.id="uXncQoW4DshW4" linecolor="#000000" showstereotype="1" usefillcolor="1" y="477.93" autoresize="1" text="0..1" linewidth="0" textcolor="none" x="465.263"/>
+          <floatingtext font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" width="81" isinstance="0" fillcolor="none" usesdiagramfillcolor="1" height="22" posttext="" role="710" localid="uC4ROPux6QaAK" usesdiagramusefillcolor="1" pretext="-" xmi.id="uuw7edPFTlOUZ" linecolor="#000000" showstereotype="1" usefillcolor="1" y="478" autoresize="1" text="m_instance" linewidth="0" textcolor="none" x="382.25"/>
+         </assocwidget>
+        </associations>
+       </diagram>
+      </diagrams>
+     </XMI.extension>
+    </UML:Model>
+    <UML:Model isSpecification="false" isLeaf="false" name="Use Case View" namespace="m1" xmi.id="Use_Case_View" visibility="public" isRoot="false" isAbstract="false">
+     <UML:Namespace.ownedElement/>
+    </UML:Model>
+    <UML:Model isSpecification="false" isLeaf="false" name="Component View" namespace="m1" xmi.id="Component_View" visibility="public" isRoot="false" isAbstract="false">
+     <UML:Namespace.ownedElement>
+      <UML:Package isSpecification="false" isLeaf="false" name="home/enoque/qt/projects/tcc/src/database" namespace="Component_View" xmi.id="uNzMeO3x2ka00" visibility="public" stereotype="folder" isRoot="false" isAbstract="false">
+       <UML:Namespace.ownedElement>
+        <UML:Artifact isSpecification="false" isLeaf="false" name="asyncselect.h" namespace="uNzMeO3x2ka00" drawas="1" xmi.id="um9rfEX8XTZTY" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:Artifact isSpecification="false" isLeaf="false" name="database.h" namespace="uNzMeO3x2ka00" drawas="1" xmi.id="u0tJ6GAH9blOm" visibility="public" isRoot="false" isAbstract="false"/>
+        <UML:Artifact isSpecification="false" isLeaf="false" name="databasecomponent.h" namespace="uNzMeO3x2ka00" drawas="1" xmi.id="uIbChkVxA5BMf" visibility="public" isRoot="false" isAbstract="false"/>
+       </UML:Namespace.ownedElement>
+      </UML:Package>
+     </UML:Namespace.ownedElement>
+    </UML:Model>
+    <UML:Model isSpecification="false" isLeaf="false" name="Deployment View" namespace="m1" xmi.id="Deployment_View" visibility="public" isRoot="false" isAbstract="false">
+     <UML:Namespace.ownedElement/>
+    </UML:Model>
+    <UML:Model isSpecification="false" isLeaf="false" name="Entity Relationship Model" namespace="m1" xmi.id="Entity_Relationship_Model" visibility="public" isRoot="false" isAbstract="false">
+     <UML:Namespace.ownedElement/>
+    </UML:Model>
+   </UML:Namespace.ownedElement>
+  </UML:Model>
+ </XMI.content>
+ <XMI.extensions xmi.extender="umbrello">
+  <docsettings viewid="uWSvHBi6X4ytH" uniqueid="uuw7edPFTlOUZ" documentation=""/>
+  <listview>
+   <listitem open="1" id="Views" type="800">
+    <listitem open="1" id="Entity_Relationship_Model" type="836"/>
+    <listitem open="1" id="Use_Case_View" type="802"/>
+    <listitem open="1" id="Deployment_View" type="827"/>
+    <listitem open="1" id="Component_View" type="821">
+     <listitem open="0" id="uNzMeO3x2ka00" type="820">
+      <listitem open="0" id="um9rfEX8XTZTY" type="824"/>
+      <listitem open="0" id="u0tJ6GAH9blOm" type="824"/>
+      <listitem open="0" id="uIbChkVxA5BMf" type="824"/>
+     </listitem>
+    </listitem>
+    <listitem open="1" id="Logical_View" type="801">
+     <listitem open="0" id="utG6OsbqCKOsF" type="813">
+      <listitem open="0" id="uGqels46ro6Iu" type="815"/>
+      <listitem open="0" id="uKKq7PuGH6FkP" type="815"/>
+      <listitem open="0" id="uSTY2sxcYfjtD" type="814"/>
+      <listitem open="0" id="u5lg1WVqWAWSF" type="814"/>
+      <listitem open="0" id="uXLh8SNtNDd2b" type="814"/>
+      <listitem open="0" id="uuwGt615i3O2l" type="814"/>
+      <listitem open="0" id="uLJ5RhSPrVVQi" type="814"/>
+     </listitem>
+     <listitem open="0" id="uqMOEEAPpRL3l" type="813">
+      <listitem open="0" id="u1JbDzseKQmKg" type="815"/>
+      <listitem open="0" id="uW9pkHnOO5UvA" type="815"/>
+      <listitem open="0" id="uTtnY0abLa2OV" type="815"/>
+      <listitem open="0" id="uDh3MspYrWHFi" type="815"/>
+      <listitem open="0" id="utjWxs0n2bSBf" type="815"/>
+      <listitem open="0" id="ut3CJPpXJTl4W" type="815"/>
+      <listitem open="0" id="uySIdimX3HlSj" type="815"/>
+      <listitem open="0" id="uvD497jfHrOjj" type="815"/>
+      <listitem open="0" id="uE5T0lnfOGcN0" type="815"/>
+      <listitem open="0" id="uxpe3cBD0Pqw0" type="815"/>
+      <listitem open="0" id="upmqNuIueF4oD" type="815"/>
+      <listitem open="0" id="uOHrUFJMKJN2f" type="814"/>
+      <listitem open="0" id="uR4a3hbCwOP5Q" type="814"/>
+      <listitem open="0" id="uOQ8UzRZgediy" type="814"/>
+      <listitem open="0" id="uwCrFBIib2xYB" type="814"/>
+      <listitem open="0" id="ukYnYdaitfH3o" type="815"/>
+      <listitem open="0" id="umyQcMfmOvTI1" type="815"/>
+      <listitem open="0" id="uqoUwF1AGvMj3" type="815"/>
+      <listitem open="0" id="uyJevLk4aiJAv" type="815"/>
+      <listitem open="0" id="uJvjk7QO8KgBs" type="815"/>
+      <listitem open="0" id="u5maDcJUjZCwf" type="815"/>
+      <listitem open="0" id="u0obQtJpVi7Cy" type="831">
+       <listitem open="0" id="ucWSCWrSCdEgf" type="839"/>
+       <listitem open="0" id="ug92v61P5UM65" type="839"/>
+      </listitem>
+      <listitem open="0" id="uWDDkC5BK1DfC" type="815"/>
+      <listitem open="0" id="uFEDU6BgXyjOw" type="815"/>
+      <listitem open="0" id="ut9MrRFtHrzPE" type="815"/>
+      <listitem open="0" id="ujpEAoG1ZsNII" type="815"/>
+     </listitem>
+     <listitem open="0" id="u1hbStfZ99q53" type="813">
+      <listitem open="0" id="uZl5MPZYbvm32" type="815"/>
+      <listitem open="0" id="ustKCZqo9BFTW" type="815"/>
+      <listitem open="0" id="uZzwoedEpzvWa" type="815"/>
+      <listitem open="0" id="uAKDIL4LZvjIb" type="815"/>
+      <listitem open="0" id="uIzlpAEH5zhGX" type="815"/>
+      <listitem open="0" id="uJOuCQcHg9FTa" type="814"/>
+      <listitem open="0" id="uhEruQWTLcNrq" type="814"/>
+      <listitem open="0" id="uE9Bj4vG5ablN" type="814"/>
+      <listitem open="0" id="u0LiK8vOkpOIh" type="814"/>
+      <listitem open="0" id="umOVfbHT41DuX" type="814"/>
+      <listitem open="0" id="u4r1dIOeYQB3O" type="814"/>
+      <listitem open="0" id="uDQaUIjBdoQct" type="814"/>
+      <listitem open="0" id="uIEsjkRfQGABe" type="815"/>
+      <listitem open="0" id="uGZmwZx8uzvtU" type="815"/>
+      <listitem open="0" id="uVSf5x6MKBx0X" type="815"/>
+      <listitem open="0" id="uAOEYwrzgZIIm" type="815"/>
+      <listitem open="0" id="uvjT0SMvquoQg" type="815"/>
+      <listitem open="0" id="udGk6OXyD1Hs0" type="815"/>
+      <listitem open="0" id="u76lXyrHBwHwh" type="815"/>
+     </listitem>
+     <listitem open="0" id="uWSvHBi6X4ytH" label="diagrama de classe" type="807"/>
+     <listitem open="0" id="uK7fiZY1B6tO4" type="813"/>
+     <listitem open="0" id="uFIEKLwSR6V6X" type="813"/>
+     <listitem open="0" id="utgaead1uVhiS" type="813"/>
+     <listitem open="0" id="ulXtZucmaMYAw" type="813"/>
+     <listitem open="0" id="unqQ99vu5sVhz" type="813"/>
+     <listitem open="0" id="udQbLYFlog5W4" type="813"/>
+     <listitem open="0" id="ukR5TwMtleJBd" type="813"/>
+     <listitem open="0" id="ux9tGmd1n82B6" type="813"/>
+     <listitem open="0" id="uxhCPVDTj5MAc" type="813"/>
+     <listitem open="0" id="uyNWNIlJFrWbx" type="813"/>
+     <listitem open="0" id="u08GI0Tu6cNJp" type="813"/>
+     <listitem open="0" id="uQk2bQQURPG1M" type="813"/>
+     <listitem open="0" id="uykTMI3jvtYlc" type="813"/>
+     <listitem open="0" id="utTcYjrPZCavJ" type="813"/>
+     <listitem open="0" id="uZJTflmNT2JVN" type="813"/>
+     <listitem open="0" id="uXqBXZTE7z45d" type="813"/>
+     <listitem open="0" id="Datatypes" type="830">
+      <listitem open="1" id="uOpfMnOPC451Y" type="829"/>
+      <listitem open="1" id="u1uSsUzGBh9k3" type="829"/>
+      <listitem open="0" id="uXBvEoc3bL9bN" type="829"/>
+      <listitem open="0" id="uR4q5IaypYibR" type="829"/>
+      <listitem open="0" id="urnLUDi7rC8Aa" type="829"/>
+      <listitem open="0" id="u3YByjoQGYYSn" type="829"/>
+      <listitem open="0" id="uIfMy9OUTQd63" type="829"/>
+      <listitem open="0" id="utFVnNhMIKTbh" type="829"/>
+      <listitem open="1" id="uccSBADS11dX3" type="829"/>
+      <listitem open="1" id="uYvoY9DeZcVkJ" type="829"/>
+      <listitem open="1" id="u6PPzpKB4pmbH" type="829"/>
+      <listitem open="1" id="uDUX2RFeaGtdp" type="829"/>
+      <listitem open="1" id="uBSWorWGADZA2" type="829"/>
+      <listitem open="0" id="uaDmZIoOiuHwW" type="829"/>
+      <listitem open="0" id="uILDSxjcSWExW" type="829"/>
+      <listitem open="1" id="ulU3mX12Mbj6L" type="829"/>
+      <listitem open="1" id="uCAS0xSP5GnIr" type="829"/>
+      <listitem open="1" id="uNmMJqyVeMpm2" type="829"/>
+      <listitem open="1" id="uXwCO7gOEVIWW" type="829"/>
+      <listitem open="1" id="uC5oo19FoB678" type="829"/>
+      <listitem open="1" id="uRrK8UX9qvji3" type="829"/>
+      <listitem open="1" id="uvAusbLZ6Q89C" type="829"/>
+      <listitem open="1" id="uF5pFUfX2CEiT" type="829"/>
+      <listitem open="1" id="u36gJlCIoeAeq" type="829"/>
+      <listitem open="1" id="uu6yTxaMEVc40" type="829"/>
+      <listitem open="1" id="uYdbljtipHuua" type="829"/>
+     </listitem>
+    </listitem>
+   </listitem>
+  </listview>
+  <codegeneration>
+   <codegenerator language="C++"/>
+  </codegeneration>
+ </XMI.extensions>
+</XMI>

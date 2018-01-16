@@ -130,7 +130,7 @@ A classe \textit{App} é um componente importante nesta arquitetura, suas respon
 No iOS, o objeto correspondente a APP também poderá receber argumentos vindos do \textit{QtAppDelegate} objeto que carrega os requisitos da plataforma e inicializa a aplicação. Os argumentos que podem ser recebidos são o \textit{token} de registro no \textit{Firebase} e mensagens de notificações via push.
 
 \begin{figure}[h]
-	\includegraphics[scale=0.54]{diagrama_de_classe_App}
+	\includegraphics[scale=0.6]{diagrama_de_classe_App}
 	\centering
 	\caption{Diagrama da classe App}
 \end{figure}
@@ -224,8 +224,20 @@ Esta seção descreverá o processo de comunicação e interação com o serviç
 ....
 
 
-\subsection{Gerencimento de Banco de Dados}\label{sec:solucao-desenvolvida}
+\subsection{Persistência de Dados}\label{sec:solucao-desenvolvida}
+Persistência de dados é um requisitivo funcional disponibilizado nesta arquitetura e foi elaborada com o objetivo de fornecer aos plugins a possibilidade de persistir dados em um banco SQLITE. Cada plugin pode criar uma ou mais tabelas no banco de dados da aplicação e realizar as operações de inserção, atualização e busca de dados em suas tabelas, basta importar o componente Database com a diretiva \textit{import Database 1.0} e utilizá-lo para objeto qml. Para criar as tabelas no banco de dados da aplicação, o plugin deve fornecer um arquivo \textit{plugin\_table.sql} contendo os comandos de criação, alteração ou remoção das tabelas. Esse arquivo é lido pelo objeto gerenciador de plugins que passará o caminho do arquivo para outro objwto que criará a tabela. Esse arquivo será carregado e executado a cada release.\par
+
+Para gerenciar as operações no banco de dados, foi criado uma classe c++ chamda de \textit{Database} que encapsula em métodos de alto nível as operações necessárias para criar o banco de dados, conectar e executar as \textit{querys sql}. No entanto, essa classe não é utilziada pelos plugins diretamente, foi criado uma outra classe chamada \textit{DatabaseComponent} que agrega uma instância de \textit{Database} e delega as operações para esse objeto. Através dessa API de persistência, os plugins poderão persistir e carregar dados com o dispositivo online ou até mesmo offline. Os tópicos a seguir apresenta detalhes de ambas as classes \textit{Database} e \textit{DatabaseComponent}.
+
+
 \subsubsection{A classe Database}\label{sec:solucao-desenvolvida}
+A classe Database é resposável por criar o banco de dados SQLITE, um arquivo binário de extensão .db na primeira execução do aplicativo quando houver necessidade de criação de uma tabela por algum plugin. Se nenhum plugin fornecer um arquivo \textit{plugin\_table.sql} em seu diretório, o banco de dados não será criado. A classe database utiliza as classes \textit{QSqlDatabase} e \textit{QSqlQuery} para criação e conexão com o banco de dados e as classes \textit{QSqlRecord} e \textit{QSqlError} para as realizar \textit{querys}. O diagrama a seguir apresenta os atributos e métodos da classe \textit{Database}.
+\begin{figure}[h]
+	\includegraphics[scale=0.5]{diagrama_de_classe_Database}
+	\centering
+	\caption{Diagrama da classe Database}
+\end{figure}
+
 \subsubsection{O Componente DatabaseComponent}\label{sec:solucao-desenvolvida}
 ....
 
