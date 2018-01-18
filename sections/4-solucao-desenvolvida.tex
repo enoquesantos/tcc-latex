@@ -6,7 +6,7 @@ A arquitetura proposta neste trabalho é baseada em camadas e utiliza os estilos
 As tecnologias utilizadas consiste de todos os recursos que foram necessários para o desenvolvimento deste trabalho. O Qt e o \textit{QtCreator} foram os artefatos mais importantes, pois, forneceram os recursos e ferramentas para a construção das principais características da arquitetura. Dentre os recursos providos pelo Qt destaca-se os eventos, que permitem interligar objetos através de sinais e slots\footnote{funções javascript ou métodos de uma classe c++ invocados quando o sinal o qual estão conectados for emitido, recebendo em seus parâmetros os argumentos enviado pelo sinal.} ou \textit{signal handles}, e as APIs providas em classes C++ que integram os recursos da arquitetura, tais como, persistência de dados (via \textit{QSettings} e \textit{QSqlDatabase}) e rede (via \textit{QNetworkAccessManager}). O \textit{QtCreator} é uma IDE que possui recursos integrados à um projeto Qt e dentre os recursos destaca-se, facilidade de \textit{build} do projeto, construção do executável do aplicativo e o \textit{deploy} em um \textit{smartphone}. O \textit{QtCreator} também foi utilizado como editor de código fonte.
 
 
-\subsection{Processos de desenvolvimento}
+\subsection{Etapas de desenvolvimento}
 Esta arquitetura foi desenvolvida sob uma metodologia ágil com destaque para uma programação extrema e teste contínuo. A arquitetura recebeu alterações durante 10 meses e a primeira etapa de desenvolvimento introduziu o suporte aos plugins. O primeiro desafio foi desacoplar os plugins do arquivo QRC\footnote{QRC - Qt Resource Collection é um arquivo XML que mapeia os arquivos que serão empacotados no aplicativo.} e permitir que a aplicação carregasse-os dinamicamente. Também nesta primeira etapa, foi implementado alguns recursos associados aos plugins, como controle de cache dos arquivos QML, ordenação e \textit{parsing} das páginas (definido pelos plugins), além da criação de um componente genérico a ser extendido por todas as páginas do aplicativo. O controle de cache consiste em regenerar o cache dos arquivos QML após uma atualização para garantir o carregamento de mudanças em cada arquivo a cada release. O componente genérico foi definido como \textit{BasePage.qml} e será detalhado posteriormente, ele foi criado para garantir o atendimento de alguns requisitos mínimos de aparência, estrutura e simplificar a criação de páginas.\par
 
 Na segunda etapa, foi implementado classes c++ para gerenciar as configurações da aplicação, classe utilitária com métodos a serem invocados pelos plugins para operações de baixo nível ainda não suportados pelo QML, além de classes para recursos extra providos pela arquitetura como diálogo para seleção de arquivo no android e IOS e envio de notificação para a bandeija do sistema.\par
@@ -62,7 +62,7 @@ A visão a seguir, apresenta um diagrama de pacotes e arquivos destacando uma vi
 
 
 \subsection{Arquitetura de plugins}
-As funcionalidades de um aplicativo baseado nesta arquitetura devem ser implementadas através de plugins, atendendo aos requisitos levantados para o aplicativo a ser desenvolvido utilizando apenas qml. Os plugins são independentes entre sí e podem incluir arquivos qml, txt, html e imagens em seu diretório. Qualquer componente de um plugin pode reutilizar os componentes públicos usando a diretiva \textit{import "qrc:/src/qml/"}. Os plugins estão desacoplados do núcleo da aplicação e serão conhecidos em tempo de execução. Ao adicionar um novo plugin no diretório \textit{plugins}, ele será carregado no próximo \textit{build} do projeto. Para que um plugin seja identificado pelo objeto gerenciador de plugins para ser carregado na aplicação, é necessário obedecer a três restrições: 1º) estar em um sub-diretório dentro de \textit{plugins}; 2º) conter um arquivo \textit{config.json} e, 3º) conter pelo menos um arquivo qml visual ou \textit{listener}. Os \textit{listeners} são componentes não visuais que observam eventos da aplicação. O arquivo \textit{config.json} de um plugin deve ser um objeto contendo as seguintes propriedades:  
+As funcionalidades de um aplicativo baseado nesta arquitetura devem ser implementadas através de plugins, atendendo aos requisitos levantados para o aplicativo a ser desenvolvido utilizando apenas qml. Os plugins são independentes entre sí e podem incluir arquivos qml, txt, html e imagens em seu diretório. Qualquer componente de um plugin pode reutilizar os componentes públicos usando a diretiva \textit{import "qrc:/publicComponentes/"}, ao todo 15 componentes são disponibilizados. Os plugins estão desacoplados do núcleo da aplicação e serão conhecidos em tempo de execução. Ao adicionar um novo plugin no diretório \textit{plugins}, ele será carregado no próximo \textit{build} do projeto. Para que um plugin seja identificado pelo objeto gerenciador de plugins para ser carregado na aplicação, é necessário obedecer a três restrições: 1º) estar em um sub-diretório dentro de \textit{plugins}; 2º) conter um arquivo \textit{config.json} e, 3º) conter pelo menos um arquivo qml visual ou \textit{listener}. Os \textit{listeners} são componentes não visuais que observam eventos da aplicação. O arquivo \textit{config.json} de um plugin deve ser um objeto contendo as seguintes propriedades:  
 \begin{enumerate}
 	\item \textit{name} (string): o nome do plugin. Deve ser preenchido para que o plugin seja identificado pelo objeto gerenciador de plugins;
 
@@ -243,15 +243,12 @@ O arquivo \textit{config.json} é um componente importante desta arquitetura, el
 	\end{itemize}
 \end{itemize}
 
-\subsection{Comunicação entre os objetos}
-Esta seção descreverá o processo de comunicação entre objetos no aplicativo e o uso correto dos eventos...
-
-
-\subsection{Comunicação com serviço REST}
-Esta seção descreverá o processo de comunicação e interação com o serviço REST...
-
 
 \subsection{Gerencimento de Rede (HTTP)}\label{sec:solucao-desenvolvida}
+Um dos requisitos funcionais providos nesta arquitetura é o acesso a rede para comunicação com algum \textit{web service} via HTTP. O desenvolvedor deverá adicionar na propriedade \textit{restService.baseUrl} no arquivo de configuração, o endereço base do serviço rest e utilizar apenas o path da url nos objetos que realizam as requisições GET, POST e etc. Para realizar requisições HTTP, os plugins terão a disposição um objeto \textit{requestHttp} em cada página. Os objetos \textit{listeners} que precisarem fazer requisição HTTP podem utilizar o componente \textit{RequestHttp.qml} disponível na arquitetura. No entanto, se por algum motivo for preciso iniciar uma requisição para outro domínio diferente do serviço rest, basta passar a url completa no primeiro parâmetro dos métodos de requisição.\par
+
+Para realizar requisições HTTP, foi criado uma classe c++ que encapsula requisição, autenticação, download e upload com o objetivo de oferecer um componente rico em recursos e de alto nível para os plugins. Essa classe utiliza componentes do Qt e não é utilizada diretamente pelos plugins, foi criado um arquivo qml com o mesmo nome da classe e disponibilizado como componente reutilizável na arquitetura.
+
 \subsubsection{A classe RequestHttp}\label{sec:solucao-desenvolvida}
 \subsubsection{O Componente RequestHttp}\label{sec:solucao-desenvolvida}
 ....
@@ -285,6 +282,14 @@ A classe Database é resposável por criar o banco de dados SQLITE, um arquivo b
 
 \subsection{Componentes Visuais}\label{sec:solucao-desenvolvida}
 ....
+
+
+\subsection{Comunicação entre os objetos}
+Esta seção descreverá o processo de comunicação entre objetos no aplicativo e o uso correto dos eventos...
+
+
+\subsection{Comunicação com serviço REST}
+Esta seção descreverá o processo de comunicação e interação com o serviço REST...
 
 
 \subsection{Fluxo de execução}\label{sec:solucao-desenvolvida}
