@@ -25,15 +25,26 @@
 \usepackage{color}
 \usepackage{etoolbox}
 \usepackage{float}
+\usepackage{framed}
 \usepackage{graphicx}
 \usepackage{hyphenat}
 \usepackage{hyperref}
+\usepackage{listings}
 \usepackage{pslatex}
 \usepackage[portuguese]{babel}
 \usepackage{ragged2e}
 \usepackage[T1]{fontenc}
 \usepackage{tabularx}
+\usepackage{upquote}
 \usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+
+% add sintax highlight to qml code
+\lstdefinelanguage{qml} {
+	morekeywords={Connections, target, onEventNotify, if, else}
+}
+
+\renewcommand{\lstlistingname}{Algoritmo}
 
 \graphicspath{{images/}}
 \hyphenation{mate-mática recu-perar}
@@ -66,7 +77,7 @@
 	\maketitle
 
 	\section*{RESUMO}
-	O desenvolvimento de aplicativos móveis trouxe uma série de desafios para a ciência da computação. Com limitações de recursos como a bateria, armazenamento e memória, o desenvolvimento de software para dispositivos móveis impõe requisitos não-funcionais importantes a serem considerados no projeto de aplicativos. Com a popularização da internet e das redes móveis, os aplicativos móveis tornaram-se popular e projetar aplicativos de forma fácil com componentes de alto nível, baixo acoplamento e bom desempenho não é uma tarefa trivial. Este trabalho apresenta uma arquitetura de referência para o desenvolvimento de aplicativos móveis orientado a plugins no contexto de sistemas de informação, proporcionando baixo acoplamento entre os componentes, escalabilidade de \textit{features} através de plugins, dispõe de componentes genéricos reutilizáveis, além de componentes de alto nível para recursos corriqueiros como requisições HTTP, persistência de dados e comunicação entre os componentes através de eventos.
+	O desenvolvimento de aplicativos móveis trouxe uma série de desafios para a ciência da computação. Com limitações de recursos como a bateria, armazenamento e memória, o desenvolvimento de software para dispositivos móveis impõe requisitos não-funcionais importantes a serem considerados no projeto de aplicativos. Com a popularização da internet e das redes móveis, os aplicativos móveis tornaram-se popular e projetar aplicativos de forma fácil com componentes de alto nível, baixo acoplamento e bom desempenho não é uma tarefa trivial. Este trabalho apresenta uma arquitetura de referência para o desenvolvimento de aplicativos móveis orientado a plugins no contexto de sistemas de informação, proporcionando baixo acoplamento entre os componentes, escalabilidade de \textit{features} através de plugins, dispõe de componentes genéricos reutilizáveis, além de componentes de alto nível para recursos básicos como requisições HTTP, persistência de dados e comunicação entre objetos através de eventos.
 
 	\keywords{Aplicativos Móveis; Arquitetura de Software; Sistemas de Informação.}
 

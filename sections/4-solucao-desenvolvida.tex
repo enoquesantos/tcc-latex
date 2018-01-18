@@ -47,7 +47,7 @@ A visão a seguir, apresenta um diagrama de pacotes e arquivos destacando uma vi
 
 	\item[3] \textit{config.json}: Arquivo de configuração principal desta arquitetura, pois define propriedades que indicarão alguns comportamentos iniciais e esolha de tipos de objetos a serem instanciados, tais como exibir os termos de uso na primeira inicialização do aplicativo (carregará o arquivo definido em \textit{assets/eula.html} definido pelo usuário da arquitetura), se tem login ou não (caso sim, instanciará um objeto que gerencia o perfil do usuário e a página de login), se usará layout em linha e etc. Os detalhes deste arquivo será apresentado em um tópico mais adiante.
 
-	\item[4] \textit{src}: Diretório de código fonte. É onde está as classes c++ e componentes QML utilizados internamente e dispostos para plugins como componentes reusáveis. Esse diretório é sub-dividido em outros 5 diretórios que organizam as classes c++ por tipo de API a qual são resposáveis, e são eles: \textbf{core} -- contém classes do núcleo da aplicação dentre elas \textit{App}, \textit{PluginManager}, \textit{Notification} e \textit{Utils}; \textbf{database} -- contém classes da API de persistência de dados da aplicação; \textbf{extras} -- contém classes de customização de estilo no android; \textbf{network} que mantém as classes da API de rede da aplicação e \textbf{qml} que contém os arquivos qml sub-divididos em \textit{private} e \textit{public}, sendo os componentes "privado" os que são utilizados internamente pela aplicação e os componentens públicos os que são reutilizados pelos plugins.
+	\item[4] \textit{src}: Diretório de código fonte. É onde está as classes c++ e componentes qml utilizados internamente e dispostos para plugins como componentes reusáveis. Esse diretório é sub-dividido em outros 5 diretórios que organizam as classes c++ por tipo de API a qual são resposáveis, e são eles: \textbf{core} -- contém classes do núcleo da aplicação dentre elas \textit{App}, \textit{PluginManager}, \textit{Notification} e \textit{Utils}; \textbf{database} -- contém classes da API de persistência de dados da aplicação; \textbf{extras} -- contém classes de customização de estilo no android; \textbf{network} que mantém as classes da API de rede da aplicação e qml que contém os arquivos qml sub-divididos em \textit{private} e \textit{public}, sendo os componentes "privado" os que são utilizados internamente pela aplicação e os componentens públicos os que são reutilizados pelos plugins.
 
 	\item[5] \textit{plugins}: Diretório de plugins. Cada plugin deve obrigatóriamente estar em um sub-diretório com no mínimo um arquivo de configuração de nome \textit{config.json} e os arquivos QML necessirários para o seu funcionamento. Os detalhes das propriedades requeridas para o carregamento de um plugin serão descritas em um tópico posterior.
 
@@ -68,9 +68,10 @@ As funcionalidades de um aplicativo baseado nesta arquitetura devem ser implemen
 
 	\item \textit{description} (string): um texto que descreve o plugin. Deve ser definido, caso contrário o plugin não será adicionado a lista de plugins da aplicação;
 
-	\item \textit{pages} (array): uma lista de objetos que indentifica as páginas do plugin que serão acessadas a partir do menu ativo no aplicativo e deve ser preenchido se a propriedade \textit{listeners} estiver vazia;
+	\item \textit{listeners} (array): uma lista de strings que indentifica os arquivos do plugin (componentes qml não visuais) que serão instanciados como observadores de eventos. O preenchimento dessa propriedade é opcional e pode ser preenchida mesmo que a propriedade \textit{pages} seja preechida;
 
-	\item \textit{listeners} (array): uma lista de strings que indentifica os arquivos do plugin (componentes qml não visuais) que serão instanciados como observadores de eventos. O preenchimento dessa propriedade é opcional e pode ser preenchida mesmo que a propriedade \textit{pages} seja preechida.
+	\item \textit{pages} (array): uma lista de objetos que indentifica as páginas do plugin que serão acessadas a partir do menu ativo no aplicativo e deve ser preenchido se a propriedade \textit{listeners} estiver vazia.
+
 \end{enumerate}
 
 Cada objeto em \textit{pages} poderá conter as seguintes propriedades que serão lidas pelos componentes que definem os menus durante a inicialização do aplicativo:
@@ -80,7 +81,7 @@ Cada objeto em \textit{pages} poderá conter as seguintes propriedades que serã
 
 	\item \textit{title} (string): O título correspondente a página a ser exibido no menu. Esse valor também é requerido, se não for definido, a página não será carregada.
 
-	\item \textit{icon} (string) (opcional): O nome de um ícone do \textit{Awesome Icons} que será exibido no menu, em conjunto com o título. Se esse valor não for definido, um ícone padrão será utilizado.
+	\item \textit{awesomeIcon} (string) (opcional): O nome de um ícone do \textit{Awesome Icons} que será exibido no menu, em conjunto com o título. Se esse valor não for definido, um ícone padrão será utilizado.
 
 	\item \textit{roles} (array): Uma lista de strings contendo os nomes de perfil de usuário que poderão acessar a página. Esse array será útil somente se a aplicação definir o tipo de perfil do usuário no objeto \textit{UserProfile.profile}. Esse valor é opcional, caso não for definido, será setado um array vazio. Porém, se for definido o perfil do usuário no objeto \textit{profile} e essa string não tiver nesta propriedade (\textit{roles}), a página não será exibida.
 
@@ -115,31 +116,63 @@ Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botõe
 \subsubsection{Gerenciamento de plugins}\label{sec:solucao-desenvolvida}
 A classe \textit{PluginManager} é responsável por carregar os plugins, percorrendo todos os arquivos dentro do diretório \textit{plugins} e analizando as propriedades definida no arquivo \textit{config.json} de cada plugin. Em cada arquivo, é verificado as propriedades definida para cada página adicionando-a como objeto em um array. Após ler todos os plugins, o array de objetos é persistido nas configurações da aplicação para que na próxima inicialização não precise iterar novamente o diretório, lendo as definições dos plugins das configurações, exceto se houver uma atualização da aplicação ou quando a aplicação é executada em modo \textit{debug}. A cada inicialização, é feito uma verificação da versão do aplicativo, que também é persistida nas configurações, se houver diferença entre versão em execução da versão salva na execução anterior (se existir), os plugins serão recarregados. Além disso, esta classe também é reponsável por deletar todos os arquivos de cache contido no diretório de cache da aplicação a cada release. Outra responsabilidade dessa classe, é a criação da tabela de banco de dados do plugin se o plugin dispor de um arquivo \textit{plugin\_table.sql} em seu diretório. O banco de dados da aplicação é criado por um objeto que gerencia as operações de persistência e será detalhado em outro tópico. O diagrama a seguir, apresenta as operações e atributos da classe \textit{PluginManager}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\includegraphics[width=8cm]{diagrama_de_classe_PluginManager}
 	\centering
 	\caption{Diagrama da classe PluginManager}
 \end{figure}
 
-A instância de \textit{PluginManager} é criada pelo objeto \textit{app} na inicialização do aplicativo e o processo de carregamento dos plugins é feito antes de instanciar qualquer componente visual, na invocação do método \textit{loadPlugins}. O objeto \textit{pluginManager} será destruido após o carregamento dos plugins para manter baixo consumo de memória pelo aplicativo.
+O carregamento dos plugins é feito antes de instanciar qualquer componente visual, na invocação do método \textit{loadPlugins}. O objeto \textit{pluginManager} será destruido após o carregamento dos plugins para garantir baixo consumo de memória pelo aplicativo.
 
 
 \subsection{A classe App}\label{sec:solucao-desenvolvida}
-A classe \textit{App} é um componente importante nesta arquitetura, suas responsabilidades consiste de instanciar \textit{PluginManager} que carregará os plugins, carregar o arquivo \textit{config.json} principal que contém os parâmetros da aplicação e gerenciar a persistência das configurações da aplicação via \textit{QSettings}\footnote{Uma classe do Qt que fornece um mecanismo de leitura e escrita de dados no dispositivo através de métodos parametrizados.}. A classe \textit{App} é instanciada na inicialização do aplicativo e é registrada no contexto da aplicação para que os plugins e componentes qml possam invocar seus métodos públicos definidos como \textit{Q\_INVOKABLE}, como por exemplo, o método \textit{readSettings} que retorna um tipo genérico de dado, lido das configurações do aplicativo através de algum parâmetro que identifique o dado a ser lido. Outra tarefa que corresponde a esta classe, é a criação de uma conexão com a atividade do aplicativo no android, que corresponde a uma classe. Essa atividade poderá receber parâmetros de eventos como \textit{push notification} ou token de registro no \textit{Firebase}, quando utilizado pela aplicação. O processo de registro do token e o recebimento de notificações via push é feito por objetos java em um processo separado da aplicação, e quando a aplicação estiver em execução, a atividade do aplicativo passará os argumentos recebidos do push ou token para a aplicação através de uma chamada ao método estático \textit{fireEventNotify} da classe \textit{App}.\par
+A classe \textit{App} é um componente importante nesta arquitetura, suas principais responsabilidades consiste de instanciar \textit{PluginManager}, carregar o arquivo \textit{config.json} que contém parâmetros da aplicação e gerenciar a persistência das configurações do aplicativo via \textit{QSettings}\footnote{https://doc.qt.io/qt-5/qsettings.html.}. \textit{App} também é responsável por notificar os objetos através do sinal \textit{eventNotify}. A classe \textit{App} é instanciada na inicialização do aplicativo e registrada no contexto da aplicação para que os plugins possam invocar seus métodos públicos. Por exemplo, o método \textit{readSettings} que retorna um tipo genérico de dado requerendo apenas um parâmetro que identifique o dado a ser retornado. Outra tarefa que corresponde a esta classe, é a criação de uma conexão com a atividade do aplicativo no android e no iOS. No android, essa atividade corresponde a um objeto java que delega eventos de toque na tela e acesso a recursos do dispositivo para os objetos do Qt. A aplicação poderá receber parâmetros de eventos como \textit{push notification} ou token de registro no \textit{Firebase}, quando o serviço de push for utilizado. O registro do token e o recebimento de notificações via push é feito por objetos nativos de cada plataforma em um processo separado da aplicação, e em tempo de execução as atividade passará o token ou os argumentos recebidos do push para o aplicativo através de uma chamada ao método estático \textit{fireEventNotify} da classe \textit{App} que irá dispará para objetos observadores definido pelo desenvolvedor. A figura abaixo apresenta o diagrama de classe da classe \textit{App}.
 
-No iOS, o objeto correspondente a APP também poderá receber argumentos vindos do \textit{QtAppDelegate} objeto que carrega os requisitos da plataforma e inicializa a aplicação. Os argumentos que podem ser recebidos são o \textit{token} de registro no \textit{Firebase} e mensagens de notificações via push.
-
-\begin{figure}[h]
+\begin{figure}[H]
 	\includegraphics[scale=0.6]{diagrama_de_classe_App}
 	\centering
 	\caption{Diagrama da classe App}
 \end{figure}
 
-A classe \textit{App} também é responsável por definir o estilo de widgets utilizado pelos componentes qml. O tipo de estilo deve ser definido pelo usuário no arquivo de configuração \textit{config.json}, na propriedade \textit{applicationStyle} e será passado diretamente para o objeto \textit{QQuickStyle}. Os possíveis valores para esta propriedade serão detalhados na sessão que descreve o arquivo \textit{config.json}. A instãncia desta classe adicionará no objeto \textit{Config} a cada inicialização, uma propriedade contendo o path de cada plugin para que os plugins possam acessar os arquivos em seu diretório usando essa propriedade. Exemplo: Considerando que \textit{Session} seria um plugin, os arquivos deste plugin poderiam acessar outros arquivos fazendo uma referência do tipo \textit{Config.plugins.session + "File2.qml"}.
+\textit{App} é quem define o estilo de \textit{widgets} utilizado pelos componentes qml. O tipo de estilo deve ser definido pelo desenvolvedor no arquivo de configuração \textit{config.json} na propriedade \textit{applicationStyle} e será passado diretamente para o objeto \textit{QQuickStyle}. Os possíveis valores para esta propriedade serão detalhados na sessão que descreve o arquivo \textit{config.json}. A instância da classe \textit{App} adicionará no objeto \textit{Config} uma propriedade contendo o path de cada plugin para facilitar o acesso aos arquivos no diretório de cada plugin. Por exemplo, considerando que \textit{Session} é um plugin, os arquivos em seu diretório poderão ser acessados da seguinte forma: \textit{Config.plugins.session + "File.qml"}.
+
+\subsubsection{Gerenciamento de configurações}
+A arquitetura provê um modelo simplificado e de alto nível para persistir dados utilizando o objeto \textit{App}. Esse mecanismo de persistência utiliza o conceito \textit{chave-valor}, onde a chave identifica o dado a ser armazenado e o valor, a informação a ser persistida. Os tipos de dados válidos são: strings, números, objetos ou arrays e os métodos podem ler, persistir ou apagar dados nas configurações do aplicativo. Os métodos serão descritos a seguir:
+	\begin{itemize}
+		\item \textit{readSetting}: Utilizado para ler um dado salvo utilizando uma string que identifique a informação a ser lida. Por padrão, o tipo de dado a ser retornado é string. Porém, se o dado não for do tipo string o segundo parâmetro deve ser passado indicando o tipo específico a ser retornado. Os tipos possíveis são: \textit{SettingTypeBool} - para retornar um valor boleano; \textit{SettingTypeInt} - para retornar um inteiro; \textit{SettingTypeStringList} - para retornar uma lista de strings; \textit{SettingTypeJsonObject} - para retornar um objeto javascript; \textit{SettingTypeJsonArray} - para retornar um array de objetos javascript. Os tipos devem ser especificados para evitar o uso de cast no qml.
+
+		\item \textit{saveSetting}: Utilizado para persistir dados. Esse método é \textit{void} e possui dois parâmetros que devem ser passados. O primeiro é a chave que identifica o valor a ser salvo, e o segundo é o dado a ser persistido. O dado pode ser uma string, um valor numérico, objeto ou array.
+
+		\item \textit{removeSetting}: Utilizado para apagar alguma informação persistida. Esse método requer como parâmetro a chave que indentifica o valor a ser deletado.
+	\end{itemize}
+
+\subsubsection{Gerenciamento de eventos}
+A classe \textit{App} possui o sinal \textit{eventNotify} e deve ser utilizado pelos plugins e objetos como mecanismo de comunicação. Este sinal possui dois parâmetros: o primeiro é uma string que identifica o evento e o segundo um objeto que corresponde ao dado emitido no evento. Como uma instância da classe \textit{App} é adicionada ao contexto da aplicação, objetos podem disparar eventos fazendo uma chamada ao sinal daseguinte forma: \textit{App.eventNotify(nome\_do\_evento, argumento)}. Observadores deve criar uma conexão com este sinal utilizando o objeto qml Connections, especificando como \textit{target} o objeto \textit{App}. A figura a seguir, apresenta um exemplo de código para uma conexão com este sinal:
+
+\begin{center}
+\begin{lstlisting}[
+	language=qml,
+	basicstyle=\small\tt,
+    numbers=left,
+	showspaces=false,
+	showstringspaces=false,
+	keywordstyle=\color{red},
+	backgroundcolor=\color{yellow!10}
+]
+Connections {
+    target: App
+    onEventNotify: {
+        if (eventName == Config.events.someEvent)
+            foo()
+    }
+}
+\end{lstlisting}
+\captionof{lstlisting}{Exemplo de conexão com o sinal \textit{eventNotify}}
+\end{center}
 
 
 \subsection{O arquivo config.json}\label{sec:solucao-desenvolvida}
-O arquivo \textit{config.json} é um elemento importante desta arquitetura, ele é utilizado como arquivo de configuração geral do aplicativo, porém, suas informações não serão persistidas. O conteúdo deste arquivo será repassado para a aplicação como um objeto javascript e o usuário poderá adicionar propriedades a serem lidas pelos plugins. No entanto, as propriedades fornecidas no modelo desta arquitetura não devem ser removidas, pois, componentes internos fazem uso das propriedades definidas neste arquivo. Os plugins poderão ler essa propriedade acessando \textit{Config.\_nome\_da\_propriedade}. As principais propriedades e seus possíveis valores podem ser entendidas a seguir:
+O arquivo \textit{config.json} é um componente importante desta arquitetura, ele é utilizado como arquivo de configuração geral do aplicativo, porém, suas informações não são persistidas. O conteúdo deste arquivo será repassado para a aplicação como um objeto javascript e o usuário poderá adicionar propriedades a serem lidas pelos plugins. No entanto, as propriedades fornecidas no modelo desta arquitetura não devem ser removidas, pois, componentes internos fazem uso das propriedades definidas neste arquivo. Os plugins poderão ler essa propriedade acessando \textit{Config.\_nome\_da\_propriedade}. As principais propriedades e seus possíveis valores podem ser entendidas a seguir:
 
 \begin{itemize}
 	\item \textit{appName} (string): O nome do aplicativo. Este valor será setado em \textit{QApplication.setApplicationName} na inicialização do aplicativo;
@@ -169,7 +202,7 @@ O arquivo \textit{config.json} é um elemento importante desta arquitetura, ele 
 	\item \textit{restService} (objeto): Um objeto contendo as definições do serviço REST, como url base e o tipo de autenticação seguido dos respectivos parâmetros a serem enviados nas requisições HTTP como token ou usuário e senha. As propriedades para \textit{restService} são: 
 
 	\begin{itemize}
-		\item \textit{authentication} (objeto): Um objeto que define o tipo de autenticação e pode conter as propriedades \textit{basic authentication} ou \textit{headerToken}. Para o \textit{basic authentication}, deve ser informado o \textit{userName} e o \textit{password}. No \textit{headerToken}, deve ser informado o nome da chave em \textit{keyName} e a string contendo o \textit{hash}.
+		\item \textit{basicAuthentication} (objeto): Um objeto que contém os parâmetros de autenticação básica a ser passara no cabeçalho das requisições HTTP, caso o \textit{webservice} exija authorização nas requisições. Esse objeto é formato por duas propriedades: o\textit{userName} e o \textit{userPass}. O \textit{basicAuthentication} é uma maneira simples de lidar com autenticação utilizando um parâmetro no cabeçalho HTTP, normalmente \textit{nome de usuário: senha} codificado em um hash \textit{base64}.
 
 		\item \textit{baseUrl} (string): A url base do serviço REST. Essa propriedade será utilizada pelo objeto \textit{RequestHttp} nos métodos de requisição ao serviço REST GET, POST e etc. O objetivo é que nas páginas que fazem requisições HTTP adicionem apenas o \textit{path}, a fim de reduzir e simplificar o código. Com isso, uma alteração futura da url do serviço REST seria feita apenas no arquivo de configuração. Por exemplo, uma requisição do tipo GET pode ser feita da seguinte forma: \textit{requestHttp.get("/get-messages?page=2")}. Internamente, o objeto gerenciador de requisições concatenará essa propriedade com o path.
 
