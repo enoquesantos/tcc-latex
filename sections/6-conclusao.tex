@@ -1,13 +1,32 @@
 \section{Conclusão}\label{sec:conclusao}
+%\begin{enumerate}
+%	\item retomar o texto, como na introdução e no resumo
+%	\item reapresentar os resultados, conclusões...
+%\end{enumerate}
+Lorem ip sum....\par
+Lorem ip sum....\par
+Lorem ip sum....\par
+
+
+\subsection{Limitações Deste Trabalho}
+A lista a seguir, apresenta as limitações identificadas nesta arquitetura. A implementação dessas limitações implicará em alterações diversas no núcleo da arquitetura, porém, não impactaria no funcionamento dos plugis atualmente. No entanto, as limitações são decorrentes de pouca experiência com qmake e Qt.
 
 \begin{enumerate}
-\item retomar o texto, como na introdução e no resumo
-\item reapresentar os resultados, conclusões
-\item limitações
-\item Trabalhos Futuros
+	\item Suporte a plugins escritos em c++: esse recurso seria importante, pois permitiria aos plugins delegar a lógica de negócio e operações de baixo nível a objetos c++, em vez de componentes qml como é atualmente. O problema é que, as classes c++ devem ser conhecidas em tempo de compilação, já que as classes c++ de um projeto Qt devem estar declaras no arquivo \textit{.pro} do projeto. Neste caso, o núcleo da arquitetura teria que ser modificado pelo desenvolvedor, pois os objetos c++ teriam ser conhecidos por objetos qml em tempo de execução e isso requer uma refatoração de partes da arquitetura;
+
+	\item Instalação de plugins em \textit{runtime}: a arquitetura não suporta ainda a instalação de plugins dinamicamente. Atualmetne, os plugins de um aplicativo devem ser empacotados durante o \textit{build} do projeto;
+
+	\item A arquitetura suporta apenas \textit{Basic Authentication} nas requisições HTTP e carece de outros tipos de autenticação suportado por \textit{web services} RESTful, tais como \textit{OAuth}, \textit{BEARER}, \textit{DIGEST Auth} entre outros;
 \end{enumerate}
 
-\subsection{Limitações deste Trabalho}
-Apresentar as limitações conhecidas do trabalho
+
 \subsection{Trabalhos Futuros}
-Apresentar trabalhos futuros. Principalmente aqueles que dão bons caminhos de pesquisa científica.
+A lista a seguir, apresenta os possíveis incrementos futuros na arquitetura para facilitar ainda mais o desenvolvimento de plugins pelos desenvolvedores e melhorar a qualidade de um aplicativo baseado neste projeto.
+
+\begin{enumerate}
+	\item Melhorar o suporte ao iOS em componentes visuais melhorando o \textit{look end feel} nesta plataforma;
+
+	\item Permitir que durante o desenvolvimento, quando executando em modo Desktop, as alterações nos arquivos de plugins sejam identificados a cada execução da aplicação, não exigindo o \textit{rebuild} do projeto;
+
+	\item Adicionar um modelo de comunicação estilo \textit{publish-subscriber} migrando a comunicação por eventos para o \textit{Observer} que já está disponível na arquitetura mais não está sendo utilizado. As classes \textit{Subject} e \textit{Observer} em \textit{src/core} foram implementadas para melhorar ainda mais o mecanismo de comunicação por eventos
+\end{enumerate}

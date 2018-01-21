@@ -1,8 +1,8 @@
-%<Fazer um merge das duas últimas sessẽos para uma única mais simplificadamente.>%
+%<Fazer um merge das duas últimas sessẽos para uma única simplificadamente.>%
 %<apresentar uma pequena descrição dos assuntos apresentados nas sub-seções seguintes>%
 %<Um último parágrafo ligando estes quatro temas, sem ainda dizer o que você vai fazer>%
 \section{REFERENCIAL BIBLIOGRÁFICO}
-Esta seção, apresenta as principais referências que contextualizam este trabalho. A subseção 2.1 descreve sobre Arquitetura de Software. A subseção 2.2 descreve Visão Arquitetural. A subseção 2.3 resume Sistemas de Informação. Já a subseção 2.4 apresenta Arquitetura de Referência para Sistemas de Informação. A subseção 2.5 apresenta de forma geral Arquiteturas de Aplicativos Móveis. A subseção 2.6 faz uma breve revisão sobre Projetos de Aplicativos Móveis. A subseção 2.7 faz uma breve revisão sobre tecnologias suportadas na arquitetura deste trabalho: \textit{web services}, o estilo arquitetural \textit{REST}, o \textit{Push Notification} e o JSON. Para finalizar, a subseção 2.8 destaca sobre Desenvolvimento de Software Orientado a Componentes.
+Esta seção, apresenta as principais referências que contextualizam este trabalho. A subseção 2.1 descreve sobre Arquitetura de Software. A subseção 2.2 resume Sistemas de Informação. A subseção 2.3 apresenta Arquitetura de Referência para Sistemas de Informação. A subseção 2.4 apresenta de forma geral Arquiteturas de Aplicativos Móveis. A subseção 2.6 faz uma breve revisão sobre Projetos de Aplicativos Móveis. A subseção 2.7 destaca sobre Desenvolvimento de Software Orientado a Componentes. Para finalizar, a subseção 2.8 faz uma breve revisão sobre tecnologias suportadas nesta arquitetura: \textit{web services}, o estilo arquitetural \textit{REST}, o \textit{Push Notification} e o JSON.
 
 
 %<dizer os benefícios em trabalhar orientado a arquiteturas: controle intelectual, atendimento de requisitos não-funcionais, evolução, \textit{testability}, etc>%
@@ -12,7 +12,7 @@ Esta seção, apresenta as principais referências que contextualizam este traba
 De acordo com a definição clássica proposta por \textit{Shaw e Garlan} \cite{shaw_and_garlan}, arquitetura de software define o que é sistema em termos de componentes computacionais e os relacionamentos entre eles, os padrões que guiam suas composições e restrições. Arquitetura de software pode ser compreendida como uma especificação abstrata do funcionamento de um sistema e permite especificar, visualizar e documentar a estrutura e o funcionamento de um programa independente da linguagem de programação na qual ele será implementado \cite{jair_Cavalcanti_leite}.\par
 
 Os softwares estão em constante evolução e sofrem mudanças periodicamente, que ocorrem por necessidade de corrigir \textit{bugs} ou de adicionar novas funcionalidades. As mudanças ocorridas no processo de evolução de um software podem torná-lo instável e predisposto a defeitos, além de causar atraso na entrega e custos acima do estimado. Porém, um software que é projetado orientado a arquitetura, possibilita os seguintes benefícios:
-\begin{enumerate}
+\begin{itemize}
 		\item Melhor escalabilidade;
 		\item Maior controle intelectual;
 		\item Menor impacto causado pelas mudanças;
@@ -20,15 +20,15 @@ Os softwares estão em constante evolução e sofrem mudanças periodicamente, q
 		\item Maior agilidade na manutenção do código;
 		\item Padronização de comunicação entre os componentes e;
 		\item Suporte a reuso de componentes e maior controle dos mesmos.
-\end{enumerate}
+\end{itemize}
 
 O desenvolvimento de software envolve muitas partes (e.g., levantamento de requisitos, modelagem, implementação, testes, refatoração e etc.). O objetivo de um software é o que motiva a sua construção, e o que fomenta todas as partes que envolve o seu desenvolvimento é o problema que ele tenta solucionar no mundo real e parte do mérito de uma boa solução é devido ao uso de uma boa arquitetura.
 
 Neste trabalho, arquitetura de software pode ser compreendida nas decisões de implementação, nas restrições impostas pelo uso dos recursos fornecidos e dos componentes reutilizáveis, além dos estilos arquiteturais provenientes das APIs utilizadas, dentre elas, o \textit{Event-Based}, mecanismo de comunicação baseado em eventos provido pelo Qt. Outro aspecto arquitetural deste trabalho é um estilo de desenvolvimento orientado a plugins. Os plugins devem representar os componentes específicos e as funcionalidades de cada projeto baseado nesta arquitetura, eles são independentes entre si e proporcionam baixo acoplamento entre as funcionalidades do sistema.
 
 
-\subsection{Visão Arquitetural}
-A arquitetura de um software pode ser representada de vários pontos de vista, que podem ser combinados para criar uma visão holística do sistema \cite{guideline:architectural_view}. As visões arquiteturais são diferentes formas de observar a arquitetura de um software, cada qual ressaltando aspectos específicos e relevantes conforme o papel da pessoa que está definindo a arquitetura e a etapa do processo de desenvolvimento em que ela se encontra \cite{Raymond1995}. Os requisitos funcionais implementados nesta arquitetura serão apresentados em um tópico seguinte em visões arquiteturais através de imagens e diagramas da UML. O objetivo das visões é facilitar a compreensão das partes que compõe esta arquitetura.
+%\subsection{Visão Arquitetural}
+%A arquitetura de um software pode ser representada de vários pontos de vista, que podem ser combinados para criar uma visão holística do sistema \cite{guideline:architectural_view}. As visões arquiteturais são diferentes formas de observar a arquitetura de um software, cada qual ressaltando aspectos específicos e relevantes conforme o papel da pessoa que está definindo a arquitetura e a etapa do processo de desenvolvimento em que ela se encontra \cite{Raymond1995}. Os requisitos funcionais implementados nesta arquitetura serão apresentados em um tópico seguinte em visões arquiteturais através de imagens e diagramas da UML. O objetivo das visões é facilitar a compreensão das partes que compõe esta arquitetura.
 
 
 \subsection{Sistemas de Informação}
