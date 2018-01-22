@@ -3,20 +3,20 @@
 %	\item retomar o texto, como na introdução e no resumo
 %	\item reapresentar os resultados, conclusões...
 %\end{enumerate}
-Lorem ip sum....\par
-Lorem ip sum....\par
-Lorem ip sum....\par
+Aqui será apresentado as conclusões obtidos em todo o trabalho, sejam elas positivas ou negativas.
 
 
 \subsection{Limitações Deste Trabalho}
-A lista a seguir, apresenta as limitações identificadas nesta arquitetura. A implementação dessas limitações implicará em alterações diversas no núcleo da arquitetura, porém, não impactaria no funcionamento dos plugis atualmente. No entanto, as limitações são decorrentes de pouca experiência com qmake e Qt.
+A lista a seguir, apresenta as limitações identificadas nesta arquitetura. A implementação dessas limitações implicará em alterações diversas no núcleo da arquitetura, porém, não deve impactar nas implementações dos plugins. As limitações são decorrentes de pouca experiência com Qt, C++ e \textit{qmake}.
 
 \begin{enumerate}
 	\item Suporte a plugins escritos em c++: esse recurso seria importante, pois permitiria aos plugins delegar a lógica de negócio e operações de baixo nível a objetos c++, em vez de componentes qml como é atualmente. O problema é que, as classes c++ devem ser conhecidas em tempo de compilação, já que as classes c++ de um projeto Qt devem estar declaras no arquivo \textit{.pro} do projeto. Neste caso, o núcleo da arquitetura teria que ser modificado pelo desenvolvedor, pois os objetos c++ teriam ser conhecidos por objetos qml em tempo de execução e isso requer uma refatoração de partes da arquitetura;
 
 	\item Instalação de plugins em \textit{runtime}: a arquitetura não suporta ainda a instalação de plugins dinamicamente. Atualmetne, os plugins de um aplicativo devem ser empacotados durante o \textit{build} do projeto;
 
-	\item A arquitetura suporta apenas \textit{Basic Authentication} nas requisições HTTP e carece de outros tipos de autenticação suportado por \textit{web services} RESTful, tais como \textit{OAuth}, \textit{BEARER}, \textit{DIGEST Auth} entre outros;
+	\item Tipos de autenticação na API de rede: A arquitetura suporta apenas \textit{Basic Authentication} nas requisições HTTP e carece de outros tipos de autenticação suportado por \textit{web services} RESTful, tais como \textit{OAuth}, \textit{BEARER}, \textit{DIGEST Auth} entre outros;
+
+	\item Atualização da arquitetura: Para criar um aplicativo utilizando esta arquitetura requer alteração em diversos arquivos e isso implica em atualizações futuras da arquitetura, pois os arquivos serão sobrescritos e o desenvolvedor terá que atualizar os arquivos modificados. Seria interessante que todas as alterações necessárias fossem feitas em arquivos separados, como por exemplo o \textit{AndroidManifest.xml}, o arquivo \textit{build.gradle} que contém as APIs do \textit{Firebase} e outras propriedades de instalação e deploy no android, além dos ícones e imagens de splash do aplicativo utilizado nas plataformas mobile.
 \end{enumerate}
 
 
@@ -26,7 +26,7 @@ A lista a seguir, apresenta os possíveis incrementos futuros na arquitetura par
 \begin{enumerate}
 	\item Melhorar o suporte ao iOS em componentes visuais melhorando o \textit{look end feel} nesta plataforma;
 
-	\item Permitir que durante o desenvolvimento, quando executando em modo Desktop, as alterações nos arquivos de plugins sejam identificados a cada execução da aplicação, não exigindo o \textit{rebuild} do projeto;
+	\item Permitir que durante o desenvolvimento, em modo Desktop, as alterações nos arquivos dos plugins sejam identificados e carregados a cada execução da aplicação, não exigindo o \textit{rebuild} do projeto;
 
 	\item Adicionar um modelo de comunicação estilo \textit{publish-subscriber} migrando a comunicação por eventos para o \textit{Observer} que já está disponível na arquitetura mais não está sendo utilizado. As classes \textit{Subject} e \textit{Observer} em \textit{src/core} foram implementadas para melhorar ainda mais o mecanismo de comunicação por eventos
 \end{enumerate}

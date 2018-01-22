@@ -41,7 +41,10 @@
 
 % add sintax highlight to qml code
 \lstdefinelanguage{qml} {
-	morekeywords={Item, Component, onCompleted, var, Connections, target, onEventNotify, if, else, RequestHttp, import, baseUrl, basicAuthorizationUser, basicAuthorizationPassword, onError}
+	morekeywords={Item, Component, onCompleted, var, Connections, target, onEventNotify, if, else, RequestHttp, import, baseUrl, basicAuthorizationUser, basicAuthorizationPassword, onError},
+	keywordstyle=\color{red},
+	showstringspaces=false,
+	basicstyle=\small
 }
 
 \renewcommand{\lstlistingname}{Algoritmo}

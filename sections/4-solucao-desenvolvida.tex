@@ -168,13 +168,7 @@ A arquitetura provê uma API simples e de alto nível para persistir dados utili
 O código a seguir, apresenta um exemplo de persistência e leitura de dados usando o mecanismo \textit{chave.valor}:
 
 \begin{center}
-\begin{lstlisting}[
-	language=qml,
-	basicstyle=\small,
-	showspaces=false,
-	showstringspaces=false,
-	keywordstyle=\color{red}
-]
+\begin{lstlisting}[language=qml]
 
 import QtQuick 2.8
 
@@ -266,9 +260,9 @@ O arquivo \textit{config.json} é um componente importante desta arquitetura, el
 
 		\item \textit{logoutApplication} (string): Utilizado pelo objeto \textit{UserProfile} para atualizar o status da propriedade \textit{isUserLoggedIn} para false e em seguida, focar na página de login. Esse evento deve ser utilizado para evitar o acesso direto ao objeto \textit{UserProfile} pelos plugins, e deve ser emitido sempre que desejar remover todas as páginas da pilha (caso o layout seja em pilha) ou desabilitar o acesso as páginas do aplicativo (no layout em linha);
 
-		\item \textit{newIntentPushMessage} (string): Esse evento é utilizado pelas APIs de notificação do android e iOS quando o usuário clicar em uma notificação na bandeija do sistema contendo algum dado na notificação. O segundo parâmetro do sinal \textit{eventData} conterá os dados da mensagem em uma string e caso seja um json, é necessário fazer o parse;
+		\item \textit{newActionNotification} (string): Esse evento é utilizado para notificar a aplicação de uma nova notificação, seja ela push ou local. Esse evento será disparado pela atividade do Android (\textit{CustomActivity}) ou no objeto \textit{QtAppDelegate} no iOS quando o usuário clicar em uma notificação na bandeija do sistema contendo algum dado na notificação. O segundo parâmetro do sinal \textit{eventData} conterá os dados da mensagem em uma string e caso seja um json, é necessário fazer o parse;
 
-		\item \textit{newPushMessage} (string): Esse evento será disparado sempre que uma notificação via push chegar no dispositivo e o mesmo estiver em execução em \textit{foreground} ou \textit{background}. Ele é disparado a partir dos serviços de notificação que executam em outro processo e serão passados para a aplicação através de uma conexão entre o objeto java \textit{QtAtivity} no android e o \textit{QtAppDelegate} no iOS. O segundo parâmetro do sinal \textit{eventData}, conterá os dados da mensagem em uma string e caso seja um objeto json, é necessário fazer o parse;
+		\item \textit{newPushNotification} (string): Esse evento será disparado sempre que uma notificação via push chegar no dispositivo e o mesmo estiver em execução em \textit{foreground} ou \textit{background}. Ele é disparado a partir dos serviços de notificação que executam em outro processo e serão passados para a aplicação através de uma conexão entre o objeto java \textit{QtAtivity} no android e o \textit{QtAppDelegate} no iOS. O segundo parâmetro do sinal \textit{eventData}, conterá os dados da mensagem em uma string e caso seja um objeto json, é necessário fazer o parse;
 
 		\item \textit{newPushNotificationToken} (string): Esse evento será emitido quando o token de registro no serviço do Firebase for realizado. Esse evento será disparado pelos objetos do \textit{Firebase}, que executam em outro processo e serão passados para a aplicação através de uma conexão entre o objeto java \textit{QtAtivity} no android e o \textit{QtAppDelegate} no iOS. O segundo parâmetro do sinal \textit{eventData} conterá os dados da mensagem em uma string e caso seja um objeto json, é necessário fazer o parse;
 
@@ -332,13 +326,7 @@ O diagrama a seguir, apresenta os atributos e métodos da classe \textit{Request
 A classe \textit{RequestHttp} é registrada como um tipo qml no contexto da aplicação e os plugins podem utilizá-la através da diretiva \textit{import RequestHttp 1.0} e declarando um objeto qml para utilizar seus métodos. No entando, para passar autenticação básica nas requisições é preciso setar os parâmetros do arquivo de configuração, além da url base. Logo, para simplificar o uso de requisições HTTP para os plugins, foi criado um arquivo qml \textit{RequestHttp.qml} que instancia a classe \textit{RequestHttp} e inicializa os artributos \textit{baseUrl}, \textit{basicAuthorizationUser} e \textit{basicAuthorizationPassword}, além de exibir mensagens de erros das requisições personalizadas para o usuário. O código a seguir, apresenta esse componente qml:
 
 \begin{center}
-\begin{lstlisting}[
-	language=qml,
-	basicstyle=\tiny,
-	showspaces=false,
-	showstringspaces=false,
-	keywordstyle=\color{red}
-]
+\begin{lstlisting}[language=qml, basicstyle=\tiny]
 import RequestHttp 1.0 
 
 RequestHttp {
@@ -357,7 +345,7 @@ RequestHttp {
 \subsection{Persistência de Dados}\label{sec:solucao-desenvolvida}
 Persistência de dados é um requisitivo funcional disponibilizado nesta arquitetura e foi elaborada com o objetivo de fornecer aos plugins a possibilidade de persistir dados em um banco SQLITE. Cada plugin pode criar uma ou mais tabelas no banco de dados da aplicação e realizar as operações de inserção, atualização e busca de dados em suas tabelas, basta importar o componente Database com a diretiva \textit{import Database 1.0} e utilizá-lo para objeto qml. Para criar as tabelas no banco de dados da aplicação, o plugin deve fornecer um arquivo \textit{plugin\_table.sql} contendo os comandos de criação, alteração ou remoção das tabelas. Esse arquivo é lido pelo objeto gerenciador de plugins que passará o caminho do arquivo para outro objwto que criará a tabela. Esse arquivo será carregado e executado a cada release.\par
 
-Para gerenciar as operações no banco de dados, foi criado uma classe c++ chamda de \textit{Database} que encapsula em métodos de alto nível as operações necessárias para criar o banco de dados, conectar e executar as \textit{querys sql}. No entanto, essa classe não é utilziada pelos plugins diretamente, foi criado uma outra classe chamada \textit{DatabaseComponent} que agrega uma instância de \textit{Database} e delega as operações para esse objeto. Através dessa API de persistência, os plugins poderão persistir e carregar dados com o dispositivo online ou até mesmo offline. Os tópicos a seguir apresenta detalhes de ambas as classes \textit{Database} e \textit{DatabaseComponent}.
+Para gerenciar as operações no banco de dados, foi criado uma classe c++ chamada de \textit{Database} que encapsula em métodos de alto nível as operações necessárias para criar o banco de dados, conectar e executar as operações sql. No entanto, essa classe não é utilizada pelos plugins diretamente, foi criado uma outra classe chamada \textit{DatabaseComponent} que agrega uma instância de \textit{Database} e delega as operações para esse objeto. Através dessa API de persistência, os plugins poderão persistir e carregar dados com o dispositivo online ou até mesmo offline. Os tópicos a seguir apresenta detalhes de ambas as classes \textit{Database} e \textit{DatabaseComponent}.
 
 
 \subsubsection{A classe Database}\label{sec:solucao-desenvolvida}
@@ -392,12 +380,62 @@ A classe \textit{DatabaseComponent} foi criada com o objetivo de fornecer um com
 
 É importante observar que os métodos de busca, inserção, remoção e atualização foram simplificados para que os objetos que utilizarem \textit{DatabaseComponent} informem apenas os parâmetros do método sem o nome da tabela. Outro recurso importante desse componente é que o método de busca é assíncrono e os resultados de uma busca, quando houver, será emitido no sinal \textit{itemLoaded} que passará como argumento um objeto contendo o nome da coluna e o dado armazenado. Essa classe possui ainda um método \textit{containsId} que verifica se um item (pela chave primária) já está salvo localmente a fim de sincronizar com a view os itens já baixados do serviço rest.
 
-\subsection{Notificações do Sistema}
-....
+\subsection{Notificações do Aplicativo}
+Outro requisito funcional atendido nesta arquiteura é o envio de notificação ao usuário do aplicativo e consiste de notificações via \textit{push} e local. As notificações via \textit{push} é suportado apenas no Android e iOS e as notificações local é suportado nos dispositivos móveis, Linux Desktop e OSX. As notificações podem ser utilizadas para alertar o usuário de algum evento na aplicação e pode conter um título, uma descrição e nas plataformas mobile, pode vibrar o dispositivo e emitir um som. Outro recurso disponibilizado é a possibilidade de adicionar algum dado em cada notificação. Esse dado é um objeto \textit{chave.valor} e pode conter tanto uma string como um objeto ou array json. As notificações local são enviadas pela própria aplicação via chamada de método e as notificações via \textit{push} através do \textit{Firebase}. As subsessões a seguir, descrevem detalhes de cada tipo de notificação.
+
+
+\subsubsection{Notificações via push}
+As notificações via push ja está configurado nesta arquitetura e o que o desenvolvedor deve fazer para enviar mensagens via \textit{push} é criar um projeto no \textit{Firebase}, exportar o arquivo \textit{google-services.json} e adicioná-lo no diretório \textit{android} e o arquivo \textit{google-services.xml} correspondente ao iOS no diretório \textit{ios}, substituindo os arquivos existentes, ambos criados como exemplo. É importante destacar que o \textit{package name} do aplicativo adicionado no \textit{AndroidManifest.xml} e no \textit{Info.plist} do IOS devem ser o mesmo utilizado ao criar o projeto no \textit{Firebase}. Caso contrário, ocorrerá um erro ao construir o APK ou IPA, pois as bibliotecas correspondentes ao serviço de push (adicionadas ao projeto durante o \textit{build}) farão um parse dos arquivos e abortará a compilação caso ocorra algum erro. No android, o \textit{package name} deve ser adicionado manualmente no arquivo \textit{build.gradle} presente no diretório \textit{android} na propriedade \textit{defaultConfig.applicationId}.\par
+
+No android, o funcionamento de push notification requer duas classes java que serão instanciadas na inicialização do aplicativo e funcionarão como dois serviços. No entanto, essas classes já estão na arquitetura e o desenvolvedor não precisa modificá-las. O primeiro serviço registra o dispositivo no \textit{Firebase} e retorna um token. Quando isso ocorrer, o token será passado para a aplicação através do sinal \textit{eventNotify} do objeto \textit{App}. O segundo serviço é um \textit{listener} de notificações via push e ficará em execução mesmo que a aplicação seja fechada. Ao enviar uma notificação utilizando o console do \textit{Firebase} ou através de algum \textit{web service}, as notificações serão recebidas nesse serviço e enviadas para o \textit{system tray} automaticamente. Se o aplicativo estiver em execução, a notificação será encaminhada para o aplicativo em um objeto json contendo todos os dados da mensagem, desde o título, data e hora de envio e o dado de \textit{payload} (um dado adicional não visível enviado na mensagem).\par
+
+No iOS, o arquivo \textit{QtAppDelegate.mm} presente no diretório \textit{ios} realizará o registro do dispositivo no \textit{Firebase} e contém um método que receberá as notificações via \textit{push} e re-encaminhará para a aplicação pelo mesmo sinal utilizado no android. O registro do token será passado para a aplicação através do evento \textit{newPushNotificationToken} e as mensagens de push no evento \textit{newPushNotification}. Se a aplicação estiver em execução e o usuário clicar em uma notificação colocando o aplicativo em foreground, o evento \textit{newActionNotification} será emitido passando como argumento do evento os dados de \textit{payload} da mensagem.\par
+
+A arquitetura dispõe do plugin de exemplo \textit{Listeners} que contém o componente \textit{PushNotificationRegister.qml}. Esse componente será instanciado na inicialização da aplicação e receberá o token quando o evento correspondente for emitido. Em seguida, o token será enviado para o \textit{web service}. O trecho de código a seguir é um exemplo de como o desenvolvedor deverá implementar para acessar o token de registro no \textit{Firebase} e enviar para o serviço REST utilizado no aplicativo.
+
+\begin{center}
+\begin{lstlisting}[language=qml]
+import QtQuick 2.8
+
+Connections {
+    target: App
+    onEventNotify: {
+	var e = Config.events.newPushNotificationToken
+        if (e == eventName) {
+            // envia o token para o web service
+            sendTokenToServer(eventData)
+        }
+    }
+}
+\end{lstlisting}
+\captionof{lstlisting}{Exemplo de como acessar o token do \textit{Firebase}}
+\end{center}
+
+
+\subsubsection{Notificações local}
+Para gerenciar as notificações local, foi criado a classe \textit{Notification} que abstrai a plataforma e dispõe de um método para enviar uma notificação para a área de notificações do sistema em execução. Essa classe será instanciada na inicialização do aplicativo e registrada no contexto da aplicação para que os plugins possam invocar o método \textit{Notification.show}, passando o título e a mensagem da notificação e opcionalmente um objeto contendo o argumento a ser passado para a aplicação quando o usuário clicar na notificação. Quando o usuário clicar na notificação, o aplicativo ficará em \textit{foreground} caso não esteja, e o argumento da notificação será passado para o objeto \textit{App} que emitirá o sinal \textit{eventNotify} contendo no \textit{eventName} a string \textit{newActionNotification} e em \textit{eventData} um objeto contendo o argumento passado no método \textit{show}. O código a seguir, apresenta um exemplo de como exibir uma notificação local por algum objeto de um plugin, passando um título, uma mensagem e um objeto como argumento.
+
+\begin{center}
+\begin{lstlisting}[language=qml]
+import QtQuick 2.8
+
+Item {
+    Component.onCompleted: {
+    	var title, message, argument
+	title = "Novo item carregado!"
+    	message = "Clique para visualizar!"
+    	argument = {"key":"foo","value":"bar"}
+	Notification.show(title, message, argument)
+    }
+}
+\end{lstlisting}
+\captionof{lstlisting}{Exemplo de como exibir uma notificação local}
+\end{center}
 
 
 \subsection{Comunicação entre os objetos e plugins}
 % Esta seção descreverá o processo de comunicação entre objetos no aplicativo e o uso correto dos eventos...
+O quarto requisito funcional desta arquitetura é a disponibilização de um mecanismo de comunicação entre objetos e plugins.
 ....
 
 
