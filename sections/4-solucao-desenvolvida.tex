@@ -80,7 +80,8 @@ A visão a seguir, apresenta um diagrama de pacotes e arquivos destacando uma vi
 
 
 \subsection{Arquitetura de plugins}
-As funcionalidades de um aplicativo baseado nesta arquitetura devem ser implementadas através de plugins, atendendo aos requisitos levantados para o aplicativo a ser desenvolvido utilizando apenas qml. Os plugins são independentes entre sí e podem incluir arquivos qml, txt, html e imagens em seu diretório. Qualquer componente de um plugin pode reutilizar os componentes públicos usando a diretiva \textit{import "qrc:/publicComponentes/"}, ao todo quinze componentes foram disponibilizados. Os plugins estão desacoplados do núcleo da aplicação e serão conhecidos em tempo de execução. Ao adicionar um novo plugin no diretório \textit{plugins}, ele será carregado no próximo \textit{build} do projeto. Para que um plugin seja identificado pelo objeto gerenciador de plugins e carregado na aplicação, é necessário obedecer a três restrições: 1ª estar em um sub-diretório dentro de \textit{plugins}; 2ª conter um arquivo \textit{config.json} dentro deste sub-diretório e 3ª conter pelo menos um arquivo qml visual ou \textit{listener}. Os \textit{listeners} são componentes não visuais que observam eventos da aplicação. O arquivo \textit{config.json} de um plugin deve ser um objeto contendo as seguintes propriedades:
+As funcionalidades de um aplicativo baseado nesta arquitetura devem ser implementadas através de plugins, atendendo aos requisitos levantados para o aplicativo a ser desenvolvido utilizando apenas qml. Os plugins são independentes entre sí e podem incluir arquivos qml, txt, html e imagens em seu diretório. Qualquer componente de um plugin pode reutilizar os componentes públicos usando a diretiva \textit{import "qrc:/publicComponentes/"}, ao todo quinze componentes foram disponibilizados.\par
+Os plugins estão desacoplados do núcleo da aplicação e serão conhecidos em tempo de execução. Ao adicionar um novo plugin no diretório \textit{plugins}, ele será carregado no próximo \textit{build} do projeto. Para que um plugin seja identificado pelo objeto gerenciador de plugins e carregado na aplicação, é necessário obedecer a três restrições: 1ª estar em um sub-diretório dentro de \textit{plugins}; 2ª conter um arquivo \textit{config.json} dentro deste sub-diretório e 3ª conter pelo menos um arquivo qml visual ou \textit{listener}. Os \textit{listeners} são componentes não visuais que observam eventos da aplicação. O arquivo \textit{config.json} de um plugin deve ser um objeto contendo as seguintes propriedades:
 
 \begin{enumerate}
 	\item \textit{name} (string): o nome do plugin. Deve ser preenchido para que o plugin seja identificado pelo gerenciador de plugins;
@@ -174,9 +175,9 @@ import QtQuick 2.8
 
 Item {
     Component.onCompleted: {
-	var foo = App.readSetting("foo")
-	if (bar != foo)
-	   App.saveSetting("foo", bar)
+		var foo = App.readSetting("foo")
+		if (bar != foo)
+		   App.saveSetting("foo", bar)
     }
 }
 \end{lstlisting}
@@ -188,19 +189,13 @@ Item {
 A classe \textit{App} possui o sinal \textit{eventNotify} e deve ser utilizado pelos plugins e objetos como conector. Este sinal possui dois parâmetros: o primeiro é uma string que identifica o evento e o segundo, um objeto que corresponde ao dado ou argumento emitido no evento. Como uma instância da classe \textit{App} é adicionada ao contexto da aplicação, objetos podem disparar eventos fazendo uma chamada ao sinal da seguinte forma: \textit{App.eventNotify(nome\_do\_evento, argumento)}. Observadores devem criar uma conexão com este sinal utilizando o objeto \textit{Connections} do qml, especificando como \textit{target} o objeto \textit{App}. A figura a seguir, apresenta um exemplo de código para uma conexão com este sinal:
 
 \begin{center}
-\begin{lstlisting}[
-	language=qml,
-	basicstyle=\small,
-	showspaces=false,
-	showstringspaces=false,
-	keywordstyle=\color{red}
-]
+\begin{lstlisting}[language=qml]
 import QtQuick 2.8
 
 Connections {
     target: App
     onEventNotify: {
-        if (eventName == Config.events.someEvent)
+        if (eventName == Config.events.bar)
             foo()
     }
 }
@@ -326,15 +321,15 @@ O diagrama a seguir, apresenta os atributos e métodos da classe \textit{Request
 A classe \textit{RequestHttp} é registrada como um tipo qml no contexto da aplicação e os plugins podem utilizá-la através da diretiva \textit{import RequestHttp 1.0} e declarando um objeto qml para utilizar seus métodos. No entando, para passar autenticação básica nas requisições é preciso setar os parâmetros do arquivo de configuração, além da url base. Logo, para simplificar o uso de requisições HTTP para os plugins, foi criado um arquivo qml \textit{RequestHttp.qml} que instancia a classe \textit{RequestHttp} e inicializa os artributos \textit{baseUrl}, \textit{basicAuthorizationUser} e \textit{basicAuthorizationPassword}, além de exibir mensagens de erros das requisições personalizadas para o usuário. O código a seguir, apresenta esse componente qml:
 
 \begin{center}
-\begin{lstlisting}[language=qml, basicstyle=\tiny]
+\begin{lstlisting}[language=qml]
 import RequestHttp 1.0 
 
 RequestHttp {
     baseUrl: Config.restService.baseUrl
-    basicAuthorizationUser: Config.restService.basicAuthentication.userName
-    basicAuthorizationPassword: Config.restService.basicAuthentication.userPass
+    authorizationUser: Config.restService.userName
+    authorizationPass: Config.restService.userPass
     onError: {
-	// trata e exibe mensagens de erro da requisicao
+		// exibe mensagens de erro
     }
 }
 \end{lstlisting}
@@ -400,7 +395,8 @@ import QtQuick 2.8
 Connections {
     target: App
     onEventNotify: {
-	var e = Config.events.newPushNotificationToken
+		var e
+		e = Config.events.newPushNotificationToken
         if (e == eventName) {
             // envia o token para o web service
             sendTokenToServer(eventData)
@@ -421,12 +417,12 @@ import QtQuick 2.8
 
 Item {
     Component.onCompleted: {
-    	var title, message, argument
-	title = "Novo item carregado!"
-    	message = "Clique para visualizar!"
-    	argument = {"key":"foo","value":"bar"}
-	Notification.show(title, message, argument)
-    }
+		var title, message, argument
+		title = "Novo item carregado!"
+		message = "Clique para visualizar!"
+		argument = {"key":"foo","value":"bar"}
+		Notification.show(title,message,argument)
+	}
 }
 \end{lstlisting}
 \captionof{lstlisting}{Exemplo de como exibir uma notificação local}
