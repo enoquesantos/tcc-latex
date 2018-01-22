@@ -190,12 +190,13 @@ A classe \textit{App} possui o sinal \textit{eventNotify} e deve ser utilizado p
 
 \begin{center}
 \begin{lstlisting}[language=qml]
+
 import QtQuick 2.8
 
 Connections {
     target: App
     onEventNotify: {
-        if (eventName == Config.events.bar)
+        if (eventName == Config.events.foo)
             foo()
     }
 }
@@ -232,21 +233,23 @@ O arquivo \textit{config.json} é um componente importante desta arquitetura, el
 
 	\item \textit{showDrawerImage} (bool): Um valor boleano que indica se a imagem do \textit{Drawer} menu será carregada. Por padrão a imagem não será exibida.
 
-	\item \textit{restService} (objeto): Um objeto contendo as definições do serviço REST, como url base e o tipo de autenticação seguido dos respectivos parâmetros a serem enviados nas requisições HTTP como token ou usuário e senha. As propriedades para \textit{restService} são: 
+	\item \textit{restService} (object): Um objeto contendo as definições do serviço REST, como url base e o tipo de autenticação seguido dos respectivos parâmetros a serem enviados nas requisições HTTP como token ou usuário e senha. As propriedades para \textit{restService} são: 
 
 	\begin{itemize}
-		\item \textit{basicAuthentication} (objeto): Um objeto que contém os parâmetros de autenticação básica a ser passara no cabeçalho das requisições HTTP, caso o \textit{webservice} exija authorização nas requisições. Esse objeto é formato por duas propriedades: o\textit{userName} e o \textit{userPass}. O \textit{basicAuthentication} é uma maneira simples de lidar com autenticação utilizando um parâmetro no cabeçalho HTTP, normalmente \textit{nome de usuário: senha} codificado em um hash \textit{base64}.
+		\item \textit{userName}: Um nome de usuário do serviço REST utilizado em uma autenticação básica e será encriptado em um hash \textit{base64} com o \textit{userPass};
+
+		\item \textit{userPass}: Uma senha de usuário para criar o hash com o \textit{userName};
 
 		\item \textit{baseUrl} (string): A url base do serviço REST. Essa propriedade será utilizada pelo objeto \textit{RequestHttp} nos métodos de requisição ao serviço REST GET, POST e etc. O objetivo é que nas páginas que fazem requisições HTTP adicionem apenas o \textit{path}, a fim de reduzir e simplificar o código. Com isso, uma alteração futura da url do serviço REST seria feita apenas no arquivo de configuração. Por exemplo, uma requisição do tipo GET pode ser feita da seguinte forma: \textit{requestHttp.get("/get-messages?page=2")}. Internamente, o objeto gerenciador de requisições concatenará essa propriedade com o path.
 
 		\item \textit{baseImagesUrl} (string): A url base dos arquivos de imagens, caso o serviço REST utilize uma url diferente ou um sub-domínio para os resources.
 	\end{itemize}
 
-	\item \textit{fontSize} (objeto): Um objeto com as definições de valores inteiros para os tamanhos de fonte a serem utilizadas em elementos textuais como \textit{labels}. Essa propriedade possui 4 atributos: \textit{small}, \textit{normal}, \textit{large} e \textit{extraLarge};
+	\item \textit{fontSize} (object): Um objeto com as definições de valores inteiros para os tamanhos de fonte a serem utilizadas em elementos textuais como \textit{labels}. Essa propriedade possui 4 atributos: \textit{small}, \textit{normal}, \textit{large} e \textit{extraLarge};
 
-	\item \textit{theme} (objeto): Um objeto com as definições de cores utilizada nos elementos visuais, tais como Botões, \textit{ToolBar}, \textit{TabBar}, cor de fundo das páginas e etc.;
+	\item \textit{theme} (object): Um objeto com as definições de cores utilizada nos elementos visuais, tais como Botões, \textit{ToolBar}, \textit{TabBar}, cor de fundo das páginas e etc.;
 
-	\item \textit{events}: (objeto): Um objeto que mapeia os identificadores de eventos, baseados em um par de strings \textit{nome-do-evento.valor}. Essa propriedade deverá ser utilizada por objetos e componentes internos para identificarem de qual evento estão sendo notificados, a fim de padronizar os nomes dos eventos e reduzir a replicação de strings na aplicação. O objeto \textit{App} adiciona treze nomes de eventos, alguns são utilizados somente por objetos internos, outros podem ser utilizados pelos plugins para executarem ações específicas em dado momento. Esses eventos serão descritos a seguir:
+	\item \textit{events}: (object): Um objeto que mapeia os identificadores de eventos, baseados em um par de strings \textit{nome-do-evento.valor}. Essa propriedade deverá ser utilizada por objetos e componentes internos para identificarem de qual evento estão sendo notificados, a fim de padronizar os nomes dos eventos e reduzir a replicação de strings na aplicação. O objeto \textit{App} adiciona treze nomes de eventos, alguns são utilizados somente por objetos internos, outros podem ser utilizados pelos plugins para executarem ações específicas em dado momento. Esses eventos serão descritos a seguir:
 
 	\begin{itemize}
 		\item \textit{cameraImageSaved} (string): Utilizado para notificar observadores que uma imagem foi capturada pela câmera do dispositivo e salva localmente. A url da imagem salva será passado no segundo argumento do evento;
@@ -279,7 +282,7 @@ O arquivo \textit{config.json} é um componente importante desta arquitetura, el
 
 
 \subsection{Acesso a Rede (HTTP)}\label{sec:solucao-desenvolvida}
-Um dos requisitos funcionais providos nesta arquitetura é o acesso a rede para comunicação com algum \textit{web service} via HTTP. O desenvolvedor deverá adicionar na propriedade \textit{restService.baseUrl} no arquivo de configuração, o endereço base do serviço rest e utilizar apenas o path da url nos objetos que realizam as requisições GET, POST e etc. Para realizar requisições HTTP, os plugins terão a disposição um objeto \textit{requestHttp} em cada página. Os objetos \textit{listeners} que precisarem fazer requisição HTTP podem utilizar o componente \textit{RequestHttp.qml} disponível na arquitetura. No entanto, se por algum motivo for preciso iniciar uma requisição para outro domínio diferente do serviço rest, basta passar a url completa no primeiro parâmetro dos métodos de requisição.\par
+Um dos requisitos funcionais providos nesta arquitetura é o acesso a rede para comunicação com algum \textit{web service} via HTTP. O desenvolvedor deverá adicionar na propriedade \textit{restService.baseUrl} no arquivo de configuração, o endereço base do serviço REST e utilizar apenas o path da url nos objetos que realizam as requisições GET, POST e etc. Para realizar requisições HTTP, os plugins terão a disposição um objeto \textit{requestHttp} em cada página. Os objetos \textit{listeners} que precisarem fazer requisição HTTP podem utilizar o componente \textit{RequestHttp.qml} disponível na arquitetura. No entanto, se por algum motivo for preciso iniciar uma requisição para outro domínio diferente do serviço rest, basta passar a url completa no primeiro parâmetro dos métodos de requisição.\par
 
 Para realizar requisições HTTP, foi criado uma classe c++ que encapsula requisição, autenticação, download e upload com o objetivo de oferecer um componente rico em recursos e de alto nível para os plugins. Essa classe utiliza componentes do Qt e não é utilizada diretamente pelos plugins, foi criado um arquivo qml com o mesmo nome da classe e disponibilizado como componente reutilizável na arquitetura. As subsessões a seguir descrevem os componentes correspondentes a API de rede provido nesta arquitetura.
 
@@ -322,6 +325,7 @@ A classe \textit{RequestHttp} é registrada como um tipo qml no contexto da apli
 
 \begin{center}
 \begin{lstlisting}[language=qml]
+
 import RequestHttp 1.0 
 
 RequestHttp {
@@ -373,7 +377,38 @@ A classe \textit{DatabaseComponent} foi criada com o objetivo de fornecer um com
 	\caption{Diagrama da classe DatabaseComponent}
 \end{figure}
 
-É importante observar que os métodos de busca, inserção, remoção e atualização foram simplificados para que os objetos que utilizarem \textit{DatabaseComponent} informem apenas os parâmetros do método sem o nome da tabela. Outro recurso importante desse componente é que o método de busca é assíncrono e os resultados de uma busca, quando houver, será emitido no sinal \textit{itemLoaded} que passará como argumento um objeto contendo o nome da coluna e o dado armazenado. Essa classe possui ainda um método \textit{containsId} que verifica se um item (pela chave primária) já está salvo localmente a fim de sincronizar com a view os itens já baixados do serviço rest.
+É importante destacar que os métodos de busca, inserção, remoção e atualização foram simplificados para que os objetos que utilizarem \textit{DatabaseComponent} informem apenas os parâmetros do método sem o nome da tabela. Outro recurso importante desse componente é que o método de busca é assíncrono e os resultados de uma busca, quando houver, será emitido no sinal \textit{itemLoaded} que passará como argumento um objeto no estilo \textit{nome-da-coluna.dado-armazenado}. \textit{DatabaseComponent} possui ainda um método \textit{containsId} que verifica se um item (pela chave primária) já está salvo localmente e pode ser útil para sincronizar com a view os itens já baixados do serviço rest. O código a seguir, apresenta um exemplo de como uma página poderá utilizar \textit{DatabaseComponent} para persistir dados em uma tabela:
+
+\begin{center}
+\begin{lstlisting}[language=qml]
+
+import Database 1.0
+...
+Database {
+	id: database
+	jsonColumns: ["source"]
+	tableName: "news"
+	pkColumn: "title"
+
+	// entry eh um objeto coluna.valor
+	onItemLoaded: listViewModel.append(entry)
+}
+...
+Item {
+	Component.onCompleted: {
+		var insertData = {
+			"title": "lorem ip sum...",
+			"message": "GNU is not Unix!",
+			"datetime": "2017-12-30T14:29:33"
+		}
+		database.insert(insertData)
+	}
+}
+...
+\end{lstlisting}
+\captionof{lstlisting}{Exemplo de como utilizar \textit{DatabaseComponent}}
+\end{center}
+
 
 \subsection{Notificações do Aplicativo}
 Outro requisito funcional atendido nesta arquiteura é o envio de notificação ao usuário do aplicativo e consiste de notificações via \textit{push} e local. As notificações via \textit{push} é suportado apenas no Android e iOS e as notificações local é suportado nos dispositivos móveis, Linux Desktop e OSX. As notificações podem ser utilizadas para alertar o usuário de algum evento na aplicação e pode conter um título, uma descrição e nas plataformas mobile, pode vibrar o dispositivo e emitir um som. Outro recurso disponibilizado é a possibilidade de adicionar algum dado em cada notificação. Esse dado é um objeto \textit{chave.valor} e pode conter tanto uma string como um objeto ou array json. As notificações local são enviadas pela própria aplicação via chamada de método e as notificações via \textit{push} através do \textit{Firebase}. As subsessões a seguir, descrevem detalhes de cada tipo de notificação.
@@ -390,6 +425,7 @@ A arquitetura dispõe do plugin de exemplo \textit{Listeners} que contém o comp
 
 \begin{center}
 \begin{lstlisting}[language=qml]
+
 import QtQuick 2.8
 
 Connections {
@@ -413,6 +449,7 @@ Para gerenciar as notificações local, foi criado a classe \textit{Notification
 
 \begin{center}
 \begin{lstlisting}[language=qml]
+
 import QtQuick 2.8
 
 Item {
@@ -432,11 +469,61 @@ Item {
 \subsection{Comunicação entre os objetos e plugins}
 % Esta seção descreverá o processo de comunicação entre objetos no aplicativo e o uso correto dos eventos...
 O quarto requisito funcional desta arquitetura é a disponibilização de um mecanismo de comunicação entre objetos e plugins.
-....
+A sessão 4.8 descreveu o uso do sinal \textit{eventNotify} que é utilizado atualmente por componentes internos e pelos plugins disponibilizados como exemplo na arquitetura. Porém, esse não é o único mecanismo de comunicação disponibilizado, a arquitetura disponibiliza uma implementação em c++ do padrão de projeto \textit{Observer} baseado em categorias de eventos. A categoria identifica um evento a fim de notificar somente observadores específicos, evitando o \textit{broadcast} a todos os observadores da aplicação como está configurado atualmente na arquitetura através de chamadas ao sinal \textit{eventNotify}. Provavelmente, em uma versão futura da arquitetura todos os eventos serão migrados para utilizar apenas o padrão \textit{Observer}.\par
+
+Para utilizar o \textit{Observer} na arquitetura, foi criado duas classes c++, uma chamada \textit{Subject} e outra \textit{Observer}. Na inicialização da aplicação, a classe \textit{Subject} será instanciada e o objeto registrado no contexto da aplicação. A classe \textit{Observer} é registrada na aplicação como um tipo qml para que os plugins possam instanciá-lo como componentes qml. A classe \textit{Subject} possui um atributo privado \textit{attacheds} que é 
+
+O objeto \textit{Subject} (registrado no contexto da aplicação) deixará disponível os seguintes métodos: 
+
+\begin{itemize}
+	\item \textit{attach} (void): Esse método poderá ser utilizado pelos observadores para assinarem eventos na aplicação e dois parâmetros são requeridos: um observador e uma lista de strings contendo os nomes dos eventos;
+	\item \textit{detach} (void): Esse método poderá ser utilizado pelos observadores para cancelar a assinatura de eventos na aplicação e dois parâmetros são requeridos: o observador e uma lista de eventos o qual deseja ser removido da lista;
+	\item \textit{notify} (void): Esse método poderá ser utilizado para notificar observadores de um determinado evento e poderá ser utilizado por qualquer objeto da aplicação. Nesse método, três parâmetros são requeridos, uma string contendo o nome do evento, um objeto variante contendo o dado a ser passado para o observador e por último um objeto \textit{QObject} que indica o emissor do evento. Ao chamar esse método, o \textit{Subject} irá iterar a lista de observadores para o evento enviado, chamando para cada observador o método público \textit{update} que receberá como argumento, o nome do evento em que está sendo notificado, o dado enviado pelo emissor e uma referência para o objeto emissor do evento.
+\end{itemize}
 
 
 \subsection{O Componente UserProfile}\label{sec:solucao-desenvolvida}
-....
+A arquitetura dispõe de um objeto \textit{UserProfile} para gerenciar os dados do usuário do aplicativo. Esse objeto é uma instância do componente privado \textit{UserProfile.qml} e será criado se houver um login na aplicação, ou seja, se o desenvolvedor definir nas configurações do aplicativo a propriedade \textit{usesLogin} para \textit{true}. Esse objeto será criado na inicialização e ficará disponível para toda a aplicação como um objeto global, e a propriedade \textit{userProfile} poderá ser utilizada em \textit{bindings} com outros objetos. No entando, atualizações dos dados do usuário não devem ser feitas diretamente e sim através de eventos. O objeto \textit{userProfile} utilizará o evento \textit{initUserProfile} para inicializar o perfil do usuário após o login e o segundo argumento do evento deve conter um objeto enviado pelo serviço REST contendo no mínimo os campos \textit{id} e \textit{email}. Já o evento \textit{setUserProfileData} deve ser utilizado para atualizar ou adicionar alguma informação ao perfil do usuário, nesse evento, o dado do evento deve conter as propriedades \textit{key} com o nome do campo a ser atualizado ou adicionado e \textit{value} o valor para o campo. O evento \textit{logoutApplication} deve ser emitido pela página de \textit{logout} avisando a aplicação que a sessão foi encerrada e o usuário será direcionado para a páginad e login. No logout, pode ser passado um objeto vazio ou simplesmente \textit{null} como dado do evento. O objeto \textit{userProfile} dispõe das seguintes propriedades:
+
+\begin{itemize}
+	\item \textit{profile} (object): Um objeto javascript que guardará os dados do perfil do usuário, no estilo \textit{campo.valor}. Os plugins podem fazer \textit{binding} com esse objeto em elementos visuais como por exemplo, exibir a imagem de perfil, mantida na propriedade \textit{image\_url}. Esse objeto será persistido a cada alteração, ou seja, no evento \textit{initUserProfile} o dado do evento será setado nessa propriedade e em seguida salva nas configurações locais do aplicativo;
+
+	\item \textit{profileName} (string): Uma string contendo o nome do perfil do usuário, por exemplo, \textit{administrator}, \textit{editor}, \textit{professor} e etc. Essa propriedade será setada internamente quando o \textit{profile} for definido ou alterado. No entanto, o nome do perfil do usuário deve ser passado pelo serviço REST na resposta do login. É importante entender que, para definir essa propriedade, o serviço REST deve adicionar um objeto no perfil do usuário contendo \textit{user\_role.name}, que é o valor atribuído a essa propriedade. A exibição das páginas para o usuário será baseado nessa propriedade. Se a propriedade \textit{roles} na configuração das páginas dos plugins for definido e \textit{profileName} for uma string vazia o usuário não visualizará as páginas no menu do aplicativo;
+
+	\item \textit{isLoggedIn} (bool): Essa propriedade será definida para \textit{true} quando \textit{profile} for modificado contendo alguma informação do usuário e será definida para \textit{false} quando não houver nehuma informação em \textit{profile}. Basicamente, essa propriedade será modificada internamente nas funções executadas nos eventos \textit{initUserProfile} e \textit{logoutApplication}.
+\end{itemize}
+
+O objeto \textit{userProfile} invocará uma função interna para carregar a página inicial após \textit{profile} ser modificado, após o evento \textit{initUserProfile}. Após a emissão do evento \textit{logoutApplication} a página de login também será carregada por uma função interna. Todas essas três propriedades serão persistidas sempre que elas forem modificadas.\par
+
+O código a seguir, apresenta um exemplo de como utilizar o objeto \textit{userProfile} em uma página. A arquitetura dispõe o plugin \textit{Session} que possui dois componentes que demonstram a utilização do \textit{login}, \textit{logout}, exibição do perfil do usuário e uma página que altera os dados do usuário através do evento \textit{setUserProfileData}.
+
+\begin{center}
+\begin{lstlisting}[language=qml]
+
+import QtQuick 2.8
+
+Column {
+	spacing: 10
+
+	Image {
+		id: userImg
+		asynchronous: true; cache: true
+		source: window.userProfile.profile.image\_url
+	}
+
+	Label {
+		id: labelName
+		text: window.userProfile.profile.name
+	}
+
+	Label {
+		id: labelEmail
+		text: window.userProfile.profile.email
+	}
+}
+\end{lstlisting}
+\captionof{lstlisting}{Exemplo de como exibir informações do usuário}
+\end{center}
 
 
 \subsection{O Componente BasePage}\label{sec:solucao-desenvolvida}
@@ -454,4 +541,4 @@ O quarto requisito funcional desta arquitetura é a disponibilização de um mec
 
 \subsection{Métodos para utilização da arquitetura}
 % descrever o README do projeto no github
-Para se utilizar a arquitetura desenvolvida, deve-se seguir uma determinada ordem de atividades que serão descritos a seguir.
+Para se utilizar a arquitetura desenvolvida, deve-se seguir uma determinada ordem de atividades que serão descritos a seguir...
