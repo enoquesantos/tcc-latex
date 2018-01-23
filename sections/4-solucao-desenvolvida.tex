@@ -321,7 +321,7 @@ O diagrama a seguir, apresenta os atributos e métodos da classe \textit{Request
 
 
 \subsubsection{O Componente RequestHttp}\label{sec:solucao-desenvolvida}
-A classe \textit{RequestHttp} é registrada como um tipo qml no contexto da aplicação e os plugins podem utilizá-la através da diretiva \textit{import RequestHttp 1.0} e declarando um objeto qml para utilizar seus métodos. No entando, para passar autenticação básica nas requisições é preciso setar os parâmetros do arquivo de configuração, além da url base. Logo, para simplificar o uso de requisições HTTP para os plugins, foi criado um arquivo qml \textit{RequestHttp.qml} que instancia a classe \textit{RequestHttp} e inicializa os artributos \textit{baseUrl}, \textit{basicAuthorizationUser} e \textit{basicAuthorizationPassword}, além de exibir mensagens de erros das requisições personalizadas para o usuário. O código a seguir, apresenta esse componente qml:
+A classe \textit{RequestHttp} é registrada como um tipo qml no contexto da aplicação e os plugins podem utilizá-la através da diretiva \textit{import RequestHttp 1.0} e declarando um objeto qml para utilizar seus métodos. No entando, para passar autenticação básica nas requisições é preciso setar os parâmetros do arquivo de configuração, além da url base. Logo, para simplificar o uso de requisições HTTP para os plugins, foi criado um arquivo qml \textit{RequestHttp.qml} que instancia a classe \textit{RequestHttp} e inicializa os artributos \textit{baseUrl}, \textit{basicAuthorizationUser} e \textit{basicAuthorizationPassword}, além de exibir mensagens de erros das requisições personalizadas para o usuário. O código a seguir, apresenta o componente \textit{RequestHttp}:
 
 \begin{center}
 \begin{lstlisting}[language=qml]
@@ -337,9 +337,45 @@ RequestHttp {
     }
 }
 \end{lstlisting}
-\captionof{lstlisting}{Código do componente \textit{RequestHttp.qml}}
+\captionof{lstlisting}{Trecho de código do componente \textit{RequestHttp.qml}}
 \end{center}
 
+O código a seguir, apresenta um exemplo de como realizar requisições HTTP utilizando o 
+
+\begin{center}
+\begin{lstlisting}[language=qml]
+
+import QtQuick 2.8
+import "qrc:/src/qml/" as Components
+
+Components.RequestHttp {
+	id: requestHttp
+}
+...
+Item {
+	Component.onCompleted: {
+		var queryString = {
+			"someKey": "foo",
+			"paginate": listView.count
+		}
+		requestHttp.get("foo", queryString)
+
+		var postData = {
+			"someKey": "bar",
+			"email": textField.text
+		}
+		requestHttp.post("bar", postData)
+
+		var filesPaths = [
+			"/data/app/myapp/files/file1.png",
+			"/data/app/myapp/files/file2.png"
+		]
+		requestHttp.upload("bar", filesPaths)
+    }
+}
+\end{lstlisting}
+\captionof{lstlisting}{Exemplos de requisição HTTP}
+\end{center}
 
 \subsection{Persistência de Dados}\label{sec:solucao-desenvolvida}
 Persistência de dados é um requisitivo funcional disponibilizado nesta arquitetura e foi elaborada com o objetivo de fornecer aos plugins a possibilidade de persistir dados em um banco SQLITE. Cada plugin pode criar uma ou mais tabelas no banco de dados da aplicação e realizar as operações de inserção, atualização e busca de dados em suas tabelas, basta importar o componente Database com a diretiva \textit{import Database 1.0} e utilizá-lo para objeto qml. Para criar as tabelas no banco de dados da aplicação, o plugin deve fornecer um arquivo \textit{plugin\_table.sql} contendo os comandos de criação, alteração ou remoção das tabelas. Esse arquivo é lido pelo objeto gerenciador de plugins que passará o caminho do arquivo para outro objwto que criará a tabela. Esse arquivo será carregado e executado a cada release.\par
@@ -360,7 +396,7 @@ A classe \textit{Database} é responsável por criar o banco de dados \textit{SQ
 	\item \textit{update}: Esse método pode ser utilizado para atualizar um registro em uma tabela específica. Os parâmetros desse método são basicamente os mesmos do método \textit{remove} descrito no item anterior, com uma adição, um parâmetro \textit{updateData} que consiste de um objeto contendo os dados a serem atualizados no estilo \textit{nome-da-coluna.valor}.
 \end{itemize}
 
- O diagrama a seguir apresenta os atributos e métodos da classe \textit{Database}.
+O diagrama a seguir apresenta os atributos e métodos da classe \textit{Database}.
 \begin{figure}[h]
 	\includegraphics[width=8cm]{diagrama_de_classe_Database4}
 	\centering
@@ -471,14 +507,14 @@ Item {
 O quarto requisito funcional desta arquitetura é a disponibilização de um mecanismo de comunicação entre objetos e plugins.
 A sessão 4.8 descreveu o uso do sinal \textit{eventNotify} que é utilizado atualmente por componentes internos e pelos plugins disponibilizados como exemplo na arquitetura. Porém, esse não é o único mecanismo de comunicação disponibilizado, a arquitetura disponibiliza uma implementação em c++ do padrão de projeto \textit{Observer} baseado em categorias de eventos. A categoria identifica um evento a fim de notificar somente observadores específicos, evitando o \textit{broadcast} a todos os observadores da aplicação como está configurado atualmente na arquitetura através de chamadas ao sinal \textit{eventNotify}. Provavelmente, em uma versão futura da arquitetura todos os eventos serão migrados para utilizar apenas o padrão \textit{Observer}.\par
 
-Para utilizar o \textit{Observer} na arquitetura, foi criado duas classes c++, uma chamada \textit{Subject} e outra \textit{Observer}. Na inicialização da aplicação, a classe \textit{Subject} será instanciada e o objeto registrado no contexto da aplicação. A classe \textit{Observer} é registrada na aplicação como um tipo qml para que os plugins possam instanciá-lo como componentes qml. A classe \textit{Subject} possui um atributo privado \textit{attacheds} que é 
+Para utilizar o \textit{Observer} na arquitetura, foi criado duas classes c++, uma chamada \textit{Subject} e outra \textit{Observer}. Na inicialização da aplicação, a classe \textit{Subject} será instanciada e o objeto registrado no contexto da aplicação. A classe \textit{Observer} é registrada na aplicação como um tipo qml para que os plugins possam instanciá-lo como componentes qml. A classe \textit{Subject} possui um atributo privado \textit{attacheds}, uma instância da classe \textit{QMap} do Qt, mais precisamente: \textit{QMap<QString, QVector<Observer*>> m\_attacheds} a chave é uma string que identifica um evento e o \textit{value} é um vetor de \textit{Observers}.
 
-O objeto \textit{Subject} (registrado no contexto da aplicação) deixará disponível os seguintes métodos: 
+O objeto \textit{Subject} (registrado no contexto da aplicação) disponibiliza os seguintes métodos:
 
 \begin{itemize}
-	\item \textit{attach} (void): Esse método poderá ser utilizado pelos observadores para assinarem eventos na aplicação e dois parâmetros são requeridos: um observador e uma lista de strings contendo os nomes dos eventos;
-	\item \textit{detach} (void): Esse método poderá ser utilizado pelos observadores para cancelar a assinatura de eventos na aplicação e dois parâmetros são requeridos: o observador e uma lista de eventos o qual deseja ser removido da lista;
-	\item \textit{notify} (void): Esse método poderá ser utilizado para notificar observadores de um determinado evento e poderá ser utilizado por qualquer objeto da aplicação. Nesse método, três parâmetros são requeridos, uma string contendo o nome do evento, um objeto variante contendo o dado a ser passado para o observador e por último um objeto \textit{QObject} que indica o emissor do evento. Ao chamar esse método, o \textit{Subject} irá iterar a lista de observadores para o evento enviado, chamando para cada observador o método público \textit{update} que receberá como argumento, o nome do evento em que está sendo notificado, o dado enviado pelo emissor e uma referência para o objeto emissor do evento.
+	\item \textit{attach} (void): Esse método poderá ser utilizado para adicionar observadores a uma lista de eventos na aplicação e dois parâmetros são requeridos: o primeiro é um poteiro para o \textit{observer} e o segundo é uma lista de strings contendo os eventos que o observador será notificado quando forem emitidos;
+	\item \textit{detach} (void): Esse método poderá ser utilizado para remover um observado de uma lista de eventos na aplicação e dois parâmetros são requeridos: o primeiro é um poteiro para o \textit{observer} e o segundo é a lista de eventos a qual o observador será removido;
+	\item \textit{notify} (void): Esse método poderá ser utilizado por qualquer objeto da aplicação para notificar observadores de um determinado evento. Esse método requer três parâmetros, o primeiro é uma string contendo o nome do evento, o segundo é um objeto variante contendo o dado a ser passado para o observador e por último um ponteiro \textit{QObject} para o emissor do evento. Ao chamar esse método, o \textit{Subject} irá iterar o vetor de observadores do evento enviado, chamando para cada observador o método público \textit{update} que receberá como argumento, o nome do evento em que está sendo notificado, o dado enviado e uma referência para o objeto emissor.
 \end{itemize}
 
 
@@ -505,20 +541,22 @@ import QtQuick 2.8
 Column {
 	spacing: 10
 
+	property var profileData = userProfile.profile
+
 	Image {
 		id: userImg
 		asynchronous: true; cache: true
-		source: window.userProfile.profile.image\_url
+		source: profileData.image\_url
 	}
 
 	Label {
 		id: labelName
-		text: window.userProfile.profile.name
+		text: profileData.name
 	}
 
 	Label {
 		id: labelEmail
-		text: window.userProfile.profile.email
+		text: profileData.email
 	}
 }
 \end{lstlisting}

@@ -24,9 +24,9 @@ A lista a seguir, apresenta as limitações identificadas nesta arquitetura. A i
 A lista a seguir, apresenta os possíveis incrementos futuros na arquitetura para facilitar ainda mais o desenvolvimento de plugins pelos desenvolvedores e melhorar a qualidade de um aplicativo baseado neste projeto.
 
 \begin{enumerate}
-	\item Melhorar o suporte ao iOS em componentes visuais melhorando o \textit{look end feel} nesta plataforma;
+	\item Melhorar o suporte ao iOS, atualizando as bibliotecas do \textit{Firebase} para uma versão mais recente, pois o \textit{xCode} exibe \textit{warnings} de que a versão da biblioteca utilizada possui APIs \textit{deprecated}, além de suporte aos componentes visuais em telas retina;
 
 	\item Permitir que durante o desenvolvimento, em modo Desktop, as alterações nos arquivos dos plugins sejam identificados e carregados a cada execução da aplicação, não exigindo o \textit{rebuild} do projeto;
 
-	\item Adicionar um modelo de comunicação estilo \textit{publish-subscriber} migrando a comunicação por eventos para o \textit{Observer} que já está disponível na arquitetura mais não está sendo utilizado. As classes \textit{Subject} e \textit{Observer} em \textit{src/core} foram implementadas para melhorar ainda mais o mecanismo de comunicação por eventos
+	\item Utilizar o \textit{Observer} como único mecanismo de comunicação entre objetos. Pois o \textit{Observer} que já está disponível na arquitetura mais não está sendo utilizado. As classes \textit{Subject} e \textit{Observer} em \textit{src/core} foram implementadas para melhorar ainda mais o mecanismo de comunicação por eventos reduzindo o \textit{overhead} pelo fato de comunicar somente o interessado no evento, ao contrário do que ocorre atualmente.
 \end{enumerate}
