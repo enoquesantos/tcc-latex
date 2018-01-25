@@ -568,8 +568,40 @@ Column {
 ....
 
 
-\subsection{Componentes Visuais}\label{sec:solucao-desenvolvida}
-....
+\subsection{Componentes Reusáveis}\label{sec:solucao-desenvolvida}
+A arquitetura dispõe de quinze componentes reusáveis para os plugins. Para utilizar esses componentes, é necessário adicionar a diretiva \textit{import "qrc:/publicComponentes/"} e utilizar qualquer um dos componentes descritos a seguir, sem a extensão \textit{qml}. Os componentes disponíveis estão descritos a seguir:
+
+\begin{itemize}
+	\item \textit{ActionMessage.qml}: Esse componente exibe um botão contendo um texto e um ícone do \textit{Awesome Icons} no centro da tela. O texto pode ser definido na propriedade \textit{messageText} e o ícone na propriedade \textit{iconName}. O ícone e o texto estão disposts em um \textit{ColumnLayout} sendo o ícone acima do texto. Dois sinais serão emitidos: \textit{clicked()} e \textit{pressAndHold()} quando clicado e pressionado respectivamente pelo usuário;
+
+	\item \textit{AwesomeIcon.qml}: Esse componente consiste de um \textit{RoundButton} do \textit{QuickControls} com a propriedade \textit{flat} setado para \textit{true} para que o background seja transparente. Ele utiliza um arquivo de fonte OTF contendo setessentos e vinte ícones da biblioteca \textit{Awesome Icons} e pode ser utilziado para exibir um ícone clicável nos fragmentos de uma página. As propriedades \textit{name}, \textit{size} e \textit{color} podem ser utilizadas para definir o ícone, o tamanho e a cor;
+
+	\item \textit{BasePage.qml}: Esse componente é o elemento descrito na sessão anterior e deve ser utilizado pelos plugins nas páginas no aplicativo;
+
+	\item \textit{Brand.qml}: Esse componente consiste de um retangulo e uma imagem centralizada. A imagem utilizada é por padrão o ícone definido em \textit{assets/icon.png}. O plugin \textit{About} fornecido como exemplo utiliza esse componente no topo da tela para exibir a logo do aplicativo;
+
+	\item \textit{CameraCapture.qml}: Esse componente pode ser utilizado para abrir a câmera do dispositivo móvel ou a \textit{webcam} em laptops. Ao adicionar esse componente no \textit{StackVIew}\footnote{através da chamada de função pagestack.push("qrc:/publicComponentes/CameraCapture.qml")}) ele inicializará a câmera disponível no dispositivo e permitirá ao usuário capturar uma imagem clicando em qualquer ponto da tela ou, utilizando o botão \textit{photo} no rodapé da janela. Outros dois botões estarão disponíveis nos cantos da tela. O botão do lado esquerdo permite ao usuário alternar entre as câmeras frontal ou de fundo (se disponível) e o do lado direito, abre a janela de seleção de arquivos no dispositivo. Se o usuário capturar uma imagem com a câmera, a imagem capturada será salva em um diretório público do dispositivo e o evento \textit{cameraImageSaved} será disparado contendo como dado do evento, uma string com o \textit{path} da imagem;
+
+	\item \textit{CustomButton.qml}: Esse componente consiste de um botão com as bordas arredondadas e com a paleta de cores definida para: \textit{colorPrimary} como cor de fundo, \textit{colorControlHighlight} como cor da borda e \textit{colorAccent} como cor do texto. Essas cores devem ser definidas pelo programador no arquivo de configuração na propriedade \textit{theme};
+
+	\item \textit{CustomListView.qml}: Esse componente é um \textit{ListView} do \textit{QuickControls}, porém com um \textit{ListModel} já instanciado e efeitos de transição adicionado, além de um objeto \textit{ScrollIndicator} que exibirá uma barra de rolagem vertical dinâmica;
+
+	\item \textit{Datepicker.qml}: Esse componente pode ser utilizado para exibir um caledário contendo opção de seleção de dia, mês e ano. Após o usuário selecionar uma data, o sinal \textit{dateSelected(int day, int month, int year)} será emitido pelo objeto;
+
+	\item \textit{FloatingButton.qml}: Esse componente exibe um botão circular flutuante no lado direito da tela, no rodapé da janela do aplicativo. Ele permite adicionar um ícone do \textit{Awesome} através da propriedade \textit{iconName} e possui os mesmos sinais de um \textit{Button} do \textit{QuickControls}, tais como o \textit{clicked} e \textit{pressAndHold};
+
+	\item \textit{ListItem.qml}: Esse componente é um \textit{ItemDelegate} do \textit{QuickControls}. Ele permite adicionar até quatro elementos visuais, além de uma borda no rodapé usada como separador quano utilizado em uma lista. A utilização desse componente pode como \textit{delegate} de um \textit{ListView} ou em uma página dentro de um \textit{ColumnLayout}. As elementos visuais são: no lado esquerdo e centralizado verticamente, pode-se utilizar um ícone do \textit{Awesome} na propriedade \textit{primaryIconName} ou uma imagem circular setando o source da imagem na propriedade \textit{primaryImageSource}. Ao lado direito desse ícone, pode ser adicionado um texto e uma descrição nas propriedades \textit{primaryLabelText} e \textit{secondaryLabelText} respectivamente, um abaixo do outro sendo a descrição com o \textit{font-size} e opacidade reduzido. O último elemento visual é o mesmo do primeiro só que no lado oposto, ou seja pode ser adicionado um ícone do \textit{Awesome} ou uma imagem;
+
+	\item \textit{PasswordField.qml}: Esse componente é um \textit{TextField} do \textit{QuickControls} e pode ser utilizado para exibir um campo de senha para o usuário, contendo um ícone do \textit{Awesome} ao lado direito centralizado verticamente. O ícone permite exibir a senha digitada no campo quando for clicado, alternando o valor da propriedade \textit{echoMode} para \textit{Password} ou \textit{Normal};
+
+	\item \textit{PhotoSelection.qml}: Esse componente é \textit{Popup} do \textit{QuickControls} e pode ser utilizado para exibir uma lista vertical contendo três opções para o usuário: A primeira opção, ao ser clicada, abre a câmera do dispositivo, ou seja, instancia \textit{CameraCapture.qml}. A segunda opção abre a galeria de imagens do dispositivo para seleção de um único arquivo. A terceira opção, ao ser clicada, nada é feito internamente, porém é emitido o sinal \textit{removeCurrentPhoto};
+
+	\item \textit{RequestHttp.qml}: Esse componente já foi apresentado na sessão que descreve a API de rede e deve ser utilizado quando for necessário realizar requisições HTTP. É importante lembrar que \textit{BasePage} já possui uma instância desse componente permitindo as páginas iniciar requisições ao serviço REST. No entato, esse componente pode ser utilizado em objetos \textit{listeners};
+
+	\item \textit{RoundedImage.qml}: Esse componente exibe uma imagem arredondada e dispõe das propriedades \textit{imgSource} para o path da image (local ou remota) e \textit{borderColor} para definir uma cor para a borda (o padrão é transparente). A imagem é adicionada em um retângulo com um \textit{MouseArea} tornando possível capturar eventos de click ou pressionamento;
+
+	\item \textit{TimePicker.qml}: Esse componente exibe um relogio baseado em \textit{hora:minuto:segundos}. Ele é um \textit{Popup} do \textit{QuickControls} e para abrir o diálogo, é preciso chamar o método \textit{open()} a partir do objeto declarado. Ao clicar no botão \textit{OK}, o sinal \textit{timeSelected(var time)} será emitido.
+\end{itemize}
 
 
 \subsection{Fluxo de execução}\label{sec:solucao-desenvolvida}
