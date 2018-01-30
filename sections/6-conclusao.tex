@@ -7,26 +7,30 @@ Aqui será apresentado as conclusões obtidos em todo o trabalho, sejam elas pos
 
 
 \subsection{Limitações Deste Trabalho}
-A lista a seguir, apresenta as limitações identificadas nesta arquitetura. A implementação dessas limitações implicará em alterações diversas no núcleo da arquitetura, porém, não deve impactar nas implementações dos plugins. As limitações são decorrentes de pouca experiência com Qt, C++ e \textit{qmake}.
+A lista à seguir apresenta as limitações identificadas nesta arquitetura. A implementação dessas limitações implicará em alterações diversas no núcleo da arquitetura, porém, não deve impactar nas implementações dos plugins. As limitações são decorrentes de pouca experiência com Qt, C++ e \textit{qmake}.
 
 \begin{enumerate}
-	\item Suporte a plugins escritos em c++: esse recurso seria importante, pois permitiria aos plugins delegar a lógica de negócio e operações de baixo nível a objetos c++, em vez de componentes qml como é atualmente. O problema é que, as classes c++ devem ser conhecidas em tempo de compilação, já que as classes c++ de um projeto Qt devem estar declaras no arquivo \textit{.pro} do projeto. Neste caso, o núcleo da arquitetura teria que ser modificado pelo desenvolvedor, pois os objetos c++ teriam ser conhecidos por objetos qml em tempo de execução e isso requer uma refatoração de partes da arquitetura;
+	\item Suporte a plugins escritos em C++: esse recurso seria importante, pois permitiria aos plugins delegar a lógica de negócio e operações de baixo nível a objetos c++, em vez de componentes qml como é atualmente. O problema é que, as classes C++ devem ser conhecidas em tempo de compilação, já que em um projeto Qt as classes C++ devem estar mapeadas no arquivo \textit{.pro} do projeto gerando um acoplamento do núcleo da aplicação com os plugins;
 
-	\item Instalação de plugins em \textit{runtime}: a arquitetura não suporta ainda a instalação de plugins dinamicamente. Atualmetne, os plugins de um aplicativo devem ser empacotados durante o \textit{build} do projeto;
+	\item Instalação de plugins em \textit{runtime}: a arquitetura não suporta a instalação de plugins dinamicamente. Atualmente, os plugins devem ser empacotados durante o \textit{build} do projeto;
 
-	\item Tipos de autenticação na API de rede: A arquitetura suporta apenas \textit{Basic Authentication} nas requisições HTTP e carece de outros tipos de autenticação suportado por \textit{web services} RESTful, tais como \textit{OAuth}, \textit{BEARER}, \textit{DIGEST Auth} entre outros;
+	\item Tipos de autenticação na API de rede: A arquitetura suporta apenas \textit{Basic Authentication} nas requisições HTTP e carece de outros tipos de autenticação suportados por \textit{web services} RESTful, tais como \textit{OAuth}, \textit{BEARER}, \textit{DIGEST Auth} entre outros;
 
-	\item Atualização da arquitetura: Para criar um aplicativo utilizando esta arquitetura requer alteração em diversos arquivos e isso implica em atualizações futuras da arquitetura, pois os arquivos serão sobrescritos e o desenvolvedor terá que atualizar os arquivos modificados. Seria interessante que todas as alterações necessárias fossem feitas em arquivos separados, como por exemplo o \textit{AndroidManifest.xml}, o arquivo \textit{build.gradle} que contém as APIs do \textit{Firebase} e outras propriedades de instalação e deploy no android, além dos ícones e imagens de splash do aplicativo utilizado nas plataformas mobile.
+	\item Atualização da arquitetura: Para criar um aplicativo utilizando esta arquitetura requer alteração em diversos arquivos e isso implica em obter as atualizações futuras da arquitetura, pois os arquivos modificados serão sobrescritos e o desenvolvedor terá que atualizá-los manualmente. Seria interessante que todas as alterações necessárias fossem feitas em arquivos separados e durante o \textit{build} fosse feito o merge. Em projetos android usando a versão mais recente do gradle, é possível fazer merge do arquivo \textit{AndroidManifest.xml} e o próprio arquivo \textit{build.gradle} que contém as APIs do \textit{Firebase} e outras propriedades de instalação e deploy no android.
 \end{enumerate}
 
 
 \subsection{Trabalhos Futuros}
-A lista a seguir, apresenta os possíveis incrementos futuros na arquitetura para facilitar ainda mais o desenvolvimento de plugins pelos desenvolvedores e melhorar a qualidade de um aplicativo baseado neste projeto.
+Os itens abaixo, apresenta os possíveis incrementos futuros na arquitetura para facilitar ainda mais o desenvolvimento de plugins e melhorar a qualidade de um aplicativo baseado neste projeto.
 
 \begin{enumerate}
+	\item Adicionar os componentes reusáveis em um módulo estilo \textit{qmldir} para que o \textit{import} não seja baseado em uma string via \textit{qrc};
+
+	\item Alterar a implementação de \textit{push notification} para a API em C++ do \textit{Fireabse} que já está em versão estável. Isso irá simplificar a API de notificações via \textit{push} evitando ligações com objetos Java via JNI;
+
 	\item Melhorar o suporte ao iOS, atualizando as bibliotecas do \textit{Firebase} para uma versão mais recente, pois o \textit{xCode} exibe \textit{warnings} de que a versão da biblioteca utilizada possui APIs \textit{deprecated}, além de suporte aos componentes visuais em telas retina;
 
-	\item Permitir que durante o desenvolvimento, em modo Desktop, as alterações nos arquivos dos plugins sejam identificados e carregados a cada execução da aplicação, não exigindo o \textit{rebuild} do projeto;
+	\item Permitir que durante o desenvolvimento em modo Desktop, as alterações nos arquivos dos plugins sejam identificadas e carregadas a cada execução da aplicação, não exigindo o \textit{rebuild} do projeto, similar ao que acontece com os arquivos mapeados no \textit{qrc}. Atualmente, os plugins são copiados para o diretório do executável somente durante o \textit{build};
 
-	\item Utilizar o \textit{Observer} como único mecanismo de comunicação entre objetos. Pois o \textit{Observer} que já está disponível na arquitetura mais não está sendo utilizado. As classes \textit{Subject} e \textit{Observer} em \textit{src/core} foram implementadas para melhorar ainda mais o mecanismo de comunicação por eventos reduzindo o \textit{overhead} pelo fato de comunicar somente o interessado no evento, ao contrário do que ocorre atualmente.
+	\item Utilizar o \textit{Observer} como único mecanismo de comunicação entre objetos, pois o \textit{Observer} já está disponível na arquitetura mais não está sendo utilizado entre os componentes internos. As classes \textit{Subject} e \textit{Observer} em \textit{src/core} foram implementadas para melhorar ainda mais o mecanismo de comunicação por eventos reduzindo o \textit{overhead} na aplicação notificando somente os objetos interessados no evento, ao contrário do que ocorre atualmente.
 \end{enumerate}
