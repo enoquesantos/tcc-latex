@@ -26,9 +26,11 @@ Os itens abaixo, apresenta os possíveis incrementos futuros na arquitetura para
 \begin{enumerate}
 	\item Adicionar os componentes reusáveis em um módulo estilo \textit{qmldir} para que o \textit{import} não seja baseado em uma string via \textit{qrc};
 
-	\item Alterar a implementação de \textit{push notification} para a API em C++ do \textit{Fireabse} que já está em versão estável. Isso irá simplificar a API de notificações via \textit{push} evitando ligações com objetos Java via JNI;
+	\item Adicionar o suporte a outros métodos na API de requisições HTTP tais como \textit{PUT}, \textit{OPTIONS}, \textit{DELETE} e \textit{HEAD};
 
-	\item Melhorar o suporte ao iOS, atualizando as bibliotecas do \textit{Firebase} para uma versão mais recente, pois o \textit{xCode} exibe \textit{warnings} de que a versão da biblioteca utilizada possui APIs \textit{deprecated}, além de suporte aos componentes visuais em telas retina;
+	\item Atualizar a implementação de \textit{push notification} para a API em C++ do \textit{Firebase} que já está em versão estável. Isso irá simplificar a API de notificações via \textit{push} evitando ligações com objetos java via \textit{JNI};
+
+	\item Melhorar o suporte ao iOS atualizando as bibliotecas do \textit{Firebase} para a versão mais recente, pois o \textit{xCode} exibe \textit{warnings} de que a versão da biblioteca utilizada possui APIs \textit{deprecated}, além de melhorar o suporte aos componentes visuais em telas retina declarando \textit{font-size} e dimensões baseadas no \textit{DPI} do dispositivo;
 
 	\item Permitir que durante o desenvolvimento em modo Desktop, as alterações nos arquivos dos plugins sejam identificadas e carregadas a cada execução da aplicação, não exigindo o \textit{rebuild} do projeto, similar ao que acontece com os arquivos mapeados no \textit{qrc}. Atualmente, os plugins são copiados para o diretório do executável somente durante o \textit{build};
 
