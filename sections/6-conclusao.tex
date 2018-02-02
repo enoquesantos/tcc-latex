@@ -7,7 +7,7 @@ Aqui será apresentado as conclusões obtidos em todo o trabalho, sejam elas pos
 
 
 \subsection{Limitações Deste Trabalho}
-A lista à seguir apresenta as limitações identificadas nesta arquitetura. A implementação dessas limitações implicará em alterações diversas no núcleo da arquitetura, porém, não deve impactar nas implementações dos plugins. As limitações são decorrentes de pouca experiência com Qt, C++ e \textit{qmake}.
+A lista a seguir apresenta as limitações identificadas nesta arquitetura. A implementação dessas limitações implicará em alterações diversas no núcleo da arquitetura, porém, não deve impactar nas implementações dos plugins. As limitações são decorrentes de pouca experiência com Qt, C++ e \textit{qmake}.
 
 \begin{enumerate}
 	\item Suporte a plugins escritos em C++: esse recurso seria importante, pois permitiria aos plugins delegar a lógica de negócio e operações de baixo nível a objetos c++, em vez de componentes qml como é atualmente. O problema é que, as classes C++ devem ser conhecidas em tempo de compilação, já que em um projeto Qt as classes C++ devem estar mapeadas no arquivo \textit{.pro} do projeto gerando um acoplamento do núcleo da aplicação com os plugins;
