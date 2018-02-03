@@ -367,7 +367,7 @@ Item {
 \end{center}
 
 
-	\item \textit{uploadFile}: realiza uma requisição do tipo \textit{POST} ou \textit{PUT} exigindo a url de destino e um array de strings contendo os endereços dos arquivos locais a serem enviados para o servidor. A requisição será do tipo \textit{multipart-formdata} e do tipo \textit{POST} (por default). O segundo parâmetro pode ser passado quando for necessário utilizar o método \textit{PUT}. Já o terceiro parâmetro, poderá ser passado quando for necessário adicionar dados no cabeçalho da requisição. Esse método emitirá o sinal \textit{uploadFinished} para cada arquivo enviado. Durante o upload de cada arquivo, será emitido o sinal \textit{uploadProgressChanged} contendo os bytes do arquivo (local) e o total de bytes já enviados para o servidor. O código a seguir, apresenta um exemplo de uso desse método:
+	\item \textit{uploadFile}: realiza uma requisição do tipo \textit{POST} ou \textit{PUT} exigindo a url de destino e um array de strings contendo os endereços dos arquivos locais a serem enviados para o servidor. A requisição será do tipo \textit{multipart-formdata} e do tipo \textit{POST} (por default). O terceiro parâmetro (boleano, default \textit{false}) pode ser passado quando for necessário utilizar o método \textit{PUT}. Já o último parâmetro, poderá ser passado quando for necessário adicionar dados no cabeçalho da requisição. Esse método emitirá o sinal \textit{uploadFinished} para cada arquivo enviado. Durante o upload de cada arquivo, será emitido o sinal \textit{uploadProgressChanged} contendo os bytes do arquivo (local) e o total de bytes já enviados para o servidor. O código a seguir, apresenta um exemplo de uso desse método:
 
 \begin{center}
 \begin{lstlisting}[language=qml]
@@ -470,28 +470,28 @@ RequestHttp {
 
 
 \subsection{Persistência de Dados}\label{sec:solucao-desenvolvida}
-Persistência de dados é o segundo requisitivo funcional disponibilizado nesta arquitetura e visa fornecer aos plugins a possibilidade de persistir dados em um banco \textit{SQLITE} e o funcionamento \textit{offline} do aplicativo. Cada plugin pode criar uma ou mais tabelas no banco de dados e realizar as operações de inserção, atualização e busca de dados em suas tabelas, basta importar o componente \textit{Database} com a diretiva \textit{import Database 1.0} e utilizá-lo como objeto qml. Para criar as tabelas no banco de dados do aplicativo, o plugin deve fornecer um arquivo \textit{plugin\_table.sql} contendo os comandos de criação, alteração ou remoção das tabelas. O objeto gerenciador de plugins passará o caminho do arquivo para outro objeto que criará o banco de dados caso não exista e a(s) tabela(s) presente no arquivo. Esse processo vai se repetir em cada release para que os plugins possam modificar a tabela.\par
+Persistência de dados é o segundo requisito funcional disponibilizado nesta arquitetura e visa fornecer aos plugins a possibilidade de persistir dados em um banco \textit{SQLITE} e o funcionamento \textit{offline} do aplicativo. Cada plugin pode criar uma ou mais tabelas no banco de dados e realizar as operações de inserção, atualização e busca de dados em suas tabelas, basta importar o componente \textit{Database} com a diretiva \textit{import Database 1.0} e utilizá-lo como componente qml. Para criar as tabelas no banco de dados do aplicativo, o plugin deve fornecer um arquivo \textit{plugin\_table.sql} contendo os comandos de criação, alteração ou remoção das tabelas. A cada release, esse arquivo será carregado e executado como uma \textit{query} sql permitindo aos plugins atualizar as tabelas (adicionar, remover ou modificar as colunas) quando for necessário.\par
 
-Para gerenciar as operações no banco de dados, foi criado uma classe c++ chamada de \textit{Database} que encapsula em métodos de alto nível as operações necessárias para criar o banco de dados, conectar e executar as operações sql. No entanto, essa classe não será utilizada pelos plugins, foi criado uma outra classe chamada \textit{DatabaseComponent} que agrega uma instância de \textit{Database} e delega as operações para esse objeto e fornece alguns recursos para simplificar ainda mais a persistência de dados. Os tópicos a seguir apresenta detalhes de ambas as classes \textit{Database} e \textit{DatabaseComponent}.
+Para gerenciar as operações de banco de dados, foi criado uma classe C++ chamada \textit{Database} que encapsula em métodos de alto nível as operações necessárias para criar o banco de dados, conectar e executar as operações sql. No entanto, essa classe não será utilizada pelos plugins diretamente, foi criado outra classe chamada \textit{DatabaseComponent} que agrega uma instância de \textit{Database} e delega as operações para esse objeto e fornece alguns recursos para simplificar ainda mais a persistência de dados. As subseções a seguir apresentam detalhes de ambas as classes \textit{Database} e \textit{DatabaseComponent}.
 
 \subsubsection{A classe Database}\label{sec:solucao-desenvolvida}
-A classe \textit{Database} é responsável por criar o banco de dados \textit{SQLITE} na primeira execução do aplicativo se houver necessidade, ou seja, algum plugin dispor de um arquivo de criação de tabela \textit{plugin\_table.sql} em seu diretório. Se nenhum plugin fornecer esse arquivo, o banco de dados \textit{SQLITE} não será criado. A classe \textit{Database} utiliza as classes \textit{QSqlDatabase} para criação e conexão com o banco de dados e as classes \textit{QSqlQuery} e \textit{QSqlRecord} para as realizar \textit{querys} e gerar os resultados a serem retornados. Os métodos principais desta classe serão descritos a seguir:
+A classe \textit{Database} é responsável por criar o banco de dados \textit{SQLITE} na primeira execução do aplicativo se houver necessidade, ou seja, se algum plugin dispor de um arquivo \textit{plugin\_table.sql} em seu diretório. Se nenhum plugin fornecer esse arquivo, o banco de dados \textit{SQLITE} não será criado. A classe \textit{Database} utiliza as classes \textit{QSqlDatabase} para criação e conexão com o banco de dados e as classes \textit{QSqlQuery} e \textit{QSqlRecord} para as realizar \textit{querys} e retornar os resultados das cosultas. Os métodos principais desta classe serão descritos a seguir:
 
 \begin{itemize}
-	\item \textit{select}: Esse método pode ser utilizado para recuperar dados de uma tabela através de uma consulta \textit{sql} e possui três parâmetros, o primeiro é nome da tabela onde será feito a consulta, o segundo é um objeto contendo os parâmetros da consulta (condição \textit{where}) no estilo \textit{nome-da-coluna.valor}, e o último parâmetro, um outro objeto contendo argumentos adicionais, tais como \textit{limit}, \textit{offset} e \textit{order by}. Esse método retornará uma lista de objetos resultante da consulta onde cada objeto da lista é baseado em \textit{nome-da-coluna.valor}. Se a consulta não for efetuada com sucesso, será retornado uma lista vazia;
+	\item \textit{select}: esse método pode ser utilizado para recuperar dados de uma tabela através de uma consulta \textit{sql} e possui três parâmetros, o primeiro é nome da tabela onde será feito a consulta, o segundo é um objeto contendo os parâmetros da consulta (condição \textit{where}) no estilo \textit{nome-da-coluna.valor}, e o último parâmetro, um outro objeto contendo argumentos adicionais, tais como \textit{limit}, \textit{offset} e \textit{order by}. Esse método retornará uma lista de objetos resultante da consulta, e cada objeto contido na lista é composto de \textit{nome-da-coluna.valor}. Se a consulta não for efetuada com sucesso, será retornado uma lista vazia;
 
-	\item \textit{insert}: Esse método pode ser utilizado para inserir dados em uma tabela e os parâmetros requeridos são: o nome da tabela onde será feito a inserção e um objeto no estilo \textit{nome-da-coluna.valor} contendo os dados a serem persistidos. Se a inserção for efetuada com sucesso e a tabela possuir uma coluna auto-incrementada como chave-primária o valor incrementado será retornado. Caso contrário, não possuir a coluna auto-incrementada, retornará o valor inteiro 1 (um) ou, retornará zero se houver erros na inserção;
+	\item \textit{insert}: esse método pode ser utilizado para inserir dados em uma tabela e os parâmetros requeridos são: o nome da tabela onde será feito a inserção e um objeto no estilo \textit{nome-da-coluna.valor} contendo os dados a serem persistidos. Se a inserção for efetuada com sucesso e a tabela possuir uma coluna auto-incrementada como chave-primária o valor incrementado será retornado. Caso contrário, não possuir a coluna auto-incrementada, retornará o valor inteiro 1 (um) ou, retornará zero se houver erros na inserção;
 
-	\item \textit{remove}: Esse método pode ser utilizado para deletar um ou mais registros em uma tabela e três parâmetros são requeridos: o primeiro é o nome da tabela onde será feito a remoção, o segundo é um objeto contendo os argumentos ou filtros da \textit{query} no estilo \textit{nome-da-coluna.valor}. O terceito parâmetro é opcional e pode ser passado para customizar o operador de comparação para cada par \textit{nome-da-coluna.valor} no segundo parâmetro. Por default, será utilizado o operador de igualdade ("=");
+	\item \textit{remove}: esse método pode ser utilizado para deletar um ou mais registros em uma tabela e três parâmetros são requeridos: o primeiro é o nome da tabela onde será feito a remoção, o segundo é um objeto contendo os argumentos ou filtros da \textit{query} no estilo \textit{nome-da-coluna.valor}. O terceito parâmetro é opcional e pode ser passado para customizar o operador de comparação para cada par \textit{nome-da-coluna.valor} no segundo parâmetro. Por default, será utilizado o operador de igualdade ("=");
 
-	\item \textit{update}: Esse método pode ser utilizado para atualizar um registro em uma tabela específica. Os parâmetros desse método são basicamente os mesmos do método \textit{remove} descrito no item anterior, com uma adição, um parâmetro \textit{updateData}, um objeto contendo os dados a serem atualizados também no estilo \textit{nome-da-coluna.valor};
+	\item \textit{update}: esse método pode ser utilizado para atualizar um ou mais registros em uma tabela específica. Os parâmetros desse método são basicamente os mesmos do método \textit{remove} descrito no item anterior, com uma adição, o parâmetro \textit{updateData}, um objeto contendo os dados a serem atualizados também no estilo \textit{nome-da-coluna.valor};
 
-	\item \textit{queryExec}: Esse método pode ser utilizado para realizar uma consulta sql a partir de uma string passada como parâmetro. O valor boleano \textit{true} será retornado se a \textit{query} for efetuada com sucesso, caso contrário \textit{false}. O resultado da consulta se houver, deverá ser obtido através do método \textit{resultSet} descrito a seguir;
+	\item \textit{queryExec}: esse método pode ser utilizado para realizar uma consulta sql a partir de uma string passada como parâmetro. O valor boleano \textit{true} será retornado se a \textit{query} for efetuada com sucesso, caso contrário \textit{false}. O resultado da consulta se houver, deverá ser obtido através do método \textit{resultSet} descrito a seguir;
 
-	\item \textit{resultSet}: Esse método pode ser utilizado para recuperar um conjunto de dados resultante da última consulta sql efetuada, por exemplo após a chamada ao método \textit{queryExec}. O tipo de retorno é uma lista de objetos no estilo \textit{nome-da-coluna.valor}. O método \textit{select} por exemplo, utiliza esse método como retorno da consulta efetuada internamente. Esse método possui um parâmetro opcional que deve ser utilizado quando a tabela a qual a última consulta efetuada for do tipo \textit{meta\_key.meta\_value} para que a chave do objeto seja a chave na tabela e o respectivo valor;
+	\item \textit{resultSet}: esse método pode ser utilizado para recuperar um conjunto de dados resultante da última consulta sql efetuada, por exemplo, após a chamada ao método \textit{queryExec}. O tipo de retorno é uma lista de objetos no estilo \textit{nome-da-coluna.valor}. O método \textit{select} por exemplo, utiliza esse método como retorno da consulta efetuada internamente. Esse método possui um parâmetro opcional que deve ser utilizado quando a tabela a qual a última consulta efetuada for do tipo \textit{meta\_key.meta\_value} para que a chave do objeto seja a chave na tabela e o valor, o dado contido em meta\_value;
 \end{itemize}
 
-O diagrama a seguir apresenta os atributos e métodos da classe \textit{Database}.
+É importante destacar, que essa classe implementa o \textit{singleton}, e será instanciada na inicialização da aplicação pelo objeto \textit{pluginManager}. Se múltiplos plugins realizarem operações sql, eles utilizarão a mesma instância dessa classe. O diagrama a seguir apresenta os atributos e métodos da classe \textit{Database}.
 
 \begin{figure}[h]
 	\includegraphics[width=8cm]{diagrama_de_classe_Database}
@@ -500,7 +500,9 @@ O diagrama a seguir apresenta os atributos e métodos da classe \textit{Database
 \end{figure}
 
 \subsubsection{A classe DatabaseComponent}\label{sec:solucao-desenvolvida}
-A classe \textit{DatabaseComponent} foi criada com o objetivo de fornecer um componente de alto nível que simplificasse para os plugins as operações em uma tabela específica. Essa classe é registrada no contexto da aplicação como um tipo qml e permite aos plugins a utilizarem como componentes qml. \textit{DatabaseComponent} agrega uma instância da classe \textit{Database} e delega as operações para esse objeto. No entanto, ela possui alguns atributos declarados como \textit{Q\_PROPERTY} que permitem aos plugins informar o nome da tabela no banco de dados, uma coluna chave-primária do tipo string (quando a chave-primária não for numérica auto-incrementada), além de colunas que guardam objetos json. As colunas json evitam a realização de \textit{parsing} nas views ou \textit{delegates} para objetos agregados, sendo retornados já convertidos em objetos ou arrays. Outro atributo \textit{totalItens} mantém atualizado o número de registros na tabela para fins de comparação eficiente com o número de itens disponível no serviço REST, útil para paginação de dados na \textit{view}. O diagrama a seguir, apresenta os atributos e métodos dessa classe:
+A classe \textit{DatabaseComponent} foi criada com o objetivo de fornecer um componente de alto nível que simplificasse para os plugins as operações em uma tabela específica. Essa classe será registrada no contexto da aplicação como um tipo qml com o nome de "\textit{Database}" e permitirá aos plugins utilizarem como componentes qml. \textit{DatabaseComponent} agrega uma instância da classe \textit{Database} e delega as operações para esse objeto. No entanto, ela possui alguns atributos declarados como \textit{Q\_PROPERTY} que permitem aos plugins informar o nome da tabela no banco de dados, uma coluna chave-primária do tipo string (quando a chave-primária não for numérica auto-incrementada), além de colunas que guardam objetos json. As colunas json evitam a realização de \textit{parsing} nas views ou \textit{delegates} para objetos agregados, sendo retornados já convertidos em objetos ou arrays.\par
+
+Outro atributo \textit{totalItens} manterá atualizado o número de registros na tabela para fins de comparação com o número de itens disponível no serviço \textit{REST}, útil para paginação de dados na \textit{view}. O diagrama a seguir, apresenta os atributos e métodos dessa classe:
 
 \begin{figure}[H]
 	\includegraphics[width=8cm]{diagrama_de_classe_DatabaseComponent}
@@ -508,7 +510,7 @@ A classe \textit{DatabaseComponent} foi criada com o objetivo de fornecer um com
 	\caption{Diagrama da classe DatabaseComponent}
 \end{figure}
 
-É importante destacar que os métodos de busca, inserção, remoção e atualização foram simplificados para que os objetos que utilizarem \textit{DatabaseComponent} informem apenas os parâmetros do método sem o nome da tabela. Outro recurso importante desse componente é que o método de busca é assíncrono e os resultados de uma busca, quando houver, será emitido no sinal \textit{itemLoaded} que passará como argumento um objeto no estilo \textit{nome-da-coluna.dado-armazenado}. \textit{DatabaseComponent} possui ainda um método \textit{containsId} que verifica se um item (pela chave primária) já está salvo localmente e pode ser útil para sincronizar com a \textit{view} os itens já baixados do serviço REST. O código a seguir, apresenta um exemplo de como uma página poderá utilizar \textit{DatabaseComponent} para persistir dados em uma tabela:
+É importante destacar que os métodos de busca, inserção, remoção e atualização foram simplificados para que os objetos informem apenas os parâmetros do método sem o nome da tabela. Outro recurso importante desse componente é que o método de busca é assíncrono e os resultados de uma busca, quando houver, serão retornados através do sinal \textit{itemLoaded} que passará como argumento um objeto no estilo \textit{nome-da-coluna.valor}. \textit{DatabaseComponent} possui ainda o método \textit{containsId} que verifica se um item (pela chave primária) já está salvo localmente e pode ser útil para sincronizar com a \textit{view} os itens já baixados do serviço \textit{REST}. O código a seguir, apresenta um exemplo de como um plugin poderá utilizar \textit{DatabaseComponent} para persistir dados em uma tabela:
 
 \begin{center}
 \begin{lstlisting}[language=qml]
@@ -520,19 +522,22 @@ Database {
 	jsonColumns: ["source"]
 	tableName: "news"
 	pkColumn: "title"
-
-	// entry eh um objeto coluna.valor
 	onItemLoaded: listViewModel.append(entry)
 }
 ...
 Item {
 	Component.onCompleted: {
-		var insertData = {
-			"title": "lorem ip sum...",
-			"message": "GNU is not Unix!",
-			"datetime": "2017-12-30T14:29:33"
+		var args = {
+			title: "GNU is not Unix!",
+			message: "GNU is an operating...",
+			datetime: "2017-12-30T14:29:33"
+			source: {
+				url:"https://foo.com/api",
+				code:"foo",
+				value:"bar"
+			}
 		}
-		database.insert(insertData)
+		database.insert(args)
 	}
 }
 ...
@@ -542,20 +547,19 @@ Item {
 
 
 \subsection{Notificações do Aplicativo}
-O terceiro requisito funcional atendido nesta arquitetura é o envio de notificação ao usuário do aplicativo e consiste de notificações via \textit{push} e local. As notificações via \textit{push} é suportado apenas no Android e iOS e as notificações locais é suportado nos dispositivos móveis além de Linux Desktop e OSX. As notificações podem ser utilizadas para alertar o usuário de algum evento na aplicação e pode conter um título, uma descrição e nas plataformas mobile, pode vibrar o dispositivo e emitir um som. Outro recurso disponibilizado nas notificações é a possibilidade de adicionar algum dado em cada notificação. Esse dado é um objeto \textit{chave.valor} e o valor pode ser tanto uma string como um outro objeto ou array. As notificações locais serão enviadas pela própria aplicação via chamada de método e as notificações via \textit{push} através do \textit{Firebase}. As subsessões a seguir, descrevem detalhes de cada tipo de notificação.
+O terceiro requisito funcional disponibilizado nesta arquitetura é o envio de notificação ao usuário do aplicativo e consiste de notificações via \textit{push} e local. As notificações via \textit{push} é suportado apenas no Android e iOS e as notificações locais é suportado nos dispositivos móveis além de linux desktop e MacOS. As notificações podem ser utilizadas para alertar o usuário de algum evento na aplicação e pode conter um título, uma descrição e nas plataformas mobile, pode vibrar o dispositivo e emitir um som. Outro recurso disponibilizado nas notificações é a possibilidade de adicionar algum dado extra em cada notificação. Esse dado deve ser um objeto \textit{chave.valor} e o valor pode ser tanto uma string como um valor numérico ou, outro objeto ou array. As notificações locais serão enviadas pela própria aplicação via chamada de método e as notificações via \textit{push} através do \textit{Firebase}. As subseções a seguir, descrevem detalhes de cada tipo de notificação.
 
 \subsubsection{Notificações via push}
-O suporte a notificações via \textit{push} já está configurado na arquitetura e o que o desenvolvedor deve fazer para enviar mensagens via \textit{push} é criar um projeto no \textit{Firebase}, exportar o arquivo \textit{google-services.json} e adicioná-lo no diretório \textit{android} e o arquivo \textit{google-services.xml} correspondente ao iOS no diretório \textit{ios}, substituindo os arquivos existentes, ambos criados como exemplo. É importante destacar que o \textit{package name} do aplicativo adicionado no \textit{AndroidManifest.xml} e o \textit{CFBundleIdentifier} adicionado ao \textit{Info.plist} do iOS, devem ser o mesmo utilizado ao criar o projeto no \textit{Firebase}. Caso contrário, ocorrerá um erro ao construir o APK ou IPA, pois as bibliotecas correspondentes ao serviço de \textit{push} (adicionadas ao projeto durante o \textit{build}) farão um \textit{parsing} dos arquivos e abortará a compilação caso ocorra algum erro. No android, o \textit{package name} deve ser adicionado manualmente no arquivo \textit{build.gradle} presente no diretório \textit{android} na propriedade \textit{defaultConfig.applicationId}.\par
+O suporte a notificações via \textit{push} já está configurado na arquitetura e o que o desenvolvedor deve fazer para enviar mensagens via \textit{push} é criar um projeto no \textit{Firebase}, exportar o arquivo \textit{google-services.json} e adicioná-lo no diretório \textit{android} e o arquivo \textit{google-services.xml} correspondente ao iOS no diretório \textit{ios}, substituindo os arquivos existentes, ambos criados como exemplo. É importante destacar que o \textit{package name} do aplicativo adicionado no \textit{AndroidManifest.xml} e o \textit{CFBundleIdentifier} no \textit{Info.plist} do iOS, devem ser o mesmo utilizado ao criar o projeto no \textit{Firebase}. Caso contrário, ocorrerá um erro ao construir o APK ou IPA, pois as bibliotecas correspondentes ao serviço de \textit{push} (adicionadas ao projeto durante o \textit{build}) farão um \textit{parsing} dos arquivos e abortará a compilação caso ocorra algum erro. No android, o \textit{package name} deve ser adicionado manualmente no arquivo \textit{build.gradle} presente no diretório \textit{android} na propriedade \textit{defaultConfig.applicationId}.\par
 
 No android, o funcionamento de \textit{push notification} requer duas classes java que serão instanciadas na inicialização do aplicativo e funcionarão como dois serviços. Essas classes já estão na arquitetura e o desenvolvedor não precisa modificá-las. O primeiro serviço registra o dispositivo no \textit{Firebase} e retorna um token. Quando isso ocorrer, o token será passado para a aplicação através do sinal \textit{eventNotify} do objeto \textit{App}. O segundo serviço é um \textit{listener} de notificações via \textit{push} e ficará em execução mesmo que a aplicação seja fechada. Ao enviar uma notificação utilizando o console do \textit{Firebase} ou através de algum \textit{web service}, as notificações serão recebidas nesse serviço e enviadas para o \textit{system tray} automaticamente. Se o aplicativo estiver em execução, a notificação será encaminhada para o aplicativo em um objeto json contendo todos os dados da mensagem: o título, a data e a hora de envio e o dado de \textit{payload} (um dado adicional não visível enviado na mensagem).\par
 
-No iOS, o arquivo \textit{QtAppDelegate.mm} presente no diretório \textit{ios} realizará o registro do dispositivo no \textit{Firebase} e contém um método que receberá as notificações via \textit{push} e re-encaminhará para a aplicação usando o mesmo sinal utilizado no android. Em ambas as plataformas, o token será passado para a aplicação através do evento \textit{newPushNotificationToken} e as mensagens de push no evento \textit{newPushNotification}. Se a aplicação estiver em execução e o usuário clicar em uma notificação colocando o aplicativo em foreground, o evento \textit{newActionNotification} será disparado passando como argumento do evento os dados de \textit{payload} da mensagem.\par
+No iOS, o arquivo \textit{QtAppDelegate.mm} presente no diretório \textit{ios} realizará o registro do dispositivo no \textit{Firebase} e contém um método que receberá as notificações via \textit{push} e re-encaminhará para a aplicação usando o mesmo sinal utilizado no android. Em ambas as plataformas, o token será passado para a aplicação através do evento \textit{newPushNotificationToken} e as mensagens de push, no evento \textit{newPushNotification}. Se a aplicação estiver em execução e o usuário clicar em uma notificação colocando o aplicativo em foreground, o evento \textit{newActionNotification} será disparado passando como argumento do evento os dados de \textit{payload} da mensagem.\par
 
-A arquitetura dispõe do plugin de exemplo \textit{Listeners} que contém o componente \textit{PushNotificationRegister.qml}. Esse componente será instanciado na inicialização da aplicação e receberá o token quando o evento correspondente for emitido. Em seguida, o token será enviado para o \textit{web service}. O trecho de código a seguir é um exemplo de como o desenvolvedor deverá implementar para acessar o token de registro no \textit{Firebase} e enviar para o serviço REST.
+A arquitetura dispõe do plugin de exemplo \textit{Listeners} que contém o componente \textit{PushNotificationRegister.qml}. Esse componente demostra um exemplo de como obter o token de registro no \textit{Firebase} e enviar para o serviço \textit{REST}, destruindo o componente (para otimizar consumo de memória) quando o token for recebido com sucesso pelo servidor.
 
 \begin{center}
 \begin{lstlisting}[language=qml]
-
 import QtQuick 2.8
 
 Connections {
@@ -563,30 +567,33 @@ Connections {
     onEventNotify: {
 		var e
 		e = Config.events.newPushNotificationToken
-        if (e == eventName) {
-            // envia o token para o web service
-            sendTokenToServer(eventData)
-        }
-    }
+		if (e == eventName) {
+			// enviando o token para o web service
+			// eventData eh o argumento do evento
+			// contendo uma string com o token
+			sendTokenToServer(eventData)
+		}
+	}
 }
 \end{lstlisting}
 \captionof{lstlisting}{Exemplo de como acessar o token do \textit{Firebase}}
 \end{center}
 
 \subsubsection{Notificações local}
-Para gerenciar as notificações locais, foi criado a classe \textit{Notification} que abstrai a plataforma e dispõe de um método para enviar uma notificação para a área de notificações do sistema em execução. Essa classe será instanciada na inicialização do aplicativo e registrada no contexto da aplicação para que os plugins possam invocar o método \textit{Notification.show}, passando o título e a mensagem da notificação e opcionalmente um objeto contendo o argumento a ser passado para a aplicação quando o usuário clicar na notificação. Quando o usuário clicar na notificação, o aplicativo ficará em \textit{foreground} (caso não esteja) e o argumento da notificação será passado para o objeto \textit{App} que emitirá o sinal \textit{eventNotify} contendo no \textit{eventName} a string \textit{newActionNotification} e em \textit{eventData} um objeto contendo o argumento passado no método \textit{show}. O código a seguir, apresenta um exemplo de como exibir uma notificação local por algum objeto de um plugin, passando um título, uma mensagem e um objeto como argumento.
+Para gerenciar as notificações locais, foi criado a classe \textit{Notification} que abstrai a plataforma e dispõe de um método para enviar uma notificação para a área de notificações do sistema em execução. Essa classe será instanciada na inicialização do aplicativo e registrada no contexto da aplicação para que os plugins possam invocar o método \textit{Notification.show}, passando o título e a mensagem da notificação e opcionalmente um objeto contendo o argumento a ser passado para a aplicação quando o usuário clicar na notificação. Quando o usuário clicar na notificação, o aplicativo ficará em \textit{foreground} (caso não esteja) e o argumento da notificação será passado para o objeto \textit{App} que notificará a aplicação via \textit{eventNotify} contendo em \textit{eventName} a string \textit{newActionNotification} e em \textit{eventData}, o argumento passado no método \textit{show}. O código a seguir, apresenta um exemplo de como exibir uma notificação local por algum objeto de um plugin, passando um título, uma mensagem e um objeto como argumento.
 
 \begin{center}
 \begin{lstlisting}[language=qml]
-
 import QtQuick 2.8
 
 Item {
     Component.onCompleted: {
-		var title, message, argument
-		title = "Novo item carregado!"
-		message = "Clique para visualizar!"
-		argument = {"key":"foo","value":"bar"}
+		var title = "Novo item carregado!"
+		var message = "Clique para visualizar!"
+		var argument = {
+			key:"foo",
+			value:"bar"
+		}
 		Notification.show(title,message,argument)
 	}
 }
