@@ -172,16 +172,28 @@ A classe \textit{App} é um componente importante nesta arquitetura, suas princi
 
 
 \subsection{Gerenciamento de configurações}
-A arquitetura provê uma API simples e de alto nível para persistir dados utilizando o conceito \textit{chave.valor} através do objeto \textit{App}. Nesse mecanismo, a chave identifica o dado a ser armazenado e o valor é o dado a ser persistido. Os tipos de dados válidos são: strings, números, objetos ou arrays e os métodos disponíveis podem ler, persistir ou apagar dados nas configurações do aplicativo. Os métodos serão descritos a seguir:
+A arquitetura provê uma API simples e de alto nível para persistir dados utilizando o conceito \textit{chave-valor} através do objeto \textit{App}. Nesse modelo de persistência, a chave identifica o dado a ser armazenado e o valor é o dado propriamente dito. Os tipos de dados válidos são: strings, números, objetos ou arrays e os métodos disponíveis podem ler, persistir ou deletar. Os métodos serão descritos a seguir:
 	\begin{itemize}
-		\item \textit{readSetting}: Utilizado para ler um dado persistido utilizando uma string como parâmetro. O parâmetro deve identificar a informação a ser lida. Por padrão, o tipo de dado a ser retornado é string, porém, se o dado não for string o segundo parâmetro deve ser passado indicando o tipo específico a ser retornado. Os tipos possíveis são: \textit{SettingTypeBool} - para retornar um valor boleano; \textit{SettingTypeInt} - para retornar um inteiro; \textit{SettingTypeStringList} - para retornar uma lista de strings; \textit{SettingTypeJsonObject} - para retornar um objeto javascript; \textit{SettingTypeJsonArray} - para retornar um array de objetos javascript. Os tipos devem ser especificados para evitar o uso de cast no qml.
+		\item \textit{readSetting}: Utilizado para ler um dado salvo utilizando uma string que identifique a informação a ser retornada. Por padrão, o tipo de retorno é string e se o dado não for string o segundo parâmetro deve ser passado indicando o tipo específico a ser retornado. Os tipos podem ser especificados para evitar o uso de \textit{cast} no qml. Os tipos possíveis são:
+		\begin{itemize}
+			\item \textit{SettingTypeBool}: para retornar um valor boleano;
 
-		\item \textit{saveSetting}: Utilizado para persistir dados. Esse método é \textit{void} e possui dois parâmetros que devem ser passados. O primeiro é uma string que identifica o valor a ser persistido, e o segundo é o dado propriamente dito. O dado pode ser uma string, um valor numérico, um objeto ou array.
+			\item \textit{SettingTypeInt}: para retornar um inteiro;
 
-		\item \textit{removeSetting}: Utilizado para apagar alguma informação persistida. Esse método requer como parâmetro uma string que indentifica o valor a ser deletado.
+			\item \textit{SettingTypeStringList}: para retornar uma lista de strings;
+
+			\textit{SettingTypeJsonObject}: para retornar um objeto;
+
+			\item \textit{SettingTypeJsonArray}: para retornar um array de objetos.
+		\end{itemize}
+
+
+		\item \textit{saveSetting}: Utilizado para persistir alguma informação. Esse método é \textit{void} e possui dois parâmetros requeridos. O primeiro é uma string que identifica o dado a ser persistido, e o segundo, é o dado propriamente dito. O dado pode ser uma string, um valor numérico, um objeto ou array.
+
+		\item \textit{removeSetting}: Utilizado para apagar alguma informação persistida. Esse método requer apenas um parâmetro, uma string que identifica o dado a ser deletado.
 	\end{itemize}
 
-O código a seguir, apresenta um exemplo de persistência e leitura de dados usando o mecanismo \textit{chave.valor}:
+O código a seguir, apresenta um exemplo de persistência e leitura de dados usando o mecanismo \textit{chave-valor}:
 
 \begin{center}
 \begin{lstlisting}[language=qml]
@@ -193,6 +205,7 @@ Item {
 		var foo = App.readSetting("foo")
 		if (bar != foo)
 		   App.saveSetting("foo", bar)
+		App.removeSetting("bar")
     }
 }
 \end{lstlisting}
@@ -201,13 +214,12 @@ Item {
 
 
 \subsection{Gerenciamento de eventos}
-A classe \textit{App} possui o sinal \textit{eventNotify} e deve ser utilizado pelos plugins e objetos como conector. Este sinal possui dois parâmetros: o primeiro é uma string que identifica o evento e o segundo, um objeto que corresponde ao dado ou argumento emitido no evento. Como uma instância da classe \textit{App} é adicionada ao contexto da aplicação, objetos podem disparar eventos fazendo uma chamada ao sinal da seguinte forma: \textit{App.eventNotify(nome\_do\_evento, argumento)}. Observadores devem criar uma conexão com este sinal utilizando o objeto \textit{Connections} do qml, especificando como \textit{target} o objeto \textit{App}. A figura a seguir, apresenta um exemplo de código para uma conexão com este sinal:
+A classe \textit{App} possui o sinal \textit{eventNotify} e pode ser utilizado pelos plugins e objetos como conector. Este sinal possui dois parâmetros: o primeiro é uma string que identifica o evento e o segundo, um objeto contendo o dado ou argumento a ser passado para os objetos ouvintes do evento. Como a instância da classe \textit{App} será adicionada ao contexto da aplicação como um objeto global, objetos podem disparar eventos fazendo uma chamada ao sinal da seguinte forma: \textit{App.eventNotify(nome-do-evento, argumento)}. Observadores devem criar uma conexão com este sinal utilizando o objeto \textit{Connections} do qml, especificando como \textit{target} o objeto \textit{App}. O código a seguir, apresenta um exemplo de uma conexão com este sinal:
 
 \begin{center}
 \begin{lstlisting}[language=qml]
-
 import QtQuick 2.8
-
+...
 Connections {
     target: App
     onEventNotify: {
@@ -221,141 +233,94 @@ Connections {
 
 
 \subsection{O Arquivo de Configuração}\label{sec:solucao-desenvolvida}
-O arquivo \textit{config.json} é um componente importante desta arquitetura, ele é utilizado como arquivo de configuração geral do aplicativo, porém, suas informações não são persistidas. O conteúdo deste arquivo será repassado para a aplicação como um objeto javascript e o usuário poderá adicionar propriedades a serem lidas pelos plugins. No entanto, as propriedades fornecidas no modelo desta arquitetura não devem ser removidas, pois, componentes internos fazem uso das propriedades definidas neste arquivo. Os plugins poderão ler essa propriedade acessando \textit{Config.\_nome\_da\_propriedade}. As principais propriedades e seus possíveis valores podem ser entendidas a seguir:
+O arquivo \textit{config.json} é um componente importante desta arquitetura, ele é utilizado como arquivo de configuração geral do aplicativo, porém, suas informações não são persistidas. O conteúdo deste arquivo será repassado para a aplicação como um objeto javascript e o usuário poderá adicionar propriedades a serem lidas pelos plugins. No entanto, as propriedades fornecidas no modelo desta arquitetura não devem ser removidas, pois, componentes internos fazem uso das propriedades definidas neste arquivo. Os plugins poderão ler essa propriedade acessando \textit{Config.property\_name}. As principais propriedades e seus possíveis valores podem ser entendidas a seguir:
 
 \begin{itemize}
-	\item \textit{appName} (string): O nome do aplicativo. Este valor será setado em \textit{QApplication.setApplicationName} na inicialização do aplicativo;
+	\item \textit{appName} (string): O nome do aplicativo. Este valor será setado em \textit{QApplication.setApplicationName} na inicialização do aplicativo. Essa informação será útil para Qt identificar as configurações do aplicativo;
 
 	\item \textit{appDescription} (string): Uma descrição sobre o aplicativo. Essa propriedade é opcional;
 
-	\item \textit{organizationName} (string): O nome da organização. Este valor será setado em \textit{QApplication.setOrganizationName} na inicialização do aplicativo e é será utilizado internamente pelo Qt para definir o nome do diretório de configurações da aplicação;
+	\item \textit{organizationName} (string): O nome da organização. Este valor será setado em \textit{QApplication.setOrganizationName} na inicialização do aplicativo e é será utilizado internamente pelo Qt para definir o nome do diretório de configurações da aplicação. Basicamente, será na \textit{home} do usuário (em modo desktop) e no diretório de cache de aplicativos nas plataformas móveis;
 
-	\item \textit{organizationDomain} (string): O domínio da organização, como por exemplo \textit{qt.project.org}. É utilizado pelo Qt internamente.
+	\item \textit{organizationDomain} (string): O endereço do domínio da organização, por exemplo, \textit{qt.project.org}. Será utilizado pelo Qt internamente;
 
-	\item \textit{applicationStyle} (string): O nome do estilo a ser aplicado nos widgets (\textit{Button}, \textit{TabBar}, \textit{ToolTip} e etc.). Os possíveis valores são: \textit{Material}, \textit{Universal} e \textit{Default}. O valor dessa propriedade será passada pelo objeto \textit{App} para \textit{QQuickStyle.setStyle};
+	\item \textit{applicationStyle} (string): O nome do estilo a ser aplicado nos \textit{widgets} (\textit{Button}, \textit{TabBar}, \textit{ToolTip} e etc.). Os possíveis valores são: \textit{Material}, \textit{Universal} ou \textit{Default}. O valor dessa propriedade será passada pelo objeto \textit{App} para \textit{QQuickStyle};
 
 	\item \textit{forceEulaAgreement} (bool): Um valor boleano que inidica se a aplicação deverá exigir do usuário confirmação de aceitação dos termos de uso para continuar usando o aplicativo. Esse valor só terá efeito se a propriedade \textit{showEula} for definida para \textit{true};
 
-	\item \textit{hasLogin} (bool): Um valor boleano que indica se o aplicativo deverá carregar uma página de login na inicialização. Se definido para \textit{true}, a aplicação irá utilizar a página (dentre os plugins) que definiu \textit{isLoginPage} para \textit{true}, identificada pelo gerenciador de plugins durante o carregamento dos plugins;
+	\item \textit{hasLogin} (bool): Um valor boleano que indica se o aplicativo deverá carregar uma página de login na inicialização. Se for definido para \textit{true}, a aplicação irá utilizar a página (dentre os plugins) que definiu \textit{isLoginPage} para \textit{true}, identificada pelo gerenciador de plugins durante o carregamento dos plugins;
 
-	\item \textit{showEula} (bool): Um valor boleano que inidica se a aplicação exibirá para o usuário uma página contendo os termos de uso do aplicativo. Caso seja setado para \textit{true}, o arquivo \textit{assets/eula.html} será carregado e exibido na página incial, na inicialização do aplicativo. Após o usuário ler e acitar os termos de uso, o usuário irá para a página de login ou \textit{home page} se tiver sido definida;
+	\item \textit{showEula} (bool): Um valor boleano que inidica se a aplicação exibirá para o usuário uma página contendo os termos de uso do aplicativo. Caso seja setado para \textit{true}, o arquivo \textit{assets/eula.html} será carregado e exibido na primeira execução do aplicativo. Após o usuário ler e aceitar os termos de uso, o usuário irá para a página de login ou a \textit{home page} se tiver sido definida;
 
-	\item \textit{showTabButtonText} (bool): Um valor boleano que indica se o título da página será exibida no botão do menu em linha, que consite de um objeto \textit{TabButton} do \textit{QuickControls}. Essa propriedade só terá efeito quando a aplicação tiver usando o layout em linha.
+	\item \textit{showTabButtonText} (bool): Um valor boleano que indica se o título da página será exibida nos botões do menu em linha (\textit{TabButton} do \textit{QuickControls}). Essa propriedade só terá efeito quando a aplicação tiver usando o layout em linha;
 
 	\item \textit{usesSwipeView} (bool): Um valor boleano que indica se o layout principal do aplicativo será em linha, que consiste na utilização de um container do \textit{QuickControls} \textit{SwipeView}. No entanto, o container responsável pelo layout em pilha, \textit{StackView} ainda continuará disponível na aplicação, porém como container secundário. Um objeto fará o \textit{Binding} entre ambos os containers, ocultando o \textit{SwipeView} quando alguma página for adicionada a pilha do \textit{StackView}. No \textit{SwipeView} o usuário poderá alternar entre as páginas deslizando horizontalmente.
 
-	\item \textit{usesDrawer} (bool): Um valor boleano que indica se o menu lateral usado no layout em pilha, será instanciado. Esse componente corresponde a um objeto \textit{Drawer} do \textit{QuickControls}. No entando, esse flag terá efeito apenas no layout em linha, ou seja, se \textit{usesSwipeView} for true, pois no layout em pilha ele será instanciado mesmo que esse flag seja falso. O objetivo dessa propriedade é permitir que o programador possa utilizar o menu lateral quando o layout for me linha, intercalando as páginas que serão visíveis em cada um dos menus através das propriedades \textit{showInDrawer} e \textit{showInTabBar} na configuração de cada página no arquivo de configuração do plugin.
+	\item \textit{usesDrawer} (bool): Um valor boleano que indica se o menu lateral usado no layout em pilha, será instanciado. Esse componente corresponde ao \textit{Drawer} do \textit{QuickControls}. No entando, esse \textit{flag} terá efeito apenas no layout em linha, ou seja, se \textit{usesSwipeView} for \textit{true}, pois no layout em pilha ele será instanciado mesmo que esse \textit{flag} seja \textit{false}. O objetivo dessa propriedade é permitir que o programador possa utilizar o menu lateral quando o layout for em linha, intercalando as páginas que serão visíveis em cada um dos menus através das propriedades \textit{showInDrawer} e \textit{showInTabBar} na configuração das páginas nos plugins;
 
 	\item \textit{showDrawerImage} (bool): Um valor boleano que indica se a imagem do \textit{Drawer} menu será carregada. Por padrão a imagem não será exibida.
 
-	\item \textit{restService} (object): Um objeto contendo as definições do serviço REST, como url base e o tipo de autenticação seguido dos respectivos parâmetros a serem enviados nas requisições HTTP como token ou usuário e senha. As propriedades para \textit{restService} são: 
+	\item \textit{restService} (object): Um objeto contendo as definições do serviço \textit{REST}, como url base e os parâmetros de autenticação básica, usuário e senha. O valor informado em \textit{userName} e \textit{userPass} serão passados em cada requisição HTTP como token baseado em um \textit{hash} \textit{base64}. As seguintes propriedades são requeridas:
 
 	\begin{itemize}
-		\item \textit{userName}: Um nome de usuário do serviço REST utilizado em uma autenticação básica e será encriptado em um hash \textit{base64} com o \textit{userPass};
+		\item \textit{userName} (string): O nome do usuário do serviço \textit{REST};
 
-		\item \textit{userPass}: Uma senha de usuário para criar o hash com o \textit{userName};
+		\item \textit{userPass} (string): A senha de usuário do serviço \textit{REST};
 
-		\item \textit{baseUrl} (string): A url base do serviço REST. Essa propriedade será utilizada pelo objeto \textit{RequestHttp} nos métodos de requisição ao serviço REST GET, POST e etc. O objetivo é que nas páginas que fazem requisições HTTP adicionem apenas o \textit{path}, a fim de reduzir e simplificar o código. Com isso, uma alteração futura da url do serviço REST seria feita apenas no arquivo de configuração. Por exemplo, uma requisição do tipo GET pode ser feita da seguinte forma: \textit{requestHttp.get("/get-messages?page=2")}. Internamente, o objeto gerenciador de requisições concatenará essa propriedade com o path.
+		\item \textit{baseUrl} (string): A url base do serviço REST. Essa propriedade será utilizada pelo objeto \textit{RequestHttp} nos métodos de requisições \textit{GET}, \textit{POST} e etc. A sugestão é que nas páginas que fazem requisições HTTP adicione apenas o \textit{path}, a fim de reduzir e simplificar o código. Com isso, uma alteração futura da url do serviço REST seria feita apenas no arquivo de configuração. Internamente, o objeto que realiza a requisição concatenará essa propriedade com o \textit{path} passado no primeiro parâmetro do método;
 
-		\item \textit{baseImagesUrl} (string): A url base dos arquivos de imagens, caso o serviço REST utilize uma url diferente ou um sub-domínio para os resources.
+		\item \textit{baseImagesUrl} (string): A url base dos arquivos de imagens, caso o serviço \textit{REST} utilize uma url diferente ou um sub-domínio para os \textit{resources}.
 	\end{itemize}
 
-	\item \textit{fontSize} (object): Um objeto com as definições de valores inteiros para os tamanhos de fonte a serem utilizadas em elementos textuais como \textit{labels}. Essa propriedade possui 4 atributos: \textit{small}, \textit{normal}, \textit{large} e \textit{extraLarge};
+	\item \textit{fontSize} (object): Um objeto com as definições de valores inteiros para os tamanhos de fonte a serem utilizadas em elementos textuais tais como o \textit{Label}. Essa propriedade possui 4 atributos: \textit{small}, \textit{normal}, \textit{large} e \textit{extraLarge};
 
-	\item \textit{theme} (object): Um objeto com as definições de cores utilizada nos elementos visuais, tais como Botões, \textit{ToolBar}, \textit{TabBar}, cor de fundo das páginas e etc.;
+	\item \textit{theme} (object): Um objeto com as definições de cores utilizada nos elementos visuais, tais como Botões, \textit{ToolBar}, \textit{TabBar}, cor de fundo das páginas;
 
-	\item \textit{events}: (object): Um objeto que mapeia os identificadores de eventos, baseados em um par de strings \textit{nome-do-evento.valor}. Essa propriedade deverá ser utilizada por objetos e componentes internos para identificarem de qual evento estão sendo notificados, a fim de padronizar os nomes dos eventos e reduzir a replicação de strings na aplicação. O objeto \textit{App} adiciona treze nomes de eventos, alguns são utilizados somente por objetos internos, outros podem ser utilizados pelos plugins para executarem ações específicas em dado momento. Esses eventos serão descritos a seguir:
+	\item \textit{events}: (object): Um objeto que mapeia os eventos, baseados em um par de strings \textit{nome-do-evento.valor}. Essa propriedade será utilizada por objetos e componentes internos para identificar de qual evento estão sendo notificados, a fim de padronizar os nomes dos eventos e reduzir a replicação de strings na aplicação. Essa propriedade poderá ser utilizado tanto em conexões com o sinal \textit{eventNotify} do objeto App como pela API do \textit{Observer} disponibilizado pela arquitetura (será detalhado em um seção mais adiante). O objeto \textit{App} adicionará treze eventos a essa propriedade na inicialização do aplicativo, alguns deles serão utilizados somente por objetos internos, outros podem ser utilizados pelos plugins para executarem ações específicas em dado momento. Esses eventos serão descritos a seguir:
 
 	\begin{itemize}
-		\item \textit{cameraImageSaved} (string): Utilizado para notificar observadores que uma imagem foi capturada pela câmera do dispositivo e salva localmente. A url da imagem salva será passado no segundo argumento do evento;
+		\item \textit{cameraImageSaved} (string): Utilizado para notificar observadores de que uma imagem foi capturada pela câmera do dispositivo e salva localmente. A url da imagem salva será passado no argumento do evento;
 
-		\item \textit{cancelSearch} (string): Utilizado pelo \textit{ToolBar} para indicar que o campo de busca não está ativo, para que a página corrente atualize o conteúdo para o usuário. O \textit{ToolBar} possui um campo texto para pesquisa e ficará visível quando a página alterar o valor da propriedade \textit{toolBarStatus} para \textit{"search"}. Essa funcionalidade permitirá que uma página filtre os resultados exibidos na sua \textit{view}, recebendo em um atributo string \textit{searchText} o valor digitado no campo. Esse recurso funcionará somente no layout em pilha. O usuário poderá cancelar a busca clicando em um botão voltar que ficará visível ao lado do campo de busca, nesse momento, o sinal \textit{"cancelSearch"} será disparado;
+		\item \textit{cancelSearch} (string): Utilizado pelo \textit{ToolBar} para indicar que o campo de busca não está ativo, para que a página corrente atualize o conteúdo para o usuário. O \textit{ToolBar} possui um campo texto para pesquisa e ficará visível quando a página alterar o valor da propriedade \textit{toolBarStatus} para \textit{"search"}. Essa funcionalidade permitirá que uma página filtre os resultados exibidos na sua \textit{view}, recebendo em um atributo string \textit{searchText} o valor digitado no campo. O usuário poderá cancelar a busca clicando em um botão voltar que ficará visível ao lado esquerdo do campo de busca e nesse momento, este evento será disparado;
 
-		\item \textit{logoutApplication} (string): Utilizado pelo objeto \textit{UserProfile} para atualizar o status da propriedade \textit{isUserLoggedIn} para false e em seguida, focar na página de login. Esse evento deve ser utilizado para evitar o acesso direto ao objeto \textit{UserProfile} pelos plugins, e deve ser emitido sempre que desejar remover todas as páginas da pilha (caso o layout seja em pilha) ou desabilitar o acesso as páginas do aplicativo (no layout em linha);
+		\item \textit{logoutApplication} (string): utilizado pelo objeto \textit{UserProfile} para atualizar o status da propriedade \textit{isUserLoggedIn} para \textit{false} e em seguida carregar na página de login;
 
-		\item \textit{newActionNotification} (string): Esse evento é utilizado para notificar a aplicação de uma nova notificação, seja ela push ou local. Esse evento será disparado pela atividade do Android (\textit{CustomActivity}) ou no objeto \textit{QtAppDelegate} no iOS quando o usuário clicar em uma notificação na bandeija do sistema contendo algum dado na notificação. O segundo parâmetro do sinal \textit{eventData} conterá os dados da mensagem em uma string e caso seja um json, é necessário fazer o parse;
+		\item \textit{newActionNotification} (string): utilizado para notificar a aplicação quando o usuário clicar em uma notificação e o aplicativo ficar em \textit{foreground}, vale para notificações via \textit{push} e local. Esse evento será disparado pela atividade do Android (\textit{CustomActivity}) e pelo objeto \textit{QtAppDelegate} no iOS e repassado para a aplicação através do objeto \textit{App}. O argumento do evento (\textit{eventData}) conterá os dados da mensagem em uma string sendo necessário fazer o \textit{parsing} caso seja um objeto json;
 
-		\item \textit{newPushNotification} (string): Esse evento será disparado sempre que uma notificação via push chegar no dispositivo e o mesmo estiver em execução em \textit{foreground} ou \textit{background}. Ele é disparado a partir dos serviços de notificação que executam em outro processo e serão passados para a aplicação através de uma conexão entre o objeto java \textit{QtAtivity} no android e o \textit{QtAppDelegate} no iOS. O segundo parâmetro do sinal \textit{eventData}, conterá os dados da mensagem em uma string e caso seja um objeto json, é necessário fazer o parse;
+		\item \textit{newPushNotification} (string): utilizado sempre que uma notificação via \textit{push} chegar no dispositivo e o mesmo estiver em execução, em \textit{foreground} ou \textit{background}. Ele será disparado a partir dos serviços de notificação que executam em outro processo e serão repassados para a aplicação através de uma conexão entre o objeto java \textit{CustomAtivity} no android e o \textit{QtAppDelegate} no iOS. O argumento do evento (\textit{eventData}), conterá os dados da mensagem em uma string sendo necessário fazer o \textit{parsing} caso seja um objeto json;
 
-		\item \textit{newPushNotificationToken} (string): Esse evento será emitido quando o token de registro no serviço do Firebase for realizado. Esse evento será disparado pelos objetos do \textit{Firebase}, que executam em outro processo e serão passados para a aplicação através de uma conexão entre o objeto java \textit{QtAtivity} no android e o \textit{QtAppDelegate} no iOS. O segundo parâmetro do sinal \textit{eventData} conterá os dados da mensagem em uma string e caso seja um objeto json, é necessário fazer o parse;
+		\item \textit{newPushNotificationToken} (string): utilizado quando o registro no \textit{Firebase} for realizado com sucesso. Esse evento será disparado por objetos que executam em outro processo e serão passados para a aplicação através de uma conexão entre o objeto java \textit{CustomAtivity} no android e o \textit{QtAppDelegate} no iOS. O argumento do evento (\textit{eventData}) conterá o token em uma string;
 
-		\item \textit{openDrawer} (string): Esse sinal deve ser disparado para que o \textit{Drawer Menu} seja aberto, evitando uma chamada direta ao objeto. O \textit{ToolBar} por exemplo, emite esse sinal quando o usuário clicar no ícone do menu;
+		\item \textit{openDrawer} (string): utilizado intermante para abrir o menu do layout em pilha quando o usuário clicar no botão de menu, posicionado no canto esquerdo do \textit{ToolBar}. O menu do layout em pilha fica oculto por padrão e o usuário poderá torná-lo visível arrastando da esquerda para a direita na janela do aplicativo;
 
-		\item \textit{popCurrentPage} (string): Esse evento deve ser disparado sempre que uma página precise ser removida da pilha do \textit{StackView} (container do layout em pilha). Inicialmente esse sinal é disparado pelo \textit{ToolBar} e ouvido pelo \textit{PageStack}.
+		\item \textit{popCurrentPage} (string): Esse evento deverá ser disparado quando for necessário remover a página ativa da pilha do \textit{StackView}. Será disparado internamente pelo \textit{ToolBar} quando o usuário clicar no botão voltar (seta para a esquerda, exibido se a página definir a propriedade \textit{toolBarState} para \textit{"goBack"}) ou quando o botão \textit{back-button} do android for pressionado. O \textit{StackView} por exemplo, removerá a página da pilha quando este for emitido;
 
-		\item \textit{refreshDrawerPages} (string): Esse evento pode ser utilizado para atualizar a lista de itens no \textit{Drawer} menu permitindo adicionar páginas dinamicamente.
+		\item \textit{refreshDrawerPages} (string): Esse evento pode ser utilizado para atualizar a lista de itens no \textit{Drawer} menu quando for necessário adicionar ou remover páginas dinamicamente, recarregando a lista de opções do menu de layout em pilha;
 
-		\item \textit{requestUpdateUserProfile} (string): Esse evento deve ser emitido quando houver um perfil de usuário no aplicativo e permitirá atualizar as informações ou dados do usuário no objeto \textit{UserProfile.profile}. Por exemplo, uma página que permite editar os dados do usuário em um formulário, ao clicar em atualizar alguma informação, a página poderá emitir esse evento passando como argumento um objeto contendo as informações do usuário no estilo \textit{chave.valor}.
+		\item \textit{requestUpdateUserProfile} (string): Esse evento deve ser emitido quando houver um perfil de usuário no aplicativo e permitirá atualizar as informações ou dados do usuário no objeto \textit{UserProfile}. Por exemplo, uma página que permite editar os dados do usuário em um formulário, após o usuário atualizar alguma informação, a página poderá emitir esse evento passando como argumento um objeto contendo as informações do usuário no estilo \textit{chave-valor}.
 
-		\item \textit{initUserProfile} (string): Esse evento também deve ser emitido quando houver um perfil de usuário no aplicativo, e um objeto contendo os dados do usuário deverá ser enviado como argumento do sinal, contendo no mínimo as propriedades "id" e "email". Um exemplo de uso deste sinal, pode ser emitido pela página de login, após sucesso na autenticação, requisitando que a página definida como \textit{home page} seja instanciada e os dados do usuário sejam inicializados.
+		\item \textit{initUserProfile} (string): Esse evento deve ser utilizado quando houver um perfil de usuário e um objeto contendo os dados do usuário deverá ser passado no argumento do evento, contendo no mínimo as propriedades \textit{id} e \textit{email}. Um exemplo de uso deste evento, pode ser feito pela página de login, após sucesso na autenticação. A página de login poderá emitir esse evento, passando como argumento o objeto retornado pelo serviço \textit{REST}. O objeto \textit{UserProfile} observa esse evento e quando o mesmo for emitido, ele irá salvar os dados do usuário no objeto \textit{profile} e em seguida, atualizar a propriedade \textit{isLoggedIn} para \textit{true} e carregará a \textit{home page};
 
-		\item \textit{setUserProfileData} (string): Esse é outro evento para uso com o perfil de usuário no aplicativo, e visa adicionar ou atualizar uma única informação no perfil do usuário. Logo, o argumento do sinal deve conter a propriedade \textit{key} contendo o nome da propriedade a ser adicionada e \textit{value} contendo o seu respectivo valor. Por exemplo, o seguinte objeto pode ser utilizado como argumento deste sinal: \textit{\{"key": "username", "value": "enoque"\}}.
+		\item \textit{setUserProfileData} (string): Esse evento também deve ser utilizado quando houver um perfil de usuário e permitirá adicionar ou atualizar uma informação no perfil do usuário. Logo, o argumento do evento deve conter a propriedade \textit{key} indicando o nome da propriedade a ser adicionada e \textit{value} contendo o respectivo valor. Por exemplo, o seguinte objeto pode ser utilizado como argumento deste evento: \textit{\{"key": "username", "value": "enoque"\}};
 
-		\item \textit{userProfileChanged} (string): Esse evento será emitido pelo objeto \textit{UserProfile} sempre que ocorrer alguma atualização nos dados do usuário. No parâmetro do sinal será passado uma referência para o objeto \textit{profile}.
+		\item \textit{userProfileChanged} (string): Esse evento será disparado pelo objeto \textit{UserProfile} sempre que ocorrer alguma atualização nos dados do usuário. No argumento do evento será passado uma referência para o objeto \textit{profile}.
 	\end{itemize}
 \end{itemize}
 
 
 \subsection{Acesso a Rede (HTTP)}\label{sec:solucao-desenvolvida}
-O primeiro requisito funcional provido nesta arquitetura é o acesso a rede para comunicação com algum \textit{web service} via HTTP. Para gerenciar as requisições, foi criado uma classe c++ que realiza requisição HTTP com suporte a autenticação básica, \textit{download} e \textit{upload} de arquivos com o objetivo de oferecer um componente rico em recursos e de alto nível para os plugins. Essa classe utiliza componentes do Qt e entregará a resposta de cada requisição em objetos json dispensando o uso de \textit{cast} pelos objetos. Para entregar uma API ainda mais fácil de utilizar, foi criado um componente qml com o mesmo nome da classe e disponibilizado como reusável. Para simplificar o acesso a rede, o desenvolvedor deverá adicionar na propriedade \textit{restService} no arquivo de configuração, a url do serviço REST em \textit{baseUrl}, o nome e a senha do usuário da API em \textit{userName} e \textit{userPass} respectivamente e utilizar apenas o \textit{path} da url nos objetos que realizam as requisições GET, POST e etc. As subsessões a seguir descrevem a classe \textit{RequestHttp} e o componente correspondente.
+O primeiro requisito funcional provido na arquitetura é o acesso a rede para comunicação com serviços \textit{RESTFul}. Para permitir o uso de rede pelos plugins, foi criado uma classe C++ que realiza requisições HTTP com suporte a autenticação básica, \textit{download} e \textit{upload} de arquivos. O objetivo dessa classe é oferecer um componente rico em recursos, com bom desempenho e fornecer um componente de alto nível para os plugins. Essa classe utiliza componentes do Qt e entregará a resposta de cada requisição em objetos json dispensando o uso de \textit{cast} pelos objetos. Para entregar uma API ainda mais fácil de utilizar, foi criado um componente qml com o mesmo nome da classe e disponibilizado como reusável. Para simplificar o acesso a rede, o desenvolvedor deverá adicionar na propriedade \textit{restService} no arquivo de configuração, a url do serviço \textit{REST} em \textit{baseUrl}, o nome e a senha do usuário da API em \textit{userName} e \textit{userPass} respectivamente e utilizar apenas o \textit{path} da url nos métodos de requisições. As subseções a seguir, descrevem os detalhes da classe \textit{RequestHttp} e do componente correspondente.
 
 \subsubsection{A classe RequestHttp}\label{sec:solucao-desenvolvida}
-A classe \textit{RequestHttp} utiliza a classe \textit{QNetworkAccessManager} para gerenciar as operações de rede e os métodos disponíveis inicialmente são GET e POST, além de \textit{download} e \textit{upload}, e a classe \textit{QNetworkRequest} é utilizada para encapsular os parâmetros da requisição. O objetivo dessa classe é oferecer o melhor desempenho possível e reduzir o volume de código interpretado pelos plugins (via javascript). Os métodos principais dessa classe serão descritos a seguir:
+A classe \textit{RequestHttp} utiliza a classe \textit{QNetworkAccessManager} para gerenciar as operações de rede abstraindo para o aplicativo a interface de rede utilizada no dispositivo. Os métodos disponíveis inicialmente são \textit{GET} e \textit{POST}, além de \textit{download} de arquivos via \textit{GET} e \textit{upload} de arquivos via \textit{POST} ou \textit{PUT}. A classe \textit{QNetworkRequest} do Qt será utilizada para encapsular os parâmetros da requisição. Os métodos principais dessa classe serão descritos a seguir:
 
 \begin{itemize}
-	\item \textit{get}: realiza uma requisição HTTP do tipo GET exigindo apenas a url de destino. Esse método possui dois parâmetros opcionais, o primeiro deles é um objeto do tipo \textit{chave-valor} e se for passado, adicionará a url uma \textit{query-string}. O segundo parâmetro opcional é também um objeto e pode ser passado quando for necessário adicionar dados no cabeçalho da requisição;
-
-	\item \textit{post}: realiza uma requisição HTTP do tipo POST exigindo a url de destino e o dado a ser postado em formato string. O terceiro parâmetro desse método é opcional e pode ser passando quando for necessário adicionar dados no cabeçalho da requisição;
-
-	\item \textit{uploadFile}: realiza uma requisição HTTP do tipo POST ou PUT exigindo a url de destino e um array de \textit{path} dos arquivos locais a serem enviados para o servidor. A requisição será do tipo \textit{multipart-formdata} e o terceiro parâmetro pode ser passado para adicionar dados no cabeçalho da requisição. Esse método emitirá o sinal \textit{uploadFinished} para cada arquivo enviado. Para cada arquivo enviado, será emitido o sinal \textit{uploadProgressChanged} contendo os bytes do arquivo (local) e o total de bytes enviado;
-
-	\item \textit{downloadFile}: realiza uma requisição HTTP do tipo GET exigindo apenas uma lista de urls de arquivos a serem baixados para o dispositivo. Por padrão, os arquivos serão salvos no diretório público de \textit{downloads}. No entanto, o segundo parâmetro \textit{saveInAppDirectory} do tipo boleano (default \textit{false}) pode ser utilizado para alterar o diretório de destino dos arquivos para uma pasta interna do aplicativo. Para cada arquivo salvo, o sinal \textit{downloadedFileSaved} será emitido passando o path do arquivo salvo localmente. Outro sinal \textit{downloadProgressChanged} será emitido passando dois argumentos, o primeiro indica o tamanho em bytes do arquivo que está sendo baixado e o segundo, um valor inteiro indicando os bytes já baixados.
-\end{itemize}
-
-Os métodos descritos anteriormente são todos \textit{void} e assíncronos e são declarados como \textit{Q\_INVOKABLE} \footnote{htps://doc.qt.io/qt-5/qtqml-cppintegration-exposecppattributes.html} para permitir o uso dos métodos nos objetos desta classe em componentes qml como é o caso do componente \textit{RequestHttp}. Para obter a resposta de uma requisição HTTP, é preciso criar uma conexão com o sinal \textit{finished}. Esse sinal será emitido por todos os métodos descritos anteriomente se não houver erros no pedido e logo após a resposta do servidor ser enviada. O sinal \textit{finished} passará dois argumentos, \textit{statusCode}, um valor inteiro indicando o status da resposta (200, 400, 500 e etc.) e \textit{response} contendo o dado enviado. Se o dado enviado for um json válido será enviado como objeto json ou array, caso contrário, uma string contendo o dado bruto enviado pelo servidor.\par
-
-A propriedade \textit{status} (integer) declarada como \textit{Q\_PROPERTY} pode ser utilizada para \textit{bindings} com outros objetos qml e indicará o \textit{status} atual de uma requisição. Os possíveis valores para \textit{status} podem ser comparado com as seguintes meta-propriedades (útil para \textit{bindings}):
-
-\begin{itemize}
-	\item \textit{Error}: inidica um erro no pedido, quando o servidor não responder ou o status da requisição for zero;
-	\item \textit{Finished}: indica que a requisição terminou e é setada em \textit{status} na emissão do sinal \textit{finished};
-	\item \textit{Loading}: indica que a requisição está em andamento ou carregando;
-	\item \textit{Ready}: indica que a requisição está pronta, é definida em \textit{status} no construtor do objeto \textit{RequestHttp} indicando que está pronto para iniciar requisições e também, é setado após a emissão do sinal \textit{finished}.
-\end{itemize}
-
-O diagrama a seguir, apresenta os atributos e métodos da classe \textit{RequestHttp}:
-
-\begin{figure}[h]
-	\includegraphics[width=8cm]{diagrama_de_classe_RequestHttp}
-	\centering
-	\caption{Diagrama da classe RequestHttp}
-\end{figure}
-
-\subsubsection{O Componente RequestHttp}\label{sec:solucao-desenvolvida}
-A classe \textit{RequestHttp} é registrada como um tipo qml no contexto da aplicação e para ser instanciada basta adicionar a diretiva \textit{import RequestHttp 1.0} e em seguida, declarar um objeto qml. No entando, para simplificar ainda mais o uso de rede, os plugins podem utilizar o componente público \textit{RequestHttp} que instancia a classe \textit{RequestHttp} e inicializa os atributos \textit{baseUrl} e os parâmetros de autenticação, além de exibir mensagens de erro personalizada para o usuário. O código a seguir, apresenta o código do componente \textit{RequestHttp} e logo após, outro exemplo de como realizar requisições HTTP utilizando a instância desse componente:
+	\item \textit{get}: realiza uma requisição do tipo \textit{GET} exigindo apenas a url de destino. Esse método possui dois parâmetros opcionais, o primeiro deles é um objeto do tipo \textit{chave-valor} e se for passado, adicionará a url uma \textit{query-string}. O segundo parâmetro opcional é também um objeto e pode ser passado quando for necessário adicionar dados no cabeçalho da requisição. O código a seguir, apresenta um exemplo de uso desse método:
 
 \begin{center}
 \begin{lstlisting}[language=qml]
-
-import RequestHttp 1.0 
-
-RequestHttp {
-    baseUrl: Config.restService.baseUrl
-    authorizationUser: Config.restService.userName
-    authorizationPass: Config.restService.userPass
-    onError: {
-		// exibe mensagens de erro
-    }
-}
-\end{lstlisting}
-\captionof{lstlisting}{Trecho de código do componente \textit{RequestHttp.qml}}
-\end{center}
-
-\begin{center}
-\begin{lstlisting}[language=qml]
-
 import QtQuick 2.8
-import "qrc:/src/qml/" as Components
+import "qrc:/publicComponents" as Components
 
 Components.RequestHttp {
 	id: requestHttp
@@ -368,22 +333,139 @@ Item {
 			"paginate": listView.count
 		}
 		requestHttp.get("foo", queryString)
+	}
+}
+\end{lstlisting}
+% não está ficando centralizada
+% \captionof{lstlisting}{Exemplo de uma requisição do tipo \textit{GET}}
+\end{center}
 
-		var postData = {
+
+	\item \textit{post}: realiza uma requisição do tipo \textit{POST} exigindo a url de destino e o dado a ser postado em formato string. O terceiro parâmetro desse método é opcional e pode ser passando quando for necessário adicionar dados no cabeçalho da requisição. O código a seguir, apresenta um exemplo de uso do método post:
+
+\begin{center}
+\begin{lstlisting}[language=qml]
+import QtQuick 2.8
+import "qrc:/publicComponents" as Components
+	
+Components.RequestHttp {
+	id: requestHttp
+}
+...
+Item {
+	Component.onCompleted: {
+		var postData = JSON.stringfy({
 			"someKey": "bar",
 			"email": textField.text
-		}
+		})
 		requestHttp.post("bar", postData)
+	}
+}
+\end{lstlisting}
+% não está ficando centralizada
+% \captionof{lstlisting}{Exemplo de uma requisição do tipo \textit{POST}}
+\end{center}
 
-		var filesPaths = [
-			"/data/app/myapp/files/file1.png",
-			"/data/app/myapp/files/file2.png"
+
+	\item \textit{uploadFile}: realiza uma requisição do tipo \textit{POST} ou \textit{PUT} exigindo a url de destino e um array de strings contendo os endereços dos arquivos locais a serem enviados para o servidor. A requisição será do tipo \textit{multipart-formdata} e do tipo \textit{POST} (por default). O segundo parâmetro pode ser passado quando for necessário utilizar o método \textit{PUT}. Já o terceiro parâmetro, poderá ser passado quando for necessário adicionar dados no cabeçalho da requisição. Esse método emitirá o sinal \textit{uploadFinished} para cada arquivo enviado. Durante o upload de cada arquivo, será emitido o sinal \textit{uploadProgressChanged} contendo os bytes do arquivo (local) e o total de bytes já enviados para o servidor. O código a seguir, apresenta um exemplo de uso desse método:
+
+\begin{center}
+\begin{lstlisting}[language=qml]
+import QtQuick 2.8
+import "qrc:/publicComponents" as Components
+	
+Components.RequestHttp {
+	id: requestHttp
+}
+...
+Item {
+	Component.onCompleted: {
+		var files = [
+			"/data/app/myapp/files/f1.png",
+			"/data/app/myapp/files/f2.png"
 		]
-		requestHttp.upload("bar", filesPaths)
+		requestHttp.upload("bar", files)
+	}
+}
+\end{lstlisting}
+% não está ficando centralizada
+% \captionof{lstlisting}{Exemplo de uma requisição de \textit{upload} de arquivos}
+\end{center}
+
+
+	\item \textit{downloadFile}: realiza uma requisição do tipo \textit{GET} exigindo apenas uma lista de urls de arquivos a serem baixados para o dispositivo. Por padrão, os arquivos serão salvos no diretório público de \textit{downloads} no dispositivo. No entanto, o segundo parâmetro \textit{saveInAppDirectory} (boleano, default \textit{false}) pode ser utilizado para alterar o diretório de destino dos arquivos para uma pasta interna do aplicativo. Para cada arquivo salvo, o sinal \textit{downloadedFileSaved} será emitido passando o \textit{path} do arquivo salvo localmente. Outro sinal \textit{downloadProgressChanged} será emitido passando dois argumentos, o primeiro indica o total de bytes do arquivo que está sendo baixado e o segundo, um valor inteiro indicando os bytes já baixados. O código a seguir, demonstra um exemplo de requisição para download de arquivos:
+
+\begin{center}
+\begin{lstlisting}[language=qml]
+import QtQuick 2.8
+import "qrc:/publicComponents" as Components
+	
+Components.RequestHttp {
+	id: requestHttp
+}
+...
+Item {
+	Component.onCompleted: {
+		var urls = [
+			"https://.../files/f1.png",
+			"https://.../files/f2.png"
+		]
+		requestHttp.downloadFile(urls)
+	}
+}
+\end{lstlisting}
+% não está ficando centralizada
+% \captionof{lstlisting}{Exemplo de uma requisição de \textit{upload} de arquivos}
+\end{center}
+
+\end{itemize}
+
+Os métodos descritos anteriormente são todos \textit{void}, assíncronos e são declarados como \textit{Q\_INVOKABLE} \footnote{htps://doc.qt.io/qt-5/qtqml-cppintegration-exposecppattributes.html} para permitir o uso dos métodos em componentes qml, como é o caso do componente \textit{RequestHttp}. Para obter a resposta de uma requisição, é preciso criar uma conexão com o sinal \textit{finished}. Esse sinal será emitido por todos os métodos descritos anteriomente se não houver erros no pedido e logo após o envio da resposta pelo servidor. O sinal \textit{finished} passará dois argumentos, \textit{statusCode}, um valor inteiro indicando o status da resposta (200, 400, 500, etc.) e \textit{response} contendo o dado enviado pelo servidor. Se a resposta enviada pelo servidor for um json válido, \textit{response} conterá um objeto ou array, caso contrário, uma string contendo o dado bruto.\par
+
+O sinal \textit{error} será emitido quando houver erros em um pedido e passará dois argumentos, \textit{statusCode} (integer) indicando o código HTTP correspondente ao erro, e \textit{message} (string) contendo a mensagem do erro.\par
+
+A propriedade \textit{status} (integer) declarada como \textit{Q\_PROPERTY} indicará o \textit{status} atual de uma requisição. Essa propriedade pode ser comparada com qualquer uma das seguintes meta-propriedades (útil para fazer \textit{bindings} com outros objetos):
+
+\begin{itemize}
+	\item \textit{Error}: inidica um erro no pedido, quando o servidor não responder ou o status da requisição for zero;
+
+	\item \textit{Finished}: indica que a requisição terminou e é setada em \textit{status} antes da emissão do sinal \textit{finished};
+
+	\item \textit{Loading}: indica que a requisição está em andamento ou carregando;
+
+	\item \textit{Ready}: indica que a requisição está pronta, será setada em \textit{status} no construtor do objeto \textit{RequestHttp} e logo após a emissão do sinal \textit{finished}.
+\end{itemize}
+
+O diagrama a seguir, apresenta os atributos e métodos da classe \textit{RequestHttp}:
+
+\begin{figure}[h]
+	\includegraphics[width=8cm]{diagrama_de_classe_RequestHttp}
+	\centering
+	\caption{Diagrama da classe \textit{RequestHttp}}
+\end{figure}
+
+\subsubsection{O Componente RequestHttp}\label{sec:solucao-desenvolvida}
+A classe \textit{RequestHttp} será registrada como um tipo qml no contexto da aplicação e para ser instanciada basta adicionar a diretiva \textit{import RequestHttp 1.0} e em seguida, declarar um objeto qml. No entando, para simplificar ainda mais o uso de rede, os plugins podem utilizar o componente \textit{RequestHttp} que instancia a classe \textit{RequestHttp} e inicializa os atributos \textit{baseUrl} e os parâmetros de autenticação, além de exibir mensagens de erro personalizada para o usuário. Os exemplos de código apresentados na subseção anterior, utilizam o componente \textit{RequestHttp} importando-o dos arquivos reusáveis. No entanto, objetos \textit{listeners} que por algum motivo não utilizem o serviço \textit{REST}, podem instanciar a classe \textit{RequestHttp} diretamente. O código a seguir, apresenta um exemplo de uso da classe \textit{RequestHttp}:
+
+\begin{center}
+\begin{lstlisting}[language=qml]
+
+import RequestHttp 1.0 
+
+RequestHttp {
+    baseUrl: Config.restService.baseUrl
+    authorizationUser: Config.restService.userName
+    authorizationPass: Config.restService.userPass
+    onError: {
+     var message = "Erro ao conectar no servidor"
+        if ("android" == Qt.platform.os)
+	        snackbar.show(message)
+		else
+	        functions.alert("Error!", message)
     }
 }
 \end{lstlisting}
-\captionof{lstlisting}{Exemplos de requisições HTTP}
+\captionof{lstlisting}{Código do componente \textit{RequestHttp.qml}}
 \end{center}
 
 
