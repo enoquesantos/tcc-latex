@@ -604,23 +604,24 @@ Item {
 
 \subsection{Comunicação entre os objetos e plugins}
 % Esta seção descreverá o processo de comunicação entre objetos no aplicativo e o uso correto dos eventos...
-O quarto requisito funcional desta arquitetura é a disponibilização de um mecanismo de comunicação entre objetos e plugins facilitado. A seção 4.8 descreveu o uso do sinal \textit{eventNotify} que é utilizado atualmente por componentes internos e pelos plugins disponibilizados como exemplo na arquitetura. Porém, esse não é o único mecanismo de comunicação disponibilizado, a arquitetura dispõe de uma implementação em c++ do padrão de projeto \textit{Observer} baseado em nomes de eventos. O nome identifica um evento específico e objetiva notificar somente observadores específicos, evitando o \textit{broadcast} onde todos os observadores da aplicação são notificados. Esse é modelo de comunicação configurado atualmente. Em uma versão futura da arquitetura todos os eventos serão migrados para utilizar apenas o \textit{Observer}.\par
+O quarto requisito funcional desta arquitetura é a disponibilização de um mecanismo de comunicação entre objetos e plugins facilitado. A seção 4.9 descreveu o uso do sinal \textit{eventNotify} do objeto \textit{App}, utilizado por componentes internos e pelos plugins disponibilizados como exemplo na arquitetura. Porém, esse não é o único mecanismo de comunicação disponibilizado, a arquitetura dispõe de uma implementação em C++ do padrão de projeto \textit{Observer} baseado em categorias de eventos. A categoria, neste caso, é uma string que identifica um evento específico e visa notificar apenas os objetos interessados, evitando o \textit{broadcast} na aplicação em que todos os observadores da serão notificados. A implementação do \textit{Observer} permite ainda enviar um argumento para o objeto observador.\par
 
-Para disponibilizar o padrão \textit{Observer}, foi criado duas classes c++, uma chamada \textit{Subject} e outra \textit{Observer}. Na inicialização da aplicação, a classe \textit{Subject} será instanciada e o objeto registrado no contexto da aplicação. A classe \textit{Observer} será registrada na aplicação como um tipo qml para que os plugins possam instanciá-lo como componentes qml. A classe \textit{Subject} possui um atributo privado \textit{attacheds}, uma instância da classe \textit{QMap} do Qt que guardará um vetor de observadores para uma string que identifica o evento, mais precisamente: \textit{QMap<QString, QVector<Observer*>> m\_attacheds}. Quando um observador deseja observar um evento, ele deve informar o nome do evento e passar uma referência sí mesmo. Quando um determinado objeto deseja notificar observadores, ele invocará o método \textit{Subject.notify} passando uma string que identifica o evento, um objeto contendo algum argumento a ser passado para os observadores e uma referência para sí mesmo, identificando o emissor do evento.
+A implementação do Observer foi feito por duas classes C++, uma chamada \textit{Subject} e outra \textit{Observer}. Na inicialização da aplicação, a classe \textit{Subject} será instanciada e o objeto registrado no contexto da aplicação. A classe \textit{Observer} será registrada na aplicação como um tipo qml para que os plugins possam utilizá-lo como componente. A classe \textit{Subject} possui um atributo privado \textit{attacheds}, uma instância da classe \textit{QMap} do Qt que guardará um vetor de observadores para cada string que identifica um determinado evento. Quando um objeto deseja observar um evento, ele deve informar o nome do evento e passar uma referência para o observer que será informado quando o evento for disparado. Quando um determinado objeto deseja notificar observadores, ele invocará o método \textit{Subject.notify} passando no primeiro parâmetro uma string que identifica o evento, seguido de um objeto como argumento a ser passado para os observadores e por último, uma referência para sí mesmo que identificá como emissor do evento.
 
 O objeto \textit{Subject} (registrado no contexto da aplicação) disponibiliza os seguintes métodos:
 
 \begin{itemize}
-	\item \textit{attach} (void): Esse método poderá ser utilizado para adicionar observadores a uma lista de eventos na aplicação e dois parâmetros são requeridos: o primeiro é um ponteiro para o \textit{observer} e o segundo é uma lista de strings contendo os eventos que o observador deseja ser notificado;
+	\item \textit{attach} (void): Esse método poderá ser utilizado para adicionar observadores a uma lista de eventos na aplicação e dois parâmetros são requeridos: o primeiro é um ponteiro para o \textit{observer} e o segundo, é uma lista de strings contendo os eventos que o observador deseja ser notificado;
+
 	\item \textit{detach} (void): Esse método poderá ser utilizado para remover um observado de uma lista de eventos na aplicação e dois parâmetros são requeridos: o primeiro é um ponteiro para o \textit{observer} e o segundo é a lista de eventos da qual o observador será removido;
+
 	\item \textit{notify} (void): Esse método poderá ser utilizado por qualquer objeto da aplicação para notificar observadores de um determinado evento. Esse método requer três parâmetros, o primeiro é uma string contendo o nome do evento, o segundo é um objeto variante contendo o dado a ser passado para o observador e por último um ponteiro \textit{QObject} para o emissor do evento. Ao chamar esse método, o \textit{Subject} irá iterar o vetor de observadores correspondente ao evento enviado, chamando para cada observador o método público \textit{update} que receberá como argumento, o nome do evento em que está sendo notificado, o argumento enviado e uma referência para o objeto emissor.
 \end{itemize}
 
-É importante destacar que os nomes dos eventos podem ser adicionados no arquivo de configuração na propriedades \textit{events}, para que seja possível utilizá-los através do objeto \textit{Config}, no estilo \textit{nome-do-evento.valor} ambos strings, por exemplo \textit{Config.events.foo}. Outro detalhe é que \textit{Subject} criará uma \textit{thread} para cada \textit{observer} quando for notificá-los de algum evento. Isso significa que a chamada ao método \textit{update} em cada \textit{observer} será assíncrono para garantir o melhor desempenho seguindo orientações de performance descrito na documentação do Qt. O código a seguir, apresenta um exemplo de como utilizar \textit{observer} em uma página de plugin.
+Os eventos podem ser adicionados no arquivo de configuração na propriedades \textit{events} e utilizá-los na aplicação através do objeto \textit{Config}. Os eventos devem formar um par de strings no estilo \textit{nome-do-evento.valor}, por exemplo: \textit{Config.events.foo}. Outro detalhe é que \textit{Subject} criará uma \textit{thread} para cada \textit{observer} quando for notificá-los de algum evento. Isso significa que a chamada ao método \textit{update} em cada \textit{observer} será assíncrono para garantir o melhor desempenho. O código a seguir, apresenta um exemplo de como utilizar o \textit{Observer} por objetos nos plugins.
 
 \begin{center}
 \begin{lstlisting}[language=qml]
-
 import Observer 1.0
 ...
 Observer {
@@ -642,43 +643,68 @@ Item {
 \captionof{lstlisting}{Exemplo de como utilizar o \textit{Observer}}
 \end{center}
 
-
-\subsection{O Componente UserProfile}\label{sec:solucao-desenvolvida}
-A arquitetura possui um componente \textit{UserProfile.qml} para gerenciar os dados do usuário do aplicativo. Esse componente será instanciado da inicialização da aplicação e setado no objeto global \textit{userProfile} somente se houver login na aplicação, ou seja, se o desenvolvedor definir nas configurações do aplicativo a propriedade \textit{usesLogin} para \textit{true}. Esse objeto estará disponível para os plugins como um objeto global, e a propriedade \textit{profile} poderá ser utilizada em \textit{bindings} com outros elementos. No entando, atualizações dos dados do usuário não devem ser feitas diretamente e sim através de eventos. O evento \textit{initUserProfile} deverá ser utilizado para inicializar o perfil do usuário após o login e o argumento do evento deve conter um objeto enviado pelo serviço REST contendo no mínimo os campos \textit{id} e \textit{email}. Já o evento \textit{setUserProfileData} deve ser utilizado para atualizar ou adicionar alguma informação ao perfil do usuário. Nesse último evento, o argumento deve conter as propriedades \textit{key} com o nome do campo a ser atualizado ou adicionado e \textit{value} o valor para o campo. O evento \textit{logoutApplication} deve ser disparado pela página de \textit{logout} para avisar que a seção foi encerrada e o usuário será direcionado para a página de login. No \textit{logout}, o argumento passado pode ser um objeto vazio, \textit{false} ou simplesmente \textit{null}. O componente \textit{UserProfile} dispõe das seguintes propriedades:
-
-\begin{itemize}
-	\item \textit{profile} (object): Um objeto javascript que guardará os dados do perfil do usuário, no estilo \textit{campo.valor}. Os plugins podem fazer \textit{binding} com esse objeto em elementos visuais como por exemplo, exibir a imagem de perfil, mantida na propriedade \textit{image\_url}. Esse objeto será persistido a cada alteração, ou seja, no evento \textit{initUserProfile} o dado do evento será setado nessa propriedade e em seguida salva nas configurações locais do aplicativo;
-
-	\item \textit{profileName} (string): Uma string contendo o nome do perfil do usuário, por exemplo, \textit{administrator}, \textit{editor}, \textit{student} e etc. Essa propriedade será setada internamente quando o \textit{profile} for definido ou alterado. No entanto, o nome do perfil do usuário deve ser passado pelo serviço REST na resposta do login. É importante entender que, para definir essa propriedade, o serviço REST deve adicionar um objeto no perfil do usuário contendo \textit{user\_role.name}, que é o valor atribuído a essa propriedade. A exibição das páginas para o usuário será baseado nessa propriedade. Se a propriedade \textit{roles} na configuração das páginas dos plugins for definido e \textit{profileName} for uma string vazia o usuário não visualizará as páginas no menu do aplicativo;
-
-	\item \textit{isLoggedIn} (bool): Essa propriedade será definida para \textit{true} quando \textit{profile} for modificado contendo alguma informação do usuário e será definida para \textit{false} quando não houver informações em \textit{profile}. Basicamente, essa propriedade será modificada internamente nas funções executadas nos eventos \textit{initUserProfile} e \textit{logoutApplication}.
-\end{itemize}
-
-O objeto \textit{userProfile} invocará uma função interna para carregar a página inicial após \textit{profile} ser modificado e após o evento \textit{initUserProfile}. Depois da evento \textit{logoutApplication} ser disparado a página de login também será carregada por uma função interna. A arquitetura disponibiliza o plugin de exemplo \textit{Session} e alguns arquivos que demonstram a utilização do \textit{login}, \textit{logout}, exibição do perfil e como solicitar alterações nos dados do usuário através do evento \textit{setUserProfileData}. O código a seguir, apresenta um exemplo de como utilizar a instãncia de \textit{UserProfile} em uma página.
+O código a seguir, apresenta um exemplo de como notificar observadores de um determinado evento:
 
 \begin{center}
 \begin{lstlisting}[language=qml]
-
 import QtQuick 2.8
+...
+Item {
+	id: rootItem
+	Component.onCompleted: {
+		var event = Config.events.newSourceAdded
+		var args = {
+			key:"foo",
+			value:"bar"
+		}
+		Subject.notify(event, args, rootItem)
+	}
+}
+\end{lstlisting}
+\captionof{lstlisting}{Exemplo de como notificar observadores}
+\end{center}
 
+
+\subsection{O perfil de usuário}\label{sec:solucao-desenvolvida}
+A arquitetura dispõe o componente \textit{UserProfile.qml} para gerenciar os dados do usuário do aplicativo, ele será instanciado na inicialização da aplicação e setado no objeto \textit{userProfile} se houver login na aplicação, ou seja, se o desenvolvedor definir nas configurações a propriedade \textit{usesLogin} para \textit{true}. Esse objeto (\textit{userProfile}) estará disponível para os plugins como um objeto global, e a propriedade \textit{profile} poderá ser utilizada em \textit{bindings} com outros objetos. No entando, atualizações no perfil do usuário não devem ser feitas diretamente no objeto profile e sim, através de eventos.\par
+
+O componente \textit{UserProfile.qml} observará três eventos na aplicação pelo qual os plugins devem utilizá-los para setar ou editar as informações do usuário. O primeiro evento \textit{initUserProfile}, poderá ser utilizado para inicializar o perfil do usuário após o login e o argumento do evento deve conter um objeto enviado pelo serviço \textit{REST} contendo no mínimo os campos \textit{id} e \textit{email}. O segundo evento \textit{setUserProfileData}, deve ser utilizado para atualizar ou adicionar alguma informação ao perfil do usuário. Nesse evento, o argumento deve conter as propriedades \textit{key} com o nome do campo a ser atualizado (ou adicionado) e \textit{value} a informação para o campo correspondente. O terceiro evento \textit{logoutApplication}, deve ser disparado pela página de \textit{logout} para avisar que a seção foi encerrada e o usuário será direcionado para a página de login. No \textit{logout}, o argumento do evento pode ser \textit{false} ou simplesmente \textit{null}. O componente \textit{UserProfile} dispõe das seguintes propriedades:
+
+\begin{itemize}
+	\item \textit{profile} (object): Um objeto javascript que guardará os dados do perfil do usuário, no estilo \textit{campo.valor}. Os plugins podem fazer \textit{binding} com esse objeto em elementos visuais tais como, exibir a imagem de perfil através do campo \textit{image\_url} (via \textit{profile.image\_url}). Esse objeto será persistido a cada alteração;
+
+	\item \textit{profileName} (string): Uma string contendo o nome do perfil do usuário, por exemplo, \textit{administrator}, \textit{editor}, \textit{student} e etc. Essa propriedade será setada internamente quando o \textit{profile} for definido ou alterado. No entanto, o nome do perfil do usuário deve ser passado pelo serviço \textit{REST} na resposta do login. É importante destacar que essa propriedade será definida somente se o serviço \textit{REST} adicionar no objeto (do perfil do usuário, retornado no login) a propriedade \textit{user\_role.name}, que é o valor atribuído a essa propriedade. A exibição das páginas para o usuário será baseado nessa propriedade através de \textit{bindings}. Se a propriedade \textit{roles} na configuração das páginas dos plugins for definido e \textit{profileName} for uma string vazia o usuário não visualizará as páginas no menu do aplicativo;
+
+	\item \textit{isLoggedIn} (bool): Essa propriedade será definida para \textit{true} quando \textit{profile} for modificado contendo alguma informação válida, ou seja, \textit{id} e \textit{email} (no mínimo). \textit{isLoggedIn} será \textit{false} quando não houver informações em \textit{profile}. Essa propriedade será modificada internamente após os eventos \textit{initUserProfile} e \textit{logoutApplication}. \textit{isLoggedIn} será persistida sempre que for modificada.
+\end{itemize}
+
+O objeto \textit{userProfile} invocará uma função interna que carregará a página inicial (\textit{home page}) após \textit{profile} ser modificado, ou seja, após o evento \textit{initUserProfile}. A página de login também será carregada após o evento \textit{logoutApplication}. A arquitetura disponibiliza o plugin de exemplo \textit{Session} e alguns arquivos que demonstram a utilização do \textit{login}, \textit{logout}, exibição do perfil e como solicitar alterações nos dados do usuário através do evento \textit{setUserProfileData} (o arquivo ProfileEdit.qml).\par
+
+É importante destacar, que após o sucesso do primeiro login, não será necessário logar novamente na próxima inicialização, pois, as informações do usuário serão persistidas e na próxima inicialização o carregamento da primeira página será feita de acordo com o valor definido \textit{isLoggedIn}. Se o login for efetuado com sucesso na execução anterior, essa propriedade será \textit{true}, pois ela inicializará com o último valor definido na execução anterior.\par
+
+O código a seguir, apresenta um exemplo de como utilizar o perfil do usuário através do objeto \textit{userProfile}.
+
+\begin{center}
+\begin{lstlisting}[language=qml]
+import QtQuick 2.8
+...
 Column {
 	spacing: 10
 
+	// userProfile eh um objeto global,
+	// criado e declarado no main window!
 	property var profileData = userProfile.profile
 
+	// exibindo a imagem de perfil
 	Image {
 		id: userImg
 		asynchronous: true; cache: true
-		source: profileData.image\_url
+		source: profileData.image_url
 	}
 
+	// exibindo o email do usuario
 	Label {
-		id: labelName
-		text: profileData.name
-	}
-
-	Label {
-		id: labelEmail
+		id: userEmail
 		text: profileData.email
 	}
 }
@@ -687,15 +713,67 @@ Column {
 \end{center}
 
 
-\subsection{O Componente BasePage}\label{sec:solucao-desenvolvida}
-\textit{BasePage.qml} é um componente genérico que fornece alguns objetos para as páginas dos plugins além de fazer \textit{bindings} com o \textit{ToolBar} e o \textit{TabBar}. \textit{BasePage} irá instanciar um \textit{ListView} contendo um \textit{ListModel} e um \textit{RequestHttp} para facilitar a criação das páginas nos plugins. As propriedades a seguir, compõem o \textit{BasePage} e devem ser utilizadas para customizar a estrutura das páginas pelos plugins.
+\subsection{O Componente BasePage.qml}\label{sec:solucao-desenvolvida}
+O componente \textit{BasePage} é um arquivo genérico que fornece algumas propriedades para as páginas dos plugins, além de fazer \textit{bindings} com o \textit{ToolBar} e o \textit{TabBar}, os menus do aplicativo nos layouts em pilha e em linha respectivamente. \textit{BasePage} poderá ser utilizada pelas páginas de plugins sempre que possível. Esse componente irá instanciar um \textit{ListView} contendo um \textit{ListModel} e um \textit{RequestHttp} para facilitar a o trabalho e reduzir a escrita de código pelos plugins. As propriedades a seguir, compõem o \textit{BasePage} e devem ser utilizadas para customizar a estrutura das páginas.
 
 \begin{itemize}
-	\item \textit{showToolBar}: .....;
-	\item \textit{showTabBar}: ......;
+	\item \textit{toolBarButtons} (array): uma lista de objetos contendo as propriedades de um botão \textit{ToolBarButton} a serem adicionados no \textit{ToolBar} dinamicamente quando a página for carregada. Cada objeto deve conter as seguintes propriedades: \textit{iconName}, uma string contendo o nome de um ícone do \textit{Awesome Icons} e \textit{callback} uma função javascript que será invocada quando o botão for pressionado pelo usuário;
+
+	\item \textit{toolBarState} (string): essa propriedade poderá ser utilizada para definir o estado do \textit{ToolBar} e três valores estão disponíveis. O primeiro deles é \textit{normal} que é o valor \textit{default}. O segundo valor é \textit{goBack} e quando for utilizado, permitirá ao usuário sair da página atual e retornar para a página anterior clicando em uma seta para a esquerda, essa seta será adicionada pelo \textit{ToolBar}. O último valor é \textit{search} que exibirá um campo de busca no \textit{ToolBar} permitindo ao usuário digitar um texto para pesquisar algo na \textit{view} (página corrente). No modo \textit{seach}, a propriedade \textit{searchText} também de \textit{BasePage} receberá uma cópia do texto digitado pelo usuário;
+
+	\item \textit{absPath} (string): essa propriedade deverá ser definida pela página para que o menu declare um \textit{bind} entre o item correspondente (na lista de itens do menu, tornado-o selecionado) com a página atualmente vista pelo usuário. Para setar essa propriedade, a página poderá utilizar o nome do plugin a partir do objeto \textit{Config.plugins} + o nome do arquivo qml correspondente. Por exemplo, considerando um plugin chamado \textit{LoadMessages} e a página \textit{View.qml}, essa propriedade pode ser definida da seguinte forma: \textit{absPath: Config.plugins.loadmessages + "View.qml"};
+
+	\item \textit{showToolBar} (bool): essa propriedade deverá ser utilizada se a página deseja ocultar o menu do layout em pilha, que é uma instancia do \textit{ToolBar} do \textit{QuickControls};
+
+	\item \textit{showTabBar} (bool): essa propriedade deverá ser utilizada quando a página precisar ocultar o menu do layout em linha, que é uma instancia do \textit{TabBar} do \textit{QuickControls};
+
+	\item \textit{hasNetworkRequest} (bool): essa propriedade é \textit{true} por \textit{default} e se mantida com o valor padrão, instanciará um objeto \textit{RequestHttp.qml} quando a página for carregada. Outra propriedade de \textit{BasePage} \textit{requestHttp} receberá uma referência para esse objeto e poderá ser utilizada pela página para fazer requisições HTTP. No entanto, se a página não realizará requisições HTTP, deverá setar \textit{false} para essa propriedade;
+
+	\item \textit{hasListView} (bool): essa propriedade é \textit{true} por \textit{default} e se mantida com o valor padrão, instanciará um \textit{ListView} do \textit{QuickControls} e passará a referência para a propriedade \textit{listView}. O \textit{ListView} já terá um \textit{ListModel} do qml que será atribuído a propriedade \textit{listViewModel} também de \textit{BasePage} e poderá ser utilizada pela página para fazer \textit{append} ou remover itens da \textit{view};
+
+	\item \textit{isPageBusy} (bool): essa propriedade é \textit{false} por \textit{default} e fará um \textit{bind} com o status de cada requisição HTTP feita pela página quando o objeto \textit{RequestHttp} for instanciado. Logo, o \textit{bind} será criado somente se a página manter \textit{hasNetworkRequest} como \textit{true};
+
+	\item \textit{isActivePage} (bool): essa propriedade fará um \textit{bind} com o \textit{window.currentPage} que é uma referência para a página atualmente vista pelo usuário;
+
+	\item \textit{listViewDelegate} (Component): essa propriedade é \textit{null} por \textit{default} e deve ser definida pela página quando utilizar \textit{ListView} atribuindo ao \textit{delegate} correspondente. Quando o \textit{ListView} for instanciado, essa propriedade será atribuída a \textit{delegate} do \textit{ListView};
+
+	\item \textit{pageBackgroundColor} (Color): essa propriedade pode ser utilizada para definir uma cor de fundo personalizada para a página, pode ser tanto hexadecimal como RGBA. A cor padrão utilizada será o valor definido no arquivo de configuração na propriedade \textit{theme.pageBackgroundColor}.
 \end{itemize}
 
-É recomendável que as páginas dos plugins extendam esse componente, pois terão....
+É importante destacar que \textit{BasePage} \textit{extends} o componente \textit{Page} do \textit{QuickControls} e as propriedades definidas em \textit{Page} serão herdadas, como por exemplo, \textit{title}, que deve ser definido pela página para exibir ao usuário o título da página que ele está visualizando. Para utilizar \textit{BasePage}, basta adicionar a diretiva \textit{import "qrc:/publicComponents"} e declarar um objeto \textit{BasePage} como no exemplo a seguir:
+
+\begin{center}
+\begin{lstlisting}[language=qml]
+import QtQuick.Controls 2.0
+import "qrc:/publicComponents/"
+
+BasePage {
+	id: page
+
+	// ignora o uso do ListView
+	hasListView: false
+
+	// define o path absoluto
+	absPath: Config.plugins.pages + "Page1.qml"
+
+	// exibe um titulo no ToolBar
+	title: qsTr("Page 1")
+
+	// permite sair da pagina atual
+	// usando o botao voltar no ToolBar
+	toolBarState: "goBack"
+
+	// trata as respostas de um pedido http
+	onRequestFinished: {
+		console.log("status:", statusCode)
+		console.log("response:" , response)
+	}
+...
+}
+\end{lstlisting}
+\captionof{lstlisting}{Exemplo de uso do \textit{BasePage}}
+\end{center}
+
 
 \subsection{Componentes Reusáveis}\label{sec:solucao-desenvolvida}
 A arquitetura dispõe de quinze componentes reusáveis para os plugins. Para utilizar esses componentes, é necessário adicionar a diretiva \textit{import "qrc:/publicComponentes/"} e utilizar qualquer um dos componentes descritos a seguir, sem a extensão \textit{qml}. Os componentes disponíveis estão descritos a seguir:
