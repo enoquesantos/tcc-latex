@@ -1,4 +1,4 @@
-\documentclass[a4paper]{sig-alternate-05-2015}
+\documentclass{sig-alternate-05-2015}
 
 %% regra para substituir as aspas convencionais para o padrão do latex :)
 %% https://tex.stackexchange.com/questions/10670/quotes-in-latex
@@ -40,6 +40,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{xcolor}
 
+% corrige urls que não quebram de linha
+% \def\UrlBreaks{\do\/\do-\/\do_}
+
 % add sintax highlight to qml code
 \lstdefinelanguage{qml} {
 	morekeywords={Item, property, Component, Components, onCompleted, var, Connections, target, onEventNotify, if, else, RequestHttp, import, baseUrl, basicAuthorizationUser, basicAuthorizationPassword, onError, Database, id, jsonColumns, tableName, pkColumn, onItemLoaded, text, Label, Image, Column, spacing, hasListView, absPath, title, toolBarState, onRequestFinished, console},
@@ -54,9 +57,14 @@
 
 % adiciona o prefixo dos exemplos de código QML para "Algoritmo"
 \renewcommand{\lstlistingname}{Algoritmo}
-
 \graphicspath{{images/}}
 \hyphenation{mate-mática recu-perar}
+
+% Remove a seção de DOI e ISBN da primeira página
+% https://ryanlei.wordpress.com/2012/02/13/latex-remove-the-copyright-space-from-the-acms-sig-alternate-template/
+\makeatletter
+\def\@copyrightspace{\relax}
+\makeatother
 
 \begin{document}
 	\makeatletter

@@ -54,6 +54,9 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
 % Need this for accents in Arial/Helvetica
 %\usepackage[T1]{fontenc}  % Gerry March 12, 2007 - causes Type 3 problems (body text)
 %\usepackage{textcomp}
@@ -472,7 +475,7 @@
 \setcounter{secnumdepth}{3}
 
 \def\appendix{\par
-\section*{APPENDIX}
+\section*{\iflanguage{portuguese}{APÊNDICE}{APPENDIX}}
 \setcounter{section}{0}
  \setcounter{subsection}{0}
  \def\thesection{\Alph{section}} }
@@ -701,7 +704,7 @@
 \def\fps@figure{tbp}
 \def\ftype@figure{1}
 \def\ext@figure{lof}
-\def\fnum@figure{Figure \thefigure}
+\def\fnum@figure{\iflanguage{portuguese}{Figura}{Figure} \thefigure}
 \def\figure{\@float{figure}}
 %\let\endfigure\end@float
 \def\endfigure{\end@float} 		% Gerry January 2008
@@ -969,13 +972,13 @@
    \color@endgroup} %g}
 \fi
 \setcounter{footnote}{0}
-\section*{ABSTRACT}\normalsize%\ninept
+\section*{\iflanguage{portuguese}{RESUMO}{ABSTRACT}}\normalsize%\ninept
 }
 
 \def\endabstract{\if@twocolumn\else\endquotation\fi}
 
 \def\keywords{\if@twocolumn
-\section*{Keywords}
+\section*{\iflanguage{portuguese}{Plavras-chave}{Keywords}}
 \else \small
 \quotation
 \fi}
@@ -994,7 +997,7 @@
 
 \def\category#1#2#3{%
 \ifnum\catcount=1
-\section*{Categories and Subject Descriptors}
+\section*{\iflanguage{portuguese}{Categorias e Descritores de Assunto}{Categories and Subject Descriptors }}
 \advance\catcount by 1\else{\unskip; }\fi
     \@ifnextchar [{\@category{#1}{#2}{#3}}{\@category{#1}{#2}{#3}[]}%
 }
@@ -1501,7 +1504,8 @@
 \def\thebibliography#1{% 
 \ifnum\addauflag=0\addauthorsection\global\addauflag=1\fi
      \section[References]{%    <=== OPTIONAL ARGUMENT ADDED HERE
-        {References} % was uppercased but this affects pdf bookmarks (SP/GM October 2004)
+        %{\iflanguage{portuguese}{Referências}{References}}
+        {Referências} % was uppercased but this affects pdf bookmarks (SP/GM October 2004)
           {\vskip -9pt plus 1pt} % GM Nov. 2006 / GM July 2000 (for somewhat tighter spacing) 
          \@mkboth{{\refname}}{{\refname}}%
      }%
@@ -1890,4 +1894,3 @@
 
 \endinput
 %
-
