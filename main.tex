@@ -66,26 +66,25 @@
 \def\@copyrightspace{\relax}
 \makeatother
 
+\makeatletter
+\def\fnum@figure{Figura \thefigure}
+\def\fnum@table{Tabela \thetable}
+\makeatother
+
 \begin{document}
-	\makeatletter
-	\def\fnum@figure{Figura \thefigure}
-	\def\fnum@table{Tabela \thetable}
-	\makeatother
-
 	\title{Uma Arquitetura de Referência Baseada em Plugins para Sistemas de Informação Mobile}
-
 	\numberofauthors{2}
 	\author{
 		% 1st. author
 		\alignauthor
-		Enoque Joseneas\titlenote{Graduando em Análise e Desenvolvimento de Sistemas}\\
+		Enoque Joseneas\thanks{Graduando em Análise e Desenvolvimento de Sistemas}\\
 		\affaddr{Instituto Federal da Bahia}\\
 		\affaddr{Rua Emídio dos Santos, S/N, Barbalho}\\
 		\affaddr{Salvador-Ba, Brasil}\\
 		\email{enoquejoseneas@ifba.edu.br}
 		% 2nd. author
 		\alignauthor
-		Sandro Andrade\titlenote{Prof. Doutor em Ciência da Computação}\\
+		Sandro Andrade\thanks{Prof. Doutor em Ciência da Computação}\\
 		\affaddr{Instituto Federal da Bahia}\\
 		\affaddr{Rua Emídio dos Santos, S/N, Barbalho}\\
 		\affaddr{Salvador-Ba, Brasil}\\
