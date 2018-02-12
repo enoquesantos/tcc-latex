@@ -294,7 +294,7 @@ O arquivo \textit{config.json} é um componente importante desta arquitetura, el
 
 		\item \textit{popCurrentPage} (string): Esse evento deverá ser disparado quando for necessário remover a página ativa da pilha do \textit{StackView}. Será disparado internamente pelo \textit{ToolBar} quando o usuário clicar no botão voltar (seta para a esquerda, exibido se a página definir a propriedade \textit{toolBarState} para \textit{"goBack"}) ou quando o botão \textit{back-button} do android for pressionado. O \textit{StackView} por exemplo, removerá a página da pilha quando este for emitido;
 
-		\item \textit{refreshDrawerPages} (string): Esse evento pode ser utilizado para atualizar a lista de itens no \textit{Drawer} menu quando for necessário adicionar ou remover páginas dinamicamente, recarregando a lista de opções do menu de layout em pilha;
+		\item \textit{appendOptionPage} (string): Esse evento pode ser utilizado para adicionar um novo item na lista de opções do menu. Esse evento poderá ser utilizado em ambos os layouts em pilha ou em linha e o argumento do evento deve ser um objeto contendo as propriedades de uma página utilizado no \textit{config.json} de um plugin;
 
 		\item \textit{requestUpdateUserProfile} (string): Esse evento deve ser emitido quando houver um perfil de usuário no aplicativo e permitirá atualizar as informações ou dados do usuário no objeto \textit{UserProfile}. Por exemplo, uma página que permite editar os dados do usuário em um formulário, após o usuário atualizar alguma informação, a página poderá emitir esse evento passando como argumento um objeto contendo as informações do usuário no estilo \textit{chave-valor}.
 
