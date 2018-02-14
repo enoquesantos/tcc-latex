@@ -10,7 +10,7 @@ Aqui será apresentado as conclusões obtidos em todo o trabalho, sejam elas pos
 A lista a seguir apresenta as limitações identificadas nesta arquitetura.
 
 \begin{enumerate}
-	\item Não há suporte a plugins escritos em C++: esse recurso seria importante, pois permitiria aos plugins delegar a lógica de negócio e operações de baixo nível a objetos C++, em vez de componentes qml como é atualmente. O problema é que as classes C++ devem ser conhecidas em tempo de compilação, pois em um projeto Qt as classes C++ devem estar mapeadas no arquivo \textit{.pro} gerando um acoplamento do núcleo da aplicação com os plugins;
+	\item Não há suporte a plugins escritos em C++: esse recurso seria importante, pois permitiria aos plugins delegar a lógica de negócio e operações de baixo nível a objetos C++, em vez de componentes QML como é atualmente. O problema é que as classes C++ devem ser conhecidas em tempo de compilação, pois em um projeto Qt as classes C++ devem estar mapeadas no arquivo \textit{.pro} gerando um acoplamento do núcleo da aplicação com os plugins;
 
 	\item Instalação de plugins somente durante o \textit{build:}: a arquitetura não suporta a instalação de plugins dinamicamente. Esse recurso permitiria estender as \textit{features} do aplicativo sem precisar de um \textit{rebuild} e novo \textit{deploy};
 

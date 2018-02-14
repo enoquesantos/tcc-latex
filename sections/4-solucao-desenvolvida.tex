@@ -129,7 +129,7 @@ Cada objeto em \textit{pages} poderá conter as seguintes propriedades:
 	\item \textit{showInTabBar} (bool): Um valor boleano que indica se a página poderá ser exibida no menu de layout em linha. O objetivo dessa propriedade é permitir exibir páginas diferentes nos menus quando o \textit{drawer menu} menu estiver sendo utilizado.
 \end{itemize}
 
-As páginas serão instanciadas sob demanda quando o aplicativo tiver utilizando o layout em pilha, neste caso, quando o usuário clicar em um item da lista no menu a página correspondente será instanciada e ficará visível para o usuário. No layout em pilha, o menu é exibido pelo componente \textit{Menu.qml} que consiste de uma instância do objeto \textit{Drawer} do \textit{QuickControls} e as páginas serão listadas verticalmente. Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botões será acidionado no rodapé da janela do aplicativo permitindo ao usuário alternar entre as páginas disponíveis. Porém, no layout em linha, todas as páginas serão instanciadas no início da aplicação e terá um botão associado a cada página. No layout em linha, o menu corresponde ao componente \textit{TabBar.qml} também do \textit{QuickControls} com algumas modificações. As figuras a seguir apresentam um exemplo dos menus utilizado nos layouts em pilha e em linha.
+As páginas serão instanciadas sob demanda quando o aplicativo tiver utilizando o layout em pilha, neste caso, quando o usuário clicar em um item da lista no menu a página correspondente será instanciada e ficará visível para o usuário. No layout em pilha, o menu é exibido pelo componente \textit{Drawer.qml} que consiste de uma instância do objeto \textit{Drawer} do \textit{QuickControls} e as páginas serão listadas verticalmente. Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botões será acidionado no rodapé da janela do aplicativo permitindo ao usuário alternar entre as páginas disponíveis. Porém, no layout em linha, todas as páginas serão instanciadas no início da aplicação e terá um botão associado a cada página. No layout em linha, o menu corresponde ao componente \textit{TabBar.qml} também do \textit{QuickControls} com algumas modificações. As figuras a seguir apresentam um exemplo dos menus utilizado nos layouts em pilha e em linha.
 
 \begin{figure}[H]
 	\includegraphics[width=8cm]{exemplo_menu_layout_em_pilha}
@@ -419,7 +419,7 @@ Item {
 
 \end{itemize}
 
-Os métodos descritos anteriormente são todos \textit{void}, assíncronos e são declarados como \textit{Q\_INVOKABLE} \footnote{htps://doc.qt.io/qt-5/qtQML-cppintegration-exposecppattributes.html} para permitir o uso dos métodos em componentes QML, como é o caso do componente \textit{RequestHttp}. Para obter a resposta de uma requisição, é preciso criar uma conexão com o sinal \textit{finished}. Esse sinal será emitido por todos os métodos descritos anteriomente se não houver erros no pedido e logo após o envio da resposta pelo servidor. O sinal \textit{finished} passará dois argumentos, \textit{statusCode}, um valor inteiro indicando o status da resposta (200, 400, 500, etc.) e \textit{response} contendo o dado enviado pelo servidor. Se a resposta enviada pelo servidor for um json válido, \textit{response} conterá um objeto ou array, caso contrário, uma string contendo o dado bruto.\par
+Os métodos descritos anteriormente são todos \textit{void}, assíncronos e são declarados como \textit{Q\_INVOKABLE} \footnote{htps://doc.qt.io/qt-5/qtqml-cppintegration-exposecppattributes.html} para permitir o uso dos métodos em componentes QML, como é o caso do componente \textit{RequestHttp}. Para obter a resposta de uma requisição, é preciso criar uma conexão com o sinal \textit{finished}. Esse sinal será emitido por todos os métodos descritos anteriomente se não houver erros no pedido e logo após o envio da resposta pelo servidor. O sinal \textit{finished} passará dois argumentos, \textit{statusCode}, um valor inteiro indicando o status da resposta (200, 400, 500, etc.) e \textit{response} contendo o dado enviado pelo servidor. Se a resposta enviada pelo servidor for um json válido, \textit{response} conterá um objeto ou array, caso contrário, uma string contendo o dado bruto.\par
 
 O sinal \textit{error} será emitido quando houver erros em um pedido e passará dois argumentos, \textit{statusCode} (integer) indicando o código HTTP correspondente ao erro, e \textit{message} (string) contendo a mensagem do erro.\par
 
@@ -711,7 +711,7 @@ Column {
 \end{center}
 
 
-\subsection{O Componente BasePage.qml}\label{sec:solucao-desenvolvida}
+\subsection{O Componente BasePage}\label{sec:solucao-desenvolvida}
 O componente \textit{BasePage} é um arquivo genérico que fornece algumas propriedades para as páginas dos plugins, além de fazer \textit{bindings} com o \textit{ToolBar}, o \textit{TabBar}. \textit{BasePage} deverá ser utilizada pelas páginas de plugins sempre que possível. Esse componente irá instanciar um \textit{ListView} contendo um \textit{ListModel} e um \textit{RequestHttp} para facilitar o trabalho do programador e reduzir a escrita de código pelos plugins. \textit{BasePage} pode ser visto como uma classe abstrata que possui alguns atributos e métodos agregados. As propriedades a seguir, compõem o \textit{BasePage} e devem ser utilizadas para customizar a estrutura das páginas.
 
 \begin{itemize}
@@ -827,4 +827,30 @@ A figura a seguir, apresenta de uma forma resumida o fluxo de inicialização e 
 
 \subsection{Métodos para utilização da arquitetura}
 % descrever o README do projeto no github
-Para se utilizar a arquitetura desenvolvida, deve-se seguir uma determinada ordem de atividades que serão descritos a seguir...
+Para utilizar a arquitetura desenvolvida, é necessário seguir uma determinada ordem de atividades que serão descritas abaixo. O código fonte da arquitetura encontra-se em uma página do \textit{github}, no link \cite{codigo_fonte_url} e é necessário utilizar o \textit{git} para obter uma cópia e iniciar a criação de um aplicativo. É preciso configurar o ambiente de desenvolvimento Qt para android ou iOS, além de baixar o android \textit{SDK} e o \textit{NDK}. No primeiro \textit{build} do aplicativo (na versão para android), o \textit{Gradle} baixará algumas bibliotecas para a máquina do desenvolvedor requeridas para o funcionamento do \textit{push notification}. Para criar um aplicativo usando esta arquitetura faça:\par
+
+\begin{enumerate}
+	\item Acesse a página do projeto no \textit{github} e crie um \textit{fork} para a sua conta.
+
+	\item Clone o projeto \textit{forkado} para a sua máquina.
+
+	\item Renomeie a pasta clonada e o arquivo \textit{tcc.pro} para o nome do seu projeto (pode ser o nome do seu aplicativo).
+
+	\item Importe o projeto (arquivo .pro) no \textit{QtCreator} e siga os passos seguintes para configurar as plataformas suportadas pelo aplicativo.
+
+	\item Abra o arquivo \textit{config.json} na raíz do projeto (manualmente usando algum editor) ou pelo \textit{QtCreator} em Resources \textit{config.qrc/config.json} e configure as propriedades do aplicativo como foi descrito na seção 4.10. Os valores pré-definidos foram setados apenas como exemplo.
+
+	\item Abra o arquivo \textit{AndroidManifest.xml} no \textit{QtCreator} e renomeie o \textit{package name}, de \textit{org.qtproject.example} para o nome do pacote do aplicativo.
+
+	\item Para utilizar \textit{push notification}, é necessário criar um projeto do \textit{Firebase} e adicionar o suporte a \textit{push notification}\footnote{https://console.firebase.google.com/project/novo-projeto-do-firebase/notification}. Configure as opções e no final do \textit{wizard} de configuração exporte o arquivo \textit{google-services.json} e salve na pasta \textit{android} e IOS substituindo os arquivos existentes.
+
+	\item No android, é necessário mais um passo para habilitar o \textit{push notification}. Edite o arquivo \textit{android/build.gradle} e renomeie o valor da propriedade \textit{defaultConfig.applicationId} (linha 71) para o \textit{package name} do aplicativo.
+
+	\item Para customizar as cores do aplicativo no android (\textit{Action Bar}, \textit{Status Bar} e na janela do aplicativo), basta editar o arquivo \textit{android/res/values/colors.xml}. A cor definida em \textit{colorPrimary} será utilizada como cor de fundo no ícone de notificações via \textit{push} ou local.
+
+	\item Adicione os ícones do aplicativo em \textit{android/res/drawable-(*)dpi} e \textit{ios/icons}. O projeto vem com ícones nos tamanhos ideais (para android). É possível utilizar alguma ferramenta\footnote{https://jgilfelt.github.io/AndroidAssetStudio/icons-launcher.html} online para gerar os ícones.
+
+	\item Se algum plugin precisar exibir a logo ou o ícone do aplicativo, deve ser adicionado uma cópia de um ícone na pasta \textit{images} que está na raiz do projeto. Os ícones da pasta \textit{android} ou \textit{ios} não serão acessíveis por objetos da aplicação e o ícone nesta pasta será utilizado em modo desktop. Neste mesmo diretório, está a imagem \textit{drawer.jpg} utilizada no menu do layout em pilha (\textit{Drawer.qml}), ela será carregada se a propriedade \textit{showDrawerImage} for \textit{true} no arquivo de configuração e pode ser substituída por outra pelo programador. A imagem \textit{default\_user\_image.svg} será utilizada no perfil do usuário e também pode ser substituída por outra que combine com o design do aplicativo.
+
+	\item Escreva os plugins. As funcionalidades do aplicativo deverão ser implementadas através de plugins. É possível iniciar o desenvolvimento de um plugin a partir dos exemplos fornecidos. Os plugins não serão mapeados em arquivo qrc sendo necessário criá-los manualmente, mantendo-os em uma pasta com o nome do plugin seguido de um arquivo \textit{config.json}, além de aquivos QML e imagens. Tudo que tiver na pasta do plugin será empacotado no APK ou IPA. Não é recomendável utilizar o \textit{wizard} de adição de arquivos do \textit{QtCreator}, pois ele adicionará os arquivos em \textit{qml.qrc}, que contém os componentes internos e reutilizáveis criando um acoplamento entre plugins e núcleo, violando um requisito não funcional desta arquitetura.
+\end{enumerate}
