@@ -98,7 +98,7 @@ Os plugins estão desacoplados do núcleo da aplicação e serão conhecidos em 
 Os \textit{listeners} são componentes não visuais que observam eventos da aplicação. O arquivo \textit{config.json} de um plugin deve ser um objeto contendo as seguintes propriedades:
 
 \begin{enumerate}
-	\item \textit{listeners} (array): uma lista de strings que indentifica os arquivos do plugin (componentes QML não visuais) que serão instanciados como observadores de eventos. O preenchimento dessa propriedade é opcional e pode ser preenchida mesmo que a propriedade \textit{pages} seja preenchida;
+	\item \textit{listeners} (array): uma lista de strings que indentifica os arquivos do plugin (componentes QML não visuais) que serão instanciados como observadores de eventos. O preenchimento dessa propriedade é opcional e pode ser preenchida mesmo que a propriedade \textit{pages} seja preenchida. Os itens especificados em \textit{listeners} serão instanciados dinamicamente na inicialização do aplicativo e poderão ser destruídos quando não forem mais necesários, invocando o método \textit{destroy} a partir do elemento raíz do objeto.
 
 	\item \textit{pages} (array): uma lista de objetos que indentifica as páginas do plugin que serão acessadas a partir dos menus do aplicativo e deve ser preenchido se a propriedade \textit{listeners} estiver vazia.
 \end{enumerate}
@@ -125,7 +125,9 @@ Cada objeto em \textit{pages} poderá conter as seguintes propriedades:
 	\item \textit{showInTabBar} (bool): Um valor boleano que indica se a página poderá ser exibida no menu de layout em linha. O objetivo dessa propriedade é permitir exibir páginas diferentes nos menus quando o \textit{drawer menu} menu estiver sendo utilizado.
 \end{itemize}
 
-As páginas serão instanciadas sob demanda quando o aplicativo tiver utilizando o layout em pilha, neste caso, quando o usuário clicar em um item da lista no menu a página correspondente será instanciada e ficará visível para o usuário. No layout em pilha, o menu é exibido pelo componente \textit{Drawer.qml} que consiste de uma instância do objeto \textit{Drawer} do \textit{Quick Controls} e as páginas serão listadas verticalmente. Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botões será acidionado no rodapé da janela do aplicativo permitindo ao usuário alternar entre as páginas disponíveis. Porém, no layout em linha, todas as páginas serão instanciadas no início da aplicação e terá um botão associado a cada página. No layout em linha, o menu corresponde ao componente \textit{TabBar.qml} também do \textit{Quick Controls} com algumas modificações. As figuras a seguir apresentam um exemplo dos menus utilizado nos layouts em pilha e em linha.
+As páginas serão instanciadas sob demanda quando o aplicativo tiver utilizando o layout em pilha, neste caso, quando o usuário clicar em um item da lista no menu a página correspondente será instanciada e ficará visível para o usuário. No layout em pilha, o menu é exibido pelo componente \textit{Drawer.qml} que consiste de uma instância do objeto \textit{Drawer} do \textit{Quick Controls} e as páginas serão listadas verticalmente (exemplo na figura 4).\par
+
+Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botões será acidionado no rodapé da janela do aplicativo permitindo ao usuário alternar entre as páginas disponíveis. Porém, no layout em linha, todas as páginas serão instanciadas no início da aplicação e terá um botão associado a cada página. No layout em linha, o menu corresponde ao componente \textit{TabBar.qml} também do \textit{Quick Controls} com algumas modificações (exemplo na figura 5). As figuras a seguir, apresentam exemplos dos menus dos layouts em pilha e em linha.
 
 \begin{figure}[H]
 	\includegraphics[width=8cm]{exemplo_menu_layout_em_pilha}
@@ -138,8 +140,6 @@ As páginas serão instanciadas sob demanda quando o aplicativo tiver utilizando
 	\centering
 	\caption{Lista de páginas exibidas no menu de layout em linha}
 \end{figure}
-
-A exibição do título da página no botão pode ser ocultada setando a opção \textit{showTabButtonText} para \textit{false} no arquivo de configuração.
 
 
 \subsection{Gerenciamento de plugins}\label{sec:solucao-desenvolvida}
@@ -198,9 +198,19 @@ Item {
     Component.onCompleted: {
 		var foo = App.readSetting("foo")
 		if (bar != foo)
-		   App.saveSetting("foo", bar)
+		   App.saveSetting("foo",bar)
 		App.removeSetting("bar")
     }
+}
+...
+Item {
+	Component.onCompleted: {
+		var fooList = []
+		fooList = App.readSetting("foo",SettingTypeStringList)
+		if (fooList.length)
+			fooList[0] = "bar"
+		App.saveSetting("foo",fooList)
+	}
 }
 \end{lstlisting}
 \captionof{lstlisting}{Exemplo de persistência através do objeto \textit{App}}
@@ -300,30 +310,37 @@ O arquivo \textit{config.json} presente na raiz do projeto é um componente impo
 
 
 \subsection{Acesso a Rede (HTTP)}\label{sec:solucao-desenvolvida}
-O primeiro requisito funcional provido nesta arquitetura é o acesso a rede para comunicação com serviços \textit{RESTful}. Para permitir o uso de rede pelos plugins, foi criado uma classe C++ que realiza requisições HTTP com suporte a autenticação básica, \textit{download} e \textit{upload} de arquivos. O objetivo dessa classe é oferecer um componente rico em recursos, com bom desempenho, além de fornecer um componente de alto nível para os plugins. Essa classe utiliza componentes do Qt e entregará a resposta de cada requisição em objetos json dispensando o uso de \textit{cast} pelos plugins. Para entregar uma API ainda mais fácil de utilizar, foi criado um componente QML com o mesmo nome da classe e disponibilizado como reusável, esse componente será apresentado a seguir. Para simplificar o acesso a rede, o desenvolvedor deverá adicionar na propriedade \textit{restService} no arquivo de configuração, a url do serviço \textit{RESTful} em \textit{baseUrl}, o nome e a senha do usuário da API em \textit{userName} e \textit{userPass} respectivamente e utilizar apenas o \textit{path} da url nos métodos de requisições. As subseções a seguir, descrevem os detalhes da classe \textit{RequestHttp} e do componente correspondente.
+O primeiro requisito funcional provido nesta arquitetura é o acesso a rede para comunicação com serviços \textit{RESTful}. Para facilitar o uso de rede pelos plugins, foi criado uma classe C++ com suporte a autenticação básica, \textit{download} e \textit{upload} de arquivos, além de requisições via \textit{GET}, \textit{POST} e \textit{PUT}. O objetivo dessa classe é oferecer um componente rico em recursos, com bom desempenho e de alto nível para os plugins. Os plugins que utilizarem esse componente, receberão a resposta de cada requisição através de objetos json dispensando o uso de \textit{parsing}. Para simplificar o uso da API de rede, o desenvolvedor deverá adicionar na propriedade \textit{restService} no arquivo de configuração, a url do serviço \textit{RESTful} em \textit{baseUrl} e o nome e a senha do usuário em \textit{userName} e \textit{userPass} respectivamente. O objetivo é que o desenvolvedor utilize apenas o \textit{path} da url nos métodos de requisições. A subseção a seguir, descreve os detalhes da classe \textit{RequestHttp} seguido de exemplos de como instanciá-la e fazer requisições ao \textit{web service} do aplicativo.
 
 \subsubsection{A classe RequestHttp}\label{sec:solucao-desenvolvida}
-A classe \textit{RequestHttp} será registrada como um tipo QML no contexto da aplicação e para ser instanciada basta adicionar a diretiva \textit{import RequestHttp 1.0} e em seguida, declarar um item QML \textit{RequestHttp}. Esta classe utiliza \textit{QNetworkAccessManager} para gerenciar as operações de rede abstraindo para o aplicativo a interface de rede utilizada no dispositivo. Os métodos disponíveis inicialmente são \textit{GET} e \textit{POST}, além de \textit{downloadFile} para baixar arquivos para o dispositivo via \textit{GET} e \textit{uploadFile} para envio de arquivos via \textit{POST} ou \textit{PUT}. A classe \textit{QNetworkRequest} do Qt será utilizada para encapsular os parâmetros da requisição. Os métodos principais disponibilizados por este componente serão descritos a seguir, seguido de um exemplo de como utilizá-los:
+A classe \textit{RequestHttp} será registrada como um tipo QML no contexto da aplicação e para ser instanciada basta adicionar a diretiva \textit{import RequestHttp 1.0} e em seguida, declarar um objeto QML \textit{RequestHttp}. Internamente, os objetos inicializarão os atributos \textit{baseUrl} e nome de usuário e senha, porém, o desenvolvedor pode sobrescrevê-los quando for necessário. Essa classe utiliza \textit{QNetworkAccessManager} para gerenciar as operações de rede abstraindo para o aplicativo a interface de rede utilizada no dispositivo e \textit{QNetworkRequest} para encapsular os parâmetros da requisição. Os métodos e atributos disponíveis serão descritos a seguir, seguido de um exemplo de uso:
 
 \begin{itemize}
-	\item \textit{get}: realiza uma requisição do tipo \textit{GET} exigindo apenas a url de destino. Esse método possui dois parâmetros opcionais, o primeiro deles é um objeto do tipo \textit{chave-valor} e se for passado, adicionará a url uma \textit{query-string}. O segundo parâmetro opcional é também um objeto e pode ser passado quando for necessário adicionar dados no cabeçalho da requisição. O código a seguir, apresenta um exemplo de uso desse método:
+	\item \textit{baseUrl} (string): atributo que define o endereço base do serviço \textit{REST}. Não precisa ser definido, pois será feito automaticamente no construtor do objeto. Porém, poderá ser utilizado pelo desenvolvedor quando a url definida no arquivo de configuração for diferente da url de destino de uma requisição específica. No entanto, é possível passar uma url absoluta nos métodos do objeto;
+
+	\item \textit{authorizationUser} (string): atributo que define o nome do usuário do serviço \textit{REST}. Também não precisa ser definido, mas está disponível para que o desenvolvedor possa fazer requisições a uma url ou serviço com outro nome de usuário, além do que está definido no arquivo de configuração;
+
+	\item \textit{authorizationPass} (string): atributo que define a senha do usuário do serviço \textit{REST}. Também não precisa ser definido, mas poderá ser modificado pelo desenvolvedor quando for preciso;
+
 \begin{center}
 \begin{lstlisting}[language=qml]
 import QtQuick 2.8
 import RequestHttp 1.0
 
 RequestHttp {
-	id: requestHttp
+	id:requestHttp
+	baseUrl:"https://static.api.foo.com/"
+	authorizationUser:"foo"
+	authorizationPass:"bar.2018"
 }
 ...
 Item {
-	Component.onCompleted: {
-		var queryString = {
-			"someKey": "foo",
-			"paginate": listView.count
+	Component.onCompleted:{
+		var postData = {
+			arg1:"123",
+			arg2:"321"
 		}
-		// ...foo?someKey=foo&paginate=16
-		requestHttp.get("foo", queryString)
+		requestHttp.get("bar",postData)
 	}
 }
 \end{lstlisting}
@@ -331,23 +348,48 @@ Item {
 % \captionof{lstlisting} {Exemplo de uma requisição do tipo \textit{GET}}
 \end{center}
 
-	\item \textit{post}: realiza uma requisição do tipo \textit{POST} exigindo a url de destino e o dado a ser postado em formato string. O terceiro parâmetro desse método é opcional e pode ser passando quando for necessário adicionar dados no cabeçalho da requisição. O código a seguir, apresenta um exemplo de uso desse método:
+	\item \textit{get}: método que realiza requisições do tipo \textit{GET} exigindo apenas a url de destino. Esse método possui dois parâmetros opcionais, o primeiro deles é um objeto do tipo \textit{chave-valor} e se for passado, adicionará a url uma \textit{query-string}. O segundo parâmetro opcional é também um objeto e pode ser passado quando for necessário adicionar dados no cabeçalho da requisição. O código a seguir, apresenta um exemplo de uso desse método:
+\begin{center}
+\begin{lstlisting}[language=qml]
+import QtQuick 2.8
+import RequestHttp 1.0
+
+RequestHttp {
+	id:requestHttp
+}
+...
+Item {
+	Component.onCompleted:{
+		var queryString = {
+			"someKey":"foo",
+			"paginate":listView.count
+		}
+		// ...foo?someKey=foo&paginate=16
+		requestHttp.get("foo",queryString)
+	}
+}
+\end{lstlisting}
+% não está ficando centralizada
+% \captionof{lstlisting} {Exemplo de uma requisição do tipo \textit{GET}}
+\end{center}
+
+	\item \textit{post}: método que realiza requisições do tipo \textit{POST} exigindo a url de destino e o dado a ser postado em formato string. O terceiro parâmetro desse método é opcional e pode ser passando quando for necessário adicionar dados no cabeçalho da requisição. O código a seguir, apresenta um exemplo de uso desse método:
 \begin{center}
 \begin{lstlisting}[language=qml]
 import QtQuick 2.8
 import RequestHttp 1.0
 	
 RequestHttp {
-	id: requestHttp
+	id:requestHttp
 }
 ...
 Item {
-	Component.onCompleted: {
+	Component.onCompleted:{
 		var postData = JSON.stringfy({
-			"someKey": "bar",
-			"email": textField.text
+			"someKey":"bar",
+			"email":textField.text
 		})
-		requestHttp.post("bar", postData)
+		requestHttp.post("bar",postData)
 	}
 }
 \end{lstlisting}
@@ -362,16 +404,16 @@ import QtQuick 2.8
 import RequestHttp 1.0
 	
 RequestHttp {
-	id: requestHttp
+	id:requestHttp
 }
 ...
 Item {
-	Component.onCompleted: {
+	Component.onCompleted:{
 		var files = [
 			"/data/app/myapp/files/img1.png",
 			"/data/app/myapp/files/img2.png"
 		]
-		requestHttp.upload("bar", files)
+		requestHttp.upload("bar",files)
 	}
 }
 \end{lstlisting}
@@ -386,11 +428,11 @@ import QtQuick 2.8
 import RequestHttp 1.0
 	
 RequestHttp {
-	id: requestHttp
+	id:requestHttp
 }
 ...
 Item {
-	Component.onCompleted: {
+	Component.onCompleted:{
 		var urls = [
 			"https://.../files/f1.png",
 			"https://.../files/f2.png"
@@ -426,14 +468,14 @@ A propriedade \textit{status} (integer) declarada como \textit{Q\_PROPERTY} indi
 import RequestHttp 1.0 
 	
 RequestHttp {
-	id: request
+	id:request
 }
 ...
 
 Button {
-	text: "Submit"
-	enabled: request.status == request.Ready
-	onClicked: request.get("foo", {"bar": 1})
+	text:"Submit"
+	enabled:request.status == request.Ready
+	onClicked:request.get("foo",{"bar":1})
 }
 ...
 \end{lstlisting}
@@ -448,29 +490,6 @@ O diagrama a seguir, apresenta os atributos e métodos da classe \textit{Request
 	\centering
 	\caption{Diagrama da classe \textit{RequestHttp}}
 \end{figure}
-
-\subsubsection{O Componente RequestHttp}\label{sec:solucao-desenvolvida}
-Para simplificar ainda mais o uso de rede no aplicativo, os plugins podem utilizar o componente \textit{RequestHttp} que instancia a classe \textit{RequestHttp} e inicializa os atributos \textit{baseUrl} e os parâmetros de autenticação, além de exibir mensagens de erro personalizada para o usuário. Para utilizar esse componente, basta adicionar a diretiva \textit{import "qrc:/publicComponentes/" as Components}. O código a seguir, apresenta os detalhes deste componente:
-
-\begin{center}
-\begin{lstlisting}[language=qml]
-import RequestHttp 1.0
-
-RequestHttp {
-    baseUrl: Config.restService.baseUrl
-    authorizationUser: Config.restService.userName
-    authorizationPass: Config.restService.userPass
-    onError: {
-     var message = "Erro ao conectar no servidor"
-        if ("android" == Qt.platform.os)
-	        snackbar.show(message)
-		else
-	        functions.alert("Error!", message)
-    }
-}
-\end{lstlisting}
-\captionof{lstlisting}{Código do componente \textit{RequestHttp.qml}}
-\end{center}
 
 
 \subsection{Persistência de Dados}\label{sec:solucao-desenvolvida}
@@ -522,20 +541,20 @@ Outro atributo \textit{totalItens} manterá atualizado o número de registros na
 import Database 1.0
 ...
 Database {
-	id: database
-	jsonColumns: ["source"]
-	tableName: "news"
-	pkColumn: "title"
-	onItemLoaded: listViewModel.append(entry)
+	id:database
+	jsonColumns:["source"]
+	tableName:"news"
+	pkColumn:"title"
+	onItemLoaded:listViewModel.append(entry)
 }
 ...
 Item {
-	Component.onCompleted: {
+	Component.onCompleted:{
 		var args = {
-			title: "GNU is not Unix!",
-			message: "GNU is an operating...",
-			datetime: "2017-12-30T14:29:33"
-			source: {
+			title:"GNU is not Unix!",
+			message:"GNU is an operating...",
+			datetime:"2017-12-30T14:29:33"
+			source:{
 				url:"https://foo.com/api",
 				code:"foo",
 				value:"bar"
@@ -568,7 +587,7 @@ import QtQuick 2.8
 
 Connections {
     target: App
-    onEventNotify: {
+    onEventNotify:{
 		var e
 		e = Config.events.newPushNotificationToken
 		if (e == eventName) {
@@ -629,17 +648,17 @@ Os eventos podem ser adicionados no arquivo de configuração na propriedades \t
 import Observer 1.0
 ...
 Observer {
-	id: observer
-	events: [Config.events.newSourceAdded]
-	onUpdated: database.insert(eventData)
+	id:observer
+	events:[Config.events.newSourceAdded]
+	onUpdated:database.insert(eventData)
 }
 ...
 Item {
-	Component.onCompleted: {
+	Component.onCompleted:{
 		// pede ao Subject para adicionar
 		// o observador a lista do evento
 		var event = Config.events.newSourceAdded
-		Subject.attach(observer, event)
+		Subject.attach(observer,event)
 	}
 }
 ...
@@ -654,14 +673,14 @@ O código a seguir, apresenta um exemplo de como notificar observadores de um de
 import QtQuick 2.8
 ...
 Item {
-	id: rootItem
-	Component.onCompleted: {
+	id:rootItem
+	Component.onCompleted:{
 		var event = Config.events.newSourceAdded
 		var args = {
 			key:"foo",
 			value:"bar"
 		}
-		Subject.notify(event, args, rootItem)
+		Subject.notify(event,args,rootItem)
 	}
 }
 \end{lstlisting}
@@ -697,19 +716,19 @@ Column {
 
 	// userProfile eh um objeto global,
 	// criado e declarado no main window!
-	property var profileData = userProfile.profile
+	property var profileData:userProfile.profile
 
 	// exibindo a imagem de perfil
 	Image {
-		id: userImg
-		asynchronous: true; cache: true
-		source: profileData.image_url
+		id:userImg
+		asynchronous:true;cache:true
+		source:profileData.image_url
 	}
 
 	// exibindo o email do usuario
 	Label {
-		id: userEmail
-		text: profileData.email
+		id:userEmail
+		text:profileData.email
 	}
 }
 \end{lstlisting}
@@ -744,7 +763,7 @@ O componente \textit{BasePage} é um arquivo genérico que fornece algumas propr
 	\item \textit{pageBackgroundColor} (Color): essa propriedade pode ser utilizada para definir uma cor de fundo personalizada para a página, pode ser tanto hexadecimal como RGBA. A cor padrão utilizada será o valor definido no arquivo de configuração na propriedade \textit{theme.pageBackgroundColor}.
 \end{itemize}
 
-É importante destacar que \textit{BasePage} \textit{extends} o componente \textit{Page} do \textit{Quick Controls} e as propriedades definidas em \textit{Page} serão herdadas, como por exemplo, \textit{title}, que deve ser definido pela página para exibir ao usuário o título da página que ele está visualizando. Para utilizar \textit{BasePage}, basta adicionar a diretiva \textit{import "qrc:/publicComponents"} e declarar um objeto \textit{BasePage} como no exemplo a seguir:
+É importante destacar que \textit{BasePage} \textit{extends} o componente \textit{Page} do \textit{Quick Controls} e as propriedades definidas em \textit{Page} serão herdadas, como por exemplo, \textit{title}, que deve ser definido para exibir ao usuário o título da página que ele está visualizando. Para utilizar \textit{BasePage}, basta adicionar a diretiva \textit{import "qrc:/publicComponents"} e declarar um objeto \textit{BasePage} como no exemplo a seguir:
 
 \begin{center}
 \begin{lstlisting}[language=qml]
@@ -752,25 +771,25 @@ import QtQuick.Controls 2.0
 import "qrc:/publicComponents/" as Components
 
 Components.BasePage {
-	id: page
+	id:page
 
 	// ignora o uso do ListView
-	hasListView: false
+	hasListView:false
 
 	// define o path absoluto
-	absPath: Config.plugins.pages + "Page1.qml"
+	absPath:Config.plugins.pages + "Page1.qml"
 
 	// exibe um titulo no ToolBar
-	title: qsTr("Page 1")
+	title:qsTr("Page 1")
 
 	// permite sair da pagina atual
 	// usando o botao voltar no ToolBar
-	toolBarState: "goBack"
+	toolBarState:"goBack"
 
 	// trata as respostas de um pedido http
-	onRequestFinished: {
-		console.log("status:", statusCode)
-		console.log("response:" , response)
+	onRequestFinished:{
+		console.log("status:",statusCode)
+		console.log("response:" ,response)
 	}
 ...
 }
