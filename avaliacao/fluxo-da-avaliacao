@@ -1,0 +1,15 @@
++ Escolher duas features do Emile (Envio e exibição de mensagens, Push Notification e Login)
++ Desenvolver um projeto do zero no QtCreator que implemente essas três features (Chamar de Emile1)
++ Ao concluir o funcionamento do novo projeto (Emile1), contar o número de linhas de todo o projeto
++ Depois, desenvolver os plugins (pode pegar os que estão na página do emile-mobile no github do gsort) e fazer as alterações necessárias para funcionar em um projeto
+usando o meu framework - Criando o Emile2;
++ Contar o número de linhas dos arquivos implementados nos plugins do Emile2
++ Após finalizar a contagem de linhas de ambos os projetos, fazer um teste de cada feature em cada projeto (Emile1 e Emile2) para identificar e selecionar os possíveis bugs para colocar como critério da avaliação;
+
+
+# para subir o serviço REST:
+cd /usr/share/webapps/emile-web/
+source env/bin/activate
+python emile/manage.py runserver 0.0.0.0:5000
+
+# criar uma conexão entre o serviço REST e o aplicativo adicionado o endereço IP do servidor local para fazer os testes
