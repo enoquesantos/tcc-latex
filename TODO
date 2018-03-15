@@ -1,0 +1,7 @@
++ Adicionar o 4º trabalho correlacionado
++ Corrigir o título "forkado" na seção que descreve como utilizar a arquitetura
++ Adicionar o evento emitido quando uma imagem for selecionada no objeto FileDialog
+
++ Atualizar informação de mudança de nome do evento: requestUpdateUserProfile -> updateUserProfile
++ Atualizar informação de mudança de nome do evento: setUserProfileData -> setUserProfile
++ Atualizar informação de mudança de nome do evento: logoutApplication -> logoutUser
