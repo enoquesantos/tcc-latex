@@ -16,7 +16,7 @@ O processo da avaliação consistiu na implementação de três \textit{features
 \end{itemize}
 
 
-O objetivo do estudo era coletar métricas que pudessem demostrar os benefícios de utilizar a arquitetura desenvolvida neste trabalho na criação de aplicativos voltados ao mercado de sistemas de informação. As métricas escolhidas na avaliação serão descritas a seguir:
+O objetivo do estudo era extrair métricas que pudessem destacar as vantagens e os benefícios de utilizar a arquitetura desenvolvida neste trabalho. As métricas escolhidas na avaliação serão descritas a seguir:
 
 \begin{itemize}
 	\item Número de linhas de código implementado em cada versão.
@@ -28,20 +28,20 @@ O objetivo do estudo era coletar métricas que pudessem demostrar os benefícios
 
 
 \subsection{Execução}
-A avaliação foi realizada no decorrer de doze dias e primeiramente foi implementado a versão sem o framework. Uma sequência de passos deu início a configuração do aplicativo e as \textit{features} desta versão, foram implementadas através de três plugins, sendo um para cada uma das \textit{features} escolhidas para avaliação. A sequência de passos abaixo, descrevem as alterações realizadas para utilizar a arquitetura:
+A avaliação foi realizada no decorrer de quinze dias e primeiramente foi implementado a versão sem o framework. Uma sequência de passos deu início a configuração do aplicativo e as \textit{features} nesta versão, foram implementadas através de três plugins, sendo um para cada uma das \textit{features} escolhidas para avaliação. É importante destacar, que foi utilizado um serviço REST  como servidor do aplicativo. O serviço é necessário para login e obtenção dos dados do usuário, além de listagem das turmas para envio de mensagem pelo professor. Este \textit{web service} foi utilizado na avaliação pelas duas versões \textit{Emile1} e \textit{Emile2} e foi implementado em um serviço de host gratuito chamado \textit{pythonanywhere} e pode ser acessado através do endereço \textit{enoque.pythonanywhere.com}. O \textit{web service} não faz parte da avaliação e constitui toda lógica de negócio inerente ao funcionamento do Emile. A sequência de passos realizado na versão com o framework será descrita abaixo, ela descreve as alterações realizadas para utilizar a arquitetura descrita neste artigo:
 
 \begin{enumerate}
-	\item Foi realizado o clone do projeto da arquitetura para o computador utilizado no desenvolvimento, através do link no github na página do projeto.
+	\item Foi realizado o clone do projeto da arquitetura para o computador utilizado no desenvolvimento, através do link contido no github, na página do projeto.
 
 	\item Em seguida, a pasta do projeto foi renomeada de \textit{tcc} para \textit{Emile1}.
 
 	\item O arquivo de projeto Qt \textit{tcc.pro} foi renomeado para \textit{Emile1.pro}.
 
-	\item Realizado edições no arquivo de configuração \textit{config.json}, para atualizar as propriedades \textit{applicationName}, \textit{organizationName} e \textit{organizationDomain} para os dados referentes ao aplicativo.
+	\item Realizado edições no arquivo de configuração do framework (\textit{config.json}), para atualizar as propriedades \textit{applicationName}, \textit{organizationName} e \textit{organizationDomain} para os dados referentes ao aplicativo.
 
-	\item Adicionado os dados nas propriedades \textit{baseUrl}, \textit{userName} e \textit{userPass} correspondente a API REST do aplicativo, também no arquivo de configuração.
+	\item Adicionado os dados nas propriedades \textit{baseUrl}, \textit{userName} e \textit{userPass} correspondente a API REST do aplicativo, também no arquivo de configuração do framework.
 
-	\item Foi deletado os plugins \textit{About}, \textit{AppendPage} e \textit{Pages}, além do arquivo \textit{Listeners/Listener1.qml}, ambos disponibilizados como exemplo na arquitetura.
+	\item Foi deletado os plugins \textit{About}, \textit{AppendPage} e \textit{Pages}, além do arquivo \textit{Listeners/Listener1.qml}, ambos disponibilizados como exemplo no framework.
 
 	\item Alterado o arquivo \textit{Listeners/config.json}, onde foi removido uma linha do arquivo.
 
@@ -49,7 +49,7 @@ A avaliação foi realizada no decorrer de doze dias e primeiramente foi impleme
 
 	\item Adicionado o arquivo \textit{config.json} na pasta do plugin \textit{Messages}.
 
-	\item Adicionado os arquivos: \textit{CourseSectionSelectPage.qml}, \textit{DestinationGroupSelectPage.qml}, \textit{SendMessagesPage.qml}, \textit{ViewMessagesPage.qml}, \textit{plugin_functions.js}, \textit{plugin_table.sql} e \textit{ViewMessagesPageDelegate.qml} no plugin \textit{Messages}.
+	\item Adicionado os arquivos: \textit{CourseSectionSelectPage.qml}, \textit{DestinationGroupSelectPage.qml}, \textit{SendMessagesPage.qml}, \textit{ViewMessagesPage.qml}, \textit{plugin\_functions.js}, \textit{plugin\_table.sql} e \textit{ViewMessagesPageDelegate.qml} no plugin \textit{Messages} contendo a lógica de negócio para seleção de destinatário, escrita da mensagem e listagem de mensagens disponíveis para o usuário. Este plugin utilizará persitência de dados local para permitir leitura das mensagens \textit{offline}.
 
 	\item Alterado o arquivo \textit{Messages/config.json} e adicionado as páginas visíveis do plugin, além da permissão do usuário (propriedade \textit{roles}) requerida para acessar cada página.
 
@@ -66,6 +66,61 @@ A avaliação foi realizada no decorrer de doze dias e primeiramente foi impleme
 	\item Editado o arquivo \textit{assets/qtquickcontrols2.conf} onde foi alterado as cores do aplicativo, nas propriedades \textit{Accent}, \textit{Primary}, \textit{Foreground} e \textit{Background}.
 \end{enumerate}
 
+O framework dispõe de alguns plugins de exemplo que demonstram como utilizar alguns dos recursos disponibilizados na arquitetura, dentre eles, um plugin para login e outro para o gerenciamento do perfil do usuário e ambos foram reaproveitados na versão com o framework. Os plugins reaproveitados sofreram poucas alterações, tais como, a url de destino e os parâmetros da requisição de login e de atualização do perfil do usuário, onde foi adicionado os argumentos que são requeridos pelo \textit{web service} do Emile. Ao todo, seis alterações foram feitas nestes dois plugins. Na versão sem o framework, as implementações foram feitas através de arquivos separados e acoplados na aplicação, ou seja, não  foi criado plugins. No entanto, nessa versão, foi utilizado os mesmos componentes do \textit{Quick Controls} que são utilizados no framework, tais como \textit{Page}, \textit{ListView}, \textit{ListModel}, etc. O código fonte de ambas as versões (Emile1 e Emile2), está na página do projeto criado para a avaliação e pode ser adquirida utilizando o git, através da url \textit{https://github.com/joseneas/avaliacao-tcc.git}.\par
+
+Os testes de execução do aplicativo foram feitos seguindo uma sequência de passos com o objetivo de testar as três \textit{features} implementadas para avaliação. Os testes foram feitos em um dispositivo Android, modelo Samsung J3 contendo a versão 5.1 de nome \textit{Lollipop}. O mesmo teste foi realizado nas versões \textit{Emile1} e \textit{Emile2}. A lista a seguir, descreve a sequência de passos realizado:
+
+\begin{enumerate}
+	\item O aplicativo foi aberto via click no ícone do aplicativo, na banjeija de aplicativos do sistema;
+	\item Com o aplicativo pronto para uso, foi realizado o login usando um perfil de professor;
+	\item Após o login, adicionado click no ícone de menu para visualização das páginas disponíveis;
+	\item Com o menu lateral aberto, foi solicitado acesso a página \textit{Enviar mensagem} via clique na tela;
+	\item A página de seleção de destinatário foi aberta, e clicou-se na opção "Todas as turmas";
+	\item A página de envio de mensagem foi aberta e uma mesagem foi enviada para todas as turmas;
+	\item Após o envio da mensagem, cliou-se na opção "Ver mensagem" no menu;
+	\item A página de listagem de mensagens foi aberta e a mensagem recém enviada estava disponível para leitura, indicando o destinatário e o texto submetido;
+	\item Adicionado click no ícone de menu para visualização das páginas disponíveis;
+	\item Selecionado a opção "Ver perfil";
+	\item Adicionado a opção de edição do perfil e em seguida a página foi aberta;
+	\item Alterado o email do usuário e em seguida foi solicitado envio para o serviço REST;
+	\item Via console da IDE, observou-se a resposta com status \textit{200-OK} do servidor, indicando que o email foi atualizado com sucesso.
+\end{enumerate}
+
+A seção a seguir, descreverá os resultados obtidos na avaliação.
+
 
 \subsection{Resultados}
-....
+Após finalizar o desenvolvimento das versões \textit{Emile1} e \textit{Emile2}, observou-se que a versão sem o framework resultou em um arquivo final (APK) um pouco menor do que a versão com o framework, além do \textit{build} do projeto ocorrer em menor tempo.
+
+Em relação ao número ao linhas, na versão sem o framework foi considerado apenas os plugins, ou seja, foi efetuado a contagem somente dos arquivos presentes no diretório \textit{plugins}, pois a implementação das features se deu somente através de plugins. A versão sem o framework foi efetuado a contagem de todos os arquivos. Para utilizar a contagem, foi utilizado o comando \textit{shell}: \textit{wc -l 'find <folder\_path> -type f'}. Os resultados obtidos foram:
+
+\begin{itemize}
+	\item Emile1 (versão com o framework): \textbf{1116} total de linhas.
+	\item Emile2 (versão sem o framework): \textbf{5206} total de linhas.
+\end{itemize}
+
+Em relação ao bugs identificados em cada versão, destaca-se maior complexidade dos bugs na versão com o framework, pois era difícil de depurá-los, pois foram erros internos que exige do usuário do framework conhecimento do código fonte. Na versão sem o framework, foi indentificado os seguintes bugs:
+
+\begin{enumerate}
+	\item  Quando o dispositivo não estava conectado a internet, as requisições HTTP ficavam intermináveis, o elemento visual \textit{BusyIndicator} ficava visível por tempo indeterminado.
+
+	\item Erros de requisição HTTP não capturados quando ocorre exceção no servidor e o mesmo não responde um json válido, retornando um HTML.
+
+	\item O click no botão "voltar" do android, não retorna para a página anterior ou minimiza o aplicativo quando apenas uma página foi acessada pelo usuário. O que ocorre é o fechamento inesperado do aplicativo. Na versão com o framework esse recurso já está implementado internamente.
+
+	\item Não foi possível permitir que o usuário altere a imagem de perfil, selecionando uma imagem da galeria de arquivos do sistema, pois o QML não dispõe de um componente para acesso a galeria de imagens do dispositivo no android, sendo necessário implementar uma API em java ou C++ com JNI. Na versão com o framework esse recurso também já está implementado e pode ser utilizado via \textit{procedure call}.
+\end{enumerate}
+
+A lista a seguir, descreve os bugs encontrados na versão com o framework:
+
+\begin{enumerate}
+	\item Após finalizar a implementação, em alguns momentos o aplicativo finalizou inesperadamente com a seguinte mensagem de erro: \textit{QThread: Destroyed while thread is still running}. Um erro difícil de ser depurado, pois não há detalhes de onde e porquê ocorreu.
+
+	\item Após um determinado tempo utilizando o aplicativo, após logar, visualizar as mensagens e navegar em algumas páginas, algumas requisições não são iniciadas ou finalizadas. Por exemplo, após fazer o logout e tentar logar novamente o aplicativo não responde.
+
+	\item A precisão de cliks no \textit{ToolBar} para abrir o \textit{Drawer} Menu não é muito boa, em algums momentos é preciso clicak até três vezes para abrir o menu.
+
+	\item A nível de implementação, é preciso conhecer muito bem os detalhes do framework para utilizar bem os recursos, pois ao implementar a persistência de mensagens foi preciso olhar o código fonte da classe \textit{DatabaseComponent} para saber o nome do parâmetro do sinal \textit{itemLoaded} emitido após realizar uma consulta. Esse parâmetro contém os dados extraídos da consulta e era preciso acessá-lo para adicionar os dados da \textit{query} na \textit{view}. Isso é devido o fato do método \textit{select} ser assícrono, emitindo o resultado através de um evento.
+
+	\item O build do projeto é muito mais lento do que a versão sem o framework e o tamanho do arquivo final (apk) é em torno de 20\% maior.
+\end{enumerate}
