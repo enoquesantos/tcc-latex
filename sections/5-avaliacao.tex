@@ -1,2 +1,71 @@
 \section{Avaliação Experimental}\label{sec:avaliacao-experimental}
-Aqui será apresentado a estudo de avaliação conduzido para valiar a solução desenvolvida.
+Esta seção apresentará o estudo conduzido para avaliar a arquitetura proposta neste trabalho. A avaliação consistiu no desenvolvimento de duas versões de um aplicativo móvel e na coleta de métricas relacionadas ao desenvolvimento de cada versão. As métricas foram utilizadas para validar a eficácia e os benefícios da arquitetura proposta neste trabalho no desenvolvimento de aplicativos móveis. As subseções a seguir, apresentarão os detalhes do estudo conduzido na avaliação.
+
+
+\subsection{Planejamento}
+O objeto de estudo utilizado na avaliação foi o aplicativo \textit{Emile}. O \textit{Emile} consiste de um sistema para facilitar a comunicação acadêmica, permitindo aos professores enviar mensagens aos alunos de suas turmas de eventos diversos que possam ocorrer durante o semestre letivo. O Emile é um sistema desenvolvido pelo GSORT – um grupo de pesquisa do Instituto Federal da Bahia e mais detalhes sobre ele pode ser encontrado na página do projeto \cite{emileAppLink}.\par
+
+O processo da avaliação consistiu na implementação de três \textit{features} do aplicativo em duas versões separadas, sendo uma com o framework proposto neste trabalho e outra versão escrita sem utilizar o framework. A versão sem utilizar o framework também foi escrita em Qt/QML e todos os elementos visuais utilizados na versão com o framework foram implementados na versão sem o framework para que o estilo do aplicativo fosse padronizado em ambas as versões. As features escolhidas estão descritas a seguir:
+
+\begin{itemize}
+	\item Login do usuário. Esse recurso inclui o logout para permitir que o usuário possa encerrar uma seção.
+
+	\item Gerenciamento de mensagens. Esse recurso inclui o envio de mensagens usando um perfil de professor e a visualização das mensagens enviadas pelo professor, além de visualização das mensagens recebidas por um aluno, ou seja, o aluno também poderá logar no aplicativo e visualizar as mensagens enviadas para a turma a qual ele está matriculado.
+
+	\item Gerenciamento de perfil do usuário. Esse recurso inclui a visualização e a edição dos dados do usuário. No entanto, apenas a edição dos campos email e senha foram suportados.
+\end{itemize}
+
+
+O objetivo do estudo era coletar métricas que pudessem demostrar os benefícios de utilizar a arquitetura desenvolvida neste trabalho na criação de aplicativos voltados ao mercado de sistemas de informação. As métricas escolhidas na avaliação serão descritas a seguir:
+
+\begin{itemize}
+	\item Número de linhas de código implementado em cada versão.
+
+	\item Densidade de bugs encontrados em cada versão.
+
+	\item Número de alterações realizadas na versão com o framework, necessárias para poder utilizá-lo.
+\end{itemize}
+
+
+\subsection{Execução}
+A avaliação foi realizada no decorrer de doze dias e primeiramente foi implementado a versão sem o framework. Uma sequência de passos deu início a configuração do aplicativo e as \textit{features} desta versão, foram implementadas através de três plugins, sendo um para cada uma das \textit{features} escolhidas para avaliação. A sequência de passos abaixo, descrevem as alterações realizadas para utilizar a arquitetura:
+
+\begin{enumerate}
+	\item Foi realizado o clone do projeto da arquitetura para o computador utilizado no desenvolvimento, através do link no github na página do projeto.
+
+	\item Em seguida, a pasta do projeto foi renomeada de \textit{tcc} para \textit{Emile1}.
+
+	\item O arquivo de projeto Qt \textit{tcc.pro} foi renomeado para \textit{Emile1.pro}.
+
+	\item Realizado edições no arquivo de configuração \textit{config.json}, para atualizar as propriedades \textit{applicationName}, \textit{organizationName} e \textit{organizationDomain} para os dados referentes ao aplicativo.
+
+	\item Adicionado os dados nas propriedades \textit{baseUrl}, \textit{userName} e \textit{userPass} correspondente a API REST do aplicativo, também no arquivo de configuração.
+
+	\item Foi deletado os plugins \textit{About}, \textit{AppendPage} e \textit{Pages}, além do arquivo \textit{Listeners/Listener1.qml}, ambos disponibilizados como exemplo na arquitetura.
+
+	\item Alterado o arquivo \textit{Listeners/config.json}, onde foi removido uma linha do arquivo.
+
+	\item Adicionado a pasta \textit{Messages} (representando o plugin \textit{Messages}) para implementação da \textit{feature} de gerenciamento de mensagens (exibição e envio).
+
+	\item Adicionado o arquivo \textit{config.json} na pasta do plugin \textit{Messages}.
+
+	\item Adicionado os arquivos: \textit{CourseSectionSelectPage.qml}, \textit{DestinationGroupSelectPage.qml}, \textit{SendMessagesPage.qml}, \textit{ViewMessagesPage.qml}, \textit{plugin_functions.js}, \textit{plugin_table.sql} e \textit{ViewMessagesPageDelegate.qml} no plugin \textit{Messages}.
+
+	\item Alterado o arquivo \textit{Messages/config.json} e adicionado as páginas visíveis do plugin, além da permissão do usuário (propriedade \textit{roles}) requerida para acessar cada página.
+
+	\item Alterado a propriedade \textit{order} do plugin \textit{UserProfile} para o valor inteiro \textit{5} para que a exibição da opção \textit{Ver perfil} permanecesse abaixo das opções de envio e visualização de mensagens.
+
+	\item Adicionado os arquivos \textit{LoadUserCourseSections.qml} e \textit{LoadUserProgram.qml} no plugin \textit{Login} para carregarem dados adicionais do usuário após o login.
+
+	\item Removido as strings presente na propriedade \textit{roles} do plugin \textit{UserProfile} e mantido somente os valores \textit{teacher} e \textit{student}.
+
+	\item Removido as strings presente na propriedade \textit{roles} do plugin \textit{Login} e mantido somente os valores \textit{teacher} e \textit{student}.
+
+	\item Adicionado a logo do aplicativo na pasta \textit{assets} (que está na raiz do projeto), substituindo o ícone fornecido como exemplo.
+
+	\item Editado o arquivo \textit{assets/qtquickcontrols2.conf} onde foi alterado as cores do aplicativo, nas propriedades \textit{Accent}, \textit{Primary}, \textit{Foreground} e \textit{Background}.
+\end{enumerate}
+
+
+\subsection{Resultados}
+....
