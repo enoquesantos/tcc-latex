@@ -2,10 +2,10 @@
 %<apresentar uma pequena descrição dos assuntos apresentados nas sub-seções seguintes>%
 %<Um último parágrafo ligando estes quatro temas, sem ainda dizer o que você vai fazer>%
 \section{REFERENCIAL BIBLIOGRÁFICO}
-Esta seção, apresenta as principais referências que contextualizam este trabalho. A subseção 2.1 apresenta o Qt e o QML. A subseção 2.2 descreve sobre Arquitetura de Software. A subseção 2.3 apresenta Arquitetura de Referência. A subseção 2.4 resume Sistemas de Informação. A subseção 2.5 apresenta Arquiteturas de Aplicativos Móveis. A subseção 2.6 detalha Projetos de Aplicativos Móveis. A subseção 2.7 discute sobre Desenvolvimento Orientado a Componentes. Para finalizar, a subseção 2.8 faz uma breve revisão sobre as tecnologias suportadas nesta arquitetura: \textit{web services}, o estilo arquitetural \textit{RESTFul}, o \textit{Push Notification} e o JSON.
+Esta seção, apresenta as principais referências que contextualizam este trabalho. A subseção 2.1 apresenta o Qt e o QML. A subseção 2.2 descreve sobre Arquitetura de Software. A subseção 2.3 apresenta Arquitetura de Referência. A subseção 2.4 resume Sistemas de Informação. A subseção 2.5 apresenta Arquiteturas de Aplicativos Móveis. A subseção 2.6 detalha Projetos de Aplicativos Móveis. A subseção 2.7 discute sobre Desenvolvimento Orientado a Componentes. Para finalizar, a subseção 2.8 faz uma breve revisão sobre as tecnologias suportadas nesta arquitetura: \textit{web services}, o estilo arquitetural \textit{RESTful}, o \textit{Push Notification} e o JSON.
 
 
-\subsection{O Qt e o QML}
+\subsection{O Qt e o QML} %2.1
 O Qt é um \textit{toolkit} \textit{cross-platform} para desenvolvimento de aplicações com interface gráfica. O Qt é muito mais que um SDK, ele é uma estratégia de tecnologia que permite ao desenvolvedor, de forma rápida e econômica, projetar, desenvolver, implementar e manter uma aplicação multiplataforma oferecendo uma experiência de usuário perfeita em todos os dispositivos \cite{qt_io}. No entanto, programas sem interface gráfica podem ser desenvolvidos, como ferramentas de linha de comando e consoles para servidores \cite{qt_software}.\par
 
 O Qt possui um amplo apoio à internacionalização e outros recursos, tais como o acesso a um banco de dados \textit{SQL}, \textit{parsing} de XML, \textit{parsing} de JSON, gerenciamento de \textit{threads} e suporte a rede \cite{qt_gui_toolkit}. O Qt dispõe ainda de uma linguagem declarativa e interpretada para construir interface gráfica, o QML. O QML é uma especificação de interface de usuário e linguagem de programação que permite a desenvolvedores e designers criar aplicativos de alta performance, fluidamente animados e visualmente atraentes. O QML oferece uma sintaxe JSON, altamente legível e declarativa, com suporte para expressões imperativas JavaScript combinadas com ligações de propriedades dinâmicas \cite{doc_qt_io}.
@@ -14,7 +14,7 @@ O Qt possui um amplo apoio à internacionalização e outros recursos, tais como
 %<dizer os benefícios em trabalhar orientado a arquiteturas: controle intelectual, atendimento de requisitos não-funcionais, evolução, \textit{testability}, etc>%
 %<dizer como as arquiteturas são projetadas>%
 %<cada domínio de aplicação em particular demanda a adoção de arquiteturas particulares>%
-\subsection{Arquitetura de Software}
+\subsection{Arquitetura de Software} %2.2
 De acordo com a definição clássica proposta por \textit{Shaw e Garlan} \cite{shaw_and_garlan}, arquitetura de software define o que é sistema em termos de componentes computacionais e os relacionamentos entre eles, os padrões que guiam suas composições e restrições. Arquitetura de software pode ser compreendida como uma especificação abstrata do funcionamento de um sistema e permite especificar, visualizar e documentar a estrutura e o funcionamento de um programa independente da linguagem de programação na qual ele será implementado \cite{jair_Cavalcanti_leite}.\par
 
 Os softwares estão em constante evolução e sofrem mudanças periodicamente, que ocorrem por necessidade de corrigir \textit{bugs} ou de adicionar novas funcionalidades. As mudanças ocorridas no processo de evolução de um software podem torná-lo instável e predisposto a defeitos, além de causar atraso na entrega e custos acima do estimado. Porém, um software que é projetado orientado a arquitetura, possibilita os seguintes benefícios:
@@ -57,18 +57,18 @@ Neste trabalho, arquitetura de software pode ser compreendida nas decisões de i
 %}
 
 
-\subsection{Arquitetura de Referência}
+\subsection{Arquitetura de Referência} %2.3
 Uma arquitetura de referência consiste em uma forma de apresentar um padrão genérico para um projeto \cite{zambiasi}. Com base nessa arquitetura, o desenvolvedor projeta, desenvolve e configura uma aplicação prototipando-a por meio de componentes reutilizáveis \cite{zambiasi}. Para compor uma arquitetura de referência é necessário apresentar os tipos dos elementos envolvidos, como eles interagem e o mapeamento das funcionalidades para estes elementos \cite{Hofmeister:1999:ASA:322640}. De maneira geral, uma arquitetura de referência deve abordar os requisitos para o desenvolvimento de soluções, guiado pelo modelo de referência e por um estilo arquitetural de forma a atender as necessidades do projeto \cite{c._k_f._2006}.\par
 
 A concepção de uma arquitetura de referência pode ser entendida neste trabalho como uma forma de disponibilizar um padrão genérico para o desenvolvimento de novos aplicativos no contexto de sistemas de informação, partindo de quatro requisitos funcionais que serão apresentados em uma seção mais adiante.\par
 
 
-\subsection{Sistemas de Informação}
+\subsection{Sistemas de Informação} %2.4
 Um sistema de informação pode ser definido como um conjunto de componentes inter-relacionados trabalhando juntos para coletar, recuperar, processar, armazenar e distribuir informações com a finalidade de facilitar o planejamento, o controle, a coordenação, a análise e o processo decisório em organizações \cite{laudon}.\par
 O escopo desta arquitetura está focado em sistemas de informação, porém, não está limitado somente a este tipo de software. Os requisitos de um aplicativo baseado nesta arquitetura, devem ser implementados através de plugins que podem se comunicar, persistir dados e conectar à internet de forma facilitada, usando APIs de alto nível. No entanto, os requisitos funcionais atendidos por esta arquitetura são muito comuns em sistemas de informação e este projeto tem o objetivo de facilitar a construção de aplicativos para este segmento.
 
 
-\subsection{Arquiteturas de Aplicativos Móveis}
+\subsection{Arquiteturas de Aplicativos Móveis} %2.5
 Arquitetura para aplicações móveis abrange quatro camadas: Interação Humana-Computador, Aplicação Móvel, \textit{Middleware} e \textit{Enterprise Backend} \cite{Pabllo:2008:MMA:1621087.1621128}. Neste trabalho, a arquitetura foi concentrada apenas nas camadas de interação, aplicação e \textit{middleware}.
 
 \subsubsection{Camada de Interação Humano-Computador}
@@ -88,7 +88,7 @@ A camada \textit{backend} consiste de uma outra aplicação que responde pelas r
 %<porque o uso tão popular dos aplicativos moveis?>%
 %<características particulares dos aplicativos móveis.O que fazem eles diferentes das aplicações web, desktop, em cloud, etc?>%
 %<demandas arquiteturais trazidas pelos aplicativos móveis>%
-\subsection{Projeto de Aplicativos Móveis}
+\subsection{Projeto de Aplicativos Móveis} %2.6
 Um projeto é um esforço temporário empreendido para criar um produto, serviço ou resultado exclusivo. O termo temporário quer dizer que o projeto possui um ciclo de vida com início e final determinados \cite{governanadetidotcom}. O projeto termina quando seus objetivos forem alcançados ou quando existirem motivos para não continuá-lo \cite{governanadetidotcom}.\par
 
 Um aplicativo móvel ou aplicação móvel ou simplesmente \textit{app}, é um sistema desenvolvido para ser instalado e executado em um dispositivo eletrônico portátil, como tablets e smartphones \cite{what_is_mobile}. Um aplicativo móvel pode ser baixado diretamente no aparelho eletrônico, desde que o dispositivo possua conexão com a Internet. O mercado de dispositivos móveis é ramificado por diferentes fabricantes, o que inclui uma variação de plataformas de desenvolvimento, sistemas operacionais, versões do SO e configuração variada de hardware. Na construção de um aplicativo para dispositivo móvel, a implementação é um ponto muito importante, pois, além de representar a parte concreta dos requisitos funcionais do aplicativo também refletem diretamente nos requisitos não funcionais e consequentemente na qualidade do software e na satisfação do usuário.\par
@@ -98,7 +98,7 @@ O sucesso de aplicativos para dispositivos móveis vai além das medidas de dese
 Torna-se evidente que são muitos requisitos a serem considerados em um projeto de um aplicativo móvel. O esforço dedicado para atender a todos os requisitos pode tornar o projeto enfadonho, além de exigir tempo e mão de obra. O processo de desenvolvimento pode ser otimizado através de ferramentas como \textit{frameworks} ou uma arquitetura de software que disponha de componentes reutilizáveis e fácil extensibilidade através de plugins.
 
 
-\subsection{Desenvolvimento Orientado a Componentes}
+\subsection{Desenvolvimento Orientado a Componentes} %2.7
 O desenvolvimento de software orientado a componentes é um paradigma da engenharia de software caracterizado pela composição de partes já existentes, ou desenvolvidas independentemente e que são integradas para atingir um objetivo final \cite{rafael_heider}. Construir novas soluções pela combinação de componentes desenvolvidos aumenta a qualidade e dá suporte ao rápido desenvolvimento, levando à diminuição do tempo de entrega do produto final ao mercado \cite{rafael_heider}. Os sistemas definidos através da composição de componentes permitem que sejam adicionadas, removidas e substituídas partes do sistema sem a necessidade de sua completa substituição. Com isso, o desenvolvimento baseado em componentes auxilia na manutenção do software, por permitir que o sistema seja atualizado através da integração de novos componentes ou atualização dos objetos já existentes \cite{szyperski_bosch_weck_1999}.\par
 
 O reuso de componentes é um recurso desta arquitetura, pois dispõe de onze componentes (visuais e não visuais) para auxiliar no desenvolvimento de novos aplicativos. Esses componentes são arquivos QML que suportam diferentes customizações através das propriedades disponibilizadas pelos objetos internos de cada componente. Os benefícios da componentização estão ligados a manutenibilidade, reúso, extensibilidade e escalabilidade \cite{D'Souza:1998:OCF:291139}.
@@ -109,10 +109,10 @@ O reuso de componentes é um recurso desta arquitetura, pois dispõe de onze com
 %<definir o que é o RESTful>%
 %<colocar uma figura explicando uma requisicao RESTful convencional>%
 %<benefícios do RESTful: porque tem sido amplamente adotado?>%
-\subsection{Web Services, RESTful, Push Notification e JSON}
+\subsection{Web Services, RESTful, Push Notification e JSON} %2.8
 \textit{Web Services} constituem uma tecnologia emergente da Arquitetura Orientada a Serviços (SOA) \cite{perepletchikov}. Com a expansão da internet e a necessidade de integração entre aplicações web, tornou-se necessário a centralização de informações para serem acessados por diferentes clientes. Para esse propósito, foi criada a tecnologia de \textit{web services} \cite{ibm_research}. 
 
-\textit{RESTFul} é um estilo arquitetural para a construção de sistemas distribuídos \cite{fielding}. O elemento fundamental da arquitetura \textit{RESTful} é o \textit{resource} ou recurso. Um recurso pode ser uma página web contendo um documento estruturado, uma imagem ou até mesmo um vídeo. Para localizar os recursos envolvidos em uma interação entre os componentes da arquitetura \textit{RESTful} é utilizado o chamado identificador de recurso ou \textit{URI}. Com isso, um recurso pode ser representado através de diferentes formatos e o mais comum e utilizado é o \textit{JSON}.
+\textit{RESTful} é um estilo arquitetural para a construção de sistemas distribuídos \cite{fielding}. O elemento fundamental da arquitetura \textit{RESTful} é o \textit{resource} ou recurso. Um recurso pode ser uma página web contendo um documento estruturado, uma imagem ou até mesmo um vídeo. Para localizar os recursos envolvidos em uma interação entre os componentes da arquitetura \textit{RESTful} é utilizado o chamado identificador de recurso ou \textit{URI}. Com isso, um recurso pode ser representado através de diferentes formatos e o mais comum e utilizado é o \textit{JSON}.
 
 % Adicionar uma imagem mostrando uma arquiteura RESTful ?? %
 
@@ -121,4 +121,4 @@ O reuso de componentes é um recurso desta arquitetura, pois dispõe de onze com
 % Adicionar uma imagem mostrando Push Notification ?? %
 
 \textit{JSON} (\textit{JavaScript Object Notation}) é um conjunto de chaves e valores, que podem
-ser interpretados por qualquer linguagem. Além de ser um formato de troca de dados largamente utilizado em serviços \textit{RESTFul}, é fácil de ser entendido e escrito pelos programadores. Estas propriedades fazem do JSON um objeto ideal para o intercâmbio de dados em aplicações web tal como o XML \cite{jun_y_zhishu}.
+ser interpretados por qualquer linguagem. Além de ser um formato de troca de dados largamente utilizado em serviços \textit{RESTful}, é fácil de ser entendido e escrito pelos programadores. Estas propriedades fazem do JSON um objeto ideal para o intercâmbio de dados em aplicações web tal como o XML \cite{jun_y_zhishu}.
