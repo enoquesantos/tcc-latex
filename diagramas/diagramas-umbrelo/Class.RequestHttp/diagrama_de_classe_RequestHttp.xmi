@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMI timestamp="2018-03-20T10:03:48" xmi.version="1.2" xmlns:UML="http://schema.omg.org/spec/UML/1.4" verified="false">
+ <XMI.header>
+  <XMI.documentation>
+   <XMI.exporter>umbrello uml modeller http://umbrello.kde.org</XMI.exporter>
+   <XMI.exporterVersion>1.6.13</XMI.exporterVersion>
+   <XMI.exporterEncoding>UnicodeUTF8</XMI.exporterEncoding>
+  </XMI.documentation>
+  <XMI.metamodel xmi.name="UML" xmi.version="1.4" href="UML.xml"/>
+ </XMI.header>
+ <XMI.content>
+  <UML:Model isSpecification="false" isLeaf="false" xmi.id="m1" isAbstract="false" name="Modelo UML" isRoot="false">
+   <UML:Namespace.ownedElement>
+    <UML:Stereotype isSpecification="false" isLeaf="false" xmi.id="folder" isAbstract="false" name="folder" isRoot="false" namespace="m1" visibility="public"/>
+    <UML:Stereotype isSpecification="false" isLeaf="false" xmi.id="constructor" isAbstract="false" name="constructor" isRoot="false" namespace="m1" visibility="public"/>
+    <UML:Stereotype isSpecification="false" isLeaf="false" xmi.id="enum" isAbstract="false" name="enum" isRoot="false" namespace="m1" visibility="public"/>
+    <UML:Stereotype isSpecification="false" isLeaf="false" xmi.id="class-or-package" isAbstract="false" name="class-or-package" isRoot="false" namespace="m1" visibility="public"/>
+    <UML:Model isSpecification="false" isLeaf="false" xmi.id="Logical_View" isAbstract="false" name="Logical View" isRoot="false" namespace="m1" visibility="public">
+     <UML:Namespace.ownedElement>
+      <UML:Package isSpecification="false" isLeaf="false" xmi.id="Datatypes" isAbstract="false" name="Datatypes" stereotype="folder" isRoot="false" namespace="Logical_View" visibility="public">
+       <UML:Namespace.ownedElement>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uQNrvQ4yih7m5" isAbstract="false" name="char" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uDJz6EpFnFsHz" isAbstract="false" name="int" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uVCABoU7o6ykJ" isAbstract="false" name="float" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uOZf34IS5L1bw" isAbstract="false" name="double" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uCHwclCbqTG0f" isAbstract="false" name="bool" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="usy5a10QB1z8y" isAbstract="false" name="string" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uWJ3jAJqG8ldm" isAbstract="false" name="unsigned char" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="u3Xg0YLpE3hGa" isAbstract="false" name="signed char" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="ulIUUlDMX8coa" isAbstract="false" name="unsigned int" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="u8C3AKI82F4TF" isAbstract="false" name="signed int" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="u35Wn2TufI8rA" isAbstract="false" name="short int" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uJZZGbbJmcbnH" isAbstract="false" name="unsigned short int" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="ux0EZtrdnqCUb" isAbstract="false" name="signed short int" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uRyCE7Kg6WQ89" isAbstract="false" name="long int" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uxkDK8bUFLL83" isAbstract="false" name="signed long int" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uz3JxLK930ttg" isAbstract="false" name="unsigned long int" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uleRnCCO9Orhp" isAbstract="false" name="long double" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="u46bFgQCDgCzy" isAbstract="false" name="wchar_t" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uGkLR2zzldMmw" isAbstract="false" elementReference="uambkQwJL962f" name="QObject*" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="upb7InTQU7v3g" isAbstract="false" elementReference="uj1B4kg9W3yHo" name="const QByteArray&amp;" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uuJyPPMn3vogT" isAbstract="false" elementReference="u1pRUikvheMAk" name="const QStringList&amp;" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uYTWvOosnWScL" isAbstract="false" elementReference="u1EROlz0XcJUm" name="const QVariantMap&amp;" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uZqxGovgj1H2c" isAbstract="false" elementReference="u1Q7Y8l1SVoo3" name="const QVariant&amp;" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="ukOffy7bOpVxj" isAbstract="false" elementReference="ulHu045Gpjhgo" name="QNetworkRequest*" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="uEbvai5QEysk4" isAbstract="false" elementReference="uPHR94Pk9UVsz" name="QNetworkAccessManager*" isRoot="false" namespace="Datatypes" visibility="public"/>
+        <UML:DataType isSpecification="false" isLeaf="false" xmi.id="u7Ajia5NTpHnR" isAbstract="false" elementReference="urqebIjlnnRg0" name="QNetworkReply*" isRoot="false" namespace="Datatypes" visibility="public"/>
+       </UML:Namespace.ownedElement>
+      </UML:Package>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="uFleHStN7KEaV" isAbstract="false" name="QJsonArray" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="urEHeoJkodeMj" isAbstract="false" name="QJsonObject" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="uQTX1zfSEJPJN" isAbstract="false" name="QJsonDocument" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="uPHR94Pk9UVsz" isAbstract="false" name="QNetworkAccessManager" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="ulHu045Gpjhgo" isAbstract="false" name="QNetworkRequest" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="uoe811usm6UrI" isAbstract="false" name="QUrl" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="uTF9EUCiFVZen" isAbstract="false" name="QUrlQuery" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="uAJD9bgzNp3ap" isAbstract="false" name="DownloadManager" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="ujlCe6bhsQRl3" isAbstract="false" name="UploadManager" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class comment="@brief The RequestHttp class&#xa;@extends QObject&#xa;This class manage http requests using get and post methods and can be used by QML components to handle webservice requests.&#xa;RequestHttp supports upload and download files as high level methods.&#xa;This class it also supports basic authentication and can be set using the registered properties:&#xa;basicAuthorizationUser and basicAuthorizationPassword.&#xa;&#xa;The properties below is to turn the object features accessible through the QML components&#xa;To QML components start the requests, can uses the get, post, uploadFile and downloadFile methods." isSpecification="false" isLeaf="false" xmi.id="u4zWIzRP3nh4e" isAbstract="false" name="RequestHttp" isRoot="false" namespace="Logical_View" visibility="public">
+       <UML:GeneralizableElement.generalization>
+        <UML:Generalization xmi.idref="uvi28IfytvA0X"/>
+       </UML:GeneralizableElement.generalization>
+       <UML:Classifier.feature>
+        <UML:Attribute comment="@brief m_status&#xa;Keeps current status for request. The status is sent in 'statusChanged(m_status)' signal." isSpecification="false" xmi.id="uKFLOGiRMXZpL" type="ucSId13sLkAQh" name="m_status" visibility="private"/>
+        <UML:Attribute comment="@brief m_baseUrl&#xa;Keeps the host domain or webservice address as base url for all requests, to simplify the use of component.&#xa;The components can open requests only with the path, if the property baseUrl is set.&#xa;If the property baseUrl is set, can call get or post like this:&#xa;1: requestHttp.get(&quot;/search/&quot;, {&quot;product&quot;:textInput.text})&#xa;2: requestHttp.post(&quot;/login&quot;, jsonLoginValues)&#xa;3: requestHttp.uploadFile(&quot;/save_user_image/user_id&quot;, [&quot;/home/user/Downloads/my-image.png&quot;])&#xa;4: requestHttp.downloadFile(&quot;/statics/images/user.png&quot;)" isSpecification="false" xmi.id="ubZ2KiciVLxfI" type="uj1B4kg9W3yHo" name="m_baseUrl" visibility="private"/>
+        <UML:Attribute comment="@brief m_basicAuthorization&#xa;Keeps the basic authorization hash to sent in requests as header parameter.&#xa;The basic authorization is a simple way to authenticate the requests in webservice.&#xa;The value will be defined in setBasicAuthorization(...) method and the value will be defined by&#xa;user name and user password as QByteArray from a base64, like this:&#xa;1: m_basicAuthorization = &quot;Basic &quot; + QByteArray(usernameAndPassword.toLocal8Bit().toBase64());" isSpecification="false" xmi.id="uiSxgRA335UXP" type="uj1B4kg9W3yHo" name="m_basicAuthorization" ownerScope="classifier" visibility="private"/>
+        <UML:Attribute comment="@brief m_basicAuthorizationUser&#xa;The user name used to create the basic authorization header, sent in all requests." isSpecification="false" xmi.id="uexxy1zgbhfPi" type="uj1B4kg9W3yHo" name="m_basicAuthorizationUser" ownerScope="classifier" visibility="private"/>
+        <UML:Attribute comment="@brief m_basicAuthorizationPassword&#xa;The user password used to create the basic authorization header, sent in all requests." isSpecification="false" xmi.id="ulfPKYyBJh94k" type="uj1B4kg9W3yHo" name="m_basicAuthorizationPassword" ownerScope="classifier" visibility="private"/>
+        <UML:Operation isQuery="false" isSpecification="false" isLeaf="false" xmi.id="utXg7DNLLG8jM" isOverride="false" isAbstract="false" name="RequestHttp" stereotype="constructor" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="u3As1LL3dBLI0" type="uGkLR2zzldMmw" name="parent" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isQuery="false" isSpecification="false" isLeaf="false" xmi.id="ufaqjzxr6LRef" isOverride="false" isAbstract="false" name="setBaseUrl" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uNuu3qZpOrC3g" type="upb7InTQU7v3g" name="url" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief setBasicAuthorizationUser&#xa;Set the basic authorization user&#xa;@param user QByteArray" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="ulI0QL0iG9NLY" isOverride="false" isAbstract="false" name="setBasicAuthorizationUser" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uwneECIob42N0" type="upb7InTQU7v3g" name="user" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief setBasicAuthorizationPassword&#xa;Set the basic authorization password&#xa;@param password QByteArray" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="u8JmpeyhbiTG8" isOverride="false" isAbstract="false" name="setBasicAuthorizationPassword" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uFJgLrQ3LprYv" type="upb7InTQU7v3g" name="password" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief status&#xa;Get the current request status as integer&#xa;@return int" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="umqUOKdXP71Xp" isOverride="false" isAbstract="false" name="status" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="uRFysp44GGvcD" type="uDJz6EpFnFsHz"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief statusError&#xa;Get the value for Status::Error&#xa;@return int" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uGEzu4lAxjFSH" isOverride="false" isAbstract="false" name="statusError" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="unxa1Lw6KUqgs" type="uDJz6EpFnFsHz"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief statusFinished&#xa;Get the value for Status::Finished&#xa;@return int" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="ujb4uFIzVZLQs" isOverride="false" isAbstract="false" name="statusFinished" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ude3xvhf99Cjp" type="uDJz6EpFnFsHz"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief statusLoading&#xa;Get the value for Status::Loading&#xa;@return int" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uJtUNd9CJ0Qw5" isOverride="false" isAbstract="false" name="statusLoading" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ugMjJZJ94CaPF" type="uDJz6EpFnFsHz"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief statusReady&#xa;Get the value for Status::Ready&#xa;@return int" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="ulMyH88fCS9Er" isOverride="false" isAbstract="false" name="statusReady" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ufUL5EvnPzAJI" type="uDJz6EpFnFsHz"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uvCwbiAD4YsJ3" isOverride="false" isAbstract="false" name="setBasicAuthorization" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="usOgzuXrlwlSD" type="upb7InTQU7v3g" name="user" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="u4cKPbfk8yY3h" type="upb7InTQU7v3g" name="password" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uF26FEQ4lYrRc" isOverride="false" isAbstract="false" name="downloadFile" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="ubCAEt99SroQV" type="uuJyPPMn3vogT" name="urls" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uIr0a41UxQdSm" type="uCHwclCbqTG0f" name="saveInAppDirectory" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uTdwZW7AMUdEp" type="uYTWvOosnWScL" name="headers" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uMJff3USEDBmp" isOverride="false" isAbstract="false" name="uploadFile" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="u9XNkiN0Zx46B" type="upb7InTQU7v3g" name="url" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="ueB3r8CVBCnpA" type="uuJyPPMn3vogT" name="filePathsList" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uONRv4P8d5PtN" type="uYTWvOosnWScL" name="headers" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="udxbfDiFQkL4L" type="uCHwclCbqTG0f" name="usesPutMethod" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uAP0ZPbxHQ6NA" isOverride="false" isAbstract="false" name="get" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uotpCkcv3cclE" type="upb7InTQU7v3g" name="url" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="ujVUGJdDxoK1E" type="uYTWvOosnWScL" name="urlArgs" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uzkknVPdKZPYt" type="uYTWvOosnWScL" name="headers" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="u8xTLqyHIZSEt" type="ua0YpT8hFlrus" name="callback" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uawgeb82dcLnY" isOverride="false" isAbstract="false" name="post" isRoot="false" visibility="public">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uWtqCKgjnHmDe" type="upb7InTQU7v3g" name="url" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="ucO566AVVXiHA" type="uZqxGovgj1H2c" name="postData" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="unJi94G0Fdm5G" type="uYTWvOosnWScL" name="headers" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uEWDpLad0Dx6q" type="ua0YpT8hFlrus" name="callback" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief initRequest&#xa;@param request QNetworkRequest *&#xa;@param url QByteArray the build a QUrl set to QNetworkRequest.&#xa;@link http://doc.qt.io/qt-5/qnetworkrequest.html&#xa;@param headers QVariantMap a map to append in QNetworkRequest as rawHeader&#xa;@param urlArgs QVariantMap" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uZYnXhtaIbAOF" isOverride="false" isAbstract="false" name="initRequest" isRoot="false" visibility="private">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="ukEORIGUc5NzP" type="ukOffy7bOpVxj" name="request" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uhTFhbvc5LRgb" type="upb7InTQU7v3g" name="url" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uo5ic56tQ62EK" type="uYTWvOosnWScL" name="headers" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uQDLVeBZkp0cY" type="uYTWvOosnWScL" name="urlArgs" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief urlQueryFromMap&#xa;@param map QVariantMap the url arguments to build a QUrlQuery&#xa;@return QUrlQuery" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uMiULl1PpHSgp" isOverride="false" isAbstract="false" name="urlQueryFromMap" isRoot="false" visibility="private">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter kind="return" xmi.id="ucw39m4u3viAo" type="uTF9EUCiFVZen"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uSb6q8tSGjEN3" type="uYTWvOosnWScL" name="map" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief setStatus&#xa;Set the current request status&#xa;@param status Status" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="urKqkcyeOZK3y" isOverride="false" isAbstract="false" name="setStatus" isRoot="false" visibility="private">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uDdwirj8tSepI" type="ucSId13sLkAQh" name="status" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief setHeaders&#xa;Set the HTTP headers for some request&#xa;@param requestHeaders QVariantMap a map with HTTP header as name->value pairs&#xa;@param request QNetworkRequest *" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uqfwupNAjzWKb" isOverride="false" isAbstract="false" name="setHeaders" isRoot="false" visibility="private">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uTJtCp3Kj9ZyD" type="uYTWvOosnWScL" name="requestHeaders" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uMAsXchxqnrSK" type="ukOffy7bOpVxj" name="request" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief connectCallback&#xa;Create a connection with QNetworkAccessManager and js function callback (if is callable),&#xa;otherwise connect in object onFinished slot. This method will be used by get and post functions.&#xa;@param manager QNetworkAccessManager* a pointer to request manager&#xa;@param callback QJSValue a reference to javascript function sent by qml objects" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uhSZP5nkm3G56" isOverride="false" isAbstract="false" name="connectCallback" isRoot="false" visibility="private">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uzgLsICGxYxz3" type="uEbvai5QEysk4" name="manager" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uQk45UVTWIFNS" type="ua0YpT8hFlrus" name="callback" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief baseUrlChanged&#xa;Emitted when the object url (m_baseUrl) change&#xa;@param url QByteArray" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uC7cLEON4ZzuX" isOverride="false" isAbstract="false" name="baseUrlChanged" isRoot="false" visibility="protected">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="ue9bYvW2WV79L" type="upb7InTQU7v3g" name="url" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief downloadFinished&#xa;Emitted after downloaded files are finished" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="u2lmN1FDqVtQV" isOverride="false" isAbstract="false" name="downloadFinished" isRoot="false" visibility="protected"/>
+        <UML:Operation comment="@brief downloadProgressChanged&#xa;Emitted for each byte received from each file during download files request&#xa;@param bytesReceived qint64 the total bytes received&#xa;@param bytesTotal qint64 the size of bytes from origin file" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uF2qeGAhUbuKJ" isOverride="false" isAbstract="false" name="downloadProgressChanged" isRoot="false" visibility="protected">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uNQv9rqcHDHvp" type="uQlnva1sqKqCz" name="bytesReceived" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uTddutu6MbFq8" type="uQlnva1sqKqCz" name="bytesTotal" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief downloadFileSaved&#xa;Emitted after each downloaded file are saved in device, emitted from downloadFile method.&#xa;@param filePath QByteArray the saved file absolute path in the device" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="u5BfT4NPmNacH" isOverride="false" isAbstract="false" name="downloadFileSaved" isRoot="false" visibility="protected">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uaI68izghewiq" type="upb7InTQU7v3g" name="filePath" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief error&#xa;Emitted for all request errors, like invalid https certificates, network errors or server errors.&#xa;The statusCode can be HTTP response codes (like 500 or 400).&#xa;The message is &quot;Network reply with error code &quot; + QNetworkReply::NetworkError&#xa;@param statusCode int&#xa;@param message QVariant" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uGCm2zcGQKjRW" isOverride="false" isAbstract="false" name="error" isRoot="false" visibility="protected">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uSgCf0Xln18G7" type="uDJz6EpFnFsHz" name="statusCode" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uLAoNmXrSQo8O" type="uZqxGovgj1H2c" name="message" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief finished&#xa;Emitted for each request success response with the HTTP status code and the server response sended.&#xa;For each response will be checked if the result has a valid json and will be converted to array or&#xa;object when is any of types. For object, the response will be a QVariantMap, for array, QVariantList.&#xa;Otherwise (is not a json), sended as QByteArray.&#xa;@param statusCode int&#xa;@param response QVariant" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="ufVezjJ5n6vEx" isOverride="false" isAbstract="false" name="finished" isRoot="false" visibility="protected">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uIVu4RCJiGcUN" type="uDJz6EpFnFsHz" name="statusCode" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uhuaPgqQC8v47" type="uZqxGovgj1H2c" name="response" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief statusChanged&#xa;Emitted when the response status are updated. The possible values is the Class Enum:&#xa;Status {&#xa;Error,&#xa;Finished,&#xa;Loading,&#xa;Ready&#xa;}&#xa;@param status int" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uifXenrE7Ds35" isOverride="false" isAbstract="false" name="statusChanged" isRoot="false" visibility="protected">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="ufLAw5pIoNzpL" type="uDJz6EpFnFsHz" name="status" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief uploadFinished&#xa;Emitted after uploaded files are finished" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="ujMTA2cfbXtfv" isOverride="false" isAbstract="false" name="uploadFinished" isRoot="false" visibility="protected"/>
+        <UML:Operation comment="@brief uploadProgressChanged&#xa;Emitted for each byte sended from each file during upload files request&#xa;@param bytesSent qint64 the size of bytes sended to server&#xa;@param bytesTotal qint64 the size of bytes of the file" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uAEPSGqjn1Pcr" isOverride="false" isAbstract="false" name="uploadProgressChanged" isRoot="false" visibility="protected">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="utFvgpKUqNGSx" type="uQlnva1sqKqCz" name="bytesSent" visibility="private"/>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uR20cAAKtrFzQ" type="uQlnva1sqKqCz" name="bytesTotal" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief onError&#xa;This slot will be connected on each request, for handle request errors,&#xa;like invalid HTTPS certificates or some network error.&#xa;@param code QNetworkReply::NetworkError" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uvlX7mk5sOF2C" isOverride="false" isAbstract="false" name="onError" isRoot="false" visibility="private">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="umjNZcllpz3Fl" type="utj1v8eCNguO0" name="code" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation comment="@brief onFinished&#xa;This slot is connected with QNetWorkManager object to receive the requests responses.&#xa;The response is send as byte array, and needs to be converted to json (if is a json), otherwise, uses a plain text.&#xa;The response data (plain text or json array or json object) and the response status is sent on the &quot;finished&quot; signal&#xa;@param reply QNetworkReply *" isQuery="false" isSpecification="false" isLeaf="false" xmi.id="uIl5NEllX8g5J" isOverride="false" isAbstract="false" name="onFinished" isRoot="false" visibility="private">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter value="" isSpecification="false" xmi.id="uiAl9ewBN6QFu" type="u7Ajia5NTpHnR" name="reply" visibility="private"/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+       <UML:Namespace.ownedElement>
+        <UML:Enumeration comment="@brief The Status enum&#xa;Keeps the current request status and can be used by QML components to create binding's with other visual elements" isSpecification="false" isLeaf="false" xmi.id="ucSId13sLkAQh" isAbstract="false" name="Status" stereotype="enum" isRoot="false" namespace="u4zWIzRP3nh4e" visibility="public">
+         <UML:Enumeration.literal>
+          <UML:EnumerationLiteral isSpecification="false" isLeaf="false" xmi.id="uHSZ2dsVIYXvl" isAbstract="false" name="Error" isRoot="false" namespace="ucSId13sLkAQh" visibility="public"/>
+          <UML:EnumerationLiteral isSpecification="false" isLeaf="false" xmi.id="uZaUwUbDRIabi" isAbstract="false" name="Finished" isRoot="false" namespace="ucSId13sLkAQh" visibility="public"/>
+          <UML:EnumerationLiteral isSpecification="false" isLeaf="false" xmi.id="u3ie9UdlDdEYT" isAbstract="false" name="Loading" isRoot="false" namespace="ucSId13sLkAQh" visibility="public"/>
+          <UML:EnumerationLiteral isSpecification="false" isLeaf="false" xmi.id="uQltNET2yLkDU" isAbstract="false" name="Ready" isRoot="false" namespace="ucSId13sLkAQh" visibility="public"/>
+         </UML:Enumeration.literal>
+        </UML:Enumeration>
+       </UML:Namespace.ownedElement>
+      </UML:Class>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="uambkQwJL962f" isAbstract="false" name="QObject" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Generalization isSpecification="false" xmi.id="uvi28IfytvA0X" parent="uambkQwJL962f" name="" namespace="Logical_View" visibility="public" discriminator="" child="u4zWIzRP3nh4e"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="uj1B4kg9W3yHo" isAbstract="false" name="QByteArray" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="u1pRUikvheMAk" isAbstract="false" name="QStringList" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="u1EROlz0XcJUm" isAbstract="false" name="QVariantMap" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="ua0YpT8hFlrus" isAbstract="false" name="QJSValue" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="u1Q7Y8l1SVoo3" isAbstract="false" name="QVariant" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="uQlnva1sqKqCz" isAbstract="false" name="qint64" isRoot="false" namespace="Logical_View" visibility="public"/>
+      <UML:Class isSpecification="false" isLeaf="false" xmi.id="urqebIjlnnRg0" isAbstract="false" name="QNetworkReply" stereotype="class-or-package" isRoot="false" namespace="Logical_View" visibility="public">
+       <UML:Namespace.ownedElement>
+        <UML:Class isSpecification="false" isLeaf="false" xmi.id="utj1v8eCNguO0" isAbstract="false" name="NetworkError" isRoot="false" namespace="urqebIjlnnRg0" visibility="public"/>
+       </UML:Namespace.ownedElement>
+      </UML:Class>
+     </UML:Namespace.ownedElement>
+     <XMI.extension xmi.extender="umbrello">
+      <diagrams resolution="96">
+       <diagram snapx="25" griddotcolor="#d3d3d3" linecolor="#000000" showatts="1" showscope="1" textcolor="#000000" snapgrid="0" showops="1" snapy="25" canvaswidth="803" showattribassocs="1" showopsig="1" linewidth="0" showpackage="1" showstereotype="1" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" showgrid="0" localid="-1" name="diagrama de classe" xmi.id="u2zYhBwO1A69K" type="1" showpubliconly="0" canvasheight="648" usefillcolor="0" zoom="75,61436672967861" documentation="" isopen="1" showattsig="1" fillcolor="#ffffff" backgroundcolor="#ffffff" snapcsgrid="0">
+        <widgets>
+         <classwidget x="-96" autoresize="1" width="803" showoperations="1" linecolor="#000000" showscope="1" textcolor="#000000" height="648" showopsigs="601" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" showattsigs="601" linewidth="0" showpackage="1" showstereotype="1" showattributes="1" font="Noto Sans,10,-1,0,50,0,0,0,0,0,Regular" localid="uZfgXf0Op857P" xmi.id="u4zWIzRP3nh4e" showpubliconly="0" usefillcolor="0" y="-105" fillcolor="#ffffff" isinstance="0"/>
+        </widgets>
+        <messages/>
+        <associations/>
+       </diagram>
+      </diagrams>
+     </XMI.extension>
+    </UML:Model>
+    <UML:Model isSpecification="false" isLeaf="false" xmi.id="Use_Case_View" isAbstract="false" name="Use Case View" isRoot="false" namespace="m1" visibility="public">
+     <UML:Namespace.ownedElement/>
+    </UML:Model>
+    <UML:Model isSpecification="false" isLeaf="false" xmi.id="Component_View" isAbstract="false" name="Component View" isRoot="false" namespace="m1" visibility="public">
+     <UML:Namespace.ownedElement>
+      <UML:Package isSpecification="false" isLeaf="false" xmi.id="ur7tOP7BqdM6k" isAbstract="false" name="home/enoque/qt/projects/tcc/src/network" stereotype="folder" isRoot="false" namespace="Component_View" visibility="public">
+       <UML:Namespace.ownedElement>
+        <UML:Artifact isSpecification="false" isLeaf="false" xmi.id="ud8hq1zRsq96L" isAbstract="false" name="requesthttp.h" drawas="1" isRoot="false" namespace="ur7tOP7BqdM6k" visibility="public"/>
+       </UML:Namespace.ownedElement>
+      </UML:Package>
+     </UML:Namespace.ownedElement>
+    </UML:Model>
+    <UML:Model isSpecification="false" isLeaf="false" xmi.id="Deployment_View" isAbstract="false" name="Deployment View" isRoot="false" namespace="m1" visibility="public">
+     <UML:Namespace.ownedElement/>
+    </UML:Model>
+    <UML:Model isSpecification="false" isLeaf="false" xmi.id="Entity_Relationship_Model" isAbstract="false" name="Entity Relationship Model" isRoot="false" namespace="m1" visibility="public">
+     <UML:Namespace.ownedElement/>
+    </UML:Model>
+   </UML:Namespace.ownedElement>
+  </UML:Model>
+ </XMI.content>
+ <XMI.extensions xmi.extender="umbrello">
+  <docsettings documentation="" viewid="u2zYhBwO1A69K" uniqueid="uZfgXf0Op857P"/>
+  <listview>
+   <listitem type="800" id="Views" open="1">
+    <listitem type="836" id="Entity_Relationship_Model" open="1"/>
+    <listitem type="802" id="Use_Case_View" open="1"/>
+    <listitem type="827" id="Deployment_View" open="1"/>
+    <listitem type="821" id="Component_View" open="1">
+     <listitem type="820" id="ur7tOP7BqdM6k" open="0">
+      <listitem type="824" id="ud8hq1zRsq96L" open="0"/>
+     </listitem>
+    </listitem>
+    <listitem type="801" id="Logical_View" open="1">
+     <listitem label="diagrama de classe" type="807" id="u2zYhBwO1A69K" open="0"/>
+     <listitem type="813" id="uAJD9bgzNp3ap" open="0"/>
+     <listitem type="813" id="uj1B4kg9W3yHo" open="0"/>
+     <listitem type="813" id="uQlnva1sqKqCz" open="0"/>
+     <listitem type="813" id="uFleHStN7KEaV" open="0"/>
+     <listitem type="813" id="uQTX1zfSEJPJN" open="0"/>
+     <listitem type="813" id="urEHeoJkodeMj" open="0"/>
+     <listitem type="813" id="ua0YpT8hFlrus" open="0"/>
+     <listitem type="813" id="uPHR94Pk9UVsz" open="0"/>
+     <listitem type="813" id="urqebIjlnnRg0" open="0">
+      <listitem type="813" id="utj1v8eCNguO0" open="0"/>
+     </listitem>
+     <listitem type="813" id="ulHu045Gpjhgo" open="0"/>
+     <listitem type="813" id="uambkQwJL962f" open="0"/>
+     <listitem type="813" id="u1pRUikvheMAk" open="0"/>
+     <listitem type="813" id="uoe811usm6UrI" open="0"/>
+     <listitem type="813" id="uTF9EUCiFVZen" open="0"/>
+     <listitem type="813" id="u1Q7Y8l1SVoo3" open="0"/>
+     <listitem type="813" id="u1EROlz0XcJUm" open="0"/>
+     <listitem type="813" id="u4zWIzRP3nh4e" open="0">
+      <listitem type="815" id="uC7cLEON4ZzuX" open="0"/>
+      <listitem type="815" id="uhSZP5nkm3G56" open="0"/>
+      <listitem type="815" id="uF26FEQ4lYrRc" open="0"/>
+      <listitem type="815" id="u5BfT4NPmNacH" open="0"/>
+      <listitem type="815" id="u2lmN1FDqVtQV" open="0"/>
+      <listitem type="815" id="uF2qeGAhUbuKJ" open="0"/>
+      <listitem type="815" id="uGCm2zcGQKjRW" open="0"/>
+      <listitem type="815" id="ufVezjJ5n6vEx" open="0"/>
+      <listitem type="815" id="uAP0ZPbxHQ6NA" open="0"/>
+      <listitem type="815" id="uZYnXhtaIbAOF" open="0"/>
+      <listitem type="814" id="ubZ2KiciVLxfI" open="0"/>
+      <listitem type="814" id="uiSxgRA335UXP" open="0"/>
+      <listitem type="814" id="ulfPKYyBJh94k" open="0"/>
+      <listitem type="814" id="uexxy1zgbhfPi" open="0"/>
+      <listitem type="814" id="uKFLOGiRMXZpL" open="0"/>
+      <listitem type="815" id="uvlX7mk5sOF2C" open="0"/>
+      <listitem type="815" id="uIl5NEllX8g5J" open="0"/>
+      <listitem type="815" id="uawgeb82dcLnY" open="0"/>
+      <listitem type="815" id="utXg7DNLLG8jM" open="0"/>
+      <listitem type="815" id="ufaqjzxr6LRef" open="0"/>
+      <listitem type="815" id="uvCwbiAD4YsJ3" open="0"/>
+      <listitem type="815" id="u8JmpeyhbiTG8" open="0"/>
+      <listitem type="815" id="ulI0QL0iG9NLY" open="0"/>
+      <listitem type="815" id="uqfwupNAjzWKb" open="0"/>
+      <listitem type="815" id="urKqkcyeOZK3y" open="0"/>
+      <listitem type="831" id="ucSId13sLkAQh" open="0">
+       <listitem type="839" id="uHSZ2dsVIYXvl" open="0"/>
+       <listitem type="839" id="uZaUwUbDRIabi" open="0"/>
+       <listitem type="839" id="u3ie9UdlDdEYT" open="0"/>
+       <listitem type="839" id="uQltNET2yLkDU" open="0"/>
+      </listitem>
+      <listitem type="815" id="umqUOKdXP71Xp" open="0"/>
+      <listitem type="815" id="uifXenrE7Ds35" open="0"/>
+      <listitem type="815" id="uGEzu4lAxjFSH" open="0"/>
+      <listitem type="815" id="ujb4uFIzVZLQs" open="0"/>
+      <listitem type="815" id="uJtUNd9CJ0Qw5" open="0"/>
+      <listitem type="815" id="ulMyH88fCS9Er" open="0"/>
+      <listitem type="815" id="uMJff3USEDBmp" open="0"/>
+      <listitem type="815" id="ujMTA2cfbXtfv" open="0"/>
+      <listitem type="815" id="uAEPSGqjn1Pcr" open="0"/>
+      <listitem type="815" id="uMiULl1PpHSgp" open="0"/>
+     </listitem>
+     <listitem type="830" id="Datatypes" open="0">
+      <listitem type="829" id="uCHwclCbqTG0f" open="1"/>
+      <listitem type="829" id="uQNrvQ4yih7m5" open="1"/>
+      <listitem type="829" id="upb7InTQU7v3g" open="0"/>
+      <listitem type="829" id="uuJyPPMn3vogT" open="0"/>
+      <listitem type="829" id="uZqxGovgj1H2c" open="0"/>
+      <listitem type="829" id="uYTWvOosnWScL" open="0"/>
+      <listitem type="829" id="uOZf34IS5L1bw" open="1"/>
+      <listitem type="829" id="uVCABoU7o6ykJ" open="1"/>
+      <listitem type="829" id="uDJz6EpFnFsHz" open="1"/>
+      <listitem type="829" id="uleRnCCO9Orhp" open="1"/>
+      <listitem type="829" id="uRyCE7Kg6WQ89" open="1"/>
+      <listitem type="829" id="uEbvai5QEysk4" open="0"/>
+      <listitem type="829" id="u7Ajia5NTpHnR" open="0"/>
+      <listitem type="829" id="ukOffy7bOpVxj" open="0"/>
+      <listitem type="829" id="uGkLR2zzldMmw" open="0"/>
+      <listitem type="829" id="u35Wn2TufI8rA" open="1"/>
+      <listitem type="829" id="u3Xg0YLpE3hGa" open="1"/>
+      <listitem type="829" id="u8C3AKI82F4TF" open="1"/>
+      <listitem type="829" id="uxkDK8bUFLL83" open="1"/>
+      <listitem type="829" id="ux0EZtrdnqCUb" open="1"/>
+      <listitem type="829" id="usy5a10QB1z8y" open="1"/>
+      <listitem type="829" id="uWJ3jAJqG8ldm" open="1"/>
+      <listitem type="829" id="ulIUUlDMX8coa" open="1"/>
+      <listitem type="829" id="uz3JxLK930ttg" open="1"/>
+      <listitem type="829" id="uJZZGbbJmcbnH" open="1"/>
+      <listitem type="829" id="u46bFgQCDgCzy" open="1"/>
+     </listitem>
+     <listitem type="813" id="ujlCe6bhsQRl3" open="0"/>
+    </listitem>
+   </listitem>
+  </listview>
+  <codegeneration>
+   <codegenerator language="C++"/>
+  </codegeneration>
+ </XMI.extensions>
+</XMI>
