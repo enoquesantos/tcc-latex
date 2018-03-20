@@ -124,6 +124,61 @@ Cada objeto em \textit{pages} poderá conter as seguintes propriedades:
 	\item \textit{showInTabBar} (bool): Um valor booleano que indica se a página poderá ser exibida no menu de layout em linha. O objetivo dessa propriedade é permitir exibir páginas diferentes nos menus quando o \textit{drawer menu} for instanciado.
 \end{itemize}
 
+O código a seguir, apresenta um exemplo de um plugin com uma lista de páginas, que podem ser visualizadas nas figuras 4 e 5.
+\begin{center}
+\begin{lstlisting}[language=json]
+{
+	pages:[
+		{
+			qml:"Page1.qml",
+			title:"Pagina 1",
+			awesomeIcon:"commenting",
+			order:3,
+			roles:["student"],
+			showInDrawer:true,
+			showInTabBar:true
+		},
+		{
+			qml:"Page2.qml",
+			title:"Pagina 2",
+			awesomeIcon:"calendar",
+			order:4,
+			roles:["student","teacher"],
+			showInDrawer:true,
+			showInTabBar:true
+		},
+		{
+			qml:"Page3.qml",
+			title:"Pagina 3",
+			awesomeIcon:"code_fork",
+			order:5,
+			roles:["student","teacher"],
+			showInDrawer:true,
+			showInTabBar:true
+		},
+		{
+			qml:"ProfileView.qml",
+			title:"Meu perfil",
+			roles:["student","teacher"],
+			awesomeIcon:"user",
+			order:1,
+			showInDrawer:true,
+			showInTabBar:true
+		},
+		{
+      		qml:"AboutPage.qml",
+			title:"Sobre",
+			awesomeIcon:"question_circle",
+			roles:["student","teacher"],
+			order:0,
+			showInDrawer:true,
+			showInTabBar:true
+		}
+	]
+}
+\end{lstlisting}
+\end{center}
+
 As páginas serão instanciadas sob demanda quando o aplicativo estiver utilizando o layout em pilha, que ocorrerá quando o usuário clicar em um item da lista. No layout em pilha, o menu é exibido pelo componente \textit{Drawer.qml} que consiste de uma instância do objeto \textit{Drawer} do \textit{Quick Controls} e as páginas serão listadas verticalmente (exemplo na figura 4).\par
 
 Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botões será adicionado no rodapé da janela do aplicativo permitindo ao usuário alternar entre as páginas disponíveis. Porém, no layout em linha, todas as páginas serão instanciadas no início da aplicação e terá um botão associado a cada página. No layout em linha, o menu corresponde ao componente \textit{TabBar.qml} que consiste de uma instância do objeto \textit{TabBar} do \textit{Quick Controls} com algumas modificações (exemplo na figura 5). As figuras a seguir, apresentam exemplos dos layouts em pilha e em linha.
@@ -212,7 +267,7 @@ Item {
 	}
 }
 \end{lstlisting}
-\captionof{lstlisting}{Exemplo de persistência através do objeto \textit{Settings}}
+% \captionof{lstlisting}{Exemplo de persistência através do objeto \textit{Settings}}
 \end{center}
 
 
@@ -426,11 +481,11 @@ Item {
 
 \end{itemize}
 
-Os métodos descritos anteriormente são todos \textit{void}, assíncronos e declarados como \textit{Q\_INVOKABLE} \footnote{htps://doc.qt.io/qt-5/qtqml-cppintegration-exposecppattributes.html} para permitir o uso dos métodos em componentes QML. Para obter a resposta de uma requisição, é preciso criar uma conexão com o sinal \textit{finished}. Esse sinal será emitido por todos os métodos descritos anteriormente se não houver erros no pedido e logo após o envio da resposta pelo servidor. O sinal \textit{finished} passará dois argumentos: \textit{statusCode} — um valor inteiro indicando o status da resposta (200, 400, 500, etc.) e \textit{response} — o dado enviado pelo servidor. Se a resposta enviada pelo servidor for um json válido, \textit{response} conterá um objeto ou array, caso contrário, uma string contendo o dado bruto.\par
+Os métodos descritos anteriormente são todos \textit{void}, assíncronos e declarados como \textit{Q\_INVOKABLE} \footnote{htps://doc.qt.io/qt-5/qtqml-cppintegration-exposecppattributes.html} para permitir o uso dos métodos em componentes QML. Para obter a resposta de uma requisição, é preciso criar uma conexão com o sinal \textit{finished} usando o objeto \textit{Connections}\footnote{http://doc.qt.io/archives/qt-4.8/qml-connections.html} do QML, especificando como \textit{target} o objeto \textit{requestHttp}. O sinal \textit{finished} será emitido por todos os métodos da classe \textit{RequestHttp} descritos anteriormente quando não houver erros no pedido e logo após o envio da resposta pelo servidor. O sinal \textit{finished} passará dois argumentos: \textit{statusCode} — um valor inteiro indicando o status da resposta (200, 400, 500, etc.) e \textit{response} — o dado da resposta enviado pelo servidor. Se a resposta enviada pelo servidor for um json válido, \textit{response} será convertido em objeto ou array javascript, caso contrário, uma string contendo o dado bruto.\par
 
 O sinal \textit{error} será emitido quando houver erros em um pedido e passará dois argumentos, \textit{statusCode} (integer) indicando o código HTTP correspondente ao erro, e \textit{message} (string) contendo a mensagem do erro.\par
 
-A propriedade \textit{status} (integer) declarada como \textit{Q\_PROPERTY} indicará o \textit{status} atual de uma requisição. Essa propriedade pode ser comparada com qualquer uma das seguintes meta-propriedades (útil para fazer \textit{bindings} com outros objetos):
+A propriedade \textit{status} (integer) declarada como \textit{Q\_PROPERTY}\footnote{http://doc.qt.io/qt-5/properties.html} indicará o \textit{status} atual de uma requisição. Essa propriedade pode ser comparada com qualquer uma das seguintes meta-propriedades (útil para fazer \textit{bindings} com outros objetos):
 
 \begin{itemize}
 	\item \textit{Error}: indica um erro no pedido, quando o servidor não responder ou o status da requisição for zero;
@@ -442,6 +497,8 @@ A propriedade \textit{status} (integer) declarada como \textit{Q\_PROPERTY} indi
 	\item \textit{Ready}: indica que a requisição está pronta, será setada em \textit{status} no construtor e logo após a emissão do sinal \textit{finished}.
 \end{itemize}
 
+O trecho de código a seguir, apresenta um exemplo de como criar um \textit{Bind} com o status de uma requisição em uma propriedade de um objeto \textit{Button}.
+
 \begin{center}
 \begin{lstlisting}[language=qml]
 import RequestHttp 1.0 
@@ -450,7 +507,6 @@ RequestHttp {
 	id:request
 }
 ...
-
 Button {
 	text:"Submit"
 	enabled:request.status == request.Ready
@@ -458,7 +514,7 @@ Button {
 }
 ...
 \end{lstlisting}
-\captionof{lstlisting}{Exemplo de \textit{Bind} com o status de uma requisição}
+% \captionof{lstlisting}{Exemplo de \textit{Bind} com o status de uma requisição}
 \end{center}
 
 
@@ -480,6 +536,10 @@ Para gerenciar as operações de banco de dados, foi criado uma classe C++ chama
 A classe \textit{Database} é responsável por criar o banco de dados \textit{SQLITE} na primeira execução do aplicativo se houver necessidade, ou seja, se algum plugin dispor de um arquivo \textit{plugin\_table.sql} em seu diretório e será instanciada pelo objeto \textit{PluginManager} para criar a tabela do plugin. Se nenhum plugin fornecer esse arquivo, o banco de dados \textit{SQLITE} não será criado. A classe \textit{Database} utiliza as classes \textit{QSqlDatabase} para criação e conexão com o banco de dados e as classes \textit{QSqlQuery} e \textit{QSqlRecord} para as realizar \textit{querys} e retornar os resultados das consultas. Os métodos principais desta classe serão descritos a seguir:
 
 \begin{itemize}
+	\item \textit{tableColumns}: esse método retorna uma lista de strings contendo os nomes das colunas da tabela especificada no único parâmetro do método;
+
+	\item \textit{createTable}: esse método é invocado pelo gerenciador de plugins quando houver um arquivo sql para criação de uma tabela no banco \textit{SQLITE} do aplicativo. Ele requer um único parâmetro string com o path do arquivo contendo os comandos de criação da tabela do plugin;
+
 	\item \textit{select}: esse método pode ser utilizado para recuperar dados de uma tabela através de uma consulta \textit{sql} e possui três parâmetros, o primeiro é nome da tabela onde será feito a consulta, o segundo é um objeto contendo os parâmetros da consulta (condição \textit{where}) no estilo \textit{nome-da-coluna.valor}, e o último parâmetro, um outro objeto contendo argumentos adicionais, tais como \textit{limit}, \textit{offset} e \textit{order by}. Esse método retornará uma lista de objetos resultante da consulta, e cada objeto contido na lista é composto de \textit{nome-da-coluna.valor}. Se a consulta não for efetuada com sucesso, será retornado uma lista vazia;
 
 	\item \textit{insert}: esse método pode ser utilizado para inserir dados em uma tabela e os parâmetros requeridos são: o nome da tabela onde será feito a inserção e um objeto no estilo \textit{nome-da-coluna.valor} contendo os dados a serem persistidos. Se a inserção for efetuada com sucesso e a tabela possuir uma coluna auto-incrementada como chave-primária o valor incrementado será retornado. Caso contrário, não possuir a coluna auto-incrementada, retornará o valor inteiro 1 (um) ou, retornará zero se houver erros na inserção;
@@ -512,7 +572,9 @@ Outro atributo \textit{totalItens} manterá atualizado o número de registros na
 	\caption{Diagrama da classe DatabaseComponent}
 \end{figure}
 
-É importante destacar que os métodos de busca, inserção, remoção e atualização foram simplificados para que os objetos informem apenas os parâmetros do método sem o nome da tabela. Outro recurso importante desse componente é que o método de busca é assíncrono e os resultados de uma busca, quando houver, serão retornados através do sinal \textit{itemLoaded} que passará como argumento, um objeto no estilo \textit{nome-da-coluna.valor}. \textit{DatabaseComponent} possui ainda o método \textit{containsId} que verifica se um item (pela chave primária) já está salvo localmente e pode ser útil para sincronizar com a \textit{view} os itens já baixados do serviço \textit{REST}. O código a seguir, apresenta um exemplo de como um plugin poderá utilizar \textit{DatabaseComponent} referenciada apenas como "Database" para persistir dados em uma tabela:
+É importante destacar que os métodos de busca, inserção, remoção e atualização foram simplificados para que os objetos informem apenas os parâmetros do método sem o nome da tabela. Outro recurso importante desse componente é que o método de busca é assíncrono e os resultados de uma busca, quando houver, serão retornados através do sinal \textit{itemLoaded} que passará como argumento, um objeto no estilo \textit{nome-da-coluna.valor}. \textit{DatabaseComponent} possui ainda o método \textit{containsId} que verifica se um item (pela chave primária) já está salvo localmente e pode ser útil para sincronizar com a \textit{view} os itens já baixados do serviço \textit{REST}.
+
+O código a seguir, apresenta um exemplo de como um plugin poderá utilizar \textit{DatabaseComponent} referenciada apenas como "Database" para persistir dados em uma tabela:
 
 \begin{center}
 \begin{lstlisting}[language=qml]
@@ -544,7 +606,7 @@ Item {
 }
 ...
 \end{lstlisting}
-\captionof{lstlisting}{Exemplo de como utilizar \textit{DatabaseComponent}}
+% \captionof{lstlisting}{Exemplo de como utilizar \textit{DatabaseComponent}}
 \end{center}
 
 
@@ -554,12 +616,11 @@ Notificações do aplicativo é um requisito funcional disponibilizado nesta arq
 \subsubsection{Notificações via push}
 O suporte a notificações via \textit{push} já está configurado na arquitetura e o que o desenvolvedor deve fazer para enviar mensagens via \textit{push} é criar um projeto no \textit{Firebase}, exportar o arquivo \textit{google-services.json} e adicioná-lo no diretório \textit{android} e o arquivo \textit{google-services.xml} correspondente ao iOS no diretório \textit{ios}, substituindo os arquivos existentes, ambos criados como exemplo. É importante destacar que o \textit{package name} do aplicativo adicionado no \textit{AndroidManifest.xml} e o \textit{CFBundleIdentifier} no \textit{Info.plist} do iOS, devem ser o mesmo utilizado ao criar o projeto no \textit{Firebase}. Caso contrário, ocorrerá um erro ao construir o APK ou IPA, pois as bibliotecas correspondentes ao serviço de \textit{push} (adicionadas ao projeto durante o \textit{build}) farão um \textit{parsing} dos arquivos e abortará a compilação caso ocorra algum erro. No android, o \textit{package name} deve ser adicionado manualmente no arquivo \textit{build.gradle} presente no diretório \textit{android} na propriedade \textit{defaultConfig.applicationId}.\par
 
-No android, o funcionamento de \textit{push notification} requer duas classes java que serão instanciadas na inicialização do aplicativo e funcionarão como dois serviços. Essas classes já estão na arquitetura e o desenvolvedor não precisa modificá-las. O primeiro serviço registra o dispositivo no \textit{Firebase} e retorna um token. O segundo serviço é um \textit{listener} de notificações via \textit{push} e ficará em execução mesmo que a aplicação seja fechada. Ao enviar uma notificação utilizando o console do \textit{Firebase} ou através de algum \textit{web service}, as notificações serão recebidas nesse serviço e enviadas para o \textit{system tray} automaticamente. Se o aplicativo estiver em execução, a notificação será encaminhada para o aplicativo em um objeto json contendo todos os dados da mensagem, tais como, o título, a data e a hora de envio e o \textit{payload} (um dado adicional não visível enviado na mensagem).\par
+No android, o funcionamento de \textit{push notification} requer duas classes java que serão instanciadas na inicialização do aplicativo e funcionarão como dois serviços. Essas classes já estão no projeto e o desenvolvedor não precisa modificá-las. O primeiro serviço registra o dispositivo no \textit{Firebase} e retorna um token. O segundo serviço é um \textit{listener} de notificações via \textit{push} e ficará em execução mesmo que a aplicação seja fechada. Ao enviar uma notificação utilizando o console do \textit{Firebase} ou através de algum \textit{web service}, as notificações serão recebidas nesse serviço e enviadas para o \textit{system tray} automaticamente. Se o aplicativo estiver em execução, a notificação será encaminhada para o aplicativo em um objeto json contendo todos os dados da mensagem, tais como, o título, a data e a hora de envio e o \textit{payload} (um dado adicional não visível enviado na mensagem). Para adicionar o dado de \textit{payload}, é necessário que o \textit{web service} adicione um objeto json na requisição que é enviada ao \textit{Firebase}\footnote{https://firebase.google.com/docs/cloud-messaging/concept-options?hl=pt-br}.\par
 
 No iOS, o arquivo \textit{QtAppDelegate.mm} presente no diretório \textit{ios} realizará o registro do dispositivo no \textit{Firebase} e contém um método que receberá as notificações via \textit{push} e re-encaminhará para a aplicação usando o mesmo evento utilizado no android. Em ambas as plataformas, o token será passado para a aplicação através do evento \textit{newPushNotificationToken} e as mensagens de push, no evento \textit{newPushNotification}. Se a aplicação estiver em execução e o usuário clicar em uma notificação colocando o aplicativo em foreground, o evento \textit{newActionNotification} será disparado passando como argumento os dados de \textit{payload} da mensagem.\par
 
-A arquitetura dispõe do plugin de exemplo \textit{Listeners} que contém o componente \textit{PushNotificationRegister.qml}. Esse componente demostra um exemplo de como obter o token de registro no \textit{Firebase} e enviar para o serviço \textit{REST do aplicativo}.
-
+A arquitetura dispõe do plugin de exemplo \textit{Listeners} que contém o componente \textit{PushNotificationRegister.qml}. Esse componente demonstra um exemplo de como obter o token de registro no \textit{Firebase} e enviar para o serviço \textit{REST do aplicativo}. O trecho de código a seguir, apresenta um exemplo de como acessar o token do \textit{Firebase}.
 
 \begin{center}
 \begin{lstlisting}[language=qml]
@@ -580,11 +641,13 @@ Observer {
 	Component.onCompleted:Subject.attach(ob,event)
 }
 \end{lstlisting}
-\captionof{lstlisting}{Exemplo de como acessar o token do \textit{Firebase}}
+% \captionof{lstlisting}{Exemplo de como acessar o token do \textit{Firebase}}
 \end{center}
 
 \subsubsection{Notificações local}
-Para gerenciar as notificações locais, foi criado a classe \textit{Notification} que abstrai a plataforma e dispõe de um método para enviar uma notificação para a área de notificações do sistema em execução. Essa classe será instanciada na inicialização do aplicativo e registrada no contexto da aplicação para que os plugins possam invocar o método \textit{Notification.show}, passando o título e a mensagem da notificação e opcionalmente um objeto contendo o argumento a ser passado para a aplicação quando o usuário clicar na notificação. Quando o usuário clicar na notificação, o aplicativo ficará em \textit{foreground} (caso não esteja) e o argumento da notificação será passado para o aplicativo através do evento \textit{newActionNotification}. O código a seguir, apresenta um exemplo de como exibir uma notificação local por algum objeto de um plugin, passando um título, uma mensagem e um objeto como argumento.
+Para gerenciar as notificações locais, foi criado a classe \textit{Notification} que abstrai a plataforma e dispõe de um método para enviar uma notificação para a área de notificações do sistema em execução. Essa classe será instanciada na inicialização do aplicativo e registrada no contexto da aplicação para que os plugins possam invocar o método \textit{Notification.show}, passando o título e a mensagem da notificação e opcionalmente um objeto contendo o argumento a ser passado para a aplicação quando o usuário clicar na notificação. Quando o usuário clicar na notificação, o aplicativo ficará em \textit{foreground} (caso não esteja) e o argumento da notificação será passado para o aplicativo através do evento \textit{newActionNotification}.
+
+O trecho de código a seguir, apresenta um exemplo de como exibir uma notificação local por algum objeto de um plugin, passando um título, uma mensagem e um objeto como argumento.
 
 \begin{center}
 \begin{lstlisting}[language=qml]
@@ -602,7 +665,7 @@ Item {
 	}
 }
 \end{lstlisting}
-\captionof{lstlisting}{Exemplo de como exibir uma notificação local}
+% \captionof{lstlisting}{Exemplo de como exibir uma notificação local}
 \end{center}
 
 
@@ -645,7 +708,7 @@ Item {
 }
 ...
 \end{lstlisting}
-\captionof{lstlisting}{Exemplo de como utilizar o \textit{Observer}}
+% \captionof{lstlisting}{Exemplo de como utilizar o \textit{Observer}}
 \end{center}
 
 O código a seguir, apresenta um exemplo de como notificar observadores de um determinado evento:
@@ -666,7 +729,7 @@ Item {
 	}
 }
 \end{lstlisting}
-\captionof{lstlisting}{Exemplo de como notificar observadores}
+% \captionof{lstlisting}{Exemplo de como notificar observadores}
 \end{center}
 
 
@@ -714,7 +777,7 @@ Column {
 	}
 }
 \end{lstlisting}
-\captionof{lstlisting}{Exemplo de como exibir informações do usuário}
+% \captionof{lstlisting}{Exemplo de como exibir informações do usuário}
 \end{center}
 
 
@@ -776,7 +839,7 @@ Components.BasePage {
 ...
 }
 \end{lstlisting}
-\captionof{lstlisting}{Exemplo de uso do \textit{BasePage}}
+% \captionof{lstlisting}{Exemplo de uso do \textit{BasePage}}
 \end{center}
 
 

@@ -45,7 +45,7 @@
 
 % add sintax highlight to qml code
 \lstdefinelanguage{qml} {
-	morekeywords={Item, (property), Component, Observer, objectName, onUpdated, event, Components, onCompleted, var, Connections, target, onEventNotify, if, else, RequestHttp, import, baseUrl, basicAuthorizationUser, basicAuthorizationPassword, onError, Database, id, jsonColumns, tableName, pkColumn, onItemLoaded, text, Label, Image, Column, spacing, hasListView, absPath, title, toolBarState, onRequestFinished, console, Button, enabled, onClicked, authorizationUser, authorizationPass},
+	morekeywords={Item, QtQuick, (property), Component, Observer, objectName, onUpdated, event, Components, onCompleted, var, Connections, target, onEventNotify, if, else, RequestHttp, import, baseUrl, basicAuthorizationUser, basicAuthorizationPassword, onError, Database, id, jsonColumns, tableName, pkColumn, onItemLoaded, text, Label, Image, Column, spacing, hasListView, absPath, title, toolBarState, onRequestFinished, console, Button, enabled, onClicked, authorizationUser, authorizationPass},
 	keywordstyle=\color{red},
 	showstringspaces=true,
 	basicstyle=\small,
@@ -54,6 +54,19 @@
 	frame=trBL,
 	tabsize=4,
 }
+
+%adiciona código JSON com sintax highlight
+\lstdefinelanguage{json} {
+	morekeywords={pages, qml, title, order, roles, showInDrawer, showInTabBar, awesomeIcon},
+	keywordstyle=\color{red},
+	showstringspaces=true,
+	basicstyle=\small,
+	morestring=[b]",
+	commentstyle=\color{blue},
+	frame=trBL,
+	tabsize=4,
+}
+
 
 % adiciona o prefixo dos exemplos de código QML para "Algoritmo"
 \renewcommand{\lstlistingname}{Algoritmo}

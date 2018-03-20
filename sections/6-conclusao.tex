@@ -18,11 +18,11 @@ A lista a seguir apresenta as limitações identificadas nesta arquitetura.
 \begin{enumerate}
 	\item Não há suporte a plugins escritos em C++: esse recurso seria importante, pois permitiria aos plugins delegar a lógica de negócio e operações de baixo nível a objetos C++, em vez de componentes QML como é atualmente. O problema é que as classes C++ devem ser conhecidas em tempo de compilação, pois em um projeto Qt as classes C++ devem estar mapeadas no arquivo \textit{.pro} gerando um acoplamento do núcleo da aplicação com os plugins;
 
-	\item Instalação de plugins somente durante o \textit{build:}: a arquitetura não suporta a instalação de plugins dinamicamente. Esse recurso permitiria estender as \textit{features} do aplicativo sem precisar de um \textit{rebuild} e novo \textit{deploy};
+	\item Instalação de plugins é feita somente durante o \textit{build:}: a arquitetura não suporta a instalação de plugins dinamicamente. Esse recurso permitiria estender as \textit{features} do aplicativo sem precisar de um \textit{rebuild} e novo \textit{deploy};
 
-	\item Suporte somente a um tipo de autenticação na API de rede: A arquitetura suporta apenas \textit{Basic Authentication} nas requisições HTTP e carece de outros tipos de autenticação suportados por \textit{web services} RESTful, tais como \textit{OAuth}, \textit{BEARER}, \textit{DIGEST Auth} entre outros;
+	\item Há suporte somente a um tipo de autenticação na API de rede: A arquitetura suporta apenas \textit{Basic Authentication} nas requisições HTTP e carece de outros tipos de autenticação suportados por \textit{web services} RESTful, tais como \textit{OAuth}, \textit{BEARER}, \textit{DIGEST Auth} entre outros;
 
-	\item Atualização da arquitetura: Para criar um aplicativo utilizando esta arquitetura requer alteração em diversos arquivos e isso implica em obter as atualizações futuras da arquitetura, pois os arquivos modificados serão sobrescritos e o desenvolvedor terá que atualizá-los manualmente. Seria interessante que todas as alterações necessárias fossem feitas em arquivos separados e durante o \textit{build} fosse feito o merge. Em projetos android usando a versão mais recente do gradle, é possível fazer merge do arquivo \textit{AndroidManifest.xml} e o próprio arquivo \textit{build.gradle} que contém as APIs do \textit{Firebase} e outras propriedades de instalação e deploy no android.
+	\item Atualização da arquitetura: Para criar um aplicativo utilizando este projeto requer alteração em diversos arquivos e isso implica em obter as atualizações futuras da arquitetura, pois os arquivos modificados serão sobrescritos e o desenvolvedor terá que atualizá-los manualmente. Seria interessante que todas as alterações necessárias fossem feitas em arquivos separados e durante o \textit{build} fosse feito o \textit{merge} entre os arquivos do núcleo e os arquivos modificados pelo desenvolvedor. Em projetos android usando a versão mais recente do gradle, é possível fazer \textit{merge} do arquivo \textit{AndroidManifest.xml} e o próprio arquivo \textit{build.gradle} que contém as APIs do \textit{Firebase} e outras propriedades de instalação e deploy no android.
 \end{enumerate}
 
 
@@ -40,5 +40,7 @@ Os itens abaixo, apresenta os possíveis incrementos futuros na arquitetura para
 
 	\item Permitir que durante o desenvolvimento em modo Desktop, as alterações nos arquivos dos plugins sejam identificadas e carregadas a cada execução da aplicação, não exigindo o \textit{rebuild} do projeto, similar ao que acontece com os arquivos mapeados no \textit{qrc}. Atualmente, os plugins são copiados para o diretório do executável somente durante o \textit{build};
 
-	\item Utilizar o \textit{Observer} como único mecanismo de comunicação entre objetos, descartando o uso do sinal \textit{eventNotify} da classe \textit{App}. O \textit{Observer} já está disponível na arquitetura mais não está sendo utilizado entre os componentes internos. As classes \textit{Subject} e \textit{Observer} em \textit{src/core} foram implementadas para oferecer um mecanismo de comunicação por eventos reduzindo o \textit{overhead} na aplicação notificando somente os objetos interessados no evento.
+	\item Melhorar o suporte a depuração, com mensagens de erros e exceções mais detalhados nas APIs disponibilizadas (notificação, rede e persistência de dados).
+
+	\item Desenvolver uma documentação com exemplos de código para cada \textit{feature} da arquitetura, com o objetivo de facilitar o desenvolvimento de plugins.
 \end{enumerate}
