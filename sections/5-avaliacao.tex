@@ -1,4 +1,4 @@
-\section{Avaliação Experimental}\label{sec:avaliacao-experimental}
+\section{Avaliação Experimental}
 Esta seção apresentará o estudo conduzido para avaliar a arquitetura proposta neste trabalho. A avaliação consistiu no desenvolvimento de duas versões de um aplicativo móvel e na coleta de métricas relacionadas ao desenvolvimento de cada versão. As métricas foram utilizadas para validar a eficácia e os benefícios da arquitetura proposta neste trabalho no desenvolvimento de aplicativos móveis. As subseções a seguir, apresentarão os detalhes do estudo conduzido na avaliação.
 
 \subsection{Planejamento}
@@ -25,7 +25,7 @@ O objetivo do estudo era extrair métricas que pudessem destacar as vantagens e 
 	\item Número de alterações realizadas na versão com o framework, necessárias para poder utilizá-lo.
 \end{itemize}
 
-\subsection{Execução}
+\subsection{Execução e Coleta de Dados}
 A avaliação foi realizada no decorrer de quinze dias e primeiramente foi implementado a versão sem o framework. Uma sequência de passos deu início a configuração do aplicativo e as \textit{features} nesta versão, foram implementadas através de três plugins, sendo um para cada uma das \textit{features} escolhidas para avaliação. É importante destacar, que foi utilizado um serviço REST  como servidor do aplicativo. O serviço é necessário para login e obtenção dos dados do usuário, além de listagem das turmas para envio de mensagem pelo professor. Este \textit{web service} foi utilizado na avaliação pelas duas versões \textit{Emile1} e \textit{Emile2} e foi implementado em um serviço de host gratuito chamado \textit{pythonanywhere} e pode ser acessado através do endereço \textit{enoque.pythonanywhere.com}. O \textit{web service} não faz parte da avaliação e constitui toda lógica de negócio inerente ao funcionamento do Emile. A sequência de passos realizado na versão com o framework será descrita abaixo, ela descreve as alterações realizadas para utilizar a arquitetura descrita neste artigo:
 
 \begin{enumerate}
@@ -87,7 +87,7 @@ Os testes de execução do aplicativo foram feitos seguindo uma sequência de pa
 A seção a seguir, descreverá os resultados obtidos na avaliação.
 
 
-\subsection{Resultados}
+\subsection{Resultados e Discussão}
 Após finalizar o desenvolvimento das versões \textit{Emile1} e \textit{Emile2}, observou-se que a versão sem o framework resultou em um arquivo final (APK) um pouco menor do que a versão com o framework, além do \textit{build} do projeto ocorrer em menor tempo.
 
 Em relação ao número ao linhas, na versão sem o framework foi considerado apenas os plugins, ou seja, foi efetuado a contagem somente dos arquivos presentes no diretório \textit{plugins}, pois a implementação das features se deu somente através de plugins. A versão sem o framework foi efetuado a contagem de todos os arquivos. Para utilizar a contagem, foi utilizado o comando \textit{shell}: \textit{wc -l 'find <folder\_path> -type f'}. Os resultados obtidos foram:
@@ -100,7 +100,7 @@ Em relação ao número ao linhas, na versão sem o framework foi considerado ap
 Em relação ao bugs identificados em cada versão, destaca-se maior complexidade dos bugs na versão com o framework, pois era difícil de depurá-los, pois foram erros internos que exige do usuário do framework conhecimento do código fonte. Na versão sem o framework, foi indentificado os seguintes bugs:
 
 \begin{enumerate}
-	\item  Quando o dispositivo não estava conectado a internet, as requisições HTTP ficavam intermináveis, o elemento visual \textit{BusyIndicator} ficava visível por tempo indeterminado.
+	\item  Quando o dispositivo não estava conectado a Internet, as requisições HTTP ficavam intermináveis, o elemento visual \textit{BusyIndicator} ficava visível por tempo indeterminado.
 
 	\item Erros de requisição HTTP não capturados quando ocorre exceção no servidor e o mesmo não responde um json válido, retornando um HTML.
 

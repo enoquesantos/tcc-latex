@@ -1,12 +1,12 @@
-\section{Projeto da arquitetura}
+\section{Projeto da Arquitetura}
 A arquitetura proposta neste trabalho utiliza os estilos arquiteturais \textit{Client-Server} e \textit{Event-Based}. \textit{Client-Server} pelo fato de permitir ao aplicativo consumir algum serviço \textit{RESTful} através de uma API de alto nível para acesso a rede, tonando o aplicativo um cliente, enquanto que o serviço \textit{RESTful} representa o servidor. Já o \textit{Event-Based} é estilo de arquitetural que caracteriza a comunicação entre objetos através de eventos, que neste trabalho, é um recurso disposto através de componentes reusáveis. A arquitetura dispõe de objetos de baixo nível escritos em C++ que trabalham na camada de aplicação, recebendo dados de objetos da camada \textit{UI} e interagem com objetos da camada de \textit{middleware} que realizam a comunicação com o serviço \textit{RESTful} configurado para o aplicativo, caracterizando a arquitetura como um modelo em camadas. No modelo em camadas, a conexão entre os componentes pode ser realizado tanto por eventos como por objetos compartilhados ou, através de leitura e escrita em um arquivo ou em uma base de dados. Porém, nesta arquitetura, foi utilizado somente eventos para comunicação entre os objetos. A escolha de eventos como principal conector entre os objetos foi feita principalmente por proporcionar comunicação assíncrona entre emissor e ouvinte e pelo fato de não acoplar os componentes, garantindo maior independência entre eles. Outro motivo da escolha de eventos, é o fato do Qt provê nativamente um mecanismo de comunicação através de eventos.\par
 
 
-\subsection{Tecnologias utilizadas}
+\subsection{Tecnologias Utilizadas}
 As tecnologias utilizadas consiste de todos os elementos utilizados durante o desenvolvimento deste trabalho. O Qt e o \textit{QtCreator} foram os elementos mais importantes, pois, forneceram os recursos e ferramentas para a construção das principais características da arquitetura. Dentre os recursos providos pelo Qt destaca-se os eventos, que permitem interligar objetos através de sinais e slots\footnote{funções javascript ou métodos de uma classe c++ invocados quando o sinal o qual estão conectados for emitido, recebendo em seus parâmetros os argumentos enviado pelo sinal.} ou \textit{signal handles}, e as APIs providas em classes C++ que integram os recursos da arquitetura, tais como, persistência de dados (via \textit{QSettings} e \textit{QSqlDatabase}) e rede (via \textit{QNetworkAccessManager}). O \textit{QtCreator} é uma IDE que possui recursos integrados à um projeto Qt com destaque para facilidade de \textit{build} do projeto, construção do executável do aplicativo e o \textit{deploy} em um \textit{smartphone}. O \textit{QtCreator} também foi utilizado como editor de código fonte.
 
 
-\subsection{Etapas de desenvolvimento}
+\subsection{Processo de Projeto Arquitetural}
 Esta arquitetura foi desenvolvida sob uma metodologia ágil com destaque para uma programação extrema e teste contínuo. A arquitetura recebeu alterações durante 10 meses e a primeira etapa de desenvolvimento introduziu o suporte aos plugins. O primeiro desafio foi desacoplar os plugins do arquivo \textit{qrc}\footnote{qrc – \textit{Qt resource collection} é um arquivo xml que mapeia os arquivos que serão empacotados no aplicativo.} e permitir que a aplicação carregasse-os dinamicamente. Também nesta primeira etapa, foi implementado alguns recursos associados aos plugins, como controle de cache dos arquivos QML, ordenação e \textit{parsing} das páginas (definido pelos plugins), além da criação de um componente genérico a ser estendido por todas as páginas do aplicativo. O controle de cache consiste em regenerar o cache dos arquivos QML após uma atualização para garantir o carregamento de mudanças em cada arquivo a cada \textit{release}. O componente genérico foi definido como \textit{BasePage.qml}, ele é um objeto da camada \textit{UI} e foi criado para garantir o atendimento de alguns requisitos mínimos de aparência, estrutura e simplificar a criação de páginas. Na segunda etapa, foi implementado classes C++ para gerenciar as configurações da aplicação, uma classe utilitária com métodos a serem invocados pelos plugins para operações de baixo nível que ainda não são suportados pelo QML.\par
 
 Na terceira etapa, foi definido os layouts visuais suportados pela arquitetura e dois modelos foram implementados: O layout em pilha, que faz uso do \textit{container} \textit{StackView} e o layout em linha, que faz uso do \textit{container} \textit{SwipeView}, ambos do \textit{Quick Controls}\footnote{módulo do Qt que provê um conjunto de componentes QML para construção de interfaces gráficas.}. Em etapas seguintes, foi desenvolvido componentes visuais reutilizáveis, além das APIs para acesso a rede, notificações do aplicativo e persistência de dados. Os \textit{containers} de layout trabalham na camada \textit{UI} e gerenciam a criação e remoção das páginas do aplicativo. É importante destacar que em ambos os layouts, somente uma página pode ser visualizada por vez. As imagens a seguir apresentam os layouts em pilha e em linha.
@@ -28,7 +28,7 @@ No layout em pilha, o componente \textit{ToolBar.qml} será instanciado e posici
 No layout em linha, o componente \textit{TabBar.qml} será instanciado e posicionado no rodapé da janela do aplicativo. O TabBar corresponde ao menu no layout em linha e trabalhará em conjunto com o \textit{SwipeView}. A arquitetura suporta intercalar os dois layouts ao mesmo tempo e um objeto \textit{Binding} do QML manterá o \textit{SwipeView} visível somente quando não houver páginas na pilha do \textit{StackView}. No entanto, o \textit{SwipeView} será instanciado somente se a propriedade \textit{usesSwipeView} for definida para \textit{true} no arquivo de configuração e se tornará o \textit{container} principal. Os objetos correspondentes aos layouts serão instanciados na inicialização e os plugins poderão adicionar ou remover páginas dinamicamente utilizando os objetos \textit{swipeView} e \textit{pageStack} quando for necessário navegar para uma determinada página a partir de outra, sem ser pelo menu.\par
 
 
-\subsection{Requisitos funcionais suportados}
+\subsection{Requisitos Funcionais Suportados}
 O projeto desta arquitetura visa atender quatro requisitos funcionais entendidos como básicos em todo sistema de informação. Para atender aos requisitos, foi implementado APIs usando classes C++ nativas do Qt. Apesar de o QML dispôr de funcionalidades que poderiam atender a estes requisitos, foi decidido implementar em C++ por questões de desempenho devido menos código interpretado, melhor gerenciamento de memória e para simplificar a implementação de código nos plugins. Os requisitos listados a seguir, foram disponibilizados na arquitetura através de APIs de alto nível que serão apresentadas em tópicos específicos posteriormente, estes quatro requisitos são:
 
 \begin{enumerate}
@@ -39,7 +39,7 @@ O projeto desta arquitetura visa atender quatro requisitos funcionais entendidos
 \end{enumerate}
 
 
-\subsection{Visão geral da arquitetura}
+\subsection{Visão Estrutural}
 A figura a seguir, apresenta um diagrama de pacotes e arquivos destacando uma visão lógica dos principais elementos da arquitetura. Em seguida, será descrito a responsabilidade e o conteúdo de cada um deles.
 
 \begin{figure}[H]
@@ -83,7 +83,7 @@ A figura a seguir, apresenta um diagrama de pacotes e arquivos destacando uma vi
 \end{description}
 
 
-\subsection{Arquitetura de plugins}
+\subsection{Infraestrutura de Plugins}
 As funcionalidades de um aplicativo baseado nesta arquitetura devem ser implementadas através de plugins, atendendo aos requisitos do aplicativo a ser desenvolvido utilizando apenas QML. Os plugins são independentes entre sí e podem incluir arquivos QML, TXT, HTML e imagens em seu diretório. Qualquer componente de um plugin pode reutilizar os componentes públicos usando a diretiva \textit{import "qrc:/publicComponents/"}. Ao todo, dez componentes foram disponibilizados e serão apresentados em uma seção posterior.\par
 
 Os plugins estão desacoplados do núcleo da aplicação e serão conhecidos em tempo de execução. Ao adicionar um novo plugin no diretório \textit{plugins}, ele será carregado no próximo \textit{build}. Para que um plugin seja identificado pelo objeto gerenciador de plugins e carregado na aplicação, é necessário obedecer as seguintes restrições:
@@ -196,7 +196,7 @@ Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botõe
 \end{figure}
 
 
-\subsection{Gerenciamento de plugins}\label{sec:solucao-desenvolvida}
+\subsubsection{Gerenciamento de Plugins}
 A classe \textit{PluginManager} é responsável por carregar os plugins, basicamente, iterando os arquivos dentro do diretório \textit{plugins} e analisando as propriedades do arquivo de configuração de cada plugin. Em cada arquivo, o objeto verificará as definições de cada página, transformando cada item em um objeto e adicionado em uma lista. Após ler todos os plugins, o array de objetos será persistido nas configurações da aplicação para que na próxima inicialização não precise iterar novamente o diretório, lendo as definições dos plugins das configurações. Os plugins serão recarregados após uma atualização do aplicativo ou quando a aplicação for executada em modo \textit{debug}.\par
 A cada inicialização, será feito uma verificação da versão do aplicativo, que será persistida nas configurações na primeira execução e sobre-escrita a cada atualização. Se houver diferença entre versão em execução da versão salva anteriormente (se houver), os plugins serão recarregados. Além disso, esta classe também é responsável por deletar todos os arquivos de cache contido no diretório de cache da aplicação a cada \textit{release}. Outra responsabilidade dessa classe, é a criação da tabela do plugin no banco de dados do aplicativo, se existir um arquivo \textit{plugin\_table.sql} no diretório do plugin. O banco de dados da aplicação será criado por outro objeto que controla as operações de persistência e será detalhado em outra seção. O diagrama a seguir, apresenta as operações e atributos da classe \textit{PluginManager}.
 
@@ -209,8 +209,11 @@ A cada inicialização, será feito uma verificação da versão do aplicativo, 
 O carregamento dos plugins será feito na inicialização do aplicativo, antes de instanciar qualquer componente visual, na invocação do método \textit{loadPlugins}.
 
 
-\subsection{A classe Settings}\label{sec:solucao-desenvolvida}
-A classe \textit{Settings} é um componente importante nesta arquitetura e suas principais responsabilidades consiste em carregar o arquivo de configuração \textit{config.json} e gerenciar a persistência das configurações do aplicativo via \textit{QSettings}\footnote{https://doc.qt.io/qt-5/qsettings.html.}. \textit{Settings} será instanciada na inicialização do aplicativo e registrada no contexto da aplicação identificada como um objeto global \textit{"Settings"} para que os plugins possam invocar seus métodos públicos. O arquivo de configuração será convertido em um objeto javascript e registrado no contexto da aplicação como um objeto global como somente leitura, referenciado por \textit{"Config"}. \textit{Settings} adicionará o \textit{path} de cada plugin em uma propriedade no objeto \textit{Config} para que os plugins possam acessar os seus arquivos usando uma sintaxe mais legível (via \textit{Config.plugins.plugin\_directory\_name}). Por exemplo, considerando que \textit{Session} é um plugin, os arquivos em seu diretório poderão ser acessados da seguinte forma: \textit{Config.plugins.session + "File.qml"}. O objetivo dessa propriedade é fornecer aos plugins uma forma simplificada de acessar os arquivos em seu diretório, visto que os plugins serão colocados em diretórios virtuais nas plataformas \textit{mobile}: \textit{"assets://"} no android e "assets\_catalogs://" no ios. Quando executado em desktop, será utilizado o caminho absoluto de cada arquivo. \textit{Settings} também dispõe ainda de seis atributos booleanos que indicam qual a plataforma o aplicativo está sendo executado. A estrutura da classe \textit{Settings} será apresentada na figura abaixo.
+\subsection{Gerenciamento de Configurações}
+A arquitetura provê uma API simples e de alto nível para persistir dados utilizando o conceito \textit{chave-valor} através de invocação síncrona. Nesse modelo de persistência, a chave identifica o dado a ser armazenado e o valor é o dado propriamente dito. Os tipos de dados são: strings, números, objetos ou arrays e os métodos disponíveis podem ler, persistir ou deletar. As aplicações simples baseadas nesta arquitetura que não precisam de \textit{SQLITE}, poderão utilizar esse mecanismo para persistir dados no dispositivo. Essa API é provida através da classe \textit{Settings} descrita a seguir.
+
+\subsubsection{A classe Settings}
+A classe \textit{Settings} é um componente importante nesta arquitetura e suas principais responsabilidades consiste em carregar o arquivo de configuração \textit{config.json} e gerenciar a persistência das configurações do aplicativo via \textit{QSettings}\footnote{https://doc.qt.io/qt-5/qsettings.html.}. \textit{Settings} será instanciada na inicialização do aplicativo e registrada no contexto da aplicação identificada como um objeto global \textit{"Settings"} para que os plugins possam invocar seus métodos públicos. O arquivo de configuração será convertido em um objeto javascript e registrado no contexto da aplicação como um objeto global em modo leitura, referenciado por \textit{"Config"}. \textit{Settings} adicionará o \textit{path} de cada plugin em uma propriedade no objeto \textit{Config} para que os plugins possam acessar os seus arquivos usando uma sintaxe mais legível (via \textit{Config.plugins.plugin\_directory\_name}). Por exemplo, considerando que \textit{Session} é um plugin, os arquivos em seu diretório poderão ser acessados da seguinte forma: \textit{Config.plugins.session + "File.qml"}. O objetivo dessa propriedade é fornecer aos plugins uma forma simplificada de acessar os arquivos em seu diretório, visto que os plugins serão colocados em diretórios virtuais nas plataformas \textit{mobile}: \textit{"assets://"} no android e "assets\_catalogs://" no ios. Quando executado em desktop, será utilizado o caminho absoluto de cada arquivo. \textit{Settings} também dispõe ainda de seis atributos booleanos que indicam qual a plataforma o aplicativo está sendo executado. A estrutura da classe \textit{Settings} será apresentada na figura abaixo.
 
 \begin{figure}[H]
 	\includegraphics[width=8cm]{diagrama_de_classe_Settings}
@@ -218,11 +221,9 @@ A classe \textit{Settings} é um componente importante nesta arquitetura e suas 
 	\caption{Diagrama da classe Settings}
 \end{figure}
 
-\textit{Settings} é quem define o estilo de \textit{widgets} utilizado pelos componentes QML (Material, Universal, etc.). A definição do estilo deve ser feito pelo desenvolvedor no arquivo de configuração na propriedade \textit{applicationStyle} que será passado para um objeto \textit{QQuickStyle} do Qt na inicialização. Os possíveis valores para esta propriedade serão detalhados na seção que descreve o arquivo \textit{config.json}.
+\textit{Settings} é quem define o estilo de \textit{widgets} utilizado pelos componentes QML (Material, Universal, etc.). A definição do estilo deve ser feito pelo desenvolvedor no arquivo de configuração na propriedade \textit{applicationStyle} que será passado para um objeto \textit{QQuickStyle} do Qt na inicialização. Os possíveis valores para esta propriedade serão detalhados na seção que descreve o arquivo \textit{config.json}.\par
 
-
-\subsection{Gerenciamento de configurações}
-A arquitetura provê uma API simples e de alto nível para persistir dados utilizando o conceito \textit{chave-valor} através do objeto \textit{Settings} (instância da classe registrada no contexto da aplicação). Nesse modelo de persistência, a chave identifica o dado a ser armazenado e o valor é o dado propriamente dito. Os tipos de dados são: strings, números, objetos ou arrays e os métodos disponíveis podem ler, persistir ou deletar. As aplicações simples baseadas nesta arquitetura que não precisam de \textit{SQLITE}, poderão utilizar esse mecanismo para persistir dados no dispositivo. Os métodos disponíveis estão declarados na classe \textit{Settings} apresentada anteriormente e poderão ser utilizados pelos plugins. Os métodos serão descritos a seguir e mais adiante, um exemplo de como utilizá-los:
+Os métodos da classe \textit{Settings} serão descritos a seguir, seguido de um exemplo de como utilizá-los:
 	\begin{itemize}
 		\item \textit{read}: Utilizado para ler um dado salvo utilizando uma string que identifique a informação a ser retornada. Por padrão, o tipo de retorno é string. Porém, se o dado não for string, o segundo parâmetro deve ser passado indicando o tipo específico a ser retornado. Os tipos podem ser especificados para evitar o uso de \textit{cast} no QML. Os tipos possíveis são:
 		\begin{itemize}
@@ -271,7 +272,7 @@ Item {
 \end{center}
 
 
-\subsection{O Arquivo de Configuração}\label{sec:solucao-desenvolvida}
+\subsection{O Arquivo de Configuração}
 O arquivo \textit{config.json} presente na raiz do projeto é um componente importante nesta arquitetura e contém as definições de configuração do aplicativo. No entanto, as informações desse componente não serão persistidas e o conteúdo (propriedades e valores) será passado para a aplicação como um objeto javascript global. As propriedades listadas a seguir, serão utilizadas por componentes internos e o desenvolvedor poderá adicionar outras propriedades quando for necessário compartilhar informações entre os plugins. Os plugins poderão ler as propriedades declaradas neste arquivo via \textit{Config.property\_name}. As propriedades definidas inicialmente e utilizadas pela aplicação serão descritas a seguir:
 
 \begin{itemize}
@@ -343,10 +344,10 @@ O arquivo \textit{config.json} presente na raiz do projeto é um componente impo
 \end{itemize}
 
 
-\subsection{Acesso a Rede (HTTP)}\label{sec:solucao-desenvolvida}
+\subsection{Acesso a Rede (HTTP)}
 O acesso a rede é um requisito funcional provido nesta arquitetura e o objetivo é permitir a comunicação entre o aplicativo e um serviço \textit{RESTful} de forma facilitada. Para disponibilizar o uso de rede pelos plugins, foi criado uma classe C++ com suporte a autenticação básica, \textit{download} e \textit{upload} de arquivos, além de requisições via \textit{GET}, \textit{POST} e \textit{PUT}. O objetivo dessa classe é oferecer um componente rico em recursos, com bom desempenho e de alto nível para os plugins. Os plugins que utilizarem requisições HTTP, receberão a resposta de cada pedido através de objetos json dispensando o uso de \textit{parsing}. Para simplificar o uso da API de rede, o desenvolvedor deverá adicionar na propriedade \textit{restService} no arquivo de configuração, a url do serviço \textit{RESTful} em \textit{baseUrl} e o nome e a senha do usuário em \textit{userName} e \textit{userPass} respectivamente. O objetivo é que o desenvolvedor utilize apenas o \textit{path} da url nos métodos de requisições. A subseção a seguir, descreve os detalhes da classe \textit{RequestHttp} seguido de exemplos de como instanciá-la e como fazer requisições ao \textit{web service} do aplicativo.
 
-\subsubsection{A classe RequestHttp}\label{sec:solucao-desenvolvida}
+\subsubsection{A classe RequestHttp}
 A classe \textit{RequestHttp} será registrada como um tipo QML no contexto da aplicação e para instanciá-la basta adicionar a diretiva \textit{import RequestHttp 1.0} e em seguida, declarar um objeto QML \textit{RequestHttp}. Internamente, os objetos inicializarão os atributos \textit{baseUrl}, nome de usuário e senha, mas, o desenvolvedor pode sobrescrevê-los quando for necessário. Essa classe utiliza \textit{QNetworkAccessManager} para gerenciar as operações de rede abstraindo para o aplicativo a interface de rede utilizada no dispositivo e \textit{QNetworkRequest} para encapsular os parâmetros da requisição. Os atributos e métodos disponíveis serão descritos a seguir, seguido de um exemplo de uso:
 
 \begin{itemize}
@@ -527,12 +528,12 @@ O diagrama a seguir, apresenta os atributos e métodos da classe \textit{Request
 \end{figure}
 
 
-\subsection{Persistência de Dados}\label{sec:solucao-desenvolvida}
+\subsection{Persistência de Dados}
 Persistência de dados é um requisito funcional implementado e disponível nesta arquitetura e visa fornecer aos plugins a possibilidade de persistir dados em um banco \textit{SQLITE} e o funcionamento \textit{offline} do aplicativo com maior robustez. Cada plugin pode criar uma ou mais tabelas no banco de dados e realizar as operações de inserção, atualização e busca de dados em suas tabelas, basta importar o componente \textit{Database} com a diretiva \textit{import Database 1.0} e declarar um objeto QML. Para criar as tabelas no banco de dados do aplicativo, o plugin deve fornecer um arquivo \textit{plugin\_table.sql} em seu diretório, contendo os comandos de criação, alteração ou remoção das tabelas. A cada \textit{release}, esse arquivo será carregado e executado como uma \textit{query} sql permitindo aos plugins atualizar as tabelas (adicionar, remover ou modificar as colunas) quando for necessário.\par
 
 Para gerenciar as operações de banco de dados, foi criado uma classe C++ chamada \textit{Database} que encapsula em métodos de alto nível as operações necessárias para criar o banco de dados, conectar e executar as operações sql. No entanto, essa classe não será utilizada pelos plugins diretamente, foi criado outra classe chamada \textit{DatabaseComponent} que agrega uma instância de \textit{Database} e delegará as operações para esse objeto. \textit{DatabaseComponent} fornecerá alguns recursos para simplificar ainda mais a persistência de dados. As subseções a seguir apresentam detalhes de ambas as classes \textit{Database} e \textit{DatabaseComponent}.
 
-\subsubsection{A classe Database}\label{sec:solucao-desenvolvida}
+\subsubsection{A classe Database}
 A classe \textit{Database} é responsável por criar o banco de dados \textit{SQLITE} na primeira execução do aplicativo se houver necessidade, ou seja, se algum plugin dispor de um arquivo \textit{plugin\_table.sql} em seu diretório e será instanciada pelo objeto \textit{PluginManager} para criar a tabela do plugin. Se nenhum plugin fornecer esse arquivo, o banco de dados \textit{SQLITE} não será criado. A classe \textit{Database} utiliza as classes \textit{QSqlDatabase} para criação e conexão com o banco de dados e as classes \textit{QSqlQuery} e \textit{QSqlRecord} para as realizar \textit{querys} e retornar os resultados das consultas. Os métodos principais desta classe serão descritos a seguir:
 
 \begin{itemize}
@@ -561,7 +562,7 @@ A classe \textit{Database} é responsável por criar o banco de dados \textit{SQ
 	\caption{Diagrama da classe Database}
 \end{figure}
 
-\subsubsection{A classe DatabaseComponent}\label{sec:solucao-desenvolvida}
+\subsubsection{A classe DatabaseComponent}
 A classe \textit{DatabaseComponent} foi criada com o objetivo de fornecer um componente de alto nível que simplificasse para os plugins as operações em uma tabela específica. Essa classe será registrada no contexto da aplicação como um tipo QML com o nome de "\textit{Database}" e permitirá aos plugins a utilizarem declarando um objeto QML. \textit{DatabaseComponent} agrega uma instância da classe \textit{Database} e delega as operações para esse objeto. No entanto, ela possui alguns atributos (\textit{Q\_PROPERTY}) que permitem aos plugins informar o nome da tabela no banco de dados, o nome da chave-primária do tipo string (quando a chave-primária não for numérica auto-incrementada), além de colunas que guardam objetos json. As colunas json evitam que os plugins tenham que fazer \textit{parsing} nas views.\par
 
 Outro atributo \textit{totalItens} manterá atualizado o número de registros na tabela para fins de comparação com o número de itens disponível no serviço \textit{REST} com os itens já baixados para o dispositivo, útil para paginação de dados na \textit{view}. O diagrama a seguir, apresenta os atributos e métodos dessa classe:
@@ -613,7 +614,7 @@ Item {
 \subsection{Notificações do Aplicativo}
 Notificações do aplicativo é um requisito funcional disponibilizado nesta arquitetura e o objetivo é permitir o envio de notificação ao usuário via \textit{push} ou local (partindo do próprio aplicativo). As notificações via \textit{push} é suportado apenas no Android e iOS e as notificações locais podem ser enviadas nos dispositivos móveis, linux desktop e MacOS. As notificações podem ser utilizadas para alertar o usuário de algum evento na aplicação e pode conter um título, uma descrição e nas plataformas mobile, pode vibrar o dispositivo e emitir um som. Outro recurso disponibilizado nas notificações é a possibilidade de adicionar algum dado extra em cada notificação. Esse dado deve ser um objeto no estilo \textit{chave.valor}. As notificações locais serão enviadas pela própria aplicação via \textit{procedure call} e as notificações via \textit{push} através do \textit{Firebase}. As subseções a seguir, descrevem detalhes de cada tipo de notificação.
 
-\subsubsection{Notificações via push}
+\subsubsection{Notificações PUSH}
 O suporte a notificações via \textit{push} já está configurado na arquitetura e o que o desenvolvedor deve fazer para enviar mensagens via \textit{push} é criar um projeto no \textit{Firebase}, exportar o arquivo \textit{google-services.json} e adicioná-lo no diretório \textit{android} e o arquivo \textit{google-services.xml} correspondente ao iOS no diretório \textit{ios}, substituindo os arquivos existentes, ambos criados como exemplo. É importante destacar que o \textit{package name} do aplicativo adicionado no \textit{AndroidManifest.xml} e o \textit{CFBundleIdentifier} no \textit{Info.plist} do iOS, devem ser o mesmo utilizado ao criar o projeto no \textit{Firebase}. Caso contrário, ocorrerá um erro ao construir o APK ou IPA, pois as bibliotecas correspondentes ao serviço de \textit{push} (adicionadas ao projeto durante o \textit{build}) farão um \textit{parsing} dos arquivos e abortará a compilação caso ocorra algum erro. No android, o \textit{package name} deve ser adicionado manualmente no arquivo \textit{build.gradle} presente no diretório \textit{android} na propriedade \textit{defaultConfig.applicationId}.\par
 
 No android, o funcionamento de \textit{push notification} requer duas classes java que serão instanciadas na inicialização do aplicativo e funcionarão como dois serviços. Essas classes já estão no projeto e o desenvolvedor não precisa modificá-las. O primeiro serviço registra o dispositivo no \textit{Firebase} e retorna um token. O segundo serviço é um \textit{listener} de notificações via \textit{push} e ficará em execução mesmo que a aplicação seja fechada. Ao enviar uma notificação utilizando o console do \textit{Firebase} ou através de algum \textit{web service}, as notificações serão recebidas nesse serviço e enviadas para o \textit{system tray} automaticamente. Se o aplicativo estiver em execução, a notificação será encaminhada para o aplicativo em um objeto json contendo todos os dados da mensagem, tais como, o título, a data e a hora de envio e o \textit{payload} (um dado adicional não visível enviado na mensagem). Para adicionar o dado de \textit{payload}, é necessário que o \textit{web service} adicione um objeto json na requisição que é enviada ao \textit{Firebase}\footnote{https://firebase.google.com/docs/cloud-messaging/concept-options?hl=pt-br}.\par
@@ -644,7 +645,7 @@ Observer {
 % \captionof{lstlisting}{Exemplo de como acessar o token do \textit{Firebase}}
 \end{center}
 
-\subsubsection{Notificações local}
+\subsubsection{Notificações Locais}
 Para gerenciar as notificações locais, foi criado a classe \textit{Notification} que abstrai a plataforma e dispõe de um método para enviar uma notificação para a área de notificações do sistema em execução. Essa classe será instanciada na inicialização do aplicativo e registrada no contexto da aplicação para que os plugins possam invocar o método \textit{Notification.show}, passando o título e a mensagem da notificação e opcionalmente um objeto contendo o argumento a ser passado para a aplicação quando o usuário clicar na notificação. Quando o usuário clicar na notificação, o aplicativo ficará em \textit{foreground} (caso não esteja) e o argumento da notificação será passado para o aplicativo através do evento \textit{newActionNotification}.
 
 O trecho de código a seguir, apresenta um exemplo de como exibir uma notificação local por algum objeto de um plugin, passando um título, uma mensagem e um objeto como argumento.
@@ -669,7 +670,7 @@ Item {
 \end{center}
 
 
-\subsection{Comunicação entre os objetos e plugins}
+\subsection{Comunicação Entre os Objetos e Plugins}
 Esta seção descreverá o processo de comunicação entre objetos no aplicativo que está também disponível para os plugins.
 A comunicação entre os objetos facilitado é um requisito funcional desta arquitetura e consiste em disponibilizar uma API de alto nível para troca de mensagens entre objetos através de eventos e consiste na implementação do padrão de projeto \textit{Observer}, com os eventos identificados por um nome. Essa API foi desenvolvida através das seguintes classes C++: \textit{Subject} e a outra \textit{Observer}. O nome do evento é uma string que identifica um evento específico e visa notificar apenas os objetos interessados, evitando o \textit{broadcast} na aplicação e consequentemente aumentando o desempenho. Nessa API, é possível enviar um argumento para o objeto observador.\par
 
@@ -733,7 +734,7 @@ Item {
 \end{center}
 
 
-\subsection{O perfil de usuário}\label{sec:solucao-desenvolvida}
+\subsection{O Perfil de Usuário}
 A arquitetura dispõe o componente \textit{UserProfile.qml} para gerenciar os dados do usuário do aplicativo, ele será instanciado na inicialização da aplicação e setado no objeto \textit{userProfile} se houver login na aplicação, ou seja, se o desenvolvedor definir nas configurações a propriedade \textit{usesLogin} para \textit{true}. Esse objeto (\textit{userProfile}) estará disponível para os plugins como um objeto global, e a propriedade \textit{profile} poderá ser utilizada em \textit{bindings} com outros objetos. No entanto, atualizações no perfil do usuário não devem ser feitas diretamente na propriedade \textit{profile} e sim, através de eventos.\par
 
 O componente \textit{UserProfile.qml} observará três eventos na aplicação pelo qual os plugins devem utilizá-los para setar ou editar as informações do usuário. O primeiro evento \textit{initUserProfile}, poderá ser utilizado para inicializar o perfil do usuário após o login e o argumento do evento deve conter um objeto enviado pelo serviço \textit{REST} contendo no mínimo os campos \textit{id} e \textit{email}. O segundo evento \textit{setUserProfileData}, deve ser utilizado para atualizar ou adicionar alguma informação ao perfil do usuário. Nesse evento, o argumento deve conter as propriedades \textit{key} com o nome do campo a ser atualizado (ou adicionado) e \textit{value} a informação para o campo correspondente. O terceiro evento \textit{logoutApplication}, deve ser disparado pela página de \textit{logout} para avisar que a seção foi encerrada e o usuário será direcionado para a página de login. No \textit{logout}, o argumento do evento pode ser \textit{false} ou simplesmente \textit{null}. O componente \textit{UserProfile} dispõe das seguintes propriedades:
@@ -781,7 +782,7 @@ Column {
 \end{center}
 
 
-\subsection{O Componente BasePage}\label{sec:solucao-desenvolvida}
+\subsection{O Componente BasePage}
 O componente \textit{BasePage} é um arquivo genérico que fornece algumas propriedades para as páginas dos plugins, além de fazer \textit{bindings} com o \textit{ToolBar}, o \textit{TabBar}. \textit{BasePage} deverá ser utilizada pelas páginas de plugins sempre que possível. Esse componente irá instanciar um \textit{ListView} contendo um \textit{ListModel} e um \textit{RequestHttp} para facilitar o trabalho do programador e reduzir a escrita de código pelos plugins. \textit{BasePage} pode ser visto como uma classe abstrata que possui alguns objetos agregados e métodos públicos prontos para uso pelos componentes que estenderem \textit{BasePage}. As propriedades a seguir, compõem o \textit{BasePage} e devem ser utilizadas para customizar o layout da página.
 
 \begin{itemize}
@@ -843,7 +844,7 @@ Components.BasePage {
 \end{center}
 
 
-\subsection{Componentes Reusáveis}\label{sec:solucao-desenvolvida}
+\subsection{Componentes Reutilizáveis}
 A arquitetura dispõe de dez componentes reusáveis para os plugins, alguns são visuais e outros não. Para utilizá-los basta adicionar a diretiva \textit{import "qrc:/publicComponentes/"} e declarar um objeto QML. Os componentes disponíveis serão descritos a seguir:
 
 \begin{itemize}
@@ -870,7 +871,7 @@ A arquitetura dispõe de dez componentes reusáveis para os plugins, alguns são
 \end{itemize}
 
 
-\subsection{Fluxo de execução}\label{sec:solucao-desenvolvida}
+\subsection{Fluxo de Execução}
 A figura exibida no final desta seção, demonstra o \textit{workflow} de um aplicativo baseado nesta arquitetura. As aplicações Qt possuem nas plataformas mobile, objetos \textit{Java} e \textit{ObjectiveC} no android e iOS respectivamente, que inicializam o aplicativo em cada plataforma e em seguida executam a aplicação tendo como ponto de entrada o \textit{main.cpp}.\par
 
 Os elementos visuais serão carregados no \textit{main.qml} que será instanciado no último passo antes de iniciar o \textit{loop} da aplicação. O \textit{main.qml} corresponde a \textit{ApplicationWindow} do \textit{Quick Controls} e poderá ser acessado por qualquer objeto através do id \textit{window}. Os \textit{listeners} serão carregados quando \textit{window} estiver pronto e poderão acessar qualquer uma das propriedades declaradas no escopo do \textit{window}, tais como \textit{userProfile}. O \textit{window} contém dois \textit{widgets} que podem ser utilizados para exibir avisos ao usuário. Os \textit{widgets} são \textit{Snackbar}\footnote{https://material.io/guidelines/components/snackbars-toasts.html} e \textit{Toast} e foram inspirados nos respectivos componentes do \textit{Material Design}\footnote{https://material.io/guidelines}. Os \textit{widgets} dispõe da função \textit{show} que exige uma string como parâmetro, essa string será o texto exibido ao usuário.\par
@@ -884,7 +885,7 @@ A figura a seguir, apresenta de uma forma resumida o fluxo de inicialização e 
 \end{figure}
 
 
-\subsection{Métodos para utilização da arquitetura}
+\subsection{Processo de Instanciação da Arquitetura}
 % descrever o README do projeto no github
 Para utilizar a arquitetura desenvolvida, é necessário seguir uma determinada ordem de atividades que serão descritas abaixo. O código fonte da arquitetura encontra-se em uma página do \textit{github}, no link \cite{codigo_fonte_url} e é necessário utilizar o \textit{git} para obter uma cópia e iniciar a criação de um aplicativo. É preciso configurar o ambiente de desenvolvimento Qt para android ou iOS, além de baixar o android \textit{SDK} e o \textit{NDK}. No primeiro \textit{build} do aplicativo (na versão para android), o \textit{Gradle} baixará algumas bibliotecas para a máquina do desenvolvedor requeridas para o funcionamento do \textit{push notification}. Para criar um aplicativo usando esta arquitetura basta seguir o passo-a-passo abaixo:\par
 
