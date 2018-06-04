@@ -25,6 +25,8 @@ O objetivo do estudo era extrair métricas que pudessem destacar as vantagens e 
 	\item Número de alterações realizadas na versão com o framework, necessárias para poder utilizá-lo.
 \end{itemize}
 
+As métricas utilizadas foram escolhidas devido o curto tempo para execução da avaliação disponível durante o desenvolvimento do trabalho, considerando o término do período letivo.
+
 \subsection{Execução e Coleta de Dados}
 A avaliação foi realizada no decorrer de quinze dias e primeiramente foi implementado a versão sem o framework. Uma sequência de passos deu início a configuração do aplicativo e as \textit{features} nesta versão, foram implementadas através de três plugins, sendo um para cada uma das \textit{features} escolhidas para avaliação. É importante destacar, que foi utilizado um serviço REST  como servidor do aplicativo. O serviço é necessário para login e obtenção dos dados do usuário, além de listagem das turmas para envio de mensagem pelo professor. Este \textit{web service} foi utilizado na avaliação pelas duas versões \textit{Emile1} e \textit{Emile2} e foi implementado em um serviço de host gratuito chamado \textit{pythonanywhere} e pode ser acessado através do endereço \textit{enoque.pythonanywhere.com}. O \textit{web service} não faz parte da avaliação e constitui toda lógica de negócio inerente ao funcionamento do Emile. A sequência de passos realizado na versão com o framework será descrita abaixo, ela descreve as alterações realizadas para utilizar a arquitetura descrita neste artigo:
 

@@ -1,5 +1,5 @@
 \section{Projeto da Arquitetura}
-A arquitetura proposta neste trabalho utiliza os estilos arquiteturais \textit{Client-Server} e \textit{Event-Based}. \textit{Client-Server} pelo fato de permitir ao aplicativo consumir algum serviço \textit{RESTful} através de uma API de alto nível para acesso a rede, tonando o aplicativo um cliente, enquanto que o serviço \textit{RESTful} representa o servidor \cite{medvidovic}. Já o \textit{Event-Based} é estilo de arquitetural que caracteriza a comunicação entre objetos através de eventos \cite{medvidovic}, que neste trabalho, é um recurso disposto através de componentes reusáveis. A arquitetura dispõe de objetos de baixo nível escritos em C++ que trabalham na camada de aplicação, recebendo dados de objetos da camada \textit{UI} e interagem com objetos da camada de \textit{middleware} que realizam a comunicação com o serviço \textit{RESTful} configurado para o aplicativo, caracterizando a arquitetura como um modelo em camadas. No modelo em camadas, a conexão entre os componentes pode ser realizado tanto por eventos como por objetos compartilhados ou, através de leitura e escrita em um arquivo ou em uma base de dados. Porém, nesta arquitetura, foi utilizado somente eventos para comunicação entre os objetos. A escolha de eventos como principal conector entre os objetos foi feita principalmente por proporcionar comunicação assíncrona entre emissor e ouvinte e pelo fato de não acoplar os componentes, garantindo maior independência entre eles. Outro motivo da escolha de eventos, é o fato do Qt provê nativamente um mecanismo de comunicação através de eventos.\par
+A arquitetura proposta neste trabalho utiliza os estilos arquiteturais \textit{Client-Server} e \textit{Event-Based} \cite{medvidovic}. \textit{Client-Server} pelo fato de permitir ao aplicativo consumir algum serviço \textit{RESTful} através de uma API de alto nível para acesso a rede, tonando o aplicativo um cliente, enquanto que o serviço \textit{RESTful} representa o servidor. Já o \textit{Event-Based} é estilo de arquitetural que caracteriza a comunicação entre objetos através de eventos \cite{medvidovic}, que neste trabalho, é um recurso disposto através de componentes reusáveis. A arquitetura dispõe de objetos de baixo nível escritos em C++ que trabalham na camada de aplicação, recebendo dados de objetos da camada \textit{UI} e interagem com objetos da camada de \textit{middleware} que realizam a comunicação com o serviço \textit{RESTful} configurado para o aplicativo, caracterizando a arquitetura como um modelo em camadas. No modelo em camadas, a conexão entre os componentes pode ser realizado tanto por eventos como por objetos compartilhados ou, através de leitura e escrita em um arquivo ou em uma base de dados. Porém, nesta arquitetura, foi utilizado somente eventos para comunicação entre os objetos. A escolha de eventos como principal conector entre os objetos foi feita principalmente por proporcionar comunicação assíncrona entre emissor e ouvinte e pelo fato de não acoplar os componentes, garantindo maior independência entre eles. Outro motivo da escolha de eventos, é o fato do Qt prover nativamente um mecanismo de comunicação através de eventos.\par
 
 
 \subsection{Tecnologias Utilizadas}
@@ -7,9 +7,9 @@ As tecnologias utilizadas consiste de todos os elementos utilizados durante o de
 
 
 \subsection{Processo de Projeto Arquitetural}
-Esta arquitetura foi desenvolvida sob uma metodologia ágil com destaque para uma programação extrema e teste contínuo. A arquitetura recebeu alterações durante 10 meses e a primeira etapa de desenvolvimento introduziu o suporte aos plugins. O primeiro desafio foi desacoplar os plugins do arquivo \textit{qrc}\footnote{qrc – \textit{Qt resource collection} é um arquivo xml que mapeia os arquivos que serão empacotados no aplicativo.} e permitir que a aplicação carregasse-os dinamicamente. Também nesta primeira etapa, foi implementado alguns recursos associados aos plugins, como controle de cache dos arquivos QML, ordenação e \textit{parsing} das páginas (definido pelos plugins), além da criação de um componente genérico a ser estendido por todas as páginas do aplicativo. O controle de cache consiste em regenerar o cache dos arquivos QML após uma atualização para garantir o carregamento de mudanças em cada arquivo a cada \textit{release}. O componente genérico foi definido como \textit{BasePage.qml}, ele é um objeto da camada \textit{UI} e foi criado para garantir o atendimento de alguns requisitos mínimos de aparência, estrutura e simplificar a criação de páginas. Na segunda etapa, foi implementado classes C++ para gerenciar as configurações da aplicação, uma classe utilitária com métodos a serem invocados pelos plugins para operações de baixo nível que ainda não são suportados pelo QML.\par
+Esta arquitetura foi desenvolvida durante 10 meses e a primeira etapa de desenvolvimento introduziu o suporte aos plugins. O primeiro desafio foi desacoplar os plugins do arquivo \textit{qrc}\footnote{qrc – \textit{Qt resource collection} é um arquivo xml que mapeia os arquivos que serão empacotados no aplicativo.} e permitir que a aplicação carregasse-os dinamicamente. Também nesta primeira etapa, foi implementado alguns recursos associados aos plugins, como controle de cache dos arquivos QML, ordenação e \textit{parsing} das páginas (definido pelos plugins), além da criação de um componente genérico a ser estendido por todas as páginas do aplicativo. O controle de cache consiste em regenerar o cache dos arquivos QML após uma atualização para garantir o carregamento de mudanças em cada arquivo a cada \textit{release}. O componente genérico foi definido como \textit{BasePage.qml}, ele é um objeto da camada \textit{UI} e foi criado para garantir o atendimento de alguns requisitos mínimos de aparência, estrutura e simplificar a criação de páginas. Na segunda etapa, foi implementado classes C++ para gerenciar as configurações da aplicação, uma classe utilitária com métodos a serem invocados pelos plugins para operações de baixo nível que ainda não são suportados pelo QML.\par
 
-Na terceira etapa, foi definido os layouts visuais suportados pela arquitetura e dois modelos foram implementados: O layout em pilha, que faz uso do \textit{container} \textit{StackView} e o layout em linha, que faz uso do \textit{container} \textit{SwipeView}, ambos do \textit{Quick Controls}\footnote{módulo do Qt que provê um conjunto de componentes QML para construção de interfaces gráficas.}. Em etapas seguintes, foi desenvolvido componentes visuais reutilizáveis, além das APIs para acesso a rede, notificações do aplicativo e persistência de dados. Os \textit{containers} de layout trabalham na camada \textit{UI} e gerenciam a criação e remoção das páginas do aplicativo. É importante destacar que em ambos os layouts, somente uma página pode ser visualizada por vez. As imagens a seguir apresentam os layouts em pilha e em linha.
+Na terceira etapa, foi definido os layouts visuais suportados pela arquitetura e dois modelos foram implementados: O layout em pilha, que faz uso do \textit{container} \textit{StackView} e o layout em linha, que faz uso do \textit{container} \textit{SwipeView}, ambos do \textit{Quick Controls}\footnote{módulo do Qt que provê um conjunto de componentes QML para construção de interfaces gráficas.}. Em etapas seguintes, foram desenvolvidas as APIs para acesso a rede, notificações do aplicativo e persistência de dados e os componentes visuais reutilizáveis. Os \textit{containers} de layout trabalham na camada \textit{UI} e gerenciam a criação e remoção das páginas do aplicativo. É importante destacar que em ambos os layouts, somente uma página pode ser visualizada por vez. As Figuras a seguir apresentam os layouts em pilha e em linha.
 
 \begin{figure}[H]
 	\includegraphics[scale=0.5]{stackview_wireframe}
@@ -40,7 +40,7 @@ O projeto desta arquitetura visa atender quatro requisitos funcionais entendidos
 
 
 \subsection{Visão Estrutural}
-A figura a seguir, apresenta um diagrama de pacotes e arquivos destacando uma visão lógica dos principais elementos da arquitetura. Em seguida, será descrito a responsabilidade e o conteúdo de cada um deles.
+A Figura 3, apresenta um diagrama de pacotes e arquivos destacando uma visão lógica dos principais elementos da arquitetura. Em seguida, será descrito a responsabilidade e o conteúdo de cada um deles.
 
 \begin{figure}[H]
 	\includegraphics[width=8cm]{diagrama_geral_da_arquitetura_atualizado2}
@@ -124,9 +124,9 @@ Cada objeto em \textit{pages} poderá conter as seguintes propriedades:
 	\item \textit{showInTabBar} (bool): Um valor booleano que indica se a página poderá ser exibida no menu de layout em linha. O objetivo dessa propriedade é permitir exibir páginas diferentes nos menus quando o \textit{drawer menu} for instanciado.
 \end{itemize}
 
-O código a seguir, apresenta um exemplo de um plugin com uma lista de páginas, que podem ser visualizadas nas figuras 4 e 5.
+O Exemplo 1, apresenta um código json de um plugin contendo uma lista de páginas. Após o carregamento do plugin, as páginas serão exibidas no menu do aplicativo e podem ser visualizadas nas Figuras 4 e 5.
 \begin{center}
-\begin{lstlisting}[language=json]
+\begin{lstlisting}[language=json,caption={JSON de configuração de um plugin},captionpos=b]
 {
 	pages:[
 		{
@@ -162,9 +162,9 @@ O código a seguir, apresenta um exemplo de um plugin com uma lista de páginas,
 \end{lstlisting}
 \end{center}
 
-As páginas serão instanciadas sob demanda quando o aplicativo estiver utilizando o layout em pilha, que ocorrerá quando o usuário clicar em um item da lista. No layout em pilha, o menu é exibido pelo componente \textit{Drawer.qml} que consiste de uma instância do objeto \textit{Drawer} do \textit{Quick Controls} e as páginas serão listadas verticalmente (exemplo na figura 4).\par
+As páginas serão instanciadas sob demanda quando o aplicativo estiver utilizando o layout em pilha, que ocorrerá quando o usuário clicar em um item da lista. No layout em pilha, o menu é exibido pelo componente \textit{Drawer.qml} que consiste de uma instância do objeto \textit{Drawer} do \textit{Quick Controls} e as páginas serão listadas verticalmente (Figura 4).\par
 
-Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botões será adicionado no rodapé da janela do aplicativo permitindo ao usuário alternar entre as páginas disponíveis. Porém, no layout em linha, todas as páginas serão instanciadas no início da aplicação e terá um botão associado a cada página. No layout em linha, o menu corresponde ao componente \textit{TabBar.qml} que consiste de uma instância do objeto \textit{TabBar} do \textit{Quick Controls} com algumas modificações (exemplo na figura 5). As figuras a seguir, apresentam exemplos dos layouts em pilha e em linha.
+Quando o layout em linha estiver sendo utilizado, uma lista horizontal de botões será adicionado no rodapé da janela do aplicativo permitindo ao usuário alternar entre as páginas disponíveis. Porém, no layout em linha, todas as páginas serão instanciadas no início da aplicação e terá um botão associado a cada página. No layout em linha, o menu corresponde ao componente \textit{TabBar.qml} que consiste de uma instância do objeto \textit{TabBar} do \textit{Quick Controls} com algumas modificações (Figura 5). As Figuras a seguir, apresentam exemplos dos layouts em pilha e em linha.
 
 \begin{figure}[H]
 	\includegraphics[width=8cm]{exemplo_menu_layout_em_pilha}
@@ -196,7 +196,7 @@ O carregamento dos plugins será feito na inicialização do aplicativo, antes d
 A arquitetura provê uma API simples e de alto nível para persistir dados utilizando o conceito \textit{chave-valor} através de invocação síncrona. Nesse modelo de persistência, a chave identifica o dado a ser armazenado e o valor é o dado propriamente dito. Os tipos de dados são: strings, números, objetos ou arrays e os métodos disponíveis podem ler, persistir ou deletar. As aplicações simples baseadas nesta arquitetura que não precisam de \textit{SQLITE}, poderão utilizar esse mecanismo para persistir dados no dispositivo. Essa API é provida através da classe \textit{Settings} descrita a seguir.
 
 \subsubsection{A classe Settings}
-A classe \textit{Settings} é um componente importante nesta arquitetura e suas principais responsabilidades consiste em carregar o arquivo de configuração \textit{config.json} e gerenciar a persistência das configurações do aplicativo via \textit{QSettings}\footnote{https://doc.qt.io/qt-5/qsettings.html.}. \textit{Settings} será instanciada na inicialização do aplicativo e registrada no contexto da aplicação identificada como um objeto global \textit{"Settings"} para que os plugins possam invocar seus métodos públicos. O arquivo de configuração será convertido em um objeto javascript e registrado no contexto da aplicação como um objeto global em modo leitura, referenciado por \textit{"Config"}. \textit{Settings} adicionará o \textit{path} de cada plugin em uma propriedade no objeto \textit{Config} para que os plugins possam acessar os seus arquivos usando uma sintaxe mais legível (via \textit{Config.plugins.plugin\_directory\_name}). Por exemplo, considerando que \textit{Session} é um plugin, os arquivos em seu diretório poderão ser acessados da seguinte forma: \textit{Config.plugins.session + "File.qml"}. O objetivo dessa propriedade é fornecer aos plugins uma forma simplificada de acessar os arquivos em seu diretório, visto que os plugins serão colocados em diretórios virtuais nas plataformas \textit{mobile}: \textit{"assets://"} no android e "assets\_catalogs://" no ios. Quando executado em desktop, será utilizado o caminho absoluto de cada arquivo. \textit{Settings} também dispõe ainda de seis atributos booleanos que indicam qual a plataforma o aplicativo está sendo executado. A estrutura da classe \textit{Settings} será apresentada na figura abaixo.
+A classe \textit{Settings} é um componente importante nesta arquitetura e suas principais responsabilidades consiste em carregar o arquivo de configuração \textit{config.json} e gerenciar a persistência das configurações do aplicativo via \textit{QSettings}\footnote{https://doc.qt.io/qt-5/qsettings.html.}. \textit{Settings} será instanciada na inicialização do aplicativo e registrada no contexto da aplicação identificada como um objeto global \textit{"Settings"} para que os plugins possam invocar seus métodos públicos. O arquivo de configuração será convertido em um objeto javascript e registrado no contexto da aplicação como um objeto global em modo leitura, referenciado por \textit{"Config"}. \textit{Settings} adicionará o \textit{path} de cada plugin em uma propriedade no objeto \textit{Config} para que os plugins possam acessar os seus arquivos usando uma sintaxe mais legível (via \textit{Config.plugins.plugin\_directory\_name}). Por exemplo, considerando que \textit{Session} é um plugin, os arquivos em seu diretório poderão ser acessados da seguinte forma: \textit{Config.plugins.session + "File.qml"}. O objetivo dessa propriedade é fornecer aos plugins uma forma simplificada de acessar os arquivos em seu diretório, visto que os plugins serão colocados em diretórios virtuais nas plataformas \textit{mobile}: \textit{"assets://"} no android e "assets\_catalogs://" no ios. Quando executado em desktop, será utilizado o caminho absoluto de cada arquivo. \textit{Settings} também dispõe ainda de seis atributos booleanos que indicam qual a plataforma o aplicativo está sendo executado. A estrutura da classe \textit{Settings} será apresentada na Figura 7.
 
 \begin{figure}[H]
 	\includegraphics[width=8cm]{diagrama_de_classe_Settings}
@@ -226,10 +226,10 @@ Os métodos da classe \textit{Settings} serão descritos a seguir, seguido de um
 		\item \textit{remove}: Utilizado para apagar alguma informação das configurações. Esse método requer apenas um parâmetro, uma string que identifica o dado a ser deletado.
 	\end{itemize}
 
-O código a seguir, apresenta um exemplo de persistência e leitura de dados usando o mecanismo \textit{chave-valor} a partir do objeto \textit{Settings}:
+O Exemplo 2, demostra como ler e persistir de dados usando o mecanismo \textit{chave-valor} a partir do objeto \textit{Settings}:
 
 \begin{center}
-\begin{lstlisting}[language=qml]
+\begin{lstlisting}[language=qml,caption={Persistência de dados usando chave-valor},captionpos=b]
 import QtQuick 2.8
 
 Item {
@@ -331,7 +331,7 @@ O arquivo \textit{config.json} presente na raiz do projeto é um componente impo
 O acesso a rede é um requisito funcional provido nesta arquitetura e o objetivo é permitir a comunicação entre o aplicativo e um serviço \textit{RESTful} de forma facilitada. Para disponibilizar o uso de rede pelos plugins, foi criado uma classe C++ com suporte a autenticação básica, \textit{download} e \textit{upload} de arquivos, além de requisições via \textit{GET}, \textit{POST} e \textit{PUT}. O objetivo dessa classe é oferecer um componente rico em recursos, com bom desempenho e de alto nível para os plugins. Os plugins que utilizarem requisições HTTP, receberão a resposta de cada pedido através de objetos json dispensando o uso de \textit{parsing}. Para simplificar o uso da API de rede, o desenvolvedor deverá adicionar na propriedade \textit{restService} no arquivo de configuração, a url do serviço \textit{RESTful} em \textit{baseUrl} e o nome e a senha do usuário em \textit{userName} e \textit{userPass} respectivamente. O objetivo é que o desenvolvedor utilize apenas o \textit{path} da url nos métodos de requisições. A subseção a seguir, descreve os detalhes da classe \textit{RequestHttp} seguido de exemplos de como instanciá-la e como fazer requisições ao \textit{web service} do aplicativo.
 
 \subsubsection{A classe RequestHttp}
-A classe \textit{RequestHttp} será registrada como um tipo QML no contexto da aplicação e para instanciá-la basta adicionar a diretiva \textit{import RequestHttp 1.0} e em seguida, declarar um objeto QML \textit{RequestHttp}. Internamente, os objetos inicializarão os atributos \textit{baseUrl}, nome de usuário e senha, mas, o desenvolvedor pode sobrescrevê-los quando for necessário. Essa classe utiliza \textit{QNetworkAccessManager} para gerenciar as operações de rede abstraindo para o aplicativo a interface de rede utilizada no dispositivo e \textit{QNetworkRequest} para encapsular os parâmetros da requisição. Os atributos e métodos disponíveis serão descritos a seguir, seguido de um exemplo de uso:
+A classe \textit{RequestHttp} será registrada como um tipo QML no contexto da aplicação e para instanciá-la basta adicionar a diretiva \textit{import RequestHttp 1.0} e em seguida, declarar um objeto QML \textit{RequestHttp}. Internamente, os objetos inicializarão os atributos \textit{baseUrl}, nome de usuário e senha, mas, o desenvolvedor pode sobrescrevê-los quando for necessário. Essa classe utiliza \textit{QNetworkAccessManager} para gerenciar as operações de rede abstraindo para o aplicativo a interface de rede utilizada no dispositivo e \textit{QNetworkRequest} para encapsular os parâmetros da requisição. Os atributos e métodos disponíveis serão descritos a seguir. O Exemplo 3 demonstra como instanciar a classe \textit{RequestHttp}.
 
 \begin{itemize}
 	\item \textit{baseUrl} (string): atributo que define o endereço base do serviço \textit{REST}. Não precisa ser definido, pois será feito automaticamente no construtor do objeto. Porém, poderá ser utilizado pelo desenvolvedor quando a url definida no arquivo de configuração for diferente da url de destino de uma requisição específica;
@@ -341,7 +341,7 @@ A classe \textit{RequestHttp} será registrada como um tipo QML no contexto da a
 	\item \textit{authorizationPass} (string): atributo que define a senha do usuário do serviço \textit{REST}. Também não precisa ser definido, mas poderá ser modificado pelo desenvolvedor quando for preciso;
 
 \begin{center}
-\begin{lstlisting}[language=qml]
+\begin{lstlisting}[language=qml,caption={Instanciando a classe RequestHttp},captionpos=b]
 import QtQuick 2.8
 import RequestHttp 1.0
 
@@ -362,13 +362,11 @@ Item {
 	}
 }
 \end{lstlisting}
-% não está ficando centralizada
-% \captionof{lstlisting} {Exemplo de uma requisição do tipo \textit{GET}}
 \end{center}
 
-	\item \textit{get}: método que realiza requisições do tipo \textit{GET} exigindo apenas a url de destino. Esse método possui dois parâmetros opcionais, o primeiro deles é um objeto do tipo \textit{chave-valor} e se for passado, adicionará a url uma \textit{query-string}. O segundo parâmetro opcional é também um objeto e pode ser passado quando for necessário adicionar dados no cabeçalho da requisição. O código a seguir, apresenta um exemplo de uso desse método:
+	\item \textit{get}: método que realiza requisições do tipo \textit{GET} exigindo apenas a url de destino. Esse método possui dois parâmetros opcionais, o primeiro deles é um objeto do tipo \textit{chave-valor} e se for passado, adicionará a url uma \textit{query-string}. O segundo parâmetro opcional é também um objeto e pode ser passado quando for necessário adicionar dados no cabeçalho da requisição. O Exemplo 4, demonstra como fazer requisições do tipo GET;
 \begin{center}
-\begin{lstlisting}[language=qml]
+\begin{lstlisting}[language=qml,caption={Requisição do tipo GET via RequestHttp},captionpos=b]
 import QtQuick 2.8
 import RequestHttp 1.0
 
@@ -387,16 +385,14 @@ Item {
 	}
 }
 \end{lstlisting}
-% não está ficando centralizada
-% \captionof{lstlisting} {Exemplo de uma requisição do tipo \textit{GET}}
 \end{center}
 
-	\item \textit{post}: método que realiza requisições do tipo \textit{POST} exigindo a url de destino e o dado a ser postado em formato string. O terceiro parâmetro desse método é opcional e pode ser passando quando for necessário adicionar dados no cabeçalho da requisição. É importante destacar que o \textit{Content-Type} será sempre \textit{application/json} e se o método post exigir outros formatos tais como o \textit{x-www-form-urlencoded}, o desenvolvedor deverá passar um objeto (\textit{Content-Type: [Type]}) como argumento extra no cabeçalho da requisição através do terceiro parâmetro desse método. O código a seguir, apresenta um exemplo de uso desse método:
+	\item \textit{post}: método que realiza requisições do tipo \textit{POST} exigindo a url de destino e o dado a ser postado em formato string. O terceiro parâmetro desse método é opcional e pode ser passando quando for necessário adicionar dados no cabeçalho da requisição. É importante destacar que o \textit{Content-Type} será sempre \textit{application/json} e se o método post exigir outros formatos tais como o \textit{x-www-form-urlencoded}, o desenvolvedor deverá passar um objeto (\textit{Content-Type: [Type]}) como argumento extra no cabeçalho da requisição através do terceiro parâmetro desse método. O Exemplo 5, apresenta uma requisição que utiliza esse método:
 \begin{center}
-\begin{lstlisting}[language=qml]
+\begin{lstlisting}[language=qml,caption={Requisição do tipo POST via RequestHttp},captionpos=b]
 import QtQuick 2.8
 import RequestHttp 1.0
-	
+
 RequestHttp {
 	id:requestHttp
 }
@@ -411,13 +407,11 @@ Item {
 	}
 }
 \end{lstlisting}
-% não está ficando centralizada
-% \captionof{lstlisting}{Exemplo de uma requisição do tipo \textit{POST}}
 \end{center}
 
-	\item \textit{uploadFile}: realiza uma requisição do tipo \textit{POST} ou \textit{PUT} exigindo a url de destino e um array de strings contendo os endereços dos arquivos locais a serem enviados para o servidor. A requisição será do tipo \textit{multipart-formdata} e do tipo \textit{POST} (por default). O terceiro parâmetro (booleano, default \textit{false}) pode ser passado quando for necessário utilizar o método \textit{PUT}. Já o último parâmetro, poderá ser passado quando for necessário adicionar dados no cabeçalho da requisição. Após invocar esse método, o sinal \textit{uploadFinished} será emitido para cada arquivo enviado. Durante o envio de cada arquivo, será emitido o sinal \textit{uploadProgressChanged} contendo os bytes do arquivo (local) e o total de bytes já enviados para o servidor. O código a seguir, apresenta um exemplo de uso desse método:
+	\item \textit{uploadFile}: realiza uma requisição do tipo \textit{POST} ou \textit{PUT} exigindo a url de destino e um array de strings contendo os endereços dos arquivos locais a serem enviados para o servidor. A requisição será do tipo \textit{multipart-formdata} e do tipo \textit{POST} (por default). O terceiro parâmetro (booleano, default \textit{false}) pode ser passado quando for necessário utilizar o método \textit{PUT}. Já o último parâmetro, poderá ser passado quando for necessário adicionar dados no cabeçalho da requisição. Após invocar esse método, o sinal \textit{uploadFinished} será emitido para cada arquivo enviado. Durante o envio de cada arquivo, será emitido o sinal \textit{uploadProgressChanged} contendo os bytes do arquivo (local) e o total de bytes já enviados para o servidor. O Exemplo 6, apresenta uma requisição do tipo POST para upload de arquivos ao serviço \textit{REST}:
 \begin{center}
-\begin{lstlisting}[language=qml]
+\begin{lstlisting}[language=qml,caption={Upload de arquivos via RequestHttp},captionpos=b]
 import QtQuick 2.8
 import RequestHttp 1.0
 	
@@ -435,13 +429,11 @@ Item {
 	}
 }
 \end{lstlisting}
-% não está ficando centralizada
-% \captionof{lstlisting}{Exemplo de uma requisição de \textit{upload} de arquivos}
 \end{center}
 
-	\item \textit{downloadFile}: realiza uma requisição do tipo \textit{GET} exigindo apenas uma lista de urls de arquivos a serem baixados para o dispositivo. Por padrão, os arquivos serão salvos no diretório público de \textit{downloads} no dispositivo. No entanto, o segundo parâmetro \textit{saveInAppDirectory} (booleano, default \textit{false}) pode ser utilizado para alterar o diretório de destino dos arquivos para uma pasta interna do aplicativo. Após invocar esse método, para cada arquivo salvo, o sinal \textit{downloadFileSaved} será emitido passando o \textit{path} do arquivo salvo localmente. Durante o download de cada arquivo, o sinal \textit{downloadProgressChanged} será emitido passando dois argumentos, o primeiro indica o total de bytes do arquivo que está sendo baixado e o segundo, um valor inteiro indicando os bytes que já foram baixados. O código a seguir, demonstra um exemplo de requisição para download de arquivos:
+	\item \textit{downloadFile}: realiza uma requisição do tipo \textit{GET} exigindo apenas uma lista de urls de arquivos a serem baixados para o dispositivo. Por padrão, os arquivos serão salvos no diretório público de \textit{downloads} no dispositivo. No entanto, o segundo parâmetro \textit{saveInAppDirectory} (booleano, default \textit{false}) pode ser utilizado para alterar o diretório de destino dos arquivos para uma pasta interna do aplicativo. Após invocar esse método, para cada arquivo salvo, o sinal \textit{downloadFileSaved} será emitido passando o \textit{path} do arquivo salvo localmente. Durante o download de cada arquivo, o sinal \textit{downloadProgressChanged} será emitido passando dois argumentos, o primeiro indica o total de bytes do arquivo que está sendo baixado e o segundo, um valor inteiro indicando os bytes que já foram baixados. O Exemplo 7, demonstra uma requisição para download de arquivos a partir de duas urls:
 \begin{center}
-\begin{lstlisting}[language=qml]
+\begin{lstlisting}[language=qml,caption={Download de arquivos via RequestHttp},captionpos=b]
 import QtQuick 2.8
 import RequestHttp 1.0
 	
@@ -459,8 +451,6 @@ Item {
 	}
 }
 \end{lstlisting}
-% não está ficando centralizada
-% \captionof{lstlisting}{Exemplo de uma requisição de \textit{upload} de arquivos}
 \end{center}
 
 \end{itemize}
@@ -481,12 +471,12 @@ A propriedade \textit{status} (integer) declarada como \textit{Q\_PROPERTY}\foot
 	\item \textit{Ready}: indica que a requisição está pronta, será setada em \textit{status} no construtor e logo após a emissão do sinal \textit{finished}.
 \end{itemize}
 
-O trecho de código a seguir, apresenta um exemplo de como criar um \textit{Bind} com o status de uma requisição em uma propriedade de um objeto \textit{Button}.
+O trecho de código no Exemplo 8, demonstra como criar um \textit{Bind} entre o status de uma requisição e uma propriedade de um objeto \textit{Button}.
 
 \begin{center}
-\begin{lstlisting}[language=qml]
-import RequestHttp 1.0 
-	
+\begin{lstlisting}[language=qml,caption={\textit{Bind} com o status de uma requisição},captionpos=b]
+import RequestHttp 1.0
+
 RequestHttp {
 	id:request
 }
@@ -498,7 +488,6 @@ Button {
 }
 ...
 \end{lstlisting}
-% \captionof{lstlisting}{Exemplo de \textit{Bind} com o status de uma requisição}
 \end{center}
 
 
@@ -548,7 +537,7 @@ A classe \textit{Database} é responsável por criar o banco de dados \textit{SQ
 \subsubsection{A classe DatabaseComponent}
 A classe \textit{DatabaseComponent} foi criada com o objetivo de fornecer um componente de alto nível que simplificasse para os plugins as operações em uma tabela específica. Essa classe será registrada no contexto da aplicação como um tipo QML com o nome de "\textit{Database}" e permitirá aos plugins a utilizarem declarando um objeto QML. \textit{DatabaseComponent} agrega uma instância da classe \textit{Database} e delega as operações para esse objeto. No entanto, ela possui alguns atributos (\textit{Q\_PROPERTY}) que permitem aos plugins informar o nome da tabela no banco de dados, o nome da chave-primária do tipo string (quando a chave-primária não for numérica auto-incrementada), além de colunas que guardam objetos json. As colunas json evitam que os plugins tenham que fazer \textit{parsing} nas views.\par
 
-Outro atributo \textit{totalItens} manterá atualizado o número de registros na tabela para fins de comparação com o número de itens disponível no serviço \textit{REST} com os itens já baixados para o dispositivo, útil para paginação de dados na \textit{view}. O diagrama a seguir, apresenta os atributos e métodos dessa classe:
+Outro atributo \textit{totalItens}, manterá atualizado o número de registros na tabela para fins de comparação entre o número de itens disponível no serviço \textit{REST} com os itens já baixados para o dispositivo, útil para paginação de dados na \textit{view}. O diagrama a seguir, apresenta os atributos e métodos dessa classe:
 
 \begin{figure}[H]
 	\includegraphics[width=8cm]{diagrama_de_classe_DatabaseComponent}
@@ -556,12 +545,10 @@ Outro atributo \textit{totalItens} manterá atualizado o número de registros na
 	\caption{Diagrama da classe DatabaseComponent}
 \end{figure}
 
-É importante destacar que os métodos de busca, inserção, remoção e atualização foram simplificados para que os objetos informem apenas os parâmetros do método sem o nome da tabela. Outro recurso importante desse componente é que o método de busca é assíncrono e os resultados de uma busca, quando houver, serão retornados através do sinal \textit{itemLoaded} que passará como argumento, um objeto no estilo \textit{nome-da-coluna.valor}. \textit{DatabaseComponent} possui ainda o método \textit{containsId} que verifica se um item (pela chave primária) já está salvo localmente e pode ser útil para sincronizar com a \textit{view} os itens já baixados do serviço \textit{REST}.
-
-O código a seguir, apresenta um exemplo de como um plugin poderá utilizar \textit{DatabaseComponent} referenciada apenas como "Database" para persistir dados em uma tabela:
+É importante destacar que os métodos de busca, inserção, remoção e atualização foram simplificados para que os plugins informem apenas os parâmetros da consulta sem o nome da tabela. Outro recurso importante é que o método de busca é assíncrono e os resultados de uma consulta, quando houver, serão retornados através do sinal \textit{itemLoaded} que passará como argumento, um objeto no estilo \textit{nome-da-coluna.valor}. \textit{DatabaseComponent} possui ainda o método \textit{containsId} que verifica se um item (pela chave primária) já está salvo localmente e pode ser útil para sincronizar com a \textit{view} os itens já baixados do serviço \textit{REST}. O Exemplo 9, demonstra como um plugin poderá utilizar \textit{DatabaseComponent} referenciada apenas como \textit{Database} para ler e persistir dados:
 
 \begin{center}
-\begin{lstlisting}[language=qml]
+\begin{lstlisting}[language=qml,caption={Instanciando a classe Database para persistir dados},captionpos=b]
 
 import Database 1.0
 ...
@@ -580,9 +567,8 @@ Item {
 			message:"GNU is an operating...",
 			datetime:"2017-12-30T14:29:33"
 			source:{
-				url:"https://foo.com/api",
-				code:"foo",
-				value:"bar"
+				title:"foo",
+				description:"bar"
 			}
 		}
 		database.insert(args)
@@ -590,7 +576,6 @@ Item {
 }
 ...
 \end{lstlisting}
-% \captionof{lstlisting}{Exemplo de como utilizar \textit{DatabaseComponent}}
 \end{center}
 
 
@@ -604,10 +589,10 @@ No android, o funcionamento de \textit{push notification} requer duas classes ja
 
 No iOS, o arquivo \textit{QtAppDelegate.mm} presente no diretório \textit{ios} realizará o registro do dispositivo no \textit{Firebase} e contém um método que receberá as notificações via \textit{push} e re-encaminhará para a aplicação usando o mesmo evento utilizado no android. Em ambas as plataformas, o token será passado para a aplicação através do evento \textit{newPushNotificationToken} e as mensagens de push, no evento \textit{newPushNotification}. Se a aplicação estiver em execução e o usuário clicar em uma notificação colocando o aplicativo em foreground, o evento \textit{newActionNotification} será disparado passando como argumento os dados de \textit{payload} da mensagem.\par
 
-A arquitetura dispõe do plugin de exemplo \textit{Listeners} que contém o componente \textit{PushNotificationRegister.qml}. Esse componente demonstra um exemplo de como obter o token de registro no \textit{Firebase} e enviar para o serviço \textit{REST do aplicativo}. O trecho de código a seguir, apresenta um exemplo de como acessar o token do \textit{Firebase}.
+A arquitetura dispõe do plugin de exemplo \textit{Listeners} que contém o componente \textit{PushNotificationRegister.qml}. Esse componente demonstra um exemplo de como obter o token de registro no \textit{Firebase} e enviar para o serviço \textit{REST do aplicativo}. O Exemplo 10, apresenta um objeto \textit{listener} que observa um evento na aplicação e receberá o token de registro no \textit{Firebase} quando o dispositivo for registrado no serviço.
 
 \begin{center}
-\begin{lstlisting}[language=qml]
+\begin{lstlisting}[language=qml,caption={Observando evento de registro do token no \textit{Firebase}},captionpos=b]
 import Observer 1.0
 
 Observer {
@@ -625,16 +610,15 @@ Observer {
 	Component.onCompleted:Subject.attach(ob,event)
 }
 \end{lstlisting}
-% \captionof{lstlisting}{Exemplo de como acessar o token do \textit{Firebase}}
 \end{center}
 
 \subsubsection{Notificações Locais}
 Para gerenciar as notificações locais, foi criado a classe \textit{Notification} que abstrai a plataforma e dispõe de um método para enviar uma notificação para a área de notificações do sistema em execução. Essa classe será instanciada na inicialização do aplicativo e registrada no contexto da aplicação para que os plugins possam invocar o método \textit{Notification.show}, passando o título e a mensagem da notificação e opcionalmente um objeto contendo o argumento a ser passado para a aplicação quando o usuário clicar na notificação. Quando o usuário clicar na notificação, o aplicativo ficará em \textit{foreground} (caso não esteja) e o argumento da notificação será passado para o aplicativo através do evento \textit{newActionNotification}.
 
-O trecho de código a seguir, apresenta um exemplo de como exibir uma notificação local por algum objeto de um plugin, passando um título, uma mensagem e um objeto como argumento.
+O Exemplo 11, apresenta um trecho de código que demonstra como exibir uma notificação local por algum objeto de um plugin, passando um título, uma mensagem e um objeto como argumento.
 
 \begin{center}
-\begin{lstlisting}[language=qml]
+\begin{lstlisting}[language=qml,caption={Exibindo uma notificação local},captionpos=b]
 import QtQuick 2.8
 
 Item {
@@ -649,7 +633,6 @@ Item {
 	}
 }
 \end{lstlisting}
-% \captionof{lstlisting}{Exemplo de como exibir uma notificação local}
 \end{center}
 
 
@@ -669,10 +652,10 @@ A classe \textit{Subject} será instanciada na inicialização e registrada no c
 	\item \textit{notify} (void): Esse método poderá ser utilizado por qualquer objeto da aplicação para notificar observadores de um determinado evento. Esse método requer dois parâmetros, o primeiro é uma string contendo o nome do evento, o segundo é um objeto variante contendo o dado a ser passado para o observador. Ao chamar esse método, o \textit{Subject} irá iterar o vetor de observadores correspondente ao evento solicitado, chamando para cada observador o método público \textit{update} que receberá como argumento, o nome do evento em que está sendo notificado e o argumento enviado pelo emissor.
 \end{itemize}
 
-O desenvolvedor poderá adicionar os eventos que deseja utilizar entre os plugins no arquivo de configuração, na propriedades \textit{events} e utilizá-los via acesso ao objeto \textit{Config}. Os eventos são basicamente strings no estilo e o acesso pode ser feito da seguinte forma: \textit{Config.events.event\_name}. Outro detalhe é que \textit{Subject} criará uma \textit{thread} para cada \textit{observer} quando for notificá-los de algum evento. Isso significa que a chamada ao método \textit{update} em cada \textit{observer} será assíncrono para garantir o melhor desempenho. O código a seguir, apresenta um exemplo de como utilizar o \textit{Observer} por objetos nos plugins.
+O desenvolvedor poderá adicionar os eventos que deseja utilizar entre os plugins no arquivo de configuração, na propriedade \textit{events} e utilizá-los via acesso ao objeto \textit{Config}. Os eventos são basicamente strings e o acesso pode ser feito da seguinte forma: \textit{Config.events.event\_name}. Outro detalhe é que \textit{Subject} criará uma \textit{thread} para cada \textit{observer} quando for notificá-los de algum evento. Isso significa que a chamada ao método \textit{update} em cada \textit{observer} será assíncrono. O Exemplo 12, demonstra como utilizar o \textit{Observer} pelos plugins, realizando uma operação de inserção no banco de dados quando o objeto for notificado.
 
 \begin{center}
-\begin{lstlisting}[language=qml]
+\begin{lstlisting}[language=qml,caption={Criando um objeto Observer no aplicativo},captionpos=b]
 import Observer 1.0
 ...
 Observer {
@@ -692,13 +675,12 @@ Item {
 }
 ...
 \end{lstlisting}
-% \captionof{lstlisting}{Exemplo de como utilizar o \textit{Observer}}
 \end{center}
 
-O código a seguir, apresenta um exemplo de como notificar observadores de um determinado evento:
+O Exemplo 13 a seguir, demonstra como notificar os observadores de um determinado evento, passando como argumento do evento um objeto javascript:
 
 \begin{center}
-\begin{lstlisting}[language=qml]
+\begin{lstlisting}[language=qml,caption={Notificando observadores através do objeto Subject},captionpos=b]
 import QtQuick 2.8
 ...
 Item {
@@ -709,11 +691,10 @@ Item {
 			key:"foo",
 			value:"bar"
 		}
-		Subject.notify(event,args,rootItem)
+		Subject.notify(event,args)
 	}
 }
 \end{lstlisting}
-% \captionof{lstlisting}{Exemplo de como notificar observadores}
 \end{center}
 
 
@@ -734,17 +715,17 @@ O objeto \textit{userProfile} invocará uma função interna que carregará a p�
 
 É importante destacar, que após o sucesso do primeiro login, não será necessário logar novamente até que o usuário faça logout ou limpe o cache do aplicativo nas configurações do dispositivo. Além disso, a imagem presente em \textit{assets/default\_user\_profile.svg} será setado no perfil do usuário após o login, na propriedade \textit{image\_url} e o desenvolvedor poderá sobrescrever esse arquivo por uma imagem de sua preferência.\par
 
-O código a seguir, apresenta um exemplo de como utilizar o perfil do usuário através do objeto \textit{userProfile}, exibindo o informações como email e imagem do usuário.
+O Exemplo 14 a seguir, apresenta um trecho de código que utiliza informações do perfil do usuário através do objeto \textit{userProfile}, exibindo o email e a imagem de perfil do usuário.
 
 \begin{center}
-\begin{lstlisting}[language=qml]
+\begin{lstlisting}[language=qml,caption={Utilizando informações do usuário},captionpos=b]
 import QtQuick 2.8
 ...
 Column {
 	spacing: 10
 
-	//userProfile eh um objeto global,
-	//criado e declarado no main window!
+	//userProfile: objeto global criado e
+	//declarado no main window
 	property var profileData:userProfile.profile
 
 	//exibindo a imagem de perfil
@@ -795,7 +776,7 @@ O componente \textit{BasePage} é um arquivo genérico que fornece algumas propr
 É importante destacar que \textit{BasePage} \textit{extends} o componente \textit{Page} do \textit{Quick Controls} e as propriedades definidas em \textit{Page} serão herdadas, como por exemplo, \textit{title}, que deve ser definido para exibir ao usuário o título da página que ele está visualizando. Para utilizar \textit{BasePage}, basta adicionar a diretiva \textit{import "qrc:/publicComponents"} e declarar um objeto \textit{BasePage} como no exemplo a seguir:
 
 \begin{center}
-\begin{lstlisting}[language=qml]
+\begin{lstlisting}[language=qml,caption={Utilizando o componente \textit{BasePage} no aplicativo},captionpos=b]
 import QtQuick.Controls 2.0
 import "qrc:/publicComponents/" as Components
 
@@ -855,11 +836,11 @@ A arquitetura dispõe de dez componentes reusáveis para os plugins, alguns são
 
 
 \subsection{Fluxo de Execução}
-A figura exibida no final desta seção, demonstra o \textit{workflow} de um aplicativo baseado nesta arquitetura. As aplicações Qt possuem nas plataformas mobile, objetos \textit{Java} e \textit{ObjectiveC} no android e iOS respectivamente, que inicializam o aplicativo em cada plataforma e em seguida executam a aplicação tendo como ponto de entrada o \textit{main.cpp}.\par
+A Figura exibida no final desta seção, demonstra o \textit{workflow} de um aplicativo baseado nesta arquitetura. As aplicações Qt possuem nas plataformas mobile, objetos \textit{Java} e \textit{ObjectiveC} no android e iOS respectivamente, que inicializam o aplicativo em cada plataforma e em seguida executam a aplicação tendo como ponto de entrada o \textit{main.cpp}.\par
 
 Os elementos visuais serão carregados no \textit{main.qml} que será instanciado no último passo antes de iniciar o \textit{loop} da aplicação. O \textit{main.qml} corresponde a \textit{ApplicationWindow} do \textit{Quick Controls} e poderá ser acessado por qualquer objeto através do id \textit{window}. Os \textit{listeners} serão carregados quando \textit{window} estiver pronto e poderão acessar qualquer uma das propriedades declaradas no escopo do \textit{window}, tais como \textit{userProfile}. O \textit{window} contém dois \textit{widgets} que podem ser utilizados para exibir avisos ao usuário. Os \textit{widgets} são \textit{Snackbar}\footnote{https://material.io/guidelines/components/snackbars-toasts.html} e \textit{Toast} e foram inspirados nos respectivos componentes do \textit{Material Design}\footnote{https://material.io/guidelines}. Os \textit{widgets} dispõe da função \textit{show} que exige uma string como parâmetro, essa string será o texto exibido ao usuário.\par
 
-A figura a seguir, apresenta de uma forma resumida o fluxo de inicialização e a sequência de objetos instanciados em um aplicativo baseado nesta arquitetura.
+A Figura 11, apresenta de uma forma resumida o fluxo de inicialização e a sequência de objetos instanciados em um aplicativo baseado nesta arquitetura.
 
 \begin{figure}[H]
 	\includegraphics[width=8cm]{diagrama_fluxo_execucao}
