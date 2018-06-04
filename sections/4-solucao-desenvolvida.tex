@@ -232,7 +232,7 @@ O Exemplo 2, demostra como ler e persistir de dados usando o mecanismo \textit{c
 \begin{lstlisting}[language=qml,caption={Persistência de dados usando chave-valor},captionpos=b]
 import QtQuick 2.8
 
-Item {
+Item{
     Component.onCompleted:{
 		var foo = Settings.read("foo")
 		if (bar != foo)
@@ -241,7 +241,7 @@ Item {
     }
 }
 ...
-Item {
+Item{
 	...
 	key:"bar"
 	count:Settings.read(key,Settings.TypeInt)
@@ -345,14 +345,14 @@ A classe \textit{RequestHttp} será registrada como um tipo QML no contexto da a
 import QtQuick 2.8
 import RequestHttp 1.0
 
-RequestHttp {
+RequestHttp{
 	id:requestHttp
 	baseUrl:"https://static.api.foo.com"
 	authorizationUser:"foo"
 	authorizationPass:"bar.2018"
 }
 ...
-Item {
+Item{
 	Component.onCompleted:{
 		var queryString = {
 			arg1:"123",
@@ -370,11 +370,11 @@ Item {
 import QtQuick 2.8
 import RequestHttp 1.0
 
-RequestHttp {
+RequestHttp{
 	id:requestHttp
 }
 ...
-Item {
+Item{
 	Component.onCompleted:{
 		var queryString = {
 			someKey:"foo",
@@ -393,11 +393,11 @@ Item {
 import QtQuick 2.8
 import RequestHttp 1.0
 
-RequestHttp {
+RequestHttp{
 	id:requestHttp
 }
 ...
-Item {
+Item{
 	Component.onCompleted:{
 		var postData = JSON.stringfy({
 			someKey:"bar",
@@ -415,11 +415,11 @@ Item {
 import QtQuick 2.8
 import RequestHttp 1.0
 	
-RequestHttp {
+RequestHttp{
 	id:requestHttp
 }
 ...
-Item {
+Item{
 	Component.onCompleted:{
 		var files = [
 			"/data/app/myapp/files/img1.png",
@@ -437,11 +437,11 @@ Item {
 import QtQuick 2.8
 import RequestHttp 1.0
 	
-RequestHttp {
+RequestHttp{
 	id:requestHttp
 }
 ...
-Item {
+Item{
 	Component.onCompleted:{
 		var urls = [
 			"https://.../files/f1.png",
@@ -477,11 +477,11 @@ O trecho de código no Exemplo 8, demonstra como criar um \textit{Bind} entre o 
 \begin{lstlisting}[language=qml,caption={\textit{Bind} com o status de uma requisição},captionpos=b]
 import RequestHttp 1.0
 
-RequestHttp {
+RequestHttp{
 	id:request
 }
 ...
-Button {
+Button{
 	text:"Submit"
 	enabled:request.status == request.Ready
 	onClicked:request.get("foo",{"bar":1})
@@ -535,9 +535,7 @@ A classe \textit{Database} é responsável por criar o banco de dados \textit{SQ
 \end{figure}
 
 \subsubsection{A classe DatabaseComponent}
-A classe \textit{DatabaseComponent} foi criada com o objetivo de fornecer um componente de alto nível que simplificasse para os plugins as operações em uma tabela específica. Essa classe será registrada no contexto da aplicação como um tipo QML com o nome de "\textit{Database}" e permitirá aos plugins a utilizarem declarando um objeto QML. \textit{DatabaseComponent} agrega uma instância da classe \textit{Database} e delega as operações para esse objeto. No entanto, ela possui alguns atributos (\textit{Q\_PROPERTY}) que permitem aos plugins informar o nome da tabela no banco de dados, o nome da chave-primária do tipo string (quando a chave-primária não for numérica auto-incrementada), além de colunas que guardam objetos json. As colunas json evitam que os plugins tenham que fazer \textit{parsing} nas views.\par
-
-Outro atributo \textit{totalItens}, manterá atualizado o número de registros na tabela para fins de comparação entre o número de itens disponível no serviço \textit{REST} com os itens já baixados para o dispositivo, útil para paginação de dados na \textit{view}. O diagrama a seguir, apresenta os atributos e métodos dessa classe:
+A classe \textit{DatabaseComponent} foi criada com o objetivo de fornecer um componente de alto nível que simplificasse para os plugins as operações em uma tabela específica. Essa classe será registrada no contexto da aplicação como um tipo QML com o nome de "\textit{Database}" e permitirá aos plugins a utilizarem declarando um objeto QML. \textit{DatabaseComponent} agrega uma instância da classe \textit{Database} e delega as operações para esse objeto. No entanto, ela possui alguns atributos (\textit{Q\_PROPERTY}) que permitem aos plugins informar o nome da tabela no banco de dados, o nome da chave-primária do tipo string (quando a chave-primária não for numérica auto-incrementada), além de colunas que guardam objetos json. As colunas json evitam que os plugins tenham que fazer \textit{parsing} nas views. Outro atributo \textit{totalItens}, manterá atualizado o número de registros na tabela para fins de comparação entre o número de itens disponível no serviço \textit{REST} com os itens já baixados para o dispositivo, útil para paginação de dados na \textit{view}. O diagrama a seguir, apresenta os atributos e métodos dessa classe:
 
 \begin{figure}[H]
 	\includegraphics[width=8cm]{diagrama_de_classe_DatabaseComponent}
@@ -545,14 +543,14 @@ Outro atributo \textit{totalItens}, manterá atualizado o número de registros n
 	\caption{Diagrama da classe DatabaseComponent}
 \end{figure}
 
-É importante destacar que os métodos de busca, inserção, remoção e atualização foram simplificados para que os plugins informem apenas os parâmetros da consulta sem o nome da tabela. Outro recurso importante é que o método de busca é assíncrono e os resultados de uma consulta, quando houver, serão retornados através do sinal \textit{itemLoaded} que passará como argumento, um objeto no estilo \textit{nome-da-coluna.valor}. \textit{DatabaseComponent} possui ainda o método \textit{containsId} que verifica se um item (pela chave primária) já está salvo localmente e pode ser útil para sincronizar com a \textit{view} os itens já baixados do serviço \textit{REST}. O Exemplo 9, demonstra como um plugin poderá utilizar \textit{DatabaseComponent} referenciada apenas como \textit{Database} para ler e persistir dados:
+Os métodos de busca, inserção, remoção e atualização presentes em \textit{DatabaseComponent} foram simplificados para que os plugins informem apenas os parâmetros da consulta sem o nome da tabela. Outro recurso importante é que o método de busca (\textit{select}) é assíncrono e os resultados de uma consulta, quando houver, serão retornados através do sinal \textit{itemLoaded} que passará como argumento, um objeto no estilo \textit{nome-da-coluna.valor}. \textit{DatabaseComponent} possui ainda o método \textit{containsId} que verifica se um item (pela chave primária) já está salvo localmente e pode ser útil para sincronizar com a \textit{view} os itens já baixados do serviço \textit{REST}. O Exemplo 9, demonstra como um plugin poderá utilizar \textit{DatabaseComponent} referenciada apenas como \textit{Database} para ler e persistir dados:
 
 \begin{center}
 \begin{lstlisting}[language=qml,caption={Instanciando a classe Database para persistir dados},captionpos=b]
 
 import Database 1.0
 ...
-Database {
+Database{
 	id:database
 	jsonColumns:["source"]
 	tableName:"news"
@@ -560,15 +558,13 @@ Database {
 	onItemLoaded:listViewModel.append(entry)
 }
 ...
-Item {
+Item{
 	Component.onCompleted:{
 		var args = {
 			title:"GNU is not Unix!",
 			message:"GNU is an operating...",
-			datetime:"2017-12-30T14:29:33"
 			source:{
-				title:"foo",
-				description:"bar"
+				a:"foo", b:"bar",c:"baz"
 			}
 		}
 		database.insert(args)
@@ -595,7 +591,7 @@ A arquitetura dispõe do plugin de exemplo \textit{Listeners} que contém o comp
 \begin{lstlisting}[language=qml,caption={Observando evento de registro do token no \textit{Firebase}},captionpos=b]
 import Observer 1.0
 
-Observer {
+Observer{
 	id:ob
     objectName:"TokenObserver"
     event:Config.events.newPushNotificationToken
@@ -621,7 +617,7 @@ O Exemplo 11, apresenta um trecho de código que demonstra como exibir uma notif
 \begin{lstlisting}[language=qml,caption={Exibindo uma notificação local},captionpos=b]
 import QtQuick 2.8
 
-Item {
+Item{
     Component.onCompleted:{
 		var title = "Novo item carregado!"
 		var message = "Clique para visualizar!"
@@ -652,23 +648,21 @@ A classe \textit{Subject} será instanciada na inicialização e registrada no c
 	\item \textit{notify} (void): Esse método poderá ser utilizado por qualquer objeto da aplicação para notificar observadores de um determinado evento. Esse método requer dois parâmetros, o primeiro é uma string contendo o nome do evento, o segundo é um objeto variante contendo o dado a ser passado para o observador. Ao chamar esse método, o \textit{Subject} irá iterar o vetor de observadores correspondente ao evento solicitado, chamando para cada observador o método público \textit{update} que receberá como argumento, o nome do evento em que está sendo notificado e o argumento enviado pelo emissor.
 \end{itemize}
 
-O desenvolvedor poderá adicionar os eventos que deseja utilizar entre os plugins no arquivo de configuração, na propriedade \textit{events} e utilizá-los via acesso ao objeto \textit{Config}. Os eventos são basicamente strings e o acesso pode ser feito da seguinte forma: \textit{Config.events.event\_name}. Outro detalhe é que \textit{Subject} criará uma \textit{thread} para cada \textit{observer} quando for notificá-los de algum evento. Isso significa que a chamada ao método \textit{update} em cada \textit{observer} será assíncrono. O Exemplo 12, demonstra como utilizar o \textit{Observer} pelos plugins, realizando uma operação de inserção no banco de dados quando o objeto for notificado.
+O desenvolvedor poderá adicionar os eventos que deseja utilizar entre os plugins no arquivo de configuração, na propriedade \textit{events} e utilizá-los via acesso ao objeto \textit{Config}. Os eventos são basicamente strings e o acesso pode ser feito da seguinte forma: \textit{Config.events.event\_name}. O Exemplo 12, demonstra como utilizar o \textit{Observer} por algum plugin, realizando uma operação de inserção no banco de dados quando o objeto for notificado.
 
 \begin{center}
 \begin{lstlisting}[language=qml,caption={Criando um objeto Observer no aplicativo},captionpos=b]
 import Observer 1.0
 ...
-Observer {
+Observer{
 	id:observer
 	objectName:"obs1"
 	events:[Config.events.newSourceAdded]
 	onUpdated:database.insert(eventData)
 }
 ...
-Item {
+Item{
 	Component.onCompleted:{
-		//pede ao Subject para adicionar
-		//o observador a lista do evento
 		var evt = Config.events.newSourceAdded
 		Subject.attach(observer,evt)
 	}
@@ -683,7 +677,7 @@ O Exemplo 13 a seguir, demonstra como notificar os observadores de um determinad
 \begin{lstlisting}[language=qml,caption={Notificando observadores através do objeto Subject},captionpos=b]
 import QtQuick 2.8
 ...
-Item {
+Item{
 	id:rootItem
 	Component.onCompleted:{
 		var event = Config.events.newSourceAdded
@@ -721,7 +715,7 @@ O Exemplo 14 a seguir, apresenta um trecho de código que utiliza informações 
 \begin{lstlisting}[language=qml,caption={Utilizando informações do usuário},captionpos=b]
 import QtQuick 2.8
 ...
-Column {
+Column{
 	spacing: 10
 
 	//userProfile: objeto global criado e
@@ -729,14 +723,14 @@ Column {
 	property var profileData:userProfile.profile
 
 	//exibindo a imagem de perfil
-	Image {
+	Image{
 		id:userImg
 		asynchronous:true;cache:true
 		source:profileData.image_url
 	}
 
 	//exibindo o email do usuario
-	Label {
+	Label{
 		id:userEmail
 		text:profileData.email
 	}
@@ -780,7 +774,7 @@ O componente \textit{BasePage} é um arquivo genérico que fornece algumas propr
 import QtQuick.Controls 2.0
 import "qrc:/publicComponents/" as Components
 
-Components.BasePage {
+Components.BasePage{
 	id:page
 
 	//ignora o uso do ListView
@@ -804,7 +798,6 @@ Components.BasePage {
 ...
 }
 \end{lstlisting}
-% \captionof{lstlisting}{Exemplo de uso do \textit{BasePage}}
 \end{center}
 
 
